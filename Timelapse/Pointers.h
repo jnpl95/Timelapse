@@ -4,33 +4,35 @@
 #include "Packet.h"
 
 #pragma region HookAddresses
-ULONG levelHookAddr = 0x004E2B28;
-ULONG levelHookDecode = 0x004E807A;
+ULONG levelHookAddr = 0x004E2B28; //Inside GW_CharacterStat::Decode()
+ULONG levelHookDecode = 0x004E807A; //Start of _ZtrlSecureTear<unsigned char>
 ULONG levelHookAddrRet = levelHookAddr + 7;
-ULONG jobHookAddr = 0x004E2B3E;
-ULONG jobHookDecode = 0x004E80EB;
+ULONG jobHookAddr = 0x004E2B3E; //Inside GW_CharacterStat::Decode()
+ULONG jobHookDecode = 0x004E80EB; //Inside _ZtlSecureTear<short>
 ULONG jobHookAddrRet = jobHookAddr + 7;
-ULONG statHookAddr = 0x008D8581;
+ULONG statHookAddr = 0x008D8581; //Inside CUIStatusBar::SetNumberValue
 ULONG statHookAddrRet = statHookAddr + 5;
-ULONG mesosHookAddr = 0x004E2D01;
+ULONG mesosHookAddr = 0x004E2D01; //Inside GW_CharacterStat::DecodeMoney()
 ULONG mesosHookAddrRet = mesosHookAddr + 6;
-ULONG mesosChangeHookAddr = 0x004E31FB;
+ULONG mesosChangeHookAddr = 0x004E31FB; //Inside GW_CharacterStat::DecodeChangeStat()
 ULONG mesosChangeHookAddrRet = mesosChangeHookAddr + 6;
-ULONG mapNameHookAddr = 0x005CFA48;
+ULONG mapNameHookAddr = 0x005CFA48; //Inside CItemInfo::GetMapString()
 ULONG mapNameHookAddrRet = mapNameHookAddr + 6;
-ULONG itemVacAddr = 0x005047AA;
+ULONG itemVacAddr = 0x005047AA; //Inside CDropPool::TryPickUpDrop()
 ULONG itemVacAddrRet = itemVacAddr + 7;
-ULONG mouseFlyXAddr = 0x009B62ED;
+ULONG mouseFlyXAddr = 0x009B62ED; //Inside CVecCtrl::raw__GetSnapshot()
 ULONG mouseFlyXAddrRet = mouseFlyXAddr + 5;
-ULONG mouseFlyYAddr = 0x009B6352;
+ULONG mouseFlyYAddr = 0x009B6352; //Inside CVecCtrl::raw__GetSnapshot()
 ULONG mouseFlyYAddrRet = mouseFlyYAddr + 5;
-ULONG mobFreezeAddr = 0x009BCA92;
+ULONG mobFreezeAddr = 0x009BCA92; //Inside CVecCtrlMob::WorkUpdateActive()
 ULONG mobFreezeAddrRet = mobFreezeAddr + 6;
-ULONG mobAutoAggroAddr = 0x009BCAF7;
-ULONG cVecCtrlWorkUpdateActiveCall = 0x009B19D0;
+ULONG mobAutoAggroAddr = 0x009BCAF7; //Inside CVecCtrlMob::WorkUpdateActive() (call to CVecCtrl::WorkUpdateActive())
+ULONG cVecCtrlWorkUpdateActiveCall = 0x009B19D0; //Start of CVecCtrl::WorkUpdateActive()
 ULONG mobAutoAggroAddrRet = mobAutoAggroAddr + 5;
-ULONG spawnPointAddr = 0x009B12A8;
+ULONG spawnPointAddr = 0x009B12A8; //Start of CVecCtrl::SetActive()
 ULONG spawnPointAddrRet = spawnPointAddr + 5;
+ULONG itemFilterAddr = 0x005059CC; //Inside CDropPool::OnDropEnterField()
+ULONG itemFilterAddrRet = itemFilterAddr + 6;
 #pragma endregion
 
 #pragma region FunctionPointers

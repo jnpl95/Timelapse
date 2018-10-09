@@ -619,6 +619,10 @@ private: System::Windows::Forms::Button^  bSendDrop50000;
 private: System::Windows::Forms::Button^  bSendDrop10000;
 private: System::Windows::Forms::Button^  bSendDrop10;
 private: System::Windows::Forms::Button^  bSendDrop1000;
+private: System::Windows::Forms::Button^  bSendRevive;
+private: System::Windows::Forms::Button^  bSendRestore127Health;
+
+
 
 private:
 
@@ -882,13 +886,16 @@ public:
 			this->label63 = (gcnew System::Windows::Forms::Label());
 			this->tbTeleportY = (gcnew System::Windows::Forms::TextBox());
 			this->tabPage6 = (gcnew System::Windows::Forms::TabPage());
-			this->textBox4 = (gcnew System::Windows::Forms::TextBox());
-			this->label72 = (gcnew System::Windows::Forms::Label());
-			this->textBox5 = (gcnew System::Windows::Forms::TextBox());
-			this->label87 = (gcnew System::Windows::Forms::Label());
-			this->cbUEMI = (gcnew System::Windows::Forms::CheckBox());
+			this->panel28 = (gcnew System::Windows::Forms::Panel());
 			this->cbFullMapAttack = (gcnew System::Windows::Forms::CheckBox());
 			this->cbItemVac = (gcnew System::Windows::Forms::CheckBox());
+			this->panel17 = (gcnew System::Windows::Forms::Panel());
+			this->checkBox3 = (gcnew System::Windows::Forms::CheckBox());
+			this->cbUEMI = (gcnew System::Windows::Forms::CheckBox());
+			this->textBox4 = (gcnew System::Windows::Forms::TextBox());
+			this->label72 = (gcnew System::Windows::Forms::Label());
+			this->label87 = (gcnew System::Windows::Forms::Label());
+			this->textBox5 = (gcnew System::Windows::Forms::TextBox());
 			this->panel16 = (gcnew System::Windows::Forms::Panel());
 			this->panel19 = (gcnew System::Windows::Forms::Panel());
 			this->tbMMCX = (gcnew System::Windows::Forms::TextBox());
@@ -974,6 +981,7 @@ public:
 			this->bSendClear = (gcnew System::Windows::Forms::Button());
 			this->bSendPacket = (gcnew System::Windows::Forms::Button());
 			this->lvSend = (gcnew System::Windows::Forms::ListView());
+			this->columnHeader6 = (gcnew System::Windows::Forms::ColumnHeader());
 			this->tabPage15 = (gcnew System::Windows::Forms::TabPage());
 			this->bRecvRemove = (gcnew System::Windows::Forms::Button());
 			this->lvRecvBlock = (gcnew System::Windows::Forms::ListView());
@@ -985,6 +993,15 @@ public:
 			this->lvRecv = (gcnew System::Windows::Forms::ListView());
 			this->tabPage18 = (gcnew System::Windows::Forms::TabPage());
 			this->tabPage19 = (gcnew System::Windows::Forms::TabPage());
+			this->panel29 = (gcnew System::Windows::Forms::Panel());
+			this->bSendRevive = (gcnew System::Windows::Forms::Button());
+			this->bSendRestore127Health = (gcnew System::Windows::Forms::Button());
+			this->bSendSuicide = (gcnew System::Windows::Forms::Button());
+			this->bSendDrop50000 = (gcnew System::Windows::Forms::Button());
+			this->bSendMount = (gcnew System::Windows::Forms::Button());
+			this->bSendDrop10000 = (gcnew System::Windows::Forms::Button());
+			this->bSendDrop10 = (gcnew System::Windows::Forms::Button());
+			this->bSendDrop1000 = (gcnew System::Windows::Forms::Button());
 			this->panel6 = (gcnew System::Windows::Forms::Panel());
 			this->label39 = (gcnew System::Windows::Forms::Label());
 			this->tbAPDEX = (gcnew System::Windows::Forms::TextBox());
@@ -1019,17 +1036,6 @@ public:
 			this->btnMinimize = (gcnew System::Windows::Forms::Button());
 			this->GUITimer = (gcnew System::Windows::Forms::Timer(this->components));
 			this->AutoCCCSTimer = (gcnew System::Windows::Forms::Timer(this->components));
-			this->columnHeader6 = (gcnew System::Windows::Forms::ColumnHeader());
-			this->panel17 = (gcnew System::Windows::Forms::Panel());
-			this->panel28 = (gcnew System::Windows::Forms::Panel());
-			this->checkBox3 = (gcnew System::Windows::Forms::CheckBox());
-			this->bSendSuicide = (gcnew System::Windows::Forms::Button());
-			this->bSendMount = (gcnew System::Windows::Forms::Button());
-			this->bSendDrop10 = (gcnew System::Windows::Forms::Button());
-			this->bSendDrop1000 = (gcnew System::Windows::Forms::Button());
-			this->bSendDrop10000 = (gcnew System::Windows::Forms::Button());
-			this->bSendDrop50000 = (gcnew System::Windows::Forms::Button());
-			this->panel29 = (gcnew System::Windows::Forms::Panel());
 			this->menuStrip1->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->BeginInit();
 			this->pnlFull->SuspendLayout();
@@ -1067,6 +1073,8 @@ public:
 			this->panel26->SuspendLayout();
 			this->panel18->SuspendLayout();
 			this->tabPage6->SuspendLayout();
+			this->panel28->SuspendLayout();
+			this->panel17->SuspendLayout();
 			this->panel16->SuspendLayout();
 			this->panel19->SuspendLayout();
 			this->panel15->SuspendLayout();
@@ -1080,11 +1088,9 @@ public:
 			this->tabPage16->SuspendLayout();
 			this->tabPage15->SuspendLayout();
 			this->tabPage19->SuspendLayout();
+			this->panel29->SuspendLayout();
 			this->panel6->SuspendLayout();
 			this->tabPage9->SuspendLayout();
-			this->panel17->SuspendLayout();
-			this->panel28->SuspendLayout();
-			this->panel29->SuspendLayout();
 			this->SuspendLayout();
 			// 
 			// menuStrip1
@@ -4190,64 +4196,15 @@ public:
 			this->tabPage6->TabIndex = 3;
 			this->tabPage6->Text = L"Vacs";
 			// 
-			// textBox4
+			// panel28
 			// 
-			this->textBox4->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(35)), static_cast<System::Int32>(static_cast<System::Byte>(35)),
-				static_cast<System::Int32>(static_cast<System::Byte>(35)));
-			this->textBox4->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
-			this->textBox4->ForeColor = System::Drawing::Color::White;
-			this->textBox4->Location = System::Drawing::Point(87, 29);
-			this->textBox4->Name = L"textBox4";
-			this->textBox4->Size = System::Drawing::Size(40, 21);
-			this->textBox4->TabIndex = 28;
-			this->textBox4->Text = L"0";
-			this->textBox4->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
-			// 
-			// label72
-			// 
-			this->label72->AutoSize = true;
-			this->label72->BackColor = System::Drawing::Color::Transparent;
-			this->label72->Location = System::Drawing::Point(70, 32);
-			this->label72->Name = L"label72";
-			this->label72->Size = System::Drawing::Size(17, 13);
-			this->label72->TabIndex = 29;
-			this->label72->Text = L"Y:";
-			// 
-			// textBox5
-			// 
-			this->textBox5->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(35)), static_cast<System::Int32>(static_cast<System::Byte>(35)),
-				static_cast<System::Int32>(static_cast<System::Byte>(35)));
-			this->textBox5->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
-			this->textBox5->ForeColor = System::Drawing::Color::White;
-			this->textBox5->Location = System::Drawing::Point(87, 4);
-			this->textBox5->Name = L"textBox5";
-			this->textBox5->Size = System::Drawing::Size(40, 21);
-			this->textBox5->TabIndex = 26;
-			this->textBox5->Text = L"30";
-			this->textBox5->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
-			// 
-			// label87
-			// 
-			this->label87->AutoSize = true;
-			this->label87->BackColor = System::Drawing::Color::Transparent;
-			this->label87->Location = System::Drawing::Point(70, 7);
-			this->label87->Name = L"label87";
-			this->label87->Size = System::Drawing::Size(17, 13);
-			this->label87->TabIndex = 27;
-			this->label87->Text = L"X:";
-			// 
-			// cbUEMI
-			// 
-			this->cbUEMI->AutoSize = true;
-			this->cbUEMI->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
-			this->cbUEMI->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->cbUEMI->ForeColor = System::Drawing::Color::White;
-			this->cbUEMI->Location = System::Drawing::Point(5, 5);
-			this->cbUEMI->Name = L"cbUEMI";
-			this->cbUEMI->Size = System::Drawing::Size(47, 17);
-			this->cbUEMI->TabIndex = 24;
-			this->cbUEMI->Text = L"uEMI";
-			this->cbUEMI->UseVisualStyleBackColor = false;
+			this->panel28->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->panel28->Controls->Add(this->cbFullMapAttack);
+			this->panel28->Controls->Add(this->cbItemVac);
+			this->panel28->Location = System::Drawing::Point(6, 239);
+			this->panel28->Name = L"panel28";
+			this->panel28->Size = System::Drawing::Size(132, 57);
+			this->panel28->TabIndex = 31;
 			// 
 			// cbFullMapAttack
 			// 
@@ -4276,6 +4233,92 @@ public:
 			this->cbItemVac->Text = L"Item Vac";
 			this->cbItemVac->UseVisualStyleBackColor = false;
 			this->cbItemVac->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbItemVac_CheckedChanged);
+			// 
+			// panel17
+			// 
+			this->panel17->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->panel17->Controls->Add(this->checkBox3);
+			this->panel17->Controls->Add(this->cbUEMI);
+			this->panel17->Controls->Add(this->textBox4);
+			this->panel17->Controls->Add(this->label72);
+			this->panel17->Controls->Add(this->label87);
+			this->panel17->Controls->Add(this->textBox5);
+			this->panel17->Location = System::Drawing::Point(6, 178);
+			this->panel17->Name = L"panel17";
+			this->panel17->Size = System::Drawing::Size(132, 57);
+			this->panel17->TabIndex = 30;
+			// 
+			// checkBox3
+			// 
+			this->checkBox3->AutoSize = true;
+			this->checkBox3->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
+			this->checkBox3->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->checkBox3->ForeColor = System::Drawing::Color::White;
+			this->checkBox3->Location = System::Drawing::Point(5, 31);
+			this->checkBox3->Name = L"checkBox3";
+			this->checkBox3->Size = System::Drawing::Size(47, 17);
+			this->checkBox3->TabIndex = 32;
+			this->checkBox3->Text = L"dEMI";
+			this->checkBox3->UseVisualStyleBackColor = false;
+			// 
+			// cbUEMI
+			// 
+			this->cbUEMI->AutoSize = true;
+			this->cbUEMI->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
+			this->cbUEMI->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->cbUEMI->ForeColor = System::Drawing::Color::White;
+			this->cbUEMI->Location = System::Drawing::Point(5, 5);
+			this->cbUEMI->Name = L"cbUEMI";
+			this->cbUEMI->Size = System::Drawing::Size(47, 17);
+			this->cbUEMI->TabIndex = 24;
+			this->cbUEMI->Text = L"uEMI";
+			this->cbUEMI->UseVisualStyleBackColor = false;
+			// 
+			// textBox4
+			// 
+			this->textBox4->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(35)), static_cast<System::Int32>(static_cast<System::Byte>(35)),
+				static_cast<System::Int32>(static_cast<System::Byte>(35)));
+			this->textBox4->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->textBox4->ForeColor = System::Drawing::Color::White;
+			this->textBox4->Location = System::Drawing::Point(87, 29);
+			this->textBox4->Name = L"textBox4";
+			this->textBox4->Size = System::Drawing::Size(40, 21);
+			this->textBox4->TabIndex = 28;
+			this->textBox4->Text = L"0";
+			this->textBox4->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			// 
+			// label72
+			// 
+			this->label72->AutoSize = true;
+			this->label72->BackColor = System::Drawing::Color::Transparent;
+			this->label72->Location = System::Drawing::Point(70, 32);
+			this->label72->Name = L"label72";
+			this->label72->Size = System::Drawing::Size(17, 13);
+			this->label72->TabIndex = 29;
+			this->label72->Text = L"Y:";
+			// 
+			// label87
+			// 
+			this->label87->AutoSize = true;
+			this->label87->BackColor = System::Drawing::Color::Transparent;
+			this->label87->Location = System::Drawing::Point(70, 7);
+			this->label87->Name = L"label87";
+			this->label87->Size = System::Drawing::Size(17, 13);
+			this->label87->TabIndex = 27;
+			this->label87->Text = L"X:";
+			// 
+			// textBox5
+			// 
+			this->textBox5->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(35)), static_cast<System::Int32>(static_cast<System::Byte>(35)),
+				static_cast<System::Int32>(static_cast<System::Byte>(35)));
+			this->textBox5->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->textBox5->ForeColor = System::Drawing::Color::White;
+			this->textBox5->Location = System::Drawing::Point(87, 4);
+			this->textBox5->Name = L"textBox5";
+			this->textBox5->Size = System::Drawing::Size(40, 21);
+			this->textBox5->TabIndex = 26;
+			this->textBox5->Text = L"30";
+			this->textBox5->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
 			// 
 			// panel16
 			// 
@@ -5354,6 +5397,11 @@ public:
 			this->lvSend->UseCompatibleStateImageBehavior = false;
 			this->lvSend->View = System::Windows::Forms::View::Details;
 			// 
+			// columnHeader6
+			// 
+			this->columnHeader6->Text = L"Packet";
+			this->columnHeader6->Width = 293;
+			// 
 			// tabPage15
 			// 
 			this->tabPage15->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(25)), static_cast<System::Int32>(static_cast<System::Byte>(25)),
@@ -5492,6 +5540,118 @@ public:
 			this->tabPage19->Size = System::Drawing::Size(394, 313);
 			this->tabPage19->TabIndex = 3;
 			this->tabPage19->Text = L"Defined Packets";
+			// 
+			// panel29
+			// 
+			this->panel29->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->panel29->Controls->Add(this->bSendRevive);
+			this->panel29->Controls->Add(this->bSendRestore127Health);
+			this->panel29->Controls->Add(this->bSendSuicide);
+			this->panel29->Controls->Add(this->bSendDrop50000);
+			this->panel29->Controls->Add(this->bSendMount);
+			this->panel29->Controls->Add(this->bSendDrop10000);
+			this->panel29->Controls->Add(this->bSendDrop10);
+			this->panel29->Controls->Add(this->bSendDrop1000);
+			this->panel29->Location = System::Drawing::Point(12, 10);
+			this->panel29->Name = L"panel29";
+			this->panel29->Size = System::Drawing::Size(132, 261);
+			this->panel29->TabIndex = 21;
+			// 
+			// bSendRevive
+			// 
+			this->bSendRevive->FlatAppearance->BorderColor = System::Drawing::Color::Gray;
+			this->bSendRevive->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->bSendRevive->Location = System::Drawing::Point(7, 39);
+			this->bSendRevive->Name = L"bSendRevive";
+			this->bSendRevive->Size = System::Drawing::Size(117, 25);
+			this->bSendRevive->TabIndex = 22;
+			this->bSendRevive->Text = L"Revive";
+			this->bSendRevive->UseVisualStyleBackColor = true;
+			this->bSendRevive->Click += gcnew System::EventHandler(this, &MainForm::bSendRevive_Click);
+			// 
+			// bSendRestore127Health
+			// 
+			this->bSendRestore127Health->FlatAppearance->BorderColor = System::Drawing::Color::Gray;
+			this->bSendRestore127Health->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->bSendRestore127Health->Location = System::Drawing::Point(7, 225);
+			this->bSendRestore127Health->Name = L"bSendRestore127Health";
+			this->bSendRestore127Health->Size = System::Drawing::Size(117, 25);
+			this->bSendRestore127Health->TabIndex = 21;
+			this->bSendRestore127Health->Text = L"Restore 127 Health";
+			this->bSendRestore127Health->UseVisualStyleBackColor = true;
+			this->bSendRestore127Health->Click += gcnew System::EventHandler(this, &MainForm::bSendRestore127Health_Click);
+			// 
+			// bSendSuicide
+			// 
+			this->bSendSuicide->FlatAppearance->BorderColor = System::Drawing::Color::Gray;
+			this->bSendSuicide->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->bSendSuicide->Location = System::Drawing::Point(7, 8);
+			this->bSendSuicide->Name = L"bSendSuicide";
+			this->bSendSuicide->Size = System::Drawing::Size(117, 25);
+			this->bSendSuicide->TabIndex = 15;
+			this->bSendSuicide->Text = L"Suicide";
+			this->bSendSuicide->UseVisualStyleBackColor = true;
+			this->bSendSuicide->Click += gcnew System::EventHandler(this, &MainForm::bSendSuicide_Click);
+			// 
+			// bSendDrop50000
+			// 
+			this->bSendDrop50000->FlatAppearance->BorderColor = System::Drawing::Color::Gray;
+			this->bSendDrop50000->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->bSendDrop50000->Location = System::Drawing::Point(7, 194);
+			this->bSendDrop50000->Name = L"bSendDrop50000";
+			this->bSendDrop50000->Size = System::Drawing::Size(117, 25);
+			this->bSendDrop50000->TabIndex = 20;
+			this->bSendDrop50000->Text = L"Drop 50,000 Mesos";
+			this->bSendDrop50000->UseVisualStyleBackColor = true;
+			this->bSendDrop50000->Click += gcnew System::EventHandler(this, &MainForm::bSendDrop50000_Click);
+			// 
+			// bSendMount
+			// 
+			this->bSendMount->FlatAppearance->BorderColor = System::Drawing::Color::Gray;
+			this->bSendMount->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->bSendMount->Location = System::Drawing::Point(7, 70);
+			this->bSendMount->Name = L"bSendMount";
+			this->bSendMount->Size = System::Drawing::Size(117, 25);
+			this->bSendMount->TabIndex = 16;
+			this->bSendMount->Text = L"Get On Mount";
+			this->bSendMount->UseVisualStyleBackColor = true;
+			this->bSendMount->Click += gcnew System::EventHandler(this, &MainForm::bSendMount_Click);
+			// 
+			// bSendDrop10000
+			// 
+			this->bSendDrop10000->FlatAppearance->BorderColor = System::Drawing::Color::Gray;
+			this->bSendDrop10000->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->bSendDrop10000->Location = System::Drawing::Point(7, 163);
+			this->bSendDrop10000->Name = L"bSendDrop10000";
+			this->bSendDrop10000->Size = System::Drawing::Size(117, 25);
+			this->bSendDrop10000->TabIndex = 19;
+			this->bSendDrop10000->Text = L"Drop 10,000 Mesos";
+			this->bSendDrop10000->UseVisualStyleBackColor = true;
+			this->bSendDrop10000->Click += gcnew System::EventHandler(this, &MainForm::bSendDrop10000_Click);
+			// 
+			// bSendDrop10
+			// 
+			this->bSendDrop10->FlatAppearance->BorderColor = System::Drawing::Color::Gray;
+			this->bSendDrop10->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->bSendDrop10->Location = System::Drawing::Point(7, 101);
+			this->bSendDrop10->Name = L"bSendDrop10";
+			this->bSendDrop10->Size = System::Drawing::Size(117, 25);
+			this->bSendDrop10->TabIndex = 17;
+			this->bSendDrop10->Text = L"Drop 10 Mesos";
+			this->bSendDrop10->UseVisualStyleBackColor = true;
+			this->bSendDrop10->Click += gcnew System::EventHandler(this, &MainForm::bSendDrop10_Click);
+			// 
+			// bSendDrop1000
+			// 
+			this->bSendDrop1000->FlatAppearance->BorderColor = System::Drawing::Color::Gray;
+			this->bSendDrop1000->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->bSendDrop1000->Location = System::Drawing::Point(7, 132);
+			this->bSendDrop1000->Name = L"bSendDrop1000";
+			this->bSendDrop1000->Size = System::Drawing::Size(117, 25);
+			this->bSendDrop1000->TabIndex = 18;
+			this->bSendDrop1000->Text = L"Drop 1000 Mesos";
+			this->bSendDrop1000->UseVisualStyleBackColor = true;
+			this->bSendDrop1000->Click += gcnew System::EventHandler(this, &MainForm::bSendDrop1000_Click);
 			// 
 			// panel6
 			// 
@@ -5925,134 +6085,6 @@ public:
 			this->AutoCCCSTimer->Interval = 250;
 			this->AutoCCCSTimer->Tick += gcnew System::EventHandler(this, &MainForm::AutoCCCSTimer_Tick);
 			// 
-			// columnHeader6
-			// 
-			this->columnHeader6->Text = L"Packet";
-			this->columnHeader6->Width = 293;
-			// 
-			// panel17
-			// 
-			this->panel17->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
-			this->panel17->Controls->Add(this->checkBox3);
-			this->panel17->Controls->Add(this->cbUEMI);
-			this->panel17->Controls->Add(this->textBox4);
-			this->panel17->Controls->Add(this->label72);
-			this->panel17->Controls->Add(this->label87);
-			this->panel17->Controls->Add(this->textBox5);
-			this->panel17->Location = System::Drawing::Point(6, 178);
-			this->panel17->Name = L"panel17";
-			this->panel17->Size = System::Drawing::Size(132, 57);
-			this->panel17->TabIndex = 30;
-			// 
-			// panel28
-			// 
-			this->panel28->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
-			this->panel28->Controls->Add(this->cbFullMapAttack);
-			this->panel28->Controls->Add(this->cbItemVac);
-			this->panel28->Location = System::Drawing::Point(6, 239);
-			this->panel28->Name = L"panel28";
-			this->panel28->Size = System::Drawing::Size(132, 57);
-			this->panel28->TabIndex = 31;
-			// 
-			// checkBox3
-			// 
-			this->checkBox3->AutoSize = true;
-			this->checkBox3->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
-			this->checkBox3->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->checkBox3->ForeColor = System::Drawing::Color::White;
-			this->checkBox3->Location = System::Drawing::Point(5, 31);
-			this->checkBox3->Name = L"checkBox3";
-			this->checkBox3->Size = System::Drawing::Size(47, 17);
-			this->checkBox3->TabIndex = 32;
-			this->checkBox3->Text = L"dEMI";
-			this->checkBox3->UseVisualStyleBackColor = false;
-			// 
-			// bSendSuicide
-			// 
-			this->bSendSuicide->FlatAppearance->BorderColor = System::Drawing::Color::Gray;
-			this->bSendSuicide->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->bSendSuicide->Location = System::Drawing::Point(7, 8);
-			this->bSendSuicide->Name = L"bSendSuicide";
-			this->bSendSuicide->Size = System::Drawing::Size(117, 25);
-			this->bSendSuicide->TabIndex = 15;
-			this->bSendSuicide->Text = L"Suicide";
-			this->bSendSuicide->UseVisualStyleBackColor = true;
-			this->bSendSuicide->Click += gcnew System::EventHandler(this, &MainForm::bSendSuicide_Click);
-			// 
-			// bSendMount
-			// 
-			this->bSendMount->FlatAppearance->BorderColor = System::Drawing::Color::Gray;
-			this->bSendMount->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->bSendMount->Location = System::Drawing::Point(7, 39);
-			this->bSendMount->Name = L"bSendMount";
-			this->bSendMount->Size = System::Drawing::Size(117, 25);
-			this->bSendMount->TabIndex = 16;
-			this->bSendMount->Text = L"Get On Mount";
-			this->bSendMount->UseVisualStyleBackColor = true;
-			this->bSendMount->Click += gcnew System::EventHandler(this, &MainForm::bSendMount_Click);
-			// 
-			// bSendDrop10
-			// 
-			this->bSendDrop10->FlatAppearance->BorderColor = System::Drawing::Color::Gray;
-			this->bSendDrop10->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->bSendDrop10->Location = System::Drawing::Point(7, 70);
-			this->bSendDrop10->Name = L"bSendDrop10";
-			this->bSendDrop10->Size = System::Drawing::Size(117, 25);
-			this->bSendDrop10->TabIndex = 17;
-			this->bSendDrop10->Text = L"Drop 10 Mesos";
-			this->bSendDrop10->UseVisualStyleBackColor = true;
-			this->bSendDrop10->Click += gcnew System::EventHandler(this, &MainForm::bSendDrop10_Click);
-			// 
-			// bSendDrop1000
-			// 
-			this->bSendDrop1000->FlatAppearance->BorderColor = System::Drawing::Color::Gray;
-			this->bSendDrop1000->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->bSendDrop1000->Location = System::Drawing::Point(7, 101);
-			this->bSendDrop1000->Name = L"bSendDrop1000";
-			this->bSendDrop1000->Size = System::Drawing::Size(117, 25);
-			this->bSendDrop1000->TabIndex = 18;
-			this->bSendDrop1000->Text = L"Drop 1000 Mesos";
-			this->bSendDrop1000->UseVisualStyleBackColor = true;
-			this->bSendDrop1000->Click += gcnew System::EventHandler(this, &MainForm::bSendDrop1000_Click);
-			// 
-			// bSendDrop10000
-			// 
-			this->bSendDrop10000->FlatAppearance->BorderColor = System::Drawing::Color::Gray;
-			this->bSendDrop10000->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->bSendDrop10000->Location = System::Drawing::Point(7, 132);
-			this->bSendDrop10000->Name = L"bSendDrop10000";
-			this->bSendDrop10000->Size = System::Drawing::Size(117, 25);
-			this->bSendDrop10000->TabIndex = 19;
-			this->bSendDrop10000->Text = L"Drop 10,000 Mesos";
-			this->bSendDrop10000->UseVisualStyleBackColor = true;
-			this->bSendDrop10000->Click += gcnew System::EventHandler(this, &MainForm::bSendDrop10000_Click);
-			// 
-			// bSendDrop50000
-			// 
-			this->bSendDrop50000->FlatAppearance->BorderColor = System::Drawing::Color::Gray;
-			this->bSendDrop50000->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->bSendDrop50000->Location = System::Drawing::Point(7, 163);
-			this->bSendDrop50000->Name = L"bSendDrop50000";
-			this->bSendDrop50000->Size = System::Drawing::Size(117, 25);
-			this->bSendDrop50000->TabIndex = 20;
-			this->bSendDrop50000->Text = L"Drop 50,000 Mesos";
-			this->bSendDrop50000->UseVisualStyleBackColor = true;
-			this->bSendDrop50000->Click += gcnew System::EventHandler(this, &MainForm::bSendDrop50000_Click);
-			// 
-			// panel29
-			// 
-			this->panel29->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
-			this->panel29->Controls->Add(this->bSendSuicide);
-			this->panel29->Controls->Add(this->bSendDrop50000);
-			this->panel29->Controls->Add(this->bSendMount);
-			this->panel29->Controls->Add(this->bSendDrop10000);
-			this->panel29->Controls->Add(this->bSendDrop10);
-			this->panel29->Controls->Add(this->bSendDrop1000);
-			this->panel29->Location = System::Drawing::Point(12, 10);
-			this->panel29->Name = L"panel29";
-			this->panel29->Size = System::Drawing::Size(132, 198);
-			this->panel29->TabIndex = 21;
-			// 
 			// MainForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
@@ -6137,6 +6169,10 @@ public:
 			this->panel18->ResumeLayout(false);
 			this->panel18->PerformLayout();
 			this->tabPage6->ResumeLayout(false);
+			this->panel28->ResumeLayout(false);
+			this->panel28->PerformLayout();
+			this->panel17->ResumeLayout(false);
+			this->panel17->PerformLayout();
 			this->panel16->ResumeLayout(false);
 			this->panel16->PerformLayout();
 			this->panel19->ResumeLayout(false);
@@ -6159,15 +6195,11 @@ public:
 			this->tabPage15->ResumeLayout(false);
 			this->tabPage15->PerformLayout();
 			this->tabPage19->ResumeLayout(false);
+			this->panel29->ResumeLayout(false);
 			this->panel6->ResumeLayout(false);
 			this->panel6->PerformLayout();
 			this->tabPage9->ResumeLayout(false);
 			this->tabPage9->PerformLayout();
-			this->panel17->ResumeLayout(false);
-			this->panel17->PerformLayout();
-			this->panel28->ResumeLayout(false);
-			this->panel28->PerformLayout();
-			this->panel29->ResumeLayout(false);
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -6313,5 +6345,7 @@ public:
 	private: System::Void bSendDrop1000_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void bSendDrop10000_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void bSendDrop50000_Click(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void bSendRevive_Click(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void bSendRestore127Health_Click(System::Object^  sender, System::EventArgs^  e);
 };
 }

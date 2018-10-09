@@ -1,10 +1,12 @@
 #include <Windows.h>
+#include <sstream>
 #include "MainForm.h"
 #include "Pointers.h"
 #include "Functions.h"
 #include "Macro.h"
 #include "Packet.h"
 #include "Structs.h"
+#include "resource.h"
 
 using namespace Timelapse;
  
@@ -1234,6 +1236,29 @@ void MainForm::cbItemVac_CheckedChanged(Object^  sender, EventArgs^  e) {
 
 #pragma region Filters Tab
 #pragma region ItemFilter
+//Find item name using item ID in the ItemsList resource
+static std::string findItemNameFromID(int itemID) {
+	try {
+		std::string result = "", tmpStr = "";
+		HRSRC hRes = FindResource(GetCurrentModule(), MAKEINTRESOURCE(ItemsList), _T("TEXT"));
+		HGLOBAL hGlob = LoadResource(GetCurrentModule(), hRes);
+		const CHAR* pData = reinterpret_cast<const CHAR*>(::LockResource(hGlob));
+		std::istringstream File(pData);
+
+		while (File.good()) {
+			std::getline(File, tmpStr);
+			if (tmpStr.find(std::to_string(itemID)) == 0) {
+				tmpStr = tmpStr.substr(tmpStr.find('[') + 1, tmpStr.find(']'));
+				tmpStr = tmpStr.substr(0, tmpStr.length() - 2);
+				result = tmpStr;
+			}
+		}
+		UnlockResource(hRes);
+		return result;
+	}
+	catch (...) { return ""; }
+}
+
 void MainForm::tbItemFilterID_KeyPress(Object^  sender, Windows::Forms::KeyPressEventArgs^  e) {
 	if (!isKeyValid(sender, e, false)) e->Handled = true; //If key is not valid, do nothing and indicate that it has been handled
 }
@@ -1279,8 +1304,13 @@ void MainForm::bSendLog_Click(System::Object^  sender, System::EventArgs^  e) {
 	}*/
 }
 
+#pragma region Predefined Packets
 void MainForm::bSendSuicide_Click(System::Object^  sender, System::EventArgs^  e) {
 	SendPacket("30 00 72 76 9D 00 FD 00 00 BB 00 00 00 00 00");
+}
+
+void MainForm::bSendRevive_Click(System::Object^  sender, System::EventArgs^  e) {
+	SendPacket("26 00 00 00 00 00 00 00 00 00 00 00");
 }
 
 void MainForm::bSendMount_Click(System::Object^  sender, System::EventArgs^  e) {
@@ -1301,6 +1331,10 @@ void MainForm::bSendDrop10000_Click(System::Object^  sender, System::EventArgs^ 
 
 void MainForm::bSendDrop50000_Click(System::Object^  sender, System::EventArgs^  e) {
 	SendPacket("5E 00 FF 20 C0 03 50 C3 00 00");
+}
+
+void MainForm::bSendRestore127Health_Click(System::Object^  sender, System::EventArgs^  e) {
+	SendPacket("59 00 A1 7F F7 08 00 14 00 00 7F 00 00 00 00");
 }
 
 #pragma region AutoAP
@@ -1331,6 +1365,7 @@ void MainForm::tbAPINT_KeyPress(Object^  sender, Windows::Forms::KeyPressEventAr
 void MainForm::tbAPLUK_KeyPress(Object^  sender, Windows::Forms::KeyPressEventArgs^  e) {
 	if (!isKeyValid(sender, e, false)) e->Handled = true; //If key is not valid, do nothing and indicate that it has been handled
 }
+#pragma endregion
 #pragma endregion
 
 #pragma endregion
