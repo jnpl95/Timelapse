@@ -1,0 +1,643 @@
+#ifndef FUNCTIONS_H
+#define FUNCTIONS_H
+
+#include <Windows.h>
+#include "Pointers.h"
+#include <msclr\marshal_cppstd.h>
+#include <string>
+#include <atlstr.h>
+#include <stdlib.h>
+#include "Structs.h"
+
+#define NewThread(threadFunc) CreateThread(NULL, NULL, (LPTHREAD_START_ROUTINE)&threadFunc, NULL, NULL, NULL);
+//#define jmp(frm, to) (int)(((int)to - (int)frm) - 5);
+HWND mapleWindow = 0;
+
+#pragma region General Functions
+void MakePageWritable(ULONG ulAddress, ULONG ulSize) {
+	MEMORY_BASIC_INFORMATION* mbi = new MEMORY_BASIC_INFORMATION;
+	VirtualQuery((PVOID)ulAddress, mbi, ulSize);
+	if (mbi->Protect != PAGE_EXECUTE_READWRITE) {
+		ULONG* ulProtect = new unsigned long;
+		VirtualProtect((PVOID)ulAddress, ulSize, PAGE_EXECUTE_READWRITE, ulProtect);
+		delete ulProtect;
+	}
+	delete mbi;
+}
+
+void Jump(ULONG ulAddress, PVOID Function, unsigned Nops) {
+	MakePageWritable(ulAddress, Nops + 5);
+	*(UCHAR*)ulAddress = 0xE9; 
+	*(ULONG*)(ulAddress + 1) = (int)(((int)Function - (int)ulAddress) - 5);
+	memset((PVOID)(ulAddress + 5), 0x90, Nops);
+}
+
+ULONG ReadPointer(ULONG ulBase, int iOffset) {
+	__try { return *(ULONG*)(*(ULONG*)ulBase + iOffset); }
+	__except (EXCEPTION_EXECUTE_HANDLER) { return 0; }
+}
+
+LONG ReadPointerSigned(ULONG ulBase, int iOffset) {
+	__try { return *(LONG*)(*(ULONG*)ulBase + iOffset); }
+	__except (EXCEPTION_EXECUTE_HANDLER) { return 0; }
+}
+
+double ReadPointerDouble(ULONG ulBase, int iOffset) {
+	__try { return *(double*)(*(ULONG*)ulBase + iOffset); }
+	__except (EXCEPTION_EXECUTE_HANDLER) { return NULL; }
+}
+
+LPCSTR ReadPointerString(ULONG ulBase, int iOffset) {
+	__try { return (LPCSTR)(*(ULONG*)ulBase + iOffset); }
+	__except (EXCEPTION_EXECUTE_HANDLER) { return NULL; }
+}
+
+#pragma unmanaged
+LONG_PTR ReadMultiPointerSigned(LONG_PTR ulBase, int level, ...) {
+	LONG_PTR ulResult = 0;
+	int i, offset;
+
+	va_list vaarg;
+	va_start(vaarg, level);
+	if (!IsBadReadPtr((PVOID)ulBase, sizeof(LONG_PTR))) {
+		ulBase = *(LONG_PTR*)ulBase;
+		for (i = 0; i < level; i++) {
+			offset = va_arg(vaarg, int);
+			if (IsBadReadPtr((PVOID)(ulBase + offset), sizeof(LONG_PTR))) {
+				va_end(vaarg);
+				return 0;
+			}
+			ulBase = *(LONG_PTR*)(ulBase + offset);
+		}
+		ulResult = ulBase;
+	}
+
+	va_end(vaarg);
+	return ulResult;
+}
+
+void WriteMemory(ULONG ulAddress, ULONG ulAmount, ...) {
+	va_list va;
+	va_start(va, ulAmount);
+
+	MakePageWritable(ulAddress, ulAmount);
+	for (ULONG ulIndex = 0; ulIndex < ulAmount; ulIndex++)
+		*(UCHAR*)(ulAddress + ulIndex) = va_arg(va, UCHAR);
+
+	va_end(va);
+}
+
+#pragma managed
+bool WritePointer(ULONG ulBase, int iOffset, int iValue) {
+	__try { *(int*)(*(ULONG*)ulBase + iOffset) = iValue; return true; }
+	__except (EXCEPTION_EXECUTE_HANDLER) { return false; }
+}
+
+//Convert String^ to std::string
+std::string ConvertSystemToStdStr(System::String^ str1) {
+	return msclr::interop::marshal_as<std::string>(str1);
+}
+
+//Convert std::string to String^
+System::String^ ConvertStdToSystemStr(std::string str1) {
+	return gcnew System::String(str1.c_str());
+}
+
+HWND GetMSWindowHandle() {
+	HWND msHandle = NULL;
+	TCHAR buf[256] = { 0 };
+	ULONG procid;
+	for (HWND hwnd = GetTopWindow(NULL); hwnd != NULL; hwnd = GetNextWindow(hwnd, GW_HWNDNEXT)) {
+		GetWindowThreadProcessId(hwnd, &procid);
+		if (procid != GetCurrentProcessId()) continue;
+		if (!GetClassName(hwnd, buf, 256)) continue;
+		if (_tcscmp(buf, _T("MapleStoryClass")) != 0) continue;
+		msHandle = hwnd;
+	}
+
+	if (!msHandle) return 0;
+	return msHandle;
+}
+
+//Get MS ThreadID
+ULONG GetMSThreadID() {
+	if(mapleWindow == 0)
+		mapleWindow = GetMSWindowHandle();
+	return GetWindowThreadProcessId(mapleWindow, NULL);
+}
+
+//Get MS ProcessID
+System::String^ GetMSProcID() {
+	return "0x" + GetCurrentProcessId().ToString("X");
+}
+
+//Keycode based on index selected in combo boxes
+static int keyCollection[] = { 0x10, 0x11, 0x12, 0x20, 0x2D, 0x2E, 0x24, 0x23, 0x21, 0x22, 0x41, 0x42, 0x43, 0x44, 0x45, 0x46, 0x47, 0x48, 0x49, 0x4A, 0x4B, 0x4C, 0x4D, 0x4E, 0x4F, 0x50, 0x51,
+0x52, 0x53, 0x54, 0x55, 0x56, 0x57, 0x58, 0x59, 0x5A, 0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x39 };
+
+//Check if position is valid 
+static bool isPosValid(int X, int Y) {
+	return ((ReadPointerSigned(MapBase, OFS_LeftWall) <= X) && (ReadPointerSigned(MapBase, OFS_RightWall) >= X) && (ReadPointerSigned(MapBase, OFS_UpWall) <= Y) && (ReadPointerSigned(MapBase, OFS_DownWall) >= Y));
+}
+
+//Teleport to parameter position
+static void Teleport(int X, int Y) {
+	if (isPosValid(X, Y)) {
+		WritePointer(CharBase, OFS_TeleX, X);
+		WritePointer(CharBase, OFS_TeleY, Y);
+		WritePointer(CharBase, OFS_Tele, 1);
+		WritePointer(CharBase, OFS_Tele + 4, 1);
+	}
+}
+
+//Teleport to parameter point
+static void Teleport(POINT point) {
+	if (isPosValid(point.x, point.y)) {
+		WritePointer(CharBase, OFS_TeleX, point.x);
+		WritePointer(CharBase, OFS_TeleY, point.y);
+		WritePointer(CharBase, OFS_Tele, 1);
+		WritePointer(CharBase, OFS_Tele + 4, 1);
+	}
+}
+
+//Check if keypress is valid
+bool isKeyValid(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ e, bool isSigned) {
+	bool result = true;
+
+	//If the character is not a digit or backspace, don't allow it
+	if (!isdigit(e->KeyChar) && e->KeyChar != '\b') result = false;
+
+	//If the textbox is supposed to contain a signed value, check to see if '-' should be permitted
+	if (isSigned && e->KeyChar == '-') {
+		System::Windows::Forms::TextBox^ textBox = safe_cast<System::Windows::Forms::TextBox^>(sender);
+
+		//If the selected text does not start at the beginning of the text, don't allow the '-' keypress
+		if (textBox->SelectionStart > 0) result = false;
+		//If the selection starts at 0 and there exists a '-' in the complete text, and the selected text doesn't have '-', don't allow an additional '-' keypress
+		else if (textBox->Text->IndexOf('-') > -1 && !textBox->SelectedText->Contains("-")) result = false;
+		else result = true;
+	}
+
+	return result;
+}
+
+#pragma endregion
+
+namespace CodeCaves {
+	BYTE level = 0x00;
+	SHORT job = -1;
+	ULONG curHP = 0, maxHP = 0, curMP = 0, maxMP = 0, curEXP = 0, maxEXP = 0, mesos = 0, mapNameAddr = 0x0;
+	int ItemX = 0, ItemY = 0;
+	double hpPercent = 0.00, mpPercent = 0.00, expPercent = 0.00;
+	static std::vector<SpawnControlStruct*>* spawnControl = new std::vector<SpawnControlStruct*>();
+
+	SpawnControlStruct* __stdcall getSpawnControlStruct() {
+		if (spawnControl->size() == 0) return nullptr;
+		for (std::vector<SpawnControlStruct*>::const_iterator i = spawnControl->begin(); i != spawnControl->end(); ++i)
+			if ((*i)->mapID == ReadPointer(InfoBase, OFS_MapID))
+				return (*i);
+		return nullptr;
+	}
+
+#pragma unmanaged
+	__declspec(naked) void __stdcall LevelHook() {
+		__asm {
+			mov [level], al
+			mov cl, al
+			call dword ptr [levelHookDecode]
+			jmp dword ptr [levelHookAddrRet]
+		}
+	}
+
+	__declspec(naked) void __stdcall JobHook() {
+		__asm {
+			mov [job], ax
+			mov ecx, eax
+			call dword ptr [jobHookDecode]
+			jmp dword ptr [jobHookAddrRet]
+		}
+	}
+
+	__declspec(naked) void __stdcall StatHook() {
+		__asm {
+			push eax
+			mov eax, [ebp + 0x08]
+			mov [curHP], eax
+			mov eax, [ebp + 0x0C]
+			mov [maxHP], eax
+			mov eax, [ebp + 0x10]
+			mov [curMP], eax
+			mov eax, [ebp + 0x14]
+			mov [maxMP], eax
+			mov eax, [ebp + 0x18]
+			mov [curEXP], eax
+			mov eax, [ebp + 0x1C]
+			mov [maxEXP], eax
+			pop eax
+			lea ecx, [eax + eax * 0x4]
+			cmp ecx, ebx
+			jmp dword ptr [statHookAddrRet]
+		}
+	}
+
+	__declspec(naked) void __stdcall MesosHook() {
+		__asm {
+			mov [mesos], eax
+			lea edx, [esi + 0xA5]
+			jmp dword ptr [mesosHookAddrRet]
+		}
+	}
+
+	__declspec(naked) void __stdcall MesosChangeHook() {
+		__asm {
+			mov [mesos], eax
+			lea edx, [esi + 0xA5]
+			jmp dword ptr [mesosChangeHookAddrRet]
+		}
+	}
+
+	__declspec(naked) void __stdcall MapNameHook() {
+		__asm {
+			mov [mapNameAddr], ecx
+			mov [ebp - 0x28], edi
+			lea ecx, [ebp - 0x14]
+			jmp dword ptr [mapNameHookAddrRet]
+		}
+	}
+
+	__declspec(naked) void __stdcall ItemVacHook() {
+		__asm {
+			pushad
+			mov ecx, [ebp + 0x8]
+			mov ebx, [ebp - 0x24]
+			mov [ecx], ebx
+			mov [ecx + 0x4], eax
+			mov ecx, eax
+			mov eax, ebx
+
+			lea edx, [eax - 0x19]
+			mov [ebp - 0x34], edx
+			lea edx, [ecx - 0x32]
+			add eax, 0x19
+			add ecx, 0xA
+			mov [ebp - 0x30], edx
+			mov [ebp - 0x2C], eax
+			mov [ebp - 0x28], ecx
+			popad
+
+			push eax
+			push dword ptr ss : [ebp - 0x24]
+			lea eax, dword ptr ss : [ebp - 0x34]
+			jmp dword ptr [itemVacAddrRet]
+		}
+	}
+
+	__declspec(naked) void __stdcall MouseFlyXHook() {
+		__asm {
+			push eax
+			push ecx
+			mov eax, [CharBase]
+			mov eax, [eax]
+			mov ecx, [OFS_pID]
+			mov eax, [eax + ecx]
+			cmp esi, eax
+			pop eax
+			jne ReturnX
+			mov eax, [MouseBase]
+			mov eax, [eax]
+			mov ecx, [OFS_MouseLocation]
+			mov eax, [eax + ecx]
+			mov ecx, [OFS_MouseX]
+			mov eax, [eax + ecx]
+			ReturnX:
+			pop ecx
+			mov [ebx], eax
+			mov edi, [ebp + 0x10]
+			jmp dword ptr [mouseFlyXAddrRet]
+		}
+	}
+
+	__declspec(naked) void __stdcall MouseFlyYHook() {
+		__asm {
+			push eax
+			push ecx
+			mov eax, [CharBase]
+			mov eax, [eax]
+			mov ecx, [OFS_pID]
+			mov eax, [eax + ecx]
+			cmp esi, eax
+			pop eax
+			jne ReturnY
+			mov eax, [MouseBase]
+			mov eax, [eax]
+			mov ecx, [OFS_MouseLocation]
+			mov eax, [eax + ecx]
+			mov ecx, [OFS_MouseY]
+			mov eax, [eax + ecx]
+			ReturnY:
+			pop ecx
+			mov [edi], eax
+			mov ebx, [ebp + 0x14]
+			jmp dword ptr [mouseFlyYAddrRet]
+		}
+	}
+
+	__declspec(naked) void __stdcall MobFreezeHook() {
+		__asm {
+			mov [esi + 0x00000248], 0x06
+			mov eax, [esi + 0x00000248]
+			jmp dword ptr [mobFreezeAddrRet]
+		}
+	}
+
+	__declspec(naked) void __stdcall MobAutoAggroHook() {
+		__asm {
+			call dword ptr [cVecCtrlWorkUpdateActiveCall] //calls CVecCtrl::WorkUpdateActive()
+			push eax
+			mov edx, [CharBase]
+			mov edx, [edx]
+			mov eax, [OFS_pID]
+			mov edx, [edx + eax]
+			mov edx, [edx + 0x8]
+			mov eax, [OFS_Aggro]
+			mov [esi + eax], edx //Aggro Offset (first cmp before CVecCtrl::ChaseTarget)
+			pop eax
+			jmp dword ptr [mobAutoAggroAddrRet]
+		}
+	}
+
+	__declspec(naked) void __stdcall SpawnPointHook() {
+		__asm {
+			push ecx
+			push edx
+			cmp dword ptr [esp + 0x8], 0x009BBD5D
+			je Return //If Spawning Mob, skip
+			cmp dword ptr [esp + 0x8], 0x009C1D90
+			je Return //If Spawning NPC, skip
+			call getSpawnControlStruct //returns SpawnControlStruct* with the mapID == current mapID
+			cmp eax, 0 
+			je Return //If end of SpawnControl and no match, skip
+			mov edx, [eax + 4]
+			mov dword ptr[esp + 0x10], edx //x
+			mov edx, [eax + 8]
+			mov dword ptr[esp + 0x14], edx //y
+
+			Return:
+			pop edx
+			pop ecx
+			mov eax, 0x00AE56F4 //original code
+			jmp dword ptr[spawnPointAddrRet]
+		}
+	}
+
+	void __declspec(naked) _stdcall ItemHook()
+	{
+		__asm
+		{
+			cmp dword ptr[esp], 0x005047B8
+			jne NormalAPICall //If return not in CDropPool::TryPickUpDrop, skip
+			push eax
+			mov eax, [esp + 0x0C]
+			mov [ItemX], eax
+			mov eax, [esp + 0x10]
+			mov [ItemY], eax
+			pop eax
+
+			NormalAPICall :
+			jmp dword ptr PtInRect
+		}
+	}
+
+#pragma managed
+}
+
+namespace PointerFuncs {
+	bool isHooked = true;
+	
+	//Retrieve Char Level
+	static System::String^ getCharLevel() {
+		if (isHooked)
+			Jump(levelHookAddr, CodeCaves::LevelHook, 2);
+		else
+			WriteMemory(levelHookAddr, 7, 0x8A, 0xC8, 0xE8, 0x4B, 0x55, 0x00, 0x00);
+
+		return CodeCaves::level.ToString();
+	}
+
+	//Retrieve Char Job
+	static System::String^ getCharJob() {
+		if (isHooked)
+			Jump(jobHookAddr, CodeCaves::JobHook, 2);
+		else
+			WriteMemory(levelHookAddr, 7, 0x8B, 0xC8, 0xE8, 0xA6, 0x55, 0x00, 0x00);
+
+		if (CodeCaves::job == -1) return "Null";
+		
+		return gcnew System::String(GetJobName(CodeCaves::job));
+	}
+
+	//Retrieve Char HP
+	static System::String^ getCharHP() {
+		if (isHooked)
+			Jump(statHookAddr, CodeCaves::StatHook, 0);
+		else
+			WriteMemory(statHookAddr, 5, 0x8D, 0x0C, 0x80, 0x3B, 0xCB);
+		if (CodeCaves::maxHP != 0)
+			CodeCaves::hpPercent = ((double)CodeCaves::curHP / CodeCaves::maxHP) * 100.0;
+		return CodeCaves::hpPercent.ToString("f2") + "%";
+	}
+
+	//Retrieve Char MP
+	static System::String^ getCharMP() {
+		if (isHooked)
+			Jump(statHookAddr, CodeCaves::StatHook, 0);
+		else
+			WriteMemory(statHookAddr, 5, 0x8D, 0x0C, 0x80, 0x3B, 0xCB);
+		if (CodeCaves::maxMP != 0)
+			CodeCaves::mpPercent = ((double)CodeCaves::curMP / CodeCaves::maxMP) * 100.0;
+		return CodeCaves::mpPercent.ToString("f2") + "%";
+	}
+
+	//Retrieve Char EXP
+	static System::String^ getCharEXP() {
+		if (isHooked)
+			Jump(statHookAddr, CodeCaves::StatHook, 0);
+		else
+			WriteMemory(statHookAddr, 5, 0x8D, 0x0C, 0x80, 0x3B, 0xCB);
+		if (CodeCaves::maxEXP != 0)
+			CodeCaves::expPercent = ((double)CodeCaves::curEXP / CodeCaves::maxEXP) * 100.0;
+		return CodeCaves::expPercent.ToString("f2") + "%";
+	}
+
+	//Retrieve Char Mesos
+	static System::String^ getCharMesos() {
+		if (isHooked) {
+			Jump(mesosHookAddr, CodeCaves::MesosHook, 1);
+			Jump(mesosChangeHookAddr, CodeCaves::MesosChangeHook, 1);
+		}
+		else {
+			WriteMemory(mesosHookAddr, 6, 0x8D, 0x96, 0xA5, 0x00, 0x00, 0x00);
+			WriteMemory(mesosChangeHookAddr, 6, 0x8D, 0x96, 0xA5, 0x00, 0x00, 0x00);
+		}
+
+		return CodeCaves::mesos.ToString("N0");
+	}
+
+	//Retrieve Map Name
+	static System::String^ getMapName() {
+		if (isHooked)
+			Jump(mapNameHookAddr, CodeCaves::MapNameHook, 1);
+		else
+			WriteMemory(mapNameHookAddr, 6, 0x89, 0x7D, 0xD8, 0x8D, 0x4D, 0xEC);
+
+		if (CodeCaves::mapNameAddr == 0x0) return "Waiting..";
+
+		char *mapNameBuff = (char*)(CodeCaves::mapNameAddr + 12);
+		return gcnew System::String(mapNameBuff);
+	}
+
+	//Retrieve Char Name
+	static System::String^ getCharName() {
+		System::String^ charName = System::Runtime::InteropServices::Marshal::PtrToStringAnsi((System::IntPtr)(void*)(ReadPointerString(IgnBase, OFS_Ign)));
+		if (System::String::IsNullOrEmpty(charName)) return "CharName";
+		return charName;
+	}
+
+	//Retrieve World
+	static System::String^ getWorld() {
+		int worldID = ReadPointer(ServerBase, OFS_World);
+		if (getCharName()->Equals("CharName")) return "Null";
+		switch (worldID) {
+		case 0:
+			return("Scania");
+		case 1:
+			return("Bera");
+		case 2:
+			return("Broa");
+		case 3:
+			return("Windia");
+		case 4:
+			return("Khaini");
+		case 5:
+			return("Bellocan");
+			break;
+		case 6:
+			return("Mardia");
+			break;
+		case 7:
+			return("Kradia");
+			break;
+		case 8:
+			return("Yellonde");
+			break;
+		case 9:
+			return("Demethos");
+			break;
+		case 10:
+			return("Galicia");
+			break;
+		case 11:
+			return("El Nido");
+			break;
+		case 12:
+			return("Zenith");
+			break;
+		case 13:
+			return("Arcania");
+			break;
+		case 14:
+			return("Chaos");
+			break;
+		case 15:
+			return("Nova");
+			break;
+		case 16:
+			return("Regenades");
+			break;
+		default:
+			return("Null");
+		}
+	}
+
+	//Retrieve Channel
+	static System::String^ getChannel() {
+		return ReadPointer(ServerBase, OFS_Channel).ToString();
+	}
+
+	//Retrieve MapID
+	static System::String^ getMapID() {
+		return ReadPointer(InfoBase, OFS_MapID).ToString();
+	}
+
+	//Retrieve Char Position
+	static System::String^ getCharPos() {
+		return "(" + ReadPointerSigned(CharBase, OFS_CharX).ToString() + ", " + ReadPointerSigned(CharBase, OFS_CharY).ToString() + ")";
+	}
+
+	//Retrieve Char X Position
+	static System::String^ getCharPosX() {
+		return ReadPointerSigned(CharBase, OFS_CharX).ToString();
+	}
+
+	//Retrieve Char Y Position
+	static System::String^ getCharPosY() {
+		return ReadPointerSigned(CharBase, OFS_CharY).ToString();
+	}
+
+	//Retrieve Mouse Position
+	static System::String^ getMousePos() {
+		return "(" + ReadMultiPointerSigned(MouseBase, 2, OFS_MouseLocation, OFS_MouseX).ToString() + ", " + ReadMultiPointerSigned(MouseBase, 2, OFS_MouseLocation, OFS_MouseY).ToString() + ")";
+	}
+
+	//Retrieve Mouse X Position
+	static System::String^ getMousePosX() {
+		return ReadMultiPointerSigned(MouseBase, 2, OFS_MouseLocation, OFS_MouseX).ToString();
+	}
+
+	//Retrieve Mouse Y Position
+	static System::String^ getMousePosY() {
+		return ReadMultiPointerSigned(MouseBase, 2, OFS_MouseLocation, OFS_MouseY).ToString();
+	}
+
+	//Retrieve Attack Count
+	static System::String^ getAttackCount() {
+		return ReadPointer(CharBase, OFS_AttackCount).ToString();
+	}
+
+	//Retrieve Buff Count
+	static System::String^ getBuffCount() {
+		return (*(ULONG*)OFS_BuffCount).ToString();
+	}
+
+	//Retrieve Breath Count
+	static System::String^ getBreathCount() {
+		return ReadPointer(CharBase, OFS_Breath).ToString();
+	}
+
+	//Retrieve People Count
+	static System::String^ getPeopleCount() {
+		return ReadPointer(PeopleBase, OFS_PeopleCount).ToString();
+	}
+
+	//Retrieve Mob Count
+	static System::String^ getMobCount() {
+		return ReadPointer(MobBase, OFS_MobCount).ToString();
+	}
+
+	//Retrieve Item Count
+	static System::String^ getItemCount() {
+		return ReadPointer(ItemBase, OFS_ItemCount).ToString();
+	}
+
+	//Retrieve Portal Count
+	static System::String^ getPortalCount() {
+		return ReadPointer(PortalBase, OFS_PortalCount).ToString();
+	}
+
+	//Retrieve NPC Count
+	static System::String^ getNPCCount() {
+		return ReadPointer(NPCBase, OFS_NPCCount).ToString();
+	}
+}
+
+#endif
