@@ -143,26 +143,27 @@ static int keyCollection[] = { 0x10, 0x11, 0x12, 0x20, 0x2D, 0x2E, 0x24, 0x23, 0
 
 //Check if position is valid 
 static bool isPosValid(int X, int Y) {
-	return ((ReadPointerSigned(MapBase, OFS_LeftWall) <= X) && (ReadPointerSigned(MapBase, OFS_RightWall) >= X) && (ReadPointerSigned(MapBase, OFS_UpWall) <= Y) && (ReadPointerSigned(MapBase, OFS_DownWall) >= Y));
+	return ((ReadPointerSigned(CWvsPhysicalSpace2DBase, OFS_LeftWall) <= X) && (ReadPointerSigned(CWvsPhysicalSpace2DBase, OFS_RightWall) >= X) 
+		&& (ReadPointerSigned(CWvsPhysicalSpace2DBase, OFS_UpWall) <= Y) && (ReadPointerSigned(CWvsPhysicalSpace2DBase, OFS_DownWall) >= Y));
 }
 
 //Teleport to parameter position
 static void Teleport(int X, int Y) {
 	if (isPosValid(X, Y)) {
-		WritePointer(CharBase, OFS_TeleX, X);
-		WritePointer(CharBase, OFS_TeleY, Y);
-		WritePointer(CharBase, OFS_Tele, 1);
-		WritePointer(CharBase, OFS_Tele + 4, 1);
+		WritePointer(UserLocalBase, OFS_TeleX, X);
+		WritePointer(UserLocalBase, OFS_TeleY, Y);
+		WritePointer(UserLocalBase, OFS_Tele, 1);
+		WritePointer(UserLocalBase, OFS_Tele + 4, 1);
 	}
 }
 
 //Teleport to parameter point
 static void Teleport(POINT point) {
 	if (isPosValid(point.x, point.y)) {
-		WritePointer(CharBase, OFS_TeleX, point.x);
-		WritePointer(CharBase, OFS_TeleY, point.y);
-		WritePointer(CharBase, OFS_Tele, 1);
-		WritePointer(CharBase, OFS_Tele + 4, 1);
+		WritePointer(UserLocalBase, OFS_TeleX, point.x);
+		WritePointer(UserLocalBase, OFS_TeleY, point.y);
+		WritePointer(UserLocalBase, OFS_Tele, 1);
+		WritePointer(UserLocalBase, OFS_Tele + 4, 1);
 	}
 }
 
@@ -200,7 +201,7 @@ namespace CodeCaves {
 	static SpawnControlStruct* __stdcall getSpawnControlStruct() {
 		if (spawnControl->size() == 0) return nullptr;
 		for (std::vector<SpawnControlStruct*>::const_iterator i = spawnControl->begin(); i != spawnControl->end(); ++i)
-			if ((*i)->mapID == ReadPointer(InfoBase, OFS_MapID))
+			if ((*i)->mapID == ReadPointer(UIMiniMapBase, OFS_MapID))
 				return (*i);
 		return nullptr;
 	}
@@ -302,14 +303,14 @@ namespace CodeCaves {
 		__asm {
 			push eax
 			push ecx
-			mov eax, [CharBase]
+			mov eax, [UserLocalBase]
 			mov eax, [eax]
 			mov ecx, [OFS_pID]
 			mov eax, [eax + ecx]
 			cmp esi, eax
 			pop eax
 			jne ReturnX
-			mov eax, [MouseBase]
+			mov eax, [InputBase]
 			mov eax, [eax]
 			mov ecx, [OFS_MouseLocation]
 			mov eax, [eax + ecx]
@@ -327,14 +328,14 @@ namespace CodeCaves {
 		__asm {
 			push eax
 			push ecx
-			mov eax, [CharBase]
+			mov eax, [UserLocalBase]
 			mov eax, [eax]
 			mov ecx, [OFS_pID]
 			mov eax, [eax + ecx]
 			cmp esi, eax
 			pop eax
 			jne ReturnY
-			mov eax, [MouseBase]
+			mov eax, [InputBase]
 			mov eax, [eax]
 			mov ecx, [OFS_MouseLocation]
 			mov eax, [eax + ecx]
@@ -360,7 +361,7 @@ namespace CodeCaves {
 		__asm {
 			call dword ptr [cVecCtrlWorkUpdateActiveCall] //calls CVecCtrl::WorkUpdateActive()
 			push eax
-			mov edx, [CharBase]
+			mov edx, [UserLocalBase]
 			mov edx, [edx]
 			mov eax, [OFS_pID]
 			mov edx, [edx + eax]
@@ -504,7 +505,7 @@ namespace PointerFuncs {
 
 	//Retrieve Char Name
 	static System::String^ getCharName() {
-		System::String^ charName = System::Runtime::InteropServices::Marshal::PtrToStringAnsi((System::IntPtr)(void*)(ReadPointerString(IgnBase, OFS_Ign)));
+		System::String^ charName = System::Runtime::InteropServices::Marshal::PtrToStringAnsi((System::IntPtr)(void*)(ReadPointerString(CharacterStatBase, OFS_Ign)));
 		if (System::String::IsNullOrEmpty(charName)) return "CharName";
 		return charName;
 	}
@@ -560,42 +561,42 @@ namespace PointerFuncs {
 
 	//Retrieve MapID
 	static System::String^ getMapID() {
-		return ReadPointer(InfoBase, OFS_MapID).ToString();
+		return ReadPointer(UIMiniMapBase, OFS_MapID).ToString();
 	}
 
 	//Retrieve Char Position
 	static System::String^ getCharPos() {
-		return "(" + ReadPointerSigned(CharBase, OFS_CharX).ToString() + ", " + ReadPointerSigned(CharBase, OFS_CharY).ToString() + ")";
+		return "(" + ReadPointerSigned(UserLocalBase, OFS_CharX).ToString() + ", " + ReadPointerSigned(UserLocalBase, OFS_CharY).ToString() + ")";
 	}
 
 	//Retrieve Char X Position
 	static System::String^ getCharPosX() {
-		return ReadPointerSigned(CharBase, OFS_CharX).ToString();
+		return ReadPointerSigned(UserLocalBase, OFS_CharX).ToString();
 	}
 
 	//Retrieve Char Y Position
 	static System::String^ getCharPosY() {
-		return ReadPointerSigned(CharBase, OFS_CharY).ToString();
+		return ReadPointerSigned(UserLocalBase, OFS_CharY).ToString();
 	}
 
 	//Retrieve Mouse Position
 	static System::String^ getMousePos() {
-		return "(" + ReadMultiPointerSigned(MouseBase, 2, OFS_MouseLocation, OFS_MouseX).ToString() + ", " + ReadMultiPointerSigned(MouseBase, 2, OFS_MouseLocation, OFS_MouseY).ToString() + ")";
+		return "(" + ReadMultiPointerSigned(InputBase, 2, OFS_MouseLocation, OFS_MouseX).ToString() + ", " + ReadMultiPointerSigned(InputBase, 2, OFS_MouseLocation, OFS_MouseY).ToString() + ")";
 	}
 
 	//Retrieve Mouse X Position
 	static System::String^ getMousePosX() {
-		return ReadMultiPointerSigned(MouseBase, 2, OFS_MouseLocation, OFS_MouseX).ToString();
+		return ReadMultiPointerSigned(InputBase, 2, OFS_MouseLocation, OFS_MouseX).ToString();
 	}
 
 	//Retrieve Mouse Y Position
 	static System::String^ getMousePosY() {
-		return ReadMultiPointerSigned(MouseBase, 2, OFS_MouseLocation, OFS_MouseY).ToString();
+		return ReadMultiPointerSigned(InputBase, 2, OFS_MouseLocation, OFS_MouseY).ToString();
 	}
 
 	//Retrieve Attack Count
 	static System::String^ getAttackCount() {
-		return ReadPointer(CharBase, OFS_AttackCount).ToString();
+		return ReadPointer(UserLocalBase, OFS_AttackCount).ToString();
 	}
 
 	//Retrieve Buff Count
@@ -605,27 +606,27 @@ namespace PointerFuncs {
 
 	//Retrieve Breath Count
 	static System::String^ getBreathCount() {
-		return ReadPointer(CharBase, OFS_Breath).ToString();
+		return ReadPointer(UserLocalBase, OFS_Breath).ToString();
 	}
 
 	//Retrieve People Count
 	static System::String^ getPeopleCount() {
-		return ReadPointer(PeopleBase, OFS_PeopleCount).ToString();
+		return ReadPointer(UserPoolBase, OFS_PeopleCount).ToString();
 	}
 
 	//Retrieve Mob Count
 	static System::String^ getMobCount() {
-		return ReadPointer(MobBase, OFS_MobCount).ToString();
+		return ReadPointer(MobPoolBase, OFS_MobCount).ToString();
 	}
 
 	//Retrieve Item Count
 	static System::String^ getItemCount() {
-		return ReadPointer(ItemBase, OFS_ItemCount).ToString();
+		return ReadPointer(DropPoolBase, OFS_ItemCount).ToString();
 	}
 
 	//Retrieve Portal Count
 	static System::String^ getPortalCount() {
-		return ReadPointer(PortalBase, OFS_PortalCount).ToString();
+		return ReadPointer(PortalListBase, OFS_PortalCount).ToString();
 	}
 
 	//Retrieve NPC Count

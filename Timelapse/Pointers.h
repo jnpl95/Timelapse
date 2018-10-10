@@ -65,33 +65,36 @@ lpfnCWvsContext__GetCharacterData CWvsContext__GetCharacterData = (lpfnCWvsConte
 #pragma region Pointers
 ULONG PtInRectAddr = 0xBF0484;
 
-ULONG GUIInfoBase = 0xBEC208; 
+ULONG UIInfoBase = 0xBEC208; 
 ULONG OFS_HP = 0xD18;
 ULONG OFS_MP = OFS_HP + 4;
 ULONG OFS_EXP = 0xBC8;
 
-ULONG SettingsBase = 0xBEBF9C; // CUIStatusBar
+ULONG UIStatusBarBase = 0xBEBF9C; // CUIStatusBar
 ULONG OFS_HPAlert = 0x80;
 ULONG OFS_MPAlert = OFS_HPAlert + 4;
 
-ULONG InfoBase = 0xBED788; // CUIMiniMap
+ULONG UIMiniMapBase = 0xBED788; // CUIMiniMap
 ULONG OFS_MapID = 0x668;
 
-ULONG IgnBase = 0xBF3CD8; //GW_CharacterStat //CWvsContext::GetCharacterData() returns ZRef<CharacterData>; &CharacterData[0] = GW_CharacterStat
+ULONG CharacterStatBase = 0xBF3CD8; //GW_CharacterStat //CWvsContext::GetCharacterData() returns ZRef<CharacterData>; &CharacterData[0] = GW_CharacterStat
 ULONG OFS_Ign = 0x4;
+ULONG OFS_Level = 0x33;
 
 ULONG NPCBase = 0xBED780;
 ULONG OFS_NPCCount = 0x24;
 
-ULONG PortalBase = 0xBED768; // CPortalList 
+ULONG PortalListBase = 0xBED768; // CPortalList 
 ULONG OFS_PortalCount = 0x18;
 
 ULONG ServerBase = 0xBE7918; // CWvsContext 
 ULONG OFS_World = 0x2054;
 ULONG OFS_Channel = 0x2058;
 ULONG OFS_Tubi = 0x20A4;
+ULONG OFS_CharacterCount = 0x20A0;
+ULONG OFS_ZRef_CharacterData = 0x20B8; //CharacterStatBase*
 
-ULONG CharBase = 0xBEBF98; // CUserLocal 
+ULONG UserLocalBase = 0xBEBF98; // CUserLocal 
 ULONG OFS_pID = 0x11A4;
 ULONG OFS_Foothold = 0x1F0;
 ULONG OFS_KB = 0x214;
@@ -110,25 +113,25 @@ ULONG OFS_TeleY = OFS_TeleX + 4;
 ULONG OFS_BuffCount = 0xBF4AD4; // Couldn't find it within CUserLocal, so static address
 
 
-ULONG ItemBase = 0xBED6AC; // CDropPool 
+ULONG DropPoolBase = 0xBED6AC; // CDropPool 
 ULONG OFS_ItemCount = 0x14;
 
-ULONG MapBase = 0xBEBFA0; // CWvsPhysicalSpace2D 
+ULONG CWvsPhysicalSpace2DBase = 0xBEBFA0; // CWvsPhysicalSpace2D 
 ULONG OFS_LeftWall = 0x24;
 ULONG OFS_RightWall = 0x2C;
 ULONG OFS_UpWall = 0x28;
 ULONG OFS_DownWall = 0x30;
 
-ULONG PeopleBase = 0xBEBFA8; // CUserPool
+ULONG UserPoolBase = 0xBEBFA8; // CUserPool
 ULONG OFS_PeopleCount = 0x18;
 
-ULONG MouseBase = 0xBEC33C; // CInputSystem
+ULONG InputBase = 0xBEC33C; // CInputSystem
 ULONG OFS_MouseAnimation = 0x9B4;
 ULONG OFS_MouseLocation = 0x978;
 ULONG OFS_MouseX = 0x8C;
 ULONG OFS_MouseY = OFS_MouseX + 4;
 
-ULONG MobBase = 0xBEBFA4; // CMobPool
+ULONG MobPoolBase = 0xBEBFA4; // CMobPool
 ULONG OFS_Mob1 = 0x28;
 ULONG OFS_Mob2 = 0x4;
 ULONG OFS_Mob3 = 0x120;

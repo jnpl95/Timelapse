@@ -35,14 +35,14 @@ public:
 				case MacroType::LOOTMACRO:
 					if (MacrosEnabled::bMacroLoot) {
 						if (System::String::IsNullOrWhiteSpace(Timelapse::MainForm::TheInstance->tbLootItem->Text)) break;
-						if (ReadPointer(ItemBase, OFS_ItemCount) > System::Convert::ToUInt32(Timelapse::MainForm::TheInstance->tbLootItem->Text))
+						if (ReadPointer(DropPoolBase, OFS_ItemCount) > System::Convert::ToUInt32(Timelapse::MainForm::TheInstance->tbLootItem->Text))
 							PostMessage(mapleWindow, WM_KEYDOWN, key->keyCode, MapVirtualKey(key->keyCode, MAPVK_VK_TO_VSC) << 16);
 					}
 					break;
 				case MacroType::ATTACKMACRO:
 					if (MacrosEnabled::bMacroAttack) {
 						if (System::String::IsNullOrWhiteSpace(Timelapse::MainForm::TheInstance->tbAttackMob->Text)) break;
-						if (ReadPointer(MobBase, OFS_MobCount) > System::Convert::ToUInt32(Timelapse::MainForm::TheInstance->tbAttackMob->Text))
+						if (ReadPointer(MobPoolBase, OFS_MobCount) > System::Convert::ToUInt32(Timelapse::MainForm::TheInstance->tbAttackMob->Text))
 							PostMessage(mapleWindow, WM_KEYDOWN, key->keyCode, MapVirtualKey(key->keyCode, MAPVK_VK_TO_VSC) << 16);
 					}
 					break;

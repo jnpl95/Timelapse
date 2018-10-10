@@ -413,6 +413,7 @@ private: System::Windows::Forms::Button^  bSendDrop10;
 private: System::Windows::Forms::Button^  bSendDrop1000;
 private: System::Windows::Forms::Button^  bSendRevive;
 private: System::Windows::Forms::Button^  bSendRestore127Health;
+private: System::Windows::Forms::Button^  button1;
 	private: System::ComponentModel::IContainer^  components;
 
 	private:
@@ -814,6 +815,7 @@ private: System::Windows::Forms::Button^  bSendRestore127Health;
 			this->btnMinimize = (gcnew System::Windows::Forms::Button());
 			this->GUITimer = (gcnew System::Windows::Forms::Timer(this->components));
 			this->AutoCCCSTimer = (gcnew System::Windows::Forms::Timer(this->components));
+			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->menuStrip1->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->BeginInit();
 			this->pnlFull->SuspendLayout();
@@ -1044,6 +1046,7 @@ private: System::Windows::Forms::Button^  bSendRestore127Health;
 			this->pnlMiddle->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(19)), static_cast<System::Int32>(static_cast<System::Byte>(19)),
 				static_cast<System::Int32>(static_cast<System::Byte>(19)));
 			this->pnlMiddle->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->pnlMiddle->Controls->Add(this->button1);
 			this->pnlMiddle->Controls->Add(this->lbInactive);
 			this->pnlMiddle->Controls->Add(this->lbActive);
 			this->pnlMiddle->Controls->Add(this->lbThreadID);
@@ -5863,6 +5866,18 @@ private: System::Windows::Forms::Button^  bSendRestore127Health;
 			this->AutoCCCSTimer->Interval = 250;
 			this->AutoCCCSTimer->Tick += gcnew System::EventHandler(this, &MainForm::AutoCCCSTimer_Tick);
 			// 
+			// button1
+			// 
+			this->button1->FlatAppearance->BorderColor = System::Drawing::Color::Gray;
+			this->button1->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->button1->Location = System::Drawing::Point(408, 3);
+			this->button1->Name = L"button1";
+			this->button1->Size = System::Drawing::Size(56, 24);
+			this->button1->TabIndex = 51;
+			this->button1->Text = L"Test";
+			this->button1->UseVisualStyleBackColor = true;
+			this->button1->Click += gcnew System::EventHandler(this, &MainForm::button1_Click);
+			// 
 			// MainForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
@@ -6125,5 +6140,6 @@ private: System::Windows::Forms::Button^  bSendRestore127Health;
 	private: System::Void bSendDrop50000_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void bSendRevive_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void bSendRestore127Health_Click(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e);
 };
 }

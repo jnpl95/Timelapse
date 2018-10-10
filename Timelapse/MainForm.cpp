@@ -468,14 +468,14 @@ void MainForm::tbBuffInterval_KeyPress(Object^  sender, Windows::Forms::KeyPress
 
 #pragma region Auto CC/CS
 void CallCCFunc(int channel) {
-	WritePointer(CharBase, OFS_Breath, 0);
+	WritePointer(UserLocalBase, OFS_Breath, 0);
 	CField__SendTransferChannelRequest(channel);
 	Sleep(200);
 }
 
 void CallCSFunc() {
-	WritePointer(CharBase, OFS_Breath, 0);
-	CWvsContext__SendMigrateToShopRequest(*reinterpret_cast<PULONG>(ServerBase), 0);
+	WritePointer(UserLocalBase, OFS_Breath, 0);
+	CWvsContext__SendMigrateToShopRequest(*reinterpret_cast<PULONG>(UserLocalBase), 0);
 	Sleep(Convert::ToUInt32(MainForm::TheInstance->tbCSDelay->Text));
 	CCashShop__SendTransferFieldPacket();
 	CCashShop__SendTransferFieldPacket();
@@ -537,21 +537,21 @@ void MainForm::AutoCCCSTimer_Tick(Object^  sender, EventArgs^  e) {
 	}
 
 	if (cbCCCSPeople->Checked) {
-		if (ReadPointer(PeopleBase, OFS_PeopleCount) >= Convert::ToUInt32(tbCCCSPeople->Text)) {
+		if (ReadPointer(UserPoolBase, OFS_PeopleCount) >= Convert::ToUInt32(tbCCCSPeople->Text)) {
 			if (rbCC->Checked) AutoCC(-1);
 			else AutoCS();
 		}
 	}
 
 	if (cbCCCSAttack->Checked) {
-		if(ReadPointer(CharBase, OFS_AttackCount) >= Convert::ToUInt32(tbCCCSAttack->Text)) {
+		if(ReadPointer(UserLocalBase, OFS_AttackCount) >= Convert::ToUInt32(tbCCCSAttack->Text)) {
 			if (rbCC->Checked) AutoCC(-1);
 			else AutoCS();
 		}
 	}
 
 	if (cbCCCSMob->Checked) {
-		if (ReadPointer(MobBase, OFS_MobCount) <= Convert::ToUInt32(tbCCCSMob->Text)) {
+		if (ReadPointer(MobPoolBase, OFS_MobCount) <= Convert::ToUInt32(tbCCCSMob->Text)) {
 			if (rbCC->Checked) AutoCC(-1);
 			else AutoCS();
 		}
@@ -565,7 +565,7 @@ void MainForm::cbCCCSTime_CheckedChanged(Object^  sender, EventArgs^  e) {
 void MainForm::bCC_Click(Object^  sender, EventArgs^  e) {
 	if (!GlobalRefs::isMapRushing && !GlobalRefs::isChangingField) {
 		GlobalRefs::isChangingField = true;
-		WritePointer(CharBase, OFS_Breath, 0);
+		WritePointer(UserLocalBase, OFS_Breath, 0);
 		AutoCC(this->comboChannelKey->SelectedIndex);
 		GlobalRefs::isChangingField = false;
 	}
@@ -574,7 +574,7 @@ void MainForm::bCC_Click(Object^  sender, EventArgs^  e) {
 void MainForm::bRandomCC_Click(Object^  sender, EventArgs^  e) {
 	if (!GlobalRefs::isMapRushing && !GlobalRefs::isChangingField) {
 		GlobalRefs::isChangingField = true;
-		WritePointer(CharBase, OFS_Breath, 0);
+		WritePointer(UserLocalBase, OFS_Breath, 0);
 		AutoCC(-1);
 		GlobalRefs::isChangingField = false;
 	}
@@ -583,7 +583,7 @@ void MainForm::bRandomCC_Click(Object^  sender, EventArgs^  e) {
 void MainForm::bCS_Click(Object^  sender, EventArgs^  e) {
 	if (!GlobalRefs::isMapRushing && !GlobalRefs::isChangingField) {
 		GlobalRefs::isChangingField = true;
-		WritePointer(CharBase, OFS_Breath, 0);
+		WritePointer(UserLocalBase, OFS_Breath, 0);
 		AutoCS();
 		GlobalRefs::isChangingField = false;
 	}
@@ -638,16 +638,16 @@ void MainForm::cbBlinkGodmode_CheckedChanged(Object^  sender, EventArgs^  e) {
 
 void ClickTeleport() {
 	while (GlobalRefs::bClickTeleport) {
-		if (ReadPointer(MouseBase, OFS_MouseAnimation) == 12)
-			Teleport(ReadMultiPointerSigned(MouseBase, 2, OFS_MouseLocation, OFS_MouseX), ReadMultiPointerSigned(MouseBase, 2, OFS_MouseLocation, OFS_MouseY));
+		if (ReadPointer(InputBase, OFS_MouseAnimation) == 12)
+			Teleport(ReadMultiPointerSigned(InputBase, 2, OFS_MouseLocation, OFS_MouseX), ReadMultiPointerSigned(InputBase, 2, OFS_MouseLocation, OFS_MouseY));
 		Sleep(Convert::ToUInt32(MainForm::TheInstance->tbClickTeleport->Text));
 	}
 }
 
 void MouseTeleport() {
 	while (GlobalRefs::bMouseTeleport) {
-		if (ReadPointer(MouseBase, OFS_MouseAnimation) == 00)
-			Teleport(ReadMultiPointerSigned(MouseBase, 2, OFS_MouseLocation, OFS_MouseX), ReadMultiPointerSigned(MouseBase, 2, OFS_MouseLocation, OFS_MouseY));
+		if (ReadPointer(InputBase, OFS_MouseAnimation) == 00)
+			Teleport(ReadMultiPointerSigned(InputBase, 2, OFS_MouseLocation, OFS_MouseX), ReadMultiPointerSigned(InputBase, 2, OFS_MouseLocation, OFS_MouseY));
 		Sleep(Convert::ToUInt32(MainForm::TheInstance->tbMouseTeleport->Text));
 	}
 }
@@ -1082,15 +1082,15 @@ void MainForm::tbSpawnControlY_KeyPress(Object^  sender, Windows::Forms::KeyPres
 void KamiLoop() {
 	while (GlobalRefs::bKami || GlobalRefs::bKamiLoot) {
 		if (GlobalRefs::bKami && GlobalRefs::bKamiLoot) {
-			if(ReadPointer(ItemBase, OFS_ItemCount) > Convert::ToUInt32(MainForm::TheInstance->tbKamiLootItem->Text)) {
+			if(ReadPointer(DropPoolBase, OFS_ItemCount) > Convert::ToUInt32(MainForm::TheInstance->tbKamiLootItem->Text)) {
 				if (!GlobalRefs::isChangingField && !GlobalRefs::isMapRushing) {}
 					Teleport(CodeCaves::ItemX, CodeCaves::ItemY + 10);
 				Sleep(Convert::ToUInt32(MainForm::TheInstance->tbKamiLootInterval->Text));
 			}
-			else if (ReadPointer(MobBase, OFS_MobCount) > Convert::ToUInt32(MainForm::TheInstance->tbKamiMob->Text)) {
+			else if (ReadPointer(MobPoolBase, OFS_MobCount) > Convert::ToUInt32(MainForm::TheInstance->tbKamiMob->Text)) {
 				POINT telePoint;
-				telePoint.x = ReadMultiPointerSigned(MobBase, 5, OFS_Mob1, OFS_Mob2, OFS_Mob3, OFS_Mob4, OFS_MobX) - Convert::ToInt32(MainForm::TheInstance->tbKamiX->Text);
-				telePoint.y = ReadMultiPointerSigned(MobBase, 5, OFS_Mob1, OFS_Mob2, OFS_Mob3, OFS_Mob4, OFS_MobY) - Convert::ToInt32(MainForm::TheInstance->tbKamiY->Text);
+				telePoint.x = ReadMultiPointerSigned(MobPoolBase, 5, OFS_Mob1, OFS_Mob2, OFS_Mob3, OFS_Mob4, OFS_MobX) - Convert::ToInt32(MainForm::TheInstance->tbKamiX->Text);
+				telePoint.y = ReadMultiPointerSigned(MobPoolBase, 5, OFS_Mob1, OFS_Mob2, OFS_Mob3, OFS_Mob4, OFS_MobY) - Convert::ToInt32(MainForm::TheInstance->tbKamiY->Text);
 
 				if (!GlobalRefs::isChangingField && !GlobalRefs::isMapRushing)
 					Teleport(telePoint);
@@ -1099,10 +1099,10 @@ void KamiLoop() {
 			}
 		}
 		else if (GlobalRefs::bKami) {
-			if(ReadPointer(MobBase, OFS_MobCount) > Convert::ToUInt32(MainForm::TheInstance->tbKamiMob->Text)) {
+			if(ReadPointer(MobPoolBase, OFS_MobCount) > Convert::ToUInt32(MainForm::TheInstance->tbKamiMob->Text)) {
 				POINT telePoint;
-				telePoint.x = ReadMultiPointerSigned(MobBase, 5, OFS_Mob1, OFS_Mob2, OFS_Mob3, OFS_Mob4, OFS_MobX) - Convert::ToInt32(MainForm::TheInstance->tbKamiX->Text);
-				telePoint.y = ReadMultiPointerSigned(MobBase, 5, OFS_Mob1, OFS_Mob2, OFS_Mob3, OFS_Mob4, OFS_MobY) - Convert::ToInt32(MainForm::TheInstance->tbKamiY->Text);
+				telePoint.x = ReadMultiPointerSigned(MobPoolBase, 5, OFS_Mob1, OFS_Mob2, OFS_Mob3, OFS_Mob4, OFS_MobX) - Convert::ToInt32(MainForm::TheInstance->tbKamiX->Text);
+				telePoint.y = ReadMultiPointerSigned(MobPoolBase, 5, OFS_Mob1, OFS_Mob2, OFS_Mob3, OFS_Mob4, OFS_MobY) - Convert::ToInt32(MainForm::TheInstance->tbKamiY->Text);
 
 				if (!GlobalRefs::isChangingField && !GlobalRefs::isMapRushing)
 					Teleport(telePoint);
@@ -1110,7 +1110,7 @@ void KamiLoop() {
 			Sleep(Convert::ToUInt32(MainForm::TheInstance->tbKamiInterval->Text));
 		}
 		else if (GlobalRefs::bKamiLoot) {
-			if (ReadPointer(ItemBase, OFS_ItemCount) > Convert::ToUInt32(MainForm::TheInstance->tbKamiLootItem->Text)) {
+			if (ReadPointer(DropPoolBase, OFS_ItemCount) > Convert::ToUInt32(MainForm::TheInstance->tbKamiLootItem->Text)) {
 				if (!GlobalRefs::isChangingField && !GlobalRefs::isMapRushing) {}
 					MessageBox::Show("ItemX: " + CodeCaves::ItemX.ToString() + " ItemY: " + CodeCaves::ItemY.ToString()); //Teleport(CodeCaves::ItemX, CodeCaves::ItemY+10);
 			}
@@ -1295,6 +1295,7 @@ void MainForm::tbSendSpamDelay_KeyPress(Object^  sender, Windows::Forms::KeyPres
 }
 
 void MainForm::bSendLog_Click(System::Object^  sender, System::EventArgs^  e) {
+
 	/*if(bSendLog->Text->Equals("Enable Log")) {
 		bSendLog->Text = "Disable Log";
 		//GlobalRefs::isPacketsSentHooked = true;
@@ -1377,3 +1378,31 @@ void MainForm::tbAPLUK_KeyPress(Object^  sender, Windows::Forms::KeyPressEventAr
 
 #pragma endregion
 
+unsigned _int8 ZtlSecureTear(char a1, unsigned _int8 *a2) {
+	unsigned _int8 v4 = rand();
+	*a2 = v4;
+	a2[1] = a1 ^ v4;
+	return (unsigned _int8)(a1^v4) + _rotr(v4 ^ 0xBAADF00D, 5);
+}
+
+char getLevelL(const char* at, unsigned int uCS) {
+	int v2 = *(unsigned _int8*)at;
+	char result = v2 ^ at[1];
+	if( *((unsigned _int8*)at +1) + _rotr(v2 ^ 0xBAADF00D, 5) != uCS)
+	{
+		at = (const char*)5;
+		return '0';
+	}
+	return result;
+}
+
+unsigned _int8 getByteValueZtlSecureFuse(signed int at) {
+	char v2 = *(BYTE*)at;
+	at = *(unsigned _int8*)(at + 1);
+	return at ^ v2;
+}
+
+//Test to see if I can read level from GW_CharacterStat
+void MainForm::button1_Click(System::Object^  sender, System::EventArgs^  e) {
+	MessageBox::Show(Convert::ToString(getByteValueZtlSecureFuse(*(DWORD*)0xBF3CD8 + 0x33)));
+}
