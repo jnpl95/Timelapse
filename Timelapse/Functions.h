@@ -11,10 +11,10 @@
 
 #define NewThread(threadFunc) CreateThread(NULL, NULL, (LPTHREAD_START_ROUTINE)&threadFunc, NULL, NULL, NULL);
 //#define jmp(frm, to) (int)(((int)to - (int)frm) - 5);
-HWND mapleWindow = 0;
+HWND mapleWindow = nullptr;
 
 #pragma region General Functions
-void MakePageWritable(ULONG ulAddress, ULONG ulSize) {
+static void MakePageWritable(ULONG ulAddress, ULONG ulSize) {
 	MEMORY_BASIC_INFORMATION* mbi = new MEMORY_BASIC_INFORMATION;
 	VirtualQuery((PVOID)ulAddress, mbi, ulSize);
 	if (mbi->Protect != PAGE_EXECUTE_READWRITE) {
@@ -25,44 +25,43 @@ void MakePageWritable(ULONG ulAddress, ULONG ulSize) {
 	delete mbi;
 }
 
-void Jump(ULONG ulAddress, PVOID Function, unsigned Nops) {
+static void Jump(ULONG ulAddress, PVOID Function, unsigned Nops) {
 	MakePageWritable(ulAddress, Nops + 5);
 	*(UCHAR*)ulAddress = 0xE9; 
 	*(ULONG*)(ulAddress + 1) = (int)(((int)Function - (int)ulAddress) - 5);
 	memset((PVOID)(ulAddress + 5), 0x90, Nops);
 }
 
-ULONG ReadPointer(ULONG ulBase, int iOffset) {
+static ULONG ReadPointer(ULONG ulBase, int iOffset) {
 	__try { return *(ULONG*)(*(ULONG*)ulBase + iOffset); }
 	__except (EXCEPTION_EXECUTE_HANDLER) { return 0; }
 }
 
-LONG ReadPointerSigned(ULONG ulBase, int iOffset) {
+static LONG ReadPointerSigned(ULONG ulBase, int iOffset) {
 	__try { return *(LONG*)(*(ULONG*)ulBase + iOffset); }
 	__except (EXCEPTION_EXECUTE_HANDLER) { return 0; }
 }
 
-double ReadPointerDouble(ULONG ulBase, int iOffset) {
+static double ReadPointerDouble(ULONG ulBase, int iOffset) {
 	__try { return *(double*)(*(ULONG*)ulBase + iOffset); }
 	__except (EXCEPTION_EXECUTE_HANDLER) { return NULL; }
 }
 
-LPCSTR ReadPointerString(ULONG ulBase, int iOffset) {
+static LPCSTR ReadPointerString(ULONG ulBase, int iOffset) {
 	__try { return (LPCSTR)(*(ULONG*)ulBase + iOffset); }
-	__except (EXCEPTION_EXECUTE_HANDLER) { return NULL; }
+	__except (EXCEPTION_EXECUTE_HANDLER) { return nullptr; }
 }
 
 #pragma unmanaged
-LONG_PTR ReadMultiPointerSigned(LONG_PTR ulBase, int level, ...) {
+static LONG_PTR ReadMultiPointerSigned(LONG_PTR ulBase, int level, ...) {
 	LONG_PTR ulResult = 0;
-	int i, offset;
-
 	va_list vaarg;
 	va_start(vaarg, level);
+
 	if (!IsBadReadPtr((PVOID)ulBase, sizeof(LONG_PTR))) {
 		ulBase = *(LONG_PTR*)ulBase;
-		for (i = 0; i < level; i++) {
-			offset = va_arg(vaarg, int);
+		for (int i = 0; i < level; i++) {
+			const int offset = va_arg(vaarg, int);
 			if (IsBadReadPtr((PVOID)(ulBase + offset), sizeof(LONG_PTR))) {
 				va_end(vaarg);
 				return 0;
@@ -76,7 +75,7 @@ LONG_PTR ReadMultiPointerSigned(LONG_PTR ulBase, int level, ...) {
 	return ulResult;
 }
 
-void WriteMemory(ULONG ulAddress, ULONG ulAmount, ...) {
+static void WriteMemory(ULONG ulAddress, ULONG ulAmount, ...) {
 	va_list va;
 	va_start(va, ulAmount);
 
@@ -88,26 +87,26 @@ void WriteMemory(ULONG ulAddress, ULONG ulAmount, ...) {
 }
 
 #pragma managed
-bool WritePointer(ULONG ulBase, int iOffset, int iValue) {
+static bool WritePointer(ULONG ulBase, int iOffset, int iValue) {
 	__try { *(int*)(*(ULONG*)ulBase + iOffset) = iValue; return true; }
 	__except (EXCEPTION_EXECUTE_HANDLER) { return false; }
 }
 
 //Convert String^ to std::string
-std::string ConvertSystemToStdStr(System::String^ str1) {
+static std::string ConvertSystemToStdStr(System::String^ str1) {
 	return msclr::interop::marshal_as<std::string>(str1);
 }
 
 //Convert std::string to String^
-System::String^ ConvertStdToSystemStr(std::string str1) {
+static System::String^ ConvertStdToSystemStr(std::string str1) {
 	return gcnew System::String(str1.c_str());
 }
 
-HWND GetMSWindowHandle() {
-	HWND msHandle = NULL;
+static HWND GetMSWindowHandle() {
+	HWND msHandle = nullptr;
 	TCHAR buf[256] = { 0 };
 	ULONG procid;
-	for (HWND hwnd = GetTopWindow(NULL); hwnd != NULL; hwnd = GetNextWindow(hwnd, GW_HWNDNEXT)) {
+	for (HWND hwnd = GetTopWindow(nullptr); hwnd != nullptr; hwnd = GetNextWindow(hwnd, GW_HWNDNEXT)) {
 		GetWindowThreadProcessId(hwnd, &procid);
 		if (procid != GetCurrentProcessId()) continue;
 		if (!GetClassName(hwnd, buf, 256)) continue;
@@ -115,24 +114,24 @@ HWND GetMSWindowHandle() {
 		msHandle = hwnd;
 	}
 
-	if (!msHandle) return 0;
+	if (!msHandle) return nullptr;
 	return msHandle;
 }
 
 //Get MS ThreadID
-ULONG GetMSThreadID() {
-	if(mapleWindow == 0)
+static ULONG GetMSThreadID() {
+	if(mapleWindow == nullptr)
 		mapleWindow = GetMSWindowHandle();
-	return GetWindowThreadProcessId(mapleWindow, NULL);
+	return GetWindowThreadProcessId(mapleWindow, nullptr);
 }
 
 //Get MS ProcessID
-System::String^ GetMSProcID() {
+static System::String^ GetMSProcID() {
 	return "0x" + GetCurrentProcessId().ToString("X");
 }
 
 //Get DLL Module Handle
-HMODULE GetCurrentModule() {
+static HMODULE GetCurrentModule() {
 	HMODULE hModule = nullptr;
 	GetModuleHandleEx( GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS, (LPCTSTR)GetCurrentModule, &hModule);
 	return hModule;
@@ -168,7 +167,7 @@ static void Teleport(POINT point) {
 }
 
 //Check if keypress is valid
-bool isKeyValid(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ e, bool isSigned) {
+static bool isKeyValid(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ e, bool isSigned) {
 	bool result = true;
 
 	//If the character is not a digit or backspace, don't allow it
@@ -198,7 +197,7 @@ namespace CodeCaves {
 	double hpPercent = 0.00, mpPercent = 0.00, expPercent = 0.00;
 	static std::vector<SpawnControlStruct*>* spawnControl = new std::vector<SpawnControlStruct*>();
 
-	SpawnControlStruct* __stdcall getSpawnControlStruct() {
+	static SpawnControlStruct* __stdcall getSpawnControlStruct() {
 		if (spawnControl->size() == 0) return nullptr;
 		for (std::vector<SpawnControlStruct*>::const_iterator i = spawnControl->begin(); i != spawnControl->end(); ++i)
 			if ((*i)->mapID == ReadPointer(InfoBase, OFS_MapID))
@@ -207,7 +206,7 @@ namespace CodeCaves {
 	}
 
 #pragma unmanaged
-	__declspec(naked) void __stdcall LevelHook() {
+	__declspec(naked) static void __stdcall LevelHook() {
 		__asm {
 			mov [level], al
 			mov cl, al
@@ -216,7 +215,7 @@ namespace CodeCaves {
 		}
 	}
 
-	__declspec(naked) void __stdcall JobHook() {
+	__declspec(naked) static void __stdcall JobHook() {
 		__asm {
 			mov [job], ax
 			mov ecx, eax
@@ -225,7 +224,7 @@ namespace CodeCaves {
 		}
 	}
 
-	__declspec(naked) void __stdcall StatHook() {
+	__declspec(naked) static void __stdcall StatHook() {
 		__asm {
 			push eax
 			mov eax, [ebp + 0x08]
@@ -247,7 +246,7 @@ namespace CodeCaves {
 		}
 	}
 
-	__declspec(naked) void __stdcall MesosHook() {
+	__declspec(naked) static void __stdcall MesosHook() {
 		__asm {
 			mov [mesos], eax
 			lea edx, [esi + 0xA5]
@@ -255,7 +254,7 @@ namespace CodeCaves {
 		}
 	}
 
-	__declspec(naked) void __stdcall MesosChangeHook() {
+	__declspec(naked) static void __stdcall MesosChangeHook() {
 		__asm {
 			mov [mesos], eax
 			lea edx, [esi + 0xA5]
@@ -263,7 +262,7 @@ namespace CodeCaves {
 		}
 	}
 
-	__declspec(naked) void __stdcall MapNameHook() {
+	__declspec(naked) static void __stdcall MapNameHook() {
 		__asm {
 			mov [mapNameAddr], ecx
 			mov [ebp - 0x28], edi
@@ -272,7 +271,7 @@ namespace CodeCaves {
 		}
 	}
 
-	__declspec(naked) void __stdcall ItemVacHook() {
+	__declspec(naked) static void __stdcall ItemVacHook() {
 		__asm {
 			pushad
 			mov ecx, [ebp + 0x8]
@@ -299,7 +298,7 @@ namespace CodeCaves {
 		}
 	}
 
-	__declspec(naked) void __stdcall MouseFlyXHook() {
+	__declspec(naked) static void __stdcall MouseFlyXHook() {
 		__asm {
 			push eax
 			push ecx
@@ -324,7 +323,7 @@ namespace CodeCaves {
 		}
 	}
 
-	__declspec(naked) void __stdcall MouseFlyYHook() {
+	__declspec(naked) static void __stdcall MouseFlyYHook() {
 		__asm {
 			push eax
 			push ecx
@@ -349,7 +348,7 @@ namespace CodeCaves {
 		}
 	}
 
-	__declspec(naked) void __stdcall MobFreezeHook() {
+	__declspec(naked) static void __stdcall MobFreezeHook() {
 		__asm {
 			mov [esi + 0x00000248], 0x06
 			mov eax, [esi + 0x00000248]
@@ -357,7 +356,7 @@ namespace CodeCaves {
 		}
 	}
 
-	__declspec(naked) void __stdcall MobAutoAggroHook() {
+	__declspec(naked) static void __stdcall MobAutoAggroHook() {
 		__asm {
 			call dword ptr [cVecCtrlWorkUpdateActiveCall] //calls CVecCtrl::WorkUpdateActive()
 			push eax
@@ -373,7 +372,7 @@ namespace CodeCaves {
 		}
 	}
 
-	__declspec(naked) void __stdcall SpawnPointHook() {
+	__declspec(naked) static void __stdcall SpawnPointHook() {
 		__asm {
 			push ecx
 			push edx
@@ -397,7 +396,7 @@ namespace CodeCaves {
 		}
 	}
 
-	void __declspec(naked) _stdcall ItemHook()
+	static void __declspec(naked) _stdcall ItemHook()
 	{
 		__asm
 		{
@@ -512,7 +511,7 @@ namespace PointerFuncs {
 
 	//Retrieve World
 	static System::String^ getWorld() {
-		int worldID = ReadPointer(ServerBase, OFS_World);
+		const int worldID = ReadPointer(ServerBase, OFS_World);
 		if (getCharName()->Equals("CharName")) return "Null";
 		switch (worldID) {
 		case 0:
@@ -527,40 +526,28 @@ namespace PointerFuncs {
 			return("Khaini");
 		case 5:
 			return("Bellocan");
-			break;
 		case 6:
 			return("Mardia");
-			break;
 		case 7:
 			return("Kradia");
-			break;
 		case 8:
 			return("Yellonde");
-			break;
 		case 9:
 			return("Demethos");
-			break;
 		case 10:
 			return("Galicia");
-			break;
 		case 11:
 			return("El Nido");
-			break;
 		case 12:
 			return("Zenith");
-			break;
 		case 13:
 			return("Arcania");
-			break;
 		case 14:
 			return("Chaos");
-			break;
 		case 15:
 			return("Nova");
-			break;
 		case 16:
 			return("Regenades");
-			break;
 		default:
 			return("Null");
 		}

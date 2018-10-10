@@ -23,7 +23,7 @@ public:
 	static bool closeMacroQueue = false;
 
 	static void MacroQueueWorker() {
-		if (mapleWindow == 0) mapleWindow = GetMSWindowHandle();
+		if (mapleWindow == nullptr) mapleWindow = GetMSWindowHandle();
 		while(!closeMacroQueue) {
 			if(macroQueue == nullptr || macroQueue->empty()) { Sleep(50); continue; }
 			

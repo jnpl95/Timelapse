@@ -1,7 +1,6 @@
 #include "Packet.h"
 #include <string>
 #include <Windows.h>
-#include "MainForm.h"
 
 //TODO: Define in Pointers.h instead of here
 LPVOID* ClientSocket = (LPVOID*)0x00BE7914;
@@ -13,7 +12,7 @@ PacketRecv Recv = (PacketRecv)0x004965F1;
 
 inline PUCHAR atohx(PUCHAR szDestination, LPCSTR szSource)
 {
-	PUCHAR szReturn = szDestination;
+	const PUCHAR szReturn = szDestination;
 	for (int lsb, msb; *szSource; szSource += 2)
 	{
 		msb = tolower(*szSource);
@@ -23,7 +22,7 @@ inline PUCHAR atohx(PUCHAR szDestination, LPCSTR szSource)
 		if ((msb < 0x0 || msb > 0xf) || (lsb < 0x0 || lsb > 0xf))
 		{
 			*szReturn = 0;
-			return NULL;
+			return nullptr;
 		}
 		*szDestination++ = (char)(lsb | (msb << 4));
 	}
@@ -37,7 +36,7 @@ bool SendPacket(System::String^ packetStr)
 	SecureZeroMemory(&Packet, sizeof(COutPacket));
 	System::String^ rawPacket = packetStr->Replace(" ", System::String::Empty)->Replace("*", (rand() % 16).ToString("X"));
 	byte tmpPacketStr[150];
-	LPCSTR lpcszPacket = (LPCSTR)(System::Runtime::InteropServices::Marshal::StringToHGlobalAnsi(rawPacket).ToPointer());
+	const LPCSTR lpcszPacket = (LPCSTR)(System::Runtime::InteropServices::Marshal::StringToHGlobalAnsi(rawPacket).ToPointer());
 	
 	Packet.Size = strlen(lpcszPacket) / 2;
 	Packet.Data = atohx(tmpPacketStr, lpcszPacket);
@@ -55,7 +54,7 @@ bool RecvPacket(System::String^ packetStr)
 	SecureZeroMemory(&Packet, sizeof(CInPacket));
 	System::String^ rawPacket = packetStr->Replace(" ", System::String::Empty)->Replace("*", (rand() % 16).ToString("X"));
 	byte tmpPacketStr[150];
-	LPCSTR lpcszPacket = (LPCSTR)(System::Runtime::InteropServices::Marshal::StringToHGlobalAnsi(rawPacket).ToPointer());
+	const LPCSTR lpcszPacket = (LPCSTR)(System::Runtime::InteropServices::Marshal::StringToHGlobalAnsi(rawPacket).ToPointer());
 
 	Packet.Size = strlen(lpcszPacket) / 2;
 	Packet.lpvData = atohx(tmpPacketStr, lpcszPacket);

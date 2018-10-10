@@ -24,7 +24,7 @@ public:
 
 #pragma region General Form
 [STAThreadAttribute]
-void Main(void) {
+void Main() {
 	Application::EnableVisualStyles();
 	Application::SetCompatibleTextRenderingDefault(false);
 	Application::Run(gcnew MainForm);
@@ -35,14 +35,15 @@ void Main(void) {
 BOOL WINAPI DllMain(HMODULE hModule, DWORD dwReason, LPVOID lpvReserved) {
 	switch (dwReason) {
 	case DLL_PROCESS_ATTACH:
-		CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)&Main, NULL, 0, NULL);
+		CreateThread(nullptr, 0, (LPTHREAD_START_ROUTINE)&Main, nullptr, 0, nullptr);
 		break;
 	case DLL_PROCESS_DETACH:
 		FreeLibraryAndExitThread(hModule, 0);
-		break;
 	case DLL_THREAD_ATTACH:
 		break;
 	case DLL_THREAD_DETACH:
+		break;
+	default:
 		break;
 	}
 	__writefsdword(0x6B0, GetMSThreadID());
@@ -1241,7 +1242,9 @@ static std::string findItemNameFromID(int itemID) {
 	try {
 		std::string result = "", tmpStr = "";
 		HRSRC hRes = FindResource(GetCurrentModule(), MAKEINTRESOURCE(ItemsList), _T("TEXT"));
+		if (hRes == nullptr) return "";
 		HGLOBAL hGlob = LoadResource(GetCurrentModule(), hRes);
+		if (hGlob == nullptr) return "";
 		const CHAR* pData = reinterpret_cast<const CHAR*>(::LockResource(hGlob));
 		std::istringstream File(pData);
 

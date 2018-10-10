@@ -13,7 +13,7 @@ namespace Timelapse {
 
 	public:
 		static MainForm ^TheInstance;
-		MainForm(void) {
+		MainForm() {
 			InitializeComponent();
 			TheInstance = this;
 		}
@@ -109,132 +109,29 @@ namespace Timelapse {
 	private: System::Windows::Forms::TabPage^  tabPage8;
 	private: System::Windows::Forms::TabPage^  tabPage9;
 	private: System::Windows::Forms::Label^  lbInactive;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	private: System::Windows::Forms::Panel^  panel10;
 	private: System::Windows::Forms::CheckBox^  cbMissGodmode;
 	private: System::Windows::Forms::CheckBox^  cbBlinkGodmode;
-
-
-
-
-
-
-
-
-
 	private: System::Windows::Forms::Panel^  panel12;
 	private: System::Windows::Forms::CheckBox^  cbItemVac;
 	private: System::Windows::Forms::CheckBox^  cbNoBreath;
 	private: System::Windows::Forms::CheckBox^  cbSpeedAttack;
 	private: System::Windows::Forms::CheckBox^  cbFullAccuracy;
 private: System::Windows::Forms::CheckBox^  cbNoPlayerDeath;
-
-
 	private: System::Windows::Forms::CheckBox^  cbInfiniteChat;
 	private: System::Windows::Forms::CheckBox^  cbUnlimitedAttack;
 private: System::Windows::Forms::CheckBox^  cbFastLootItems;
-
 private: System::Windows::Forms::CheckBox^  cbInstantDropItems;
-
 	private: System::Windows::Forms::Panel^  panel11;
 	private: System::Windows::Forms::CheckBox^  cbMouseFly;
 	private: System::Windows::Forms::Label^  label49;
 	private: System::Windows::Forms::Label^  label50;
 public: System::Windows::Forms::TextBox^  tbMouseTeleport;
-private:
 public: System::Windows::Forms::TextBox^  tbClickTeleport;
-
-
 	private: System::Windows::Forms::CheckBox^  cbSwimInAir;
 	private: System::Windows::Forms::CheckBox^  cbClickTeleport;
 	private: System::Windows::Forms::CheckBox^  cbMouseTeleport;
 private: System::Windows::Forms::CheckBox^  cbFullGodmode;
-
 	private: System::Windows::Forms::Panel^  panel16;
 	private: System::Windows::Forms::TextBox^  tbDupeXMob;
 	private: System::Windows::Forms::Label^  label60;
@@ -265,36 +162,6 @@ private: System::Windows::Forms::CheckBox^  cbFullGodmode;
 	private: System::Windows::Forms::Label^  label53;
 	private: System::Windows::Forms::Label^  label54;
 	private: System::Windows::Forms::CheckBox^  cbKami;
-
-
-
-private:
-
-
-
-private:
-
-
-
-
-
-private:
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	private: System::Windows::Forms::Panel^  panel19;
 	private: System::Windows::Forms::TextBox^  tbMMCX;
 	private: System::Windows::Forms::RadioButton^  rbMMCMousePos;
@@ -368,34 +235,13 @@ private:
 	private: System::Windows::Forms::ListView^  lvMapRusherSearch;
 	private: System::Windows::Forms::ListView^  lvMapRusher;
 	private: System::Windows::Forms::CheckBox^  cbDisablePointers;
-
-
-
 public: System::Windows::Forms::Timer^  AutoCCCSTimer;
 private: System::Windows::Forms::TabPage^  tabPage17;
 public: System::Windows::Forms::ComboBox^  comboAutoLoginCharacter;
-private:
-
 private: System::Windows::Forms::ComboBox^  comboAutoLoginChannel;
 private: System::Windows::Forms::TextBox^  tbAutoLoginPIC;
 private: System::Windows::Forms::TextBox^  tbAutoLoginPassword;
 private: System::Windows::Forms::TextBox^  tbAutoLoginUsername;
-public:
-
-public:
-private:
-
-
-public:
-private:
-
-
-public:
-
-
-
-
-
 private: System::Windows::Forms::Label^  label80;
 private: System::Windows::Forms::Label^  label82;
 private: System::Windows::Forms::Label^  label83;
@@ -403,7 +249,6 @@ private: System::Windows::Forms::Label^  label84;
 private: System::Windows::Forms::Label^  label85;
 private: System::Windows::Forms::Panel^  panel22;
 private: System::Windows::Forms::CheckBox^  cbAutoLoginNoPic;
-
 private: System::Windows::Forms::CheckBox^  checkBox2;
 private: System::Windows::Forms::CheckBox^  checkBox1;
 private: System::Windows::Forms::TabPage^  tabPage18;
@@ -427,47 +272,25 @@ private: System::Windows::Forms::TextBox^  tbAPLevel;
 private: System::Windows::Forms::CheckBox^  cbAP;
 private: System::Windows::Forms::Panel^  panel25;
 private: System::Windows::Forms::CheckBox^  cbNoMapTiles;
-
 private: System::Windows::Forms::CheckBox^  cbNoSkillEffects;
 private: System::Windows::Forms::CheckBox^  cbNoMapObjects;
-
-
 private: System::Windows::Forms::CheckBox^  cbInstantLootItems;
 private: System::Windows::Forms::CheckBox^  cbJumpDownAnyTile;
-
-
-
 private: System::Windows::Forms::Panel^  panel24;
 private: System::Windows::Forms::CheckBox^  cbMobFreeze;
 private: System::Windows::Forms::CheckBox^  cbMapSpeedUp;
-
-
 private: System::Windows::Forms::CheckBox^  cbMobDisarm;
-
 private: System::Windows::Forms::CheckBox^  cbNoMobReaction;
 private: System::Windows::Forms::CheckBox^  cbNoPlayerKickback;
-
-
 private: System::Windows::Forms::CheckBox^  cbNoMobKickback;
-
 private: System::Windows::Forms::Panel^  panel23;
 private: System::Windows::Forms::CheckBox^  cbNoMobDeathEffect;
 private: System::Windows::Forms::CheckBox^  cbNoMapFadeEffect;
-
-
-
-
-
 private: System::Windows::Forms::CheckBox^  cbNoMapBackground;
-
-
 private: System::Windows::Forms::TabPage^  tabPage20;
 private: System::Windows::Forms::Panel^  panel27;
-
 private: System::Windows::Forms::ListView^  lvSpawnControl;
-
 private: System::Windows::Forms::Button^  bSpawnControlAdd;
-
 private: System::Windows::Forms::Button^  bSpawnControlDelete;
 private: System::Windows::Forms::Label^  label71;
 private: System::Windows::Forms::Label^  label68;
@@ -477,28 +300,21 @@ private: System::Windows::Forms::TextBox^  tbSpawnControlY;
 private: System::Windows::Forms::TextBox^  tbSpawnControlX;
 private: System::Windows::Forms::Panel^  panel26;
 public: System::Windows::Forms::TextBox^  tbTeleportLoopDelay;
-private:
 private: System::Windows::Forms::Label^  label86;
-public:
 private: System::Windows::Forms::Button^  bTeleportLoop;
 private: System::Windows::Forms::Button^  bTeleportDelete;
 private: System::Windows::Forms::Button^  bTeleport;
 public: System::Windows::Forms::ListView^  lvTeleport;
-private:
 private: System::Windows::Forms::ColumnHeader^  columnHeader1;
-public:
 private: System::Windows::Forms::ColumnHeader^  columnHeader2;
 private: System::Windows::Forms::Panel^  panel18;
 private: System::Windows::Forms::Button^  bTeleportGetCurrentLocation;
 private: System::Windows::Forms::Label^  label64;
 public: System::Windows::Forms::TextBox^  tbTeleportX;
-private:
 private: System::Windows::Forms::Button^  bTeleportAdd;
-public:
 private: System::Windows::Forms::Label^  label63;
 public: System::Windows::Forms::TextBox^  tbTeleportY;
 private: System::Windows::Forms::TabControl^  tabControl3;
-public:
 private: System::Windows::Forms::TabPage^  tabPage11;
 private: System::Windows::Forms::Button^  bBuffEnableAll;
 private: System::Windows::Forms::Button^  bBuffDisableAll;
@@ -518,17 +334,13 @@ private: System::Windows::Forms::ColumnHeader^  lvBuffHeaderInterval;
 private: System::Windows::Forms::TabPage^  tabPage12;
 private: System::Windows::Forms::Panel^  panel8;
 public: System::Windows::Forms::TextBox^  tbCSDelay;
-private:
 private: System::Windows::Forms::Label^  label48;
-public:
 private: System::Windows::Forms::Button^  bCS;
 private: System::Windows::Forms::Button^  bRandomCC;
 private: System::Windows::Forms::Panel^  panel9;
 private: System::Windows::Forms::Button^  bCC;
 public: System::Windows::Forms::ComboBox^  comboChannelKey;
-private:
 private: System::Windows::Forms::Label^  label47;
-public:
 private: System::Windows::Forms::Panel^  panel7;
 private: System::Windows::Forms::TextBox^  tbCCCSMob;
 private: System::Windows::Forms::TextBox^  tbCCCSAttack;
@@ -545,27 +357,19 @@ private: System::Windows::Forms::CheckBox^  cbCCCSPeople;
 private: System::Windows::Forms::RadioButton^  rbCC;
 private: System::Windows::Forms::CheckBox^  cbCCCSTime;
 public: System::Windows::Forms::RadioButton^  rbFunction;
-private:
 public: System::Windows::Forms::RadioButton^  rbPacket;
 private: System::Windows::Forms::TabPage^  tabPage10;
-public:
 private: System::Windows::Forms::Panel^  panel4;
 public: System::Windows::Forms::TextBox^  tbLootItem;
-private:
 private: System::Windows::Forms::TextBox^  tbLootInterval;
-public:
 private: System::Windows::Forms::Label^  label29;
 private: System::Windows::Forms::Label^  label31;
 private: System::Windows::Forms::ComboBox^  comboLootKey;
 public: System::Windows::Forms::CheckBox^  cbLoot;
 private: System::Windows::Forms::Panel^  panel3;
 public: System::Windows::Forms::TextBox^  tbAttackMob;
-private:
 private: System::Windows::Forms::TextBox^  tbAttackInterval;
-public:
-
 private: System::Windows::Forms::Label^  label30;
-
 private: System::Windows::Forms::Label^  label28;
 private: System::Windows::Forms::ComboBox^  comboAttackKey;
 private: System::Windows::Forms::CheckBox^  cbAttack;
@@ -575,38 +379,26 @@ private: System::Windows::Forms::Label^  label26;
 private: System::Windows::Forms::ComboBox^  comboMPKey;
 private: System::Windows::Forms::ComboBox^  comboHPKey;
 public: System::Windows::Forms::TextBox^  tbMP;
-private:
 public: System::Windows::Forms::TextBox^  tbHP;
 private: System::Windows::Forms::CheckBox^  cbHP;
-public:
 private: System::Windows::Forms::CheckBox^  cbMP;
 private: System::Windows::Forms::Label^  label42;
 private: System::Windows::Forms::Label^  label65;
 private: System::Windows::Forms::Button^  bSpawnControl;
-
 private: System::Windows::Forms::Panel^  panel1;
-
 private: System::Windows::Forms::CheckBox^  cbNoAttackDelay;
 private: System::Windows::Forms::CheckBox^  cbFullMapAttack;
-
-
 private: System::Windows::Forms::CheckBox^  cbNoBlueBoxes;
-
 private: System::Windows::Forms::CheckBox^  cbMobAutoAggro;
-
 private: System::Windows::Forms::CheckBox^  cbNoPlayerNameTag;
 private: System::Windows::Forms::ColumnHeader^  columnHeader3;
 private: System::Windows::Forms::ColumnHeader^  columnHeader4;
 private: System::Windows::Forms::ColumnHeader^  columnHeader5;
 private: System::Windows::Forms::TextBox^  tbSpawnControlMapID;
 public: System::Windows::Forms::TextBox^  textBox4;
-private:
 private: System::Windows::Forms::Label^  label72;
-public:
 public: System::Windows::Forms::TextBox^  textBox5;
-private:
 private: System::Windows::Forms::Label^  label87;
-public:
 private: System::Windows::Forms::CheckBox^  cbUEMI;
 private: System::Windows::Forms::ColumnHeader^  columnHeader6;
 private: System::Windows::Forms::Panel^  panel28;
@@ -621,20 +413,6 @@ private: System::Windows::Forms::Button^  bSendDrop10;
 private: System::Windows::Forms::Button^  bSendDrop1000;
 private: System::Windows::Forms::Button^  bSendRevive;
 private: System::Windows::Forms::Button^  bSendRestore127Health;
-
-
-
-private:
-
-private:
-
-public:
-
-
-
-
-
-public:
 	private: System::ComponentModel::IContainer^  components;
 
 	private:
@@ -648,7 +426,7 @@ public:
 		/// Required method for Designer support - do not modify
 		/// the contents of this method with the code editor.
 		/// </summary>
-		void InitializeComponent(void)
+		void InitializeComponent()
 		{
 			this->components = (gcnew System::ComponentModel::Container());
 			System::ComponentModel::ComponentResourceManager^  resources = (gcnew System::ComponentModel::ComponentResourceManager(MainForm::typeid));
