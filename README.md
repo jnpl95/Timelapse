@@ -1,7 +1,7 @@
 # Timelapse
 A MapleStory v83 Trainer
 
-![alt text](https://i.imgur.com/vLhLOQv.png)
+![alt text](https://i.imgur.com/tLDMi6s.gif)
 
 # TODO List:
 
