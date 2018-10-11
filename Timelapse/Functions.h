@@ -52,6 +52,33 @@ static LPCSTR ReadPointerString(ULONG ulBase, int iOffset) {
 	__except (EXCEPTION_EXECUTE_HANDLER) { return nullptr; }
 }
 
+static UINT8 readCharValueZtlSecureFuse(int at) {
+	UCHAR v2;
+	UINT8 result;
+	try {
+		v2 = *(PUCHAR)at;
+		at = *(PUINT8)(at + 1);
+		result = at ^ v2;
+	}
+	catch (...) { return 0; }
+	return result;
+}
+
+static INT16 readShortValueZtlSecureFuse(int a1) {
+	PUINT8 v2 = (PUINT8)(a1 + 2);
+	DWORD v4 = (DWORD)&a1 - a1;
+
+	v2[v4] = *v2 ^ *(v2 - 2);
+	v2++;
+	v2[v4] = *v2 ^ *(v2 - 2);
+
+	return HIWORD(a1);
+}
+
+unsigned int readLongValueZtlSecureFuse(ULONG *a1) {
+	return *a1 ^ _rotl(a1[1], 5);
+}
+
 #pragma unmanaged
 static LONG_PTR ReadMultiPointerSigned(LONG_PTR ulBase, int level, ...) {
 	LONG_PTR ulResult = 0;
@@ -191,9 +218,7 @@ static bool isKeyValid(System::Object^ sender, System::Windows::Forms::KeyPressE
 #pragma endregion
 
 namespace CodeCaves {
-	BYTE level = 0x00;
-	SHORT job = -1;
-	ULONG curHP = 0, maxHP = 0, curMP = 0, maxMP = 0, curEXP = 0, maxEXP = 0, mesos = 0, mapNameAddr = 0x0;
+	ULONG curHP = 0, maxHP = 0, curMP = 0, maxMP = 0, curEXP = 0, maxEXP = 0, mapNameAddr = 0x0;
 	int ItemX = 0, ItemY = 0;
 	double hpPercent = 0.00, mpPercent = 0.00, expPercent = 0.00;
 	static std::vector<SpawnControlStruct*>* spawnControl = new std::vector<SpawnControlStruct*>();
@@ -207,6 +232,7 @@ namespace CodeCaves {
 	}
 
 #pragma unmanaged
+	/*BYTE level = 0x00;
 	__declspec(naked) static void __stdcall LevelHook() {
 		__asm {
 			mov [level], al
@@ -214,8 +240,9 @@ namespace CodeCaves {
 			call dword ptr [levelHookDecode]
 			jmp dword ptr [levelHookAddrRet]
 		}
-	}
+	}*/
 
+	/*SHORT job = -1;
 	__declspec(naked) static void __stdcall JobHook() {
 		__asm {
 			mov [job], ax
@@ -223,7 +250,7 @@ namespace CodeCaves {
 			call dword ptr [jobHookDecode]
 			jmp dword ptr [jobHookAddrRet]
 		}
-	}
+	}*/
 
 	__declspec(naked) static void __stdcall StatHook() {
 		__asm {
@@ -247,6 +274,8 @@ namespace CodeCaves {
 		}
 	}
 
+	/*
+	ULONG mesos = 0;
 	__declspec(naked) static void __stdcall MesosHook() {
 		__asm {
 			mov [mesos], eax
@@ -262,6 +291,7 @@ namespace CodeCaves {
 			jmp dword ptr [mesosChangeHookAddrRet]
 		}
 	}
+	*/
 
 	__declspec(naked) static void __stdcall MapNameHook() {
 		__asm {
@@ -420,27 +450,34 @@ namespace CodeCaves {
 
 namespace PointerFuncs {
 	bool isHooked = true;
-	
+
 	//Retrieve Char Level
 	static System::String^ getCharLevel() {
-		if (isHooked)
+		UINT8 level = readCharValueZtlSecureFuse(*(ULONG*)CharacterStatBase + OFS_Level);
+		if (level == 0) return "00";
+		return System::Convert::ToString(level);
+		/*if (isHooked)
 			Jump(levelHookAddr, CodeCaves::LevelHook, 2);
 		else
 			WriteMemory(levelHookAddr, 7, 0x8A, 0xC8, 0xE8, 0x4B, 0x55, 0x00, 0x00);
 
-		return CodeCaves::level.ToString();
+		return CodeCaves::level.ToString();*/
+	}
+
+	//Retrieve Char Job ID
+	static SHORT getCharJobID() {
+		return readShortValueZtlSecureFuse(*(ULONG*)CharacterStatBase + OFS_JobID);
 	}
 
 	//Retrieve Char Job
 	static System::String^ getCharJob() {
-		if (isHooked)
+		/*if (isHooked)
 			Jump(jobHookAddr, CodeCaves::JobHook, 2);
 		else
 			WriteMemory(levelHookAddr, 7, 0x8B, 0xC8, 0xE8, 0xA6, 0x55, 0x00, 0x00);
 
-		if (CodeCaves::job == -1) return "Null";
-		
-		return gcnew System::String(GetJobName(CodeCaves::job));
+		if (CodeCaves::job == -1) return "Null";*/
+		return gcnew System::String(GetJobName(getCharJobID()));
 	}
 
 	//Retrieve Char HP
@@ -478,16 +515,16 @@ namespace PointerFuncs {
 
 	//Retrieve Char Mesos
 	static System::String^ getCharMesos() {
-		if (isHooked) {
+		/*if (isHooked) {
 			Jump(mesosHookAddr, CodeCaves::MesosHook, 1);
 			Jump(mesosChangeHookAddr, CodeCaves::MesosChangeHook, 1);
 		}
 		else {
 			WriteMemory(mesosHookAddr, 6, 0x8D, 0x96, 0xA5, 0x00, 0x00, 0x00);
 			WriteMemory(mesosChangeHookAddr, 6, 0x8D, 0x96, 0xA5, 0x00, 0x00, 0x00);
-		}
+		}*/
 
-		return CodeCaves::mesos.ToString("N0");
+		return readLongValueZtlSecureFuse((ULONG*)(*(ULONG*)CharacterStatBase + OFS_Mesos)).ToString("N0");
 	}
 
 	//Retrieve Map Name

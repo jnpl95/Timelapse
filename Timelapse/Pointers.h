@@ -4,18 +4,18 @@
 #include "Packet.h"
 
 #pragma region HookAddresses
-ULONG levelHookAddr = 0x004E2B28; //Inside GW_CharacterStat::Decode()
+/*ULONG levelHookAddr = 0x004E2B28; //Inside GW_CharacterStat::Decode()
 ULONG levelHookDecode = 0x004E807A; //Start of _ZtrlSecureTear<unsigned char>
 ULONG levelHookAddrRet = levelHookAddr + 7;
 ULONG jobHookAddr = 0x004E2B3E; //Inside GW_CharacterStat::Decode()
 ULONG jobHookDecode = 0x004E80EB; //Inside _ZtlSecureTear<short>
-ULONG jobHookAddrRet = jobHookAddr + 7;
+ULONG jobHookAddrRet = jobHookAddr + 7;*/
 ULONG statHookAddr = 0x008D8581; //Inside CUIStatusBar::SetNumberValue
 ULONG statHookAddrRet = statHookAddr + 5;
-ULONG mesosHookAddr = 0x004E2D01; //Inside GW_CharacterStat::DecodeMoney()
+/*ULONG mesosHookAddr = 0x004E2D01; //Inside GW_CharacterStat::DecodeMoney()
 ULONG mesosHookAddrRet = mesosHookAddr + 6;
 ULONG mesosChangeHookAddr = 0x004E31FB; //Inside GW_CharacterStat::DecodeChangeStat()
-ULONG mesosChangeHookAddrRet = mesosChangeHookAddr + 6;
+ULONG mesosChangeHookAddrRet = mesosChangeHookAddr + 6;*/
 ULONG mapNameHookAddr = 0x005CFA48; //Inside CItemInfo::GetMapString()
 ULONG mapNameHookAddrRet = mapNameHookAddr + 6;
 ULONG itemVacAddr = 0x005047AA; //Inside CDropPool::TryPickUpDrop()
@@ -51,14 +51,14 @@ lpfnCWvsContext__GetCharacterLevel CWvsContext__GetCharacterLevel = (lpfnCWvsCon
 typedef char*(__cdecl *get_job_name)(int); // Retrieves Job name
 get_job_name GetJobName = (get_job_name)0x004A77EF;
 
-//typedef ZXString<char>*(__thiscall *lpfnCItemInfo__GetMapString)(ULONG, ZXString<char>*, UINT, const char*);
-typedef char*(__thiscall *lpfnCItemInfo__GetMapString)(ULONG, char*);
-lpfnCItemInfo__GetMapString CItemInfo__GetMapString = (lpfnCItemInfo__GetMapString)0x005CF792; // TODO: Fix func
 
-//ZRef<CharacterData> *__thiscall CWvsContext::GetCharacterData(CWvsContext *this, ZRef<CharacterData> *result) //Could I use pointer?? See ignbase
+//ZRef<CharacterData> *__thiscall CWvsContext::GetCharacterData(CWvsContext *this, ZRef<CharacterData> *result) 
 typedef void*(__thiscall *lpfnCWvsContext__GetCharacterData)(ULONG, PVOID);
 lpfnCWvsContext__GetCharacterData CWvsContext__GetCharacterData = (lpfnCWvsContext__GetCharacterData)0x00425D0B;
 
+//typedef ZXString<char>*(__fastcall* StringPool__GetString_t)(void *StringPool, void *edx, ZXString<char> *result, unsigned int nIdx);
+//auto StringPool__GetString = (StringPool__GetString_t)0x0049B330; //
+//void **ms_pInstance_StringPool = (void **)0x01C1C200; pointer that gets all Strings in StringPool
 
 #pragma endregion
 
@@ -80,6 +80,8 @@ ULONG OFS_MapID = 0x668;
 ULONG CharacterStatBase = 0xBF3CD8; //GW_CharacterStat //CWvsContext::GetCharacterData() returns ZRef<CharacterData>; &CharacterData[0] = GW_CharacterStat
 ULONG OFS_Ign = 0x4;
 ULONG OFS_Level = 0x33;
+ULONG OFS_JobID = 0x39;
+ULONG OFS_Mesos = 0xA5;
 
 ULONG NPCBase = 0xBED780;
 ULONG OFS_NPCCount = 0x24;

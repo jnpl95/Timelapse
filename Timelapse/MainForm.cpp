@@ -25,6 +25,7 @@ public:
 #pragma region General Form
 [STAThreadAttribute]
 void Main() {
+	[assembly:System::Diagnostics::DebuggableAttribute(true, true)];
 	Application::EnableVisualStyles();
 	Application::SetCompatibleTextRenderingDefault(false);
 	Application::Run(gcnew MainForm);
@@ -129,15 +130,15 @@ void MainForm::closeMapleStoryToolStripMenuItem_Click(Object^  sender, EventArgs
 #pragma region Pointers
 //Display Char Job value on hover
 void MainForm::lbJob_MouseHover(Object^  sender, EventArgs^  e) {
-	Windows::Forms::ToolTip^ jobToolTip = gcnew Windows::Forms::ToolTip();
+	ToolTip^ jobToolTip = gcnew ToolTip();
 	jobToolTip->IsBalloon = true;
 	jobToolTip->ShowAlways = true;
-	jobToolTip->SetToolTip(lbJob, CodeCaves::job.ToString());
+	jobToolTip->SetToolTip(lbJob, PointerFuncs::getCharJobID().ToString());
 }
 
 //Display Char HP values on hover
 void MainForm::lbHP_MouseHover(Object^  sender, EventArgs^  e) {
-	Windows::Forms::ToolTip^ hpToolTip = gcnew Windows::Forms::ToolTip();
+	ToolTip^ hpToolTip = gcnew ToolTip();
 	hpToolTip->IsBalloon = true;
 	hpToolTip->ShowAlways = true;
 	hpToolTip->SetToolTip(lbHP, "(" + CodeCaves::curHP.ToString() + "/" + CodeCaves::maxHP.ToString() + ")");
@@ -145,7 +146,7 @@ void MainForm::lbHP_MouseHover(Object^  sender, EventArgs^  e) {
 
 //Display Char MP values on hover
 void MainForm::lbMP_MouseHover(Object^  sender, EventArgs^  e) {
-	Windows::Forms::ToolTip^ mpToolTip = gcnew Windows::Forms::ToolTip();
+	ToolTip^ mpToolTip = gcnew ToolTip();
 	mpToolTip->IsBalloon = true;
 	mpToolTip->ShowAlways = true;
 	mpToolTip->SetToolTip(lbMP, "(" + CodeCaves::curMP.ToString() + "/" + CodeCaves::maxMP.ToString() + ")");
@@ -153,36 +154,18 @@ void MainForm::lbMP_MouseHover(Object^  sender, EventArgs^  e) {
 
 //Display Char EXP values on hover
 void MainForm::lbEXP_MouseHover(Object^  sender, EventArgs^  e) {
-	Windows::Forms::ToolTip^ expToolTip = gcnew Windows::Forms::ToolTip();
+	ToolTip^ expToolTip = gcnew ToolTip();
 	expToolTip->IsBalloon = true;
 	expToolTip->ShowAlways = true;
 	expToolTip->SetToolTip(lbEXP, "(" + CodeCaves::curEXP.ToString() + "/" + CodeCaves::maxEXP.ToString() + ")");
 }
 
-//Display Char Job value on hover
+//Display World value on hover
 void MainForm::lbWorld_MouseHover(Object^  sender, EventArgs^  e) {
-	Windows::Forms::ToolTip^ worldToolTip = gcnew Windows::Forms::ToolTip();
+	ToolTip^ worldToolTip = gcnew ToolTip();
 	worldToolTip->IsBalloon = true;
 	worldToolTip->ShowAlways = true;
 	worldToolTip->SetToolTip(lbWorld, ReadPointer(ServerBase, OFS_World).ToString());
-}
-
-//If the level/job/mesos/map name values are the default (refresh the map by CC'ing to get the values)
-void CCToGetPointers()
-{
-	int currentChannel = Convert::ToInt32(PointerFuncs::getChannel());
-	if (currentChannel > 0)
-	{
-		SendPacket("27 00 00 ** ** ** 00");
-		Sleep(1000);
-		SendPacket(gcnew String("27 00 " + currentChannel.ToString("X2") + " ** ** ** 00"));
-	}
-	else
-	{
-		SendPacket("27 00 01 ** ** ** 00");
-		Sleep(1000);
-		SendPacket(gcnew String("27 00 " + currentChannel.ToString("X2") + " ** ** ** 00"));
-	}
 }
 
 //Timer that ticks every 200ms and updates every label
@@ -1378,31 +1361,8 @@ void MainForm::tbAPLUK_KeyPress(Object^  sender, Windows::Forms::KeyPressEventAr
 
 #pragma endregion
 
-unsigned _int8 ZtlSecureTear(char a1, unsigned _int8 *a2) {
-	unsigned _int8 v4 = rand();
-	*a2 = v4;
-	a2[1] = a1 ^ v4;
-	return (unsigned _int8)(a1^v4) + _rotr(v4 ^ 0xBAADF00D, 5);
-}
-
-char getLevelL(const char* at, unsigned int uCS) {
-	int v2 = *(unsigned _int8*)at;
-	char result = v2 ^ at[1];
-	if( *((unsigned _int8*)at +1) + _rotr(v2 ^ 0xBAADF00D, 5) != uCS)
-	{
-		at = (const char*)5;
-		return '0';
-	}
-	return result;
-}
-
-unsigned _int8 getByteValueZtlSecureFuse(signed int at) {
-	char v2 = *(BYTE*)at;
-	at = *(unsigned _int8*)(at + 1);
-	return at ^ v2;
-}
-
-//Test to see if I can read level from GW_CharacterStat
+//Test stuff out
 void MainForm::button1_Click(System::Object^  sender, System::EventArgs^  e) {
-	MessageBox::Show(Convert::ToString(getByteValueZtlSecureFuse(*(DWORD*)0xBF3CD8 + 0x33)));
+
 }
+    
