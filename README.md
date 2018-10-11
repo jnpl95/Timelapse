@@ -12,21 +12,21 @@ A MapleStory v83 Trainer
 - Code inject dll (already coded in old trainer)
 
 ## Main Tab:
-### AutoLogin:
+##### AutoLogin:
 - (ADD) AutoLogin
 - Code Skip Logo (already found in .CT)
-### Options: 
+##### Options: 
 - Code disable pointers
 
 ## Bots Tab: 
-### Main: 
+##### Main: 
 - (ADD) Auto Turn? 
-### AutoCC/CS: 
+##### AutoCC/CS: 
 - (ADD) Add option for auto face left after cc/cs
 - Fix AutoCC tbCCCSTime, tbCCCSPeople, tbCCCSAttack, tbCCCSMob empty/null (add error message) :: if time == 0, change to 1 second
 - Fix Auto CS function call (doesn't work as intended, get rid of blue box popup on MigrateToCashShop Call)
 - Make Auto CC/CS run on threads instead of timers. Timers cause the trainer to hang up 
-### Advanced Bot(ADD): 
+##### Advanced Bot: 
 - (ADD)Flat bot
 - (ADD) climbing ladders/rope (CVecCtrl::GetLadderOrRope/CVecCtrl::IsOnLadder/CVecCtrl::IsOnRope 
 - (ADD)Find nearest mob/most grouped mobs in a platform (spiral algo with rings started from inside (for loop with 2 for loops inside)
