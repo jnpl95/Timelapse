@@ -304,6 +304,12 @@ namespace CodeCaves {
 		}
 	}
 
+	void __stdcall mobLog() {
+		System::String^ mobName = findMobNameFromID(mobLogged);
+		if (mobLogged > 0 && !Timelapse::MainForm::TheInstance->lbMobSearchLog->Items->Contains(mobName + " (" + mobLogged.ToString() + ")"))
+			Timelapse::MainForm::TheInstance->lbMobSearchLog->Items->Add(mobName + " (" + mobLogged.ToString() + ")");
+	}
+
 	bool __stdcall shouldMobBeFiltered() {
 		if (isMobFilterWhiteList) {
 			for (ULONG mob : *mobList)
@@ -543,7 +549,7 @@ namespace CodeCaves {
 
 			Continue:
 			cmp byte ptr[isItemFilterEnabled], 0
-			je EndFilter //Skip if Item Filter is disabled
+			je EndItemFilter //Skip if Item Filter is disabled
 			mov ebx,[itemFilterMesos]
 			cmp eax,ebx //Assumes item is mesos because there the mesos drop limit is 50,000 whereas the smallest item id is greater than that
 			jle RemoveMesos //Remove mesos if item id is less than or equal to the user set limit. 
@@ -552,14 +558,14 @@ namespace CodeCaves {
 			call shouldItemBeFiltered
 			cmp eax, 0 //Item shouldn't be filtered
 			pop eax
-			je EndFilter
+			je EndItemFilter
 			mov eax, 0x00 //Remove Item
-			jmp EndFilter
+			jmp EndItemFilter
 
 			RemoveMesos:
-			mov[edi + 0x30], 0x00 //Remove Mesos
+			mov [edi + 0x30], 0x00 //Remove Mesos
 
-			EndFilter:
+			EndItemFilter:
 			pop ebx
 			mov [edi+0x34],eax
 			mov edi,[ebp-0x14]
@@ -571,89 +577,49 @@ namespace CodeCaves {
 		__asm {
 			push ebx
 			call [cInPacketDecode4Addr] //CInPacket::Decode4()
-			cmp dword ptr[mFilter], 0x00
-			je EndMobFilter1
-			mov ebx, offset mobList
-			cmp dword ptr[mFtype], 0x00
-			je RejectFilter1
-			cmp dword ptr[mFtype], 0x01
-			je AcceptFilter1
-			jmp Exit1
-
-			RejectFilter1 :
-			cmp eax, [ebx]
-			je Filter1
-			cmp[ebx], 0x00
-			je EndMobFilter1
-			add ebx, 0x04
-			jmp RejectFilter1
-
-			AcceptFilter1 :
-			cmp eax, [ebx]
-			je EndMobFilter1
-			cmp[ebx], 0x00
-			je Filter1
-			add ebx, 0x04
-			jmp AcceptFilter1
-
-			Filter1 :
+			cmp byte ptr[isMobFilterEnabled], 0
+			je EndMobFilter //Skip if Mob Filter is disabled
+			push eax
+			mov [mobLogged], eax
+			call shouldMobBeFiltered
+			cmp eax, 0 //Mob shouldn't be filtered
+			pop eax
+			je EndMobFilter
 			pop ebx
-			jmp[mFilter1Jmp] // mov ecx,[esp+??] above the ret 00?? at the end of function
+			jmp [mobFilter1JmpAddr]
 
-			EndMobFilter1:
+			EndMobFilter:
 			pop ebx
-			jmp [MobFilter1AddrRet]
+			jmp [mobFilter1AddrRet]
 		}
 	}
 
 	__declspec(naked) static void __stdcall MobFilter2Hook() {
 		__asm {
 			push ebx
-			call[mFilterCall] // Opcode
-			cmp dword ptr[mFlog], 0x01
-			je mLog
-			jmp mcont
-
-			mcont :
-			cmp dword ptr[mFilter], 0x00
-			je Exit2
-			mov ebx, offset mobList
-			cmp dword ptr[mFtype], 0x00
-			je RejectFilter2
-			cmp dword ptr[mFtype], 0x01
-			je AcceptFilter2
-			jmp Exit2
-
-			mLog :
+			call [cInPacketDecode4Addr] //CInPacket::Decode4()
+			cmp byte ptr[isMobLoggingEnabled], 0
+			je Continue //Skip Logging Mobs
 			push eax
-			mov[mFitem], eax
+			mov [mobLogged], eax
 			call mobLog
 			pop eax
-			jmp mcont
 
-			RejectFilter2 :
-			cmp eax, [ebx]
-			je Filter2
-			cmp[ebx], 0x00
-			je Exit2
-			add ebx, 0x04
-			jmp RejectFilter2
-
-			AcceptFilter2 :
-			cmp eax, [ebx]
-			je Exit2
-			cmp[ebx], 0x00
-			je Filter2
-			add ebx, 0x04
-			jmp AcceptFilter2
-
-			Filter2 :
+			Continue:
+			cmp byte ptr[isMobFilterEnabled], 0
+			je EndMobFilter //Skip if Mob Filter is disabled
+			push eax
+			mov[mobLogged], eax
+			call shouldMobBeFiltered
+			cmp eax, 0 //Mob shouldn't be filtered
+			pop eax
+			je EndMobFilter
 			pop ebx
-			jmp[mFilter2Jmp]  // mov ecx,[esp+??] above the ret 00?? at the end of function
+			jmp[mobFilter2JmpAddr]
 
-			Exit2 :
+			EndMobFilter:
 			pop ebx
-			jmp[MobFilter2AddrRet]
+			jmp [mobFilter2AddrRet]
 		}
 	}
 #pragma managed

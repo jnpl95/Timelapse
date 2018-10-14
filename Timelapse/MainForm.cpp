@@ -1367,30 +1367,140 @@ void MainForm::tbItemFilterMesos_KeyPress(Object^  sender, Windows::Forms::KeyPr
 #pragma endregion
 
 #pragma region MobFilter
+//Find mobs in MobsList resource with names starting with string passed in
+static void findMobsStartingWithStr(String^ str) {
+	try {
+		if (String::IsNullOrEmpty(str)) return;
+		std::string tmpStr = "", mobID = "", mobStr = ConvertSystemToStdStr(str); //TODO
+		HRSRC hRes = FindResource(GlobalVars::hDLL, MAKEINTRESOURCE(MobsList), _T("TEXT"));
+		if (hRes == nullptr) return;
+		HGLOBAL hGlob = LoadResource(GlobalVars::hDLL, hRes);
+		if (hGlob == nullptr) return;
+		const CHAR* pData = reinterpret_cast<const CHAR*>(::LockResource(hGlob));
+		std::istringstream File(pData);
+
+		while (File.good()) {
+			std::getline(File, tmpStr);
+			mobID = tmpStr.substr(0, tmpStr.find(' '));
+			tmpStr = tmpStr.substr(tmpStr.find('[') + 1, tmpStr.find(']'));
+			tmpStr = tmpStr.substr(0, tmpStr.length() - 2);
+
+			if (tmpStr.find(mobStr) != std::string::npos) {
+				std::string tmpLine = tmpStr + " (" + mobID.c_str() + ")";
+				String^ result = gcnew String(tmpLine.c_str());
+				if (!MainForm::TheInstance->lbMobSearchLog->Items->Contains(result))
+					MainForm::TheInstance->lbMobSearchLog->Items->Add(result);
+			}
+		}
+		UnlockResource(hRes);
+	}
+	catch (...) {}
+}
+
+//Enable Mob Filter
 void MainForm::bMobFilter_Click(System::Object^  sender, System::EventArgs^  e) {
-
+	if (bMobFilter->Text->Equals("Enable Mob Filter")) {
+		bMobFilter->Text = "Disable Mob Filter";
+		CodeCaves::isMobFilterEnabled = 1;
+		if (CodeCaves::isMobLoggingEnabled == 0) {
+			Jump(mobFilter1Addr, CodeCaves::MobFilter1Hook, 0);
+			Jump(mobFilter2Addr, CodeCaves::MobFilter2Hook, 0);
+		}
+	}
+	else {
+		bMobFilter->Text = "Enable Mob Filter";
+		CodeCaves::isMobFilterEnabled = 0;
+		if (CodeCaves::isMobLoggingEnabled == 0) {
+			WriteMemory(mobFilter1Addr, 5, 0xE8, 0xF7, 0xE2, 0xD8, 0xFF); //call 00406629
+			WriteMemory(mobFilter2Addr, 5, 0xE8, 0x98, 0xD1, 0xD8, 0xFF); //call 00406629
+		}
+	}
 }
+
+//Change Mob Filter type (either White List or Black List)
 void MainForm::rbMobFilterWhiteList_CheckedChanged(System::Object^  sender, System::EventArgs^  e) {
-
+	if (rbMobFilterWhiteList->Checked)
+		CodeCaves::isMobFilterWhiteList = 1;
+	else
+		CodeCaves::isMobFilterWhiteList = 0;
 }
+
+//Enable Mob Filter Log
 void MainForm::cbMobFilterLog_CheckedChanged(System::Object^  sender, System::EventArgs^  e) {
-
+	if (cbMobFilterLog->Checked) {
+		CodeCaves::isMobLoggingEnabled = 1;
+		if (CodeCaves::isMobFilterEnabled == 0) {
+			Jump(mobFilter1Addr, CodeCaves::MobFilter1Hook, 0);
+			Jump(mobFilter2Addr, CodeCaves::MobFilter2Hook, 0);
+		}
+	}
+	else {
+		CodeCaves::isMobLoggingEnabled = 0;
+		if (CodeCaves::isMobFilterEnabled == 0) {
+			WriteMemory(mobFilter1Addr, 5, 0xE8, 0xF7, 0xE2, 0xD8, 0xFF); //call 00406629
+			WriteMemory(mobFilter2Addr, 5, 0xE8, 0x98, 0xD1, 0xD8, 0xFF); //call 00406629
+		}
+	}
 }
+
+//Add mob to Mob Filter ListBox
 void MainForm::bMobFilterAdd_Click(System::Object^  sender, System::EventArgs^  e) {
+	if (tbMobFilterID->TextLength > 0) {
+		try {
+			UINT mobID = Convert::ToUInt32(tbMobFilterID->Text);
+			String^ mob = findMobNameFromID(mobID);
 
+			if (mobID > 0 && !lbMobFilter->Items->Contains(mob + " (" + mobID.ToString() + ")")) {
+				lbMobFilter->Items->Add(mob + " (" + mobID.ToString() + ")");
+				tbMobFilterID->Text = "";
+				lbMobFilter->SelectedIndex = -1;
+				CodeCaves::mobList->push_back(mobID);
+			}
+		}
+		catch (...) { MessageBox::Show("Mob ID not found"); }
+	}
 }
-void MainForm::bMobSearchLogClear_Click(System::Object^  sender, System::EventArgs^  e) {
 
-}
+//Delete mob from Mob Filter ListBox
 void MainForm::lbMobFilter_MouseDoubleClick(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
+	if (lbMobFilter->SelectedItem != nullptr) {
+		String ^mobStr = lbMobFilter->GetItemText(lbMobFilter->SelectedItem);
+		int startIndex = mobStr->IndexOf('(') + 1, endIndex = mobStr->IndexOf(')');
 
+		String^ mobIDStr = mobStr->Substring(startIndex, endIndex - startIndex);
+		CodeCaves::mobList->erase(std::find(CodeCaves::mobList->begin(), CodeCaves::mobList->end(), Convert::ToUInt32(mobIDStr)));
+
+		lbMobFilter->Items->Remove(lbMobFilter->SelectedItem);
+		lbMobFilter->SelectedIndex = -1;
+	}
 }
+
+//Transfer mob from Mob Search Log ListBox to Mob Filter ListBox
 void MainForm::lbMobSearchLog_MouseDoubleClick(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
+	if (lbMobSearchLog->SelectedItem != nullptr && lbMobSearchLog->SelectedItem->ToString()->Length > 0) {
+		String ^mobStr = lbMobSearchLog->GetItemText(lbMobSearchLog->SelectedItem);
+		int startIndex = mobStr->IndexOf('(') + 1, endIndex = mobStr->IndexOf(')');
 
+		String^ mobIDStr = mobStr->Substring(startIndex, endIndex - startIndex);
+		CodeCaves::mobList->push_back(Convert::ToUInt32(mobIDStr));
+
+		lbMobFilter->Items->Add(lbMobSearchLog->SelectedItem);
+		lbMobSearchLog->SelectedIndex = -1;
+		lbMobFilter->SelectedIndex = -1;
+	}
 }
+
+//Clear mobs in Mob Search Log
+void MainForm::bMobSearchLogClear_Click(System::Object^  sender, System::EventArgs^  e) {
+	lbMobSearchLog->Items->Clear();
+}
+
+//Searches MobList resource for mobs starting with text entered so far
 void MainForm::tbMobFilterSearch_TextChanged(System::Object^  sender, System::EventArgs^  e) {
-
+	lbMobSearchLog->Items->Clear();
+	findMobsStartingWithStr(tbMobFilterSearch->Text);
 }
+
 void MainForm::tbMobFilterID_KeyPress(Object^  sender, Windows::Forms::KeyPressEventArgs^  e) {
 	if (!isKeyValid(sender, e, false)) e->Handled = true; //If key is not valid, do nothing and indicate that it has been handled
 }

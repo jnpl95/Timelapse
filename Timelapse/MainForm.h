@@ -4804,14 +4804,13 @@ public: System::Windows::Forms::ListBox^  lbItemFilter;
 			// label77
 			// 
 			this->label77->AutoSize = true;
-			this->label77->Font = (gcnew System::Drawing::Font(L"Tahoma", 6, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
+			this->label77->Font = (gcnew System::Drawing::Font(L"Tahoma", 6.5F));
 			this->label77->ForeColor = System::Drawing::Color::Lime;
-			this->label77->Location = System::Drawing::Point(281, 1);
+			this->label77->Location = System::Drawing::Point(282, 4);
 			this->label77->Name = L"label77";
-			this->label77->Size = System::Drawing::Size(97, 30);
+			this->label77->Size = System::Drawing::Size(87, 22);
 			this->label77->TabIndex = 23;
-			this->label77->Text = L"Reload Map (reenter map \r\nor CC/CS) to make Mobs \r\nInvisible\r\n";
+			this->label77->Text = L"Mob Filtering occurs\r\nwhen Mobs spawn\r\n";
 			this->label77->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
 			// 
 			// bMobFilter
