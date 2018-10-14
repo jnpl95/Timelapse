@@ -41,7 +41,6 @@ A MapleStory v83 Trainer
 - (ADD) Vami, Portal Kami, dEMi, CSEAX vac if possible
 
 ## Filters Tab: 
-- Code mob filters/item filters & corresponding data (already coded in old trainer)
 - Modifications?
 
 ## Packets Tab: 
@@ -57,7 +56,7 @@ A MapleStory v83 Trainer
 - (ADD) Code allowing for both packet based and teleport based map rush
 
 ## Other: 
-- Look into making sure trainer can be injected into multipleinstances with no interference between
+- Look into making sure trainer can be injected into multiple instances with no interference between
 - (ADD) check for auto-loot to see if inventory is full, add option to sell useless shit and buy pots 
 - (ADD) Make a label visible for a bit (or log) all options in trainer
 - (ADD) Make Tooltips for everything
