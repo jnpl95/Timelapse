@@ -177,7 +177,8 @@ private: System::Windows::Forms::CheckBox^  cbFullGodmode;
 	private: System::Windows::Forms::ToolStripMenuItem^  saveSettingsToolStripMenuItem;
 	private: System::Windows::Forms::Panel^  panel21;
 	private: System::Windows::Forms::CheckBox^  cbMobFilterLog;
-	private: System::Windows::Forms::Button^  bMobFilterClear;
+private: System::Windows::Forms::Button^  bMobSearchLogClear;
+
 	private: System::Windows::Forms::RadioButton^  rbMobFilterWhiteList;
 	private: System::Windows::Forms::TextBox^  tbMobFilterSearch;
 	private: System::Windows::Forms::RadioButton^  rbMobFilterBlackList;
@@ -187,11 +188,12 @@ private: System::Windows::Forms::CheckBox^  cbFullGodmode;
 	private: System::Windows::Forms::Label^  label76;
 	private: System::Windows::Forms::Label^  label77;
 	private: System::Windows::Forms::Button^  bMobFilter;
-	private: System::Windows::Forms::ListView^  lvMobSearchLog;
-	private: System::Windows::Forms::ListView^  lvMobFilter;
+
+
 	private: System::Windows::Forms::Panel^  panel20;
 	private: System::Windows::Forms::CheckBox^  cbItemFilterLog;
-	private: System::Windows::Forms::Button^  bItemFilterClear;
+private: System::Windows::Forms::Button^  bItemSearchLogClear;
+
 	private: System::Windows::Forms::TextBox^  tbItemFilterSearch;
 	private: System::Windows::Forms::Label^  label74;
 	private: System::Windows::Forms::Button^  bItemFilterAdd;
@@ -202,8 +204,8 @@ private: System::Windows::Forms::CheckBox^  cbFullGodmode;
 	private: System::Windows::Forms::RadioButton^  rbItemFilterWhiteList;
 	private: System::Windows::Forms::RadioButton^  rbItemFilterBlackList;
 	private: System::Windows::Forms::Button^  bItemFilter;
-	private: System::Windows::Forms::ListView^  lvItemSearchLog;
-	private: System::Windows::Forms::ListView^  lvItemFilter;
+
+
 	private: System::Windows::Forms::TabControl^  tabControl5;
 	private: System::Windows::Forms::TabPage^  tabPage16;
 	private: System::Windows::Forms::Label^  label81;
@@ -414,6 +416,11 @@ private: System::Windows::Forms::Button^  bSendDrop1000;
 private: System::Windows::Forms::Button^  bSendRevive;
 private: System::Windows::Forms::Button^  bSendRestore127Health;
 private: System::Windows::Forms::Button^  button1;
+public: System::Windows::Forms::ListBox^  lbMobSearchLog;
+private:
+public: System::Windows::Forms::ListBox^  lbMobFilter;
+public: System::Windows::Forms::ListBox^  lbItemSearchLog;
+public: System::Windows::Forms::ListBox^  lbItemFilter;
 	private: System::ComponentModel::IContainer^  components;
 
 	private:
@@ -446,6 +453,7 @@ private: System::Windows::Forms::Button^  button1;
 			this->pictureBox2 = (gcnew System::Windows::Forms::PictureBox());
 			this->pnlFull = (gcnew System::Windows::Forms::Panel());
 			this->pnlMiddle = (gcnew System::Windows::Forms::Panel());
+			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->lbInactive = (gcnew System::Windows::Forms::Label());
 			this->lbActive = (gcnew System::Windows::Forms::Label());
 			this->lbThreadID = (gcnew System::Windows::Forms::Label());
@@ -718,8 +726,10 @@ private: System::Windows::Forms::Button^  button1;
 			this->cbKami = (gcnew System::Windows::Forms::CheckBox());
 			this->tabPage7 = (gcnew System::Windows::Forms::TabPage());
 			this->panel21 = (gcnew System::Windows::Forms::Panel());
+			this->lbMobSearchLog = (gcnew System::Windows::Forms::ListBox());
+			this->lbMobFilter = (gcnew System::Windows::Forms::ListBox());
 			this->cbMobFilterLog = (gcnew System::Windows::Forms::CheckBox());
-			this->bMobFilterClear = (gcnew System::Windows::Forms::Button());
+			this->bMobSearchLogClear = (gcnew System::Windows::Forms::Button());
 			this->rbMobFilterWhiteList = (gcnew System::Windows::Forms::RadioButton());
 			this->tbMobFilterSearch = (gcnew System::Windows::Forms::TextBox());
 			this->rbMobFilterBlackList = (gcnew System::Windows::Forms::RadioButton());
@@ -729,11 +739,11 @@ private: System::Windows::Forms::Button^  button1;
 			this->label76 = (gcnew System::Windows::Forms::Label());
 			this->label77 = (gcnew System::Windows::Forms::Label());
 			this->bMobFilter = (gcnew System::Windows::Forms::Button());
-			this->lvMobSearchLog = (gcnew System::Windows::Forms::ListView());
-			this->lvMobFilter = (gcnew System::Windows::Forms::ListView());
 			this->panel20 = (gcnew System::Windows::Forms::Panel());
+			this->lbItemSearchLog = (gcnew System::Windows::Forms::ListBox());
+			this->lbItemFilter = (gcnew System::Windows::Forms::ListBox());
 			this->cbItemFilterLog = (gcnew System::Windows::Forms::CheckBox());
-			this->bItemFilterClear = (gcnew System::Windows::Forms::Button());
+			this->bItemSearchLogClear = (gcnew System::Windows::Forms::Button());
 			this->tbItemFilterSearch = (gcnew System::Windows::Forms::TextBox());
 			this->label74 = (gcnew System::Windows::Forms::Label());
 			this->bItemFilterAdd = (gcnew System::Windows::Forms::Button());
@@ -744,8 +754,6 @@ private: System::Windows::Forms::Button^  button1;
 			this->rbItemFilterWhiteList = (gcnew System::Windows::Forms::RadioButton());
 			this->rbItemFilterBlackList = (gcnew System::Windows::Forms::RadioButton());
 			this->bItemFilter = (gcnew System::Windows::Forms::Button());
-			this->lvItemSearchLog = (gcnew System::Windows::Forms::ListView());
-			this->lvItemFilter = (gcnew System::Windows::Forms::ListView());
 			this->tabPage8 = (gcnew System::Windows::Forms::TabPage());
 			this->tabControl5 = (gcnew System::Windows::Forms::TabControl());
 			this->tabPage16 = (gcnew System::Windows::Forms::TabPage());
@@ -815,7 +823,6 @@ private: System::Windows::Forms::Button^  button1;
 			this->btnMinimize = (gcnew System::Windows::Forms::Button());
 			this->GUITimer = (gcnew System::Windows::Forms::Timer(this->components));
 			this->AutoCCCSTimer = (gcnew System::Windows::Forms::Timer(this->components));
-			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->menuStrip1->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->BeginInit();
 			this->pnlFull->SuspendLayout();
@@ -1102,6 +1109,18 @@ private: System::Windows::Forms::Button^  button1;
 			this->pnlMiddle->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::pnlFull_MouseDown);
 			this->pnlMiddle->MouseMove += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::pnlFull_MouseMove);
 			this->pnlMiddle->MouseUp += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::pnlFull_MouseUp);
+			// 
+			// button1
+			// 
+			this->button1->FlatAppearance->BorderColor = System::Drawing::Color::Gray;
+			this->button1->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->button1->Location = System::Drawing::Point(408, 3);
+			this->button1->Name = L"button1";
+			this->button1->Size = System::Drawing::Size(56, 24);
+			this->button1->TabIndex = 51;
+			this->button1->Text = L"Test";
+			this->button1->UseVisualStyleBackColor = true;
+			this->button1->Click += gcnew System::EventHandler(this, &MainForm::button1_Click);
 			// 
 			// lbInactive
 			// 
@@ -4626,8 +4645,10 @@ private: System::Windows::Forms::Button^  button1;
 			// panel21
 			// 
 			this->panel21->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->panel21->Controls->Add(this->lbMobSearchLog);
+			this->panel21->Controls->Add(this->lbMobFilter);
 			this->panel21->Controls->Add(this->cbMobFilterLog);
-			this->panel21->Controls->Add(this->bMobFilterClear);
+			this->panel21->Controls->Add(this->bMobSearchLogClear);
 			this->panel21->Controls->Add(this->rbMobFilterWhiteList);
 			this->panel21->Controls->Add(this->tbMobFilterSearch);
 			this->panel21->Controls->Add(this->rbMobFilterBlackList);
@@ -4637,12 +4658,36 @@ private: System::Windows::Forms::Button^  button1;
 			this->panel21->Controls->Add(this->label76);
 			this->panel21->Controls->Add(this->label77);
 			this->panel21->Controls->Add(this->bMobFilter);
-			this->panel21->Controls->Add(this->lvMobSearchLog);
-			this->panel21->Controls->Add(this->lvMobFilter);
 			this->panel21->Location = System::Drawing::Point(4, 168);
 			this->panel21->Name = L"panel21";
 			this->panel21->Size = System::Drawing::Size(379, 160);
 			this->panel21->TabIndex = 30;
+			// 
+			// lbMobSearchLog
+			// 
+			this->lbMobSearchLog->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(25)), static_cast<System::Int32>(static_cast<System::Byte>(25)),
+				static_cast<System::Int32>(static_cast<System::Byte>(25)));
+			this->lbMobSearchLog->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->lbMobSearchLog->ForeColor = System::Drawing::Color::White;
+			this->lbMobSearchLog->FormattingEnabled = true;
+			this->lbMobSearchLog->Location = System::Drawing::Point(195, 49);
+			this->lbMobSearchLog->Name = L"lbMobSearchLog";
+			this->lbMobSearchLog->Size = System::Drawing::Size(179, 80);
+			this->lbMobSearchLog->TabIndex = 53;
+			this->lbMobSearchLog->MouseDoubleClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::lbMobSearchLog_MouseDoubleClick);
+			// 
+			// lbMobFilter
+			// 
+			this->lbMobFilter->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(25)), static_cast<System::Int32>(static_cast<System::Byte>(25)),
+				static_cast<System::Int32>(static_cast<System::Byte>(25)));
+			this->lbMobFilter->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->lbMobFilter->ForeColor = System::Drawing::Color::White;
+			this->lbMobFilter->FormattingEnabled = true;
+			this->lbMobFilter->Location = System::Drawing::Point(7, 10);
+			this->lbMobFilter->Name = L"lbMobFilter";
+			this->lbMobFilter->Size = System::Drawing::Size(180, 119);
+			this->lbMobFilter->TabIndex = 34;
+			this->lbMobFilter->MouseDoubleClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::lbMobFilter_MouseDoubleClick);
 			// 
 			// cbMobFilterLog
 			// 
@@ -4656,19 +4701,21 @@ private: System::Windows::Forms::Button^  button1;
 			this->cbMobFilterLog->TabIndex = 33;
 			this->cbMobFilterLog->Text = L"Log";
 			this->cbMobFilterLog->UseVisualStyleBackColor = false;
+			this->cbMobFilterLog->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbMobFilterLog_CheckedChanged);
 			// 
-			// bMobFilterClear
+			// bMobSearchLogClear
 			// 
-			this->bMobFilterClear->FlatAppearance->BorderColor = System::Drawing::Color::Gray;
-			this->bMobFilterClear->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->bMobFilterClear->Font = (gcnew System::Drawing::Font(L"Tahoma", 6, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->bMobSearchLogClear->FlatAppearance->BorderColor = System::Drawing::Color::Gray;
+			this->bMobSearchLogClear->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->bMobSearchLogClear->Font = (gcnew System::Drawing::Font(L"Tahoma", 6, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->bMobFilterClear->Location = System::Drawing::Point(337, 134);
-			this->bMobFilterClear->Name = L"bMobFilterClear";
-			this->bMobFilterClear->Size = System::Drawing::Size(36, 20);
-			this->bMobFilterClear->TabIndex = 29;
-			this->bMobFilterClear->Text = L"Clear";
-			this->bMobFilterClear->UseVisualStyleBackColor = true;
+			this->bMobSearchLogClear->Location = System::Drawing::Point(337, 134);
+			this->bMobSearchLogClear->Name = L"bMobSearchLogClear";
+			this->bMobSearchLogClear->Size = System::Drawing::Size(36, 20);
+			this->bMobSearchLogClear->TabIndex = 29;
+			this->bMobSearchLogClear->Text = L"Clear";
+			this->bMobSearchLogClear->UseVisualStyleBackColor = true;
+			this->bMobSearchLogClear->Click += gcnew System::EventHandler(this, &MainForm::bMobSearchLogClear_Click);
 			// 
 			// rbMobFilterWhiteList
 			// 
@@ -4682,6 +4729,7 @@ private: System::Windows::Forms::Button^  button1;
 			this->rbMobFilterWhiteList->TabStop = true;
 			this->rbMobFilterWhiteList->Text = L"WhiteList";
 			this->rbMobFilterWhiteList->UseVisualStyleBackColor = true;
+			this->rbMobFilterWhiteList->CheckedChanged += gcnew System::EventHandler(this, &MainForm::rbMobFilterWhiteList_CheckedChanged);
 			// 
 			// tbMobFilterSearch
 			// 
@@ -4694,6 +4742,7 @@ private: System::Windows::Forms::Button^  button1;
 			this->tbMobFilterSearch->Size = System::Drawing::Size(98, 21);
 			this->tbMobFilterSearch->TabIndex = 27;
 			this->tbMobFilterSearch->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			this->tbMobFilterSearch->TextChanged += gcnew System::EventHandler(this, &MainForm::tbMobFilterSearch_TextChanged);
 			// 
 			// rbMobFilterBlackList
 			// 
@@ -4727,6 +4776,7 @@ private: System::Windows::Forms::Button^  button1;
 			this->bMobFilterAdd->TabIndex = 26;
 			this->bMobFilterAdd->Text = L"Add";
 			this->bMobFilterAdd->UseVisualStyleBackColor = true;
+			this->bMobFilterAdd->Click += gcnew System::EventHandler(this, &MainForm::bMobFilterAdd_Click);
 			// 
 			// tbMobFilterID
 			// 
@@ -4776,40 +4826,15 @@ private: System::Windows::Forms::Button^  button1;
 			this->bMobFilter->TabIndex = 19;
 			this->bMobFilter->Text = L"Enable Mob Filter";
 			this->bMobFilter->UseVisualStyleBackColor = true;
-			// 
-			// lvMobSearchLog
-			// 
-			this->lvMobSearchLog->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(25)), static_cast<System::Int32>(static_cast<System::Byte>(25)),
-				static_cast<System::Int32>(static_cast<System::Byte>(25)));
-			this->lvMobSearchLog->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
-			this->lvMobSearchLog->CheckBoxes = true;
-			this->lvMobSearchLog->ForeColor = System::Drawing::Color::White;
-			this->lvMobSearchLog->Location = System::Drawing::Point(194, 48);
-			this->lvMobSearchLog->Name = L"lvMobSearchLog";
-			this->lvMobSearchLog->Size = System::Drawing::Size(179, 82);
-			this->lvMobSearchLog->TabIndex = 18;
-			this->lvMobSearchLog->UseCompatibleStateImageBehavior = false;
-			this->lvMobSearchLog->View = System::Windows::Forms::View::Details;
-			// 
-			// lvMobFilter
-			// 
-			this->lvMobFilter->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(25)), static_cast<System::Int32>(static_cast<System::Byte>(25)),
-				static_cast<System::Int32>(static_cast<System::Byte>(25)));
-			this->lvMobFilter->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
-			this->lvMobFilter->CheckBoxes = true;
-			this->lvMobFilter->ForeColor = System::Drawing::Color::White;
-			this->lvMobFilter->Location = System::Drawing::Point(3, 2);
-			this->lvMobFilter->Name = L"lvMobFilter";
-			this->lvMobFilter->Size = System::Drawing::Size(185, 128);
-			this->lvMobFilter->TabIndex = 17;
-			this->lvMobFilter->UseCompatibleStateImageBehavior = false;
-			this->lvMobFilter->View = System::Windows::Forms::View::Details;
+			this->bMobFilter->Click += gcnew System::EventHandler(this, &MainForm::bMobFilter_Click);
 			// 
 			// panel20
 			// 
 			this->panel20->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->panel20->Controls->Add(this->lbItemSearchLog);
+			this->panel20->Controls->Add(this->lbItemFilter);
 			this->panel20->Controls->Add(this->cbItemFilterLog);
-			this->panel20->Controls->Add(this->bItemFilterClear);
+			this->panel20->Controls->Add(this->bItemSearchLogClear);
 			this->panel20->Controls->Add(this->tbItemFilterSearch);
 			this->panel20->Controls->Add(this->label74);
 			this->panel20->Controls->Add(this->bItemFilterAdd);
@@ -4820,12 +4845,36 @@ private: System::Windows::Forms::Button^  button1;
 			this->panel20->Controls->Add(this->rbItemFilterWhiteList);
 			this->panel20->Controls->Add(this->rbItemFilterBlackList);
 			this->panel20->Controls->Add(this->bItemFilter);
-			this->panel20->Controls->Add(this->lvItemSearchLog);
-			this->panel20->Controls->Add(this->lvItemFilter);
 			this->panel20->Location = System::Drawing::Point(5, 5);
 			this->panel20->Name = L"panel20";
 			this->panel20->Size = System::Drawing::Size(379, 160);
 			this->panel20->TabIndex = 1;
+			// 
+			// lbItemSearchLog
+			// 
+			this->lbItemSearchLog->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(25)), static_cast<System::Int32>(static_cast<System::Byte>(25)),
+				static_cast<System::Int32>(static_cast<System::Byte>(25)));
+			this->lbItemSearchLog->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->lbItemSearchLog->ForeColor = System::Drawing::Color::White;
+			this->lbItemSearchLog->FormattingEnabled = true;
+			this->lbItemSearchLog->Location = System::Drawing::Point(194, 48);
+			this->lbItemSearchLog->Name = L"lbItemSearchLog";
+			this->lbItemSearchLog->Size = System::Drawing::Size(179, 80);
+			this->lbItemSearchLog->TabIndex = 52;
+			this->lbItemSearchLog->MouseDoubleClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::lbItemSearchLog_MouseDoubleClick);
+			// 
+			// lbItemFilter
+			// 
+			this->lbItemFilter->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(25)), static_cast<System::Int32>(static_cast<System::Byte>(25)),
+				static_cast<System::Int32>(static_cast<System::Byte>(25)));
+			this->lbItemFilter->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->lbItemFilter->ForeColor = System::Drawing::Color::White;
+			this->lbItemFilter->FormattingEnabled = true;
+			this->lbItemFilter->Location = System::Drawing::Point(6, 8);
+			this->lbItemFilter->Name = L"lbItemFilter";
+			this->lbItemFilter->Size = System::Drawing::Size(180, 119);
+			this->lbItemFilter->TabIndex = 31;
+			this->lbItemFilter->MouseDoubleClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::lbItemFilter_MouseDoubleClick);
 			// 
 			// cbItemFilterLog
 			// 
@@ -4839,19 +4888,21 @@ private: System::Windows::Forms::Button^  button1;
 			this->cbItemFilterLog->TabIndex = 30;
 			this->cbItemFilterLog->Text = L"Log";
 			this->cbItemFilterLog->UseVisualStyleBackColor = false;
+			this->cbItemFilterLog->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbItemFilterLog_CheckedChanged);
 			// 
-			// bItemFilterClear
+			// bItemSearchLogClear
 			// 
-			this->bItemFilterClear->FlatAppearance->BorderColor = System::Drawing::Color::Gray;
-			this->bItemFilterClear->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->bItemFilterClear->Font = (gcnew System::Drawing::Font(L"Tahoma", 6, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->bItemSearchLogClear->FlatAppearance->BorderColor = System::Drawing::Color::Gray;
+			this->bItemSearchLogClear->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->bItemSearchLogClear->Font = (gcnew System::Drawing::Font(L"Tahoma", 6, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->bItemFilterClear->Location = System::Drawing::Point(337, 134);
-			this->bItemFilterClear->Name = L"bItemFilterClear";
-			this->bItemFilterClear->Size = System::Drawing::Size(36, 20);
-			this->bItemFilterClear->TabIndex = 29;
-			this->bItemFilterClear->Text = L"Clear";
-			this->bItemFilterClear->UseVisualStyleBackColor = true;
+			this->bItemSearchLogClear->Location = System::Drawing::Point(337, 134);
+			this->bItemSearchLogClear->Name = L"bItemSearchLogClear";
+			this->bItemSearchLogClear->Size = System::Drawing::Size(36, 20);
+			this->bItemSearchLogClear->TabIndex = 29;
+			this->bItemSearchLogClear->Text = L"Clear";
+			this->bItemSearchLogClear->UseVisualStyleBackColor = true;
+			this->bItemSearchLogClear->Click += gcnew System::EventHandler(this, &MainForm::bItemSearchLogClear_Click);
 			// 
 			// tbItemFilterSearch
 			// 
@@ -4864,6 +4915,7 @@ private: System::Windows::Forms::Button^  button1;
 			this->tbItemFilterSearch->Size = System::Drawing::Size(98, 21);
 			this->tbItemFilterSearch->TabIndex = 27;
 			this->tbItemFilterSearch->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			this->tbItemFilterSearch->TextChanged += gcnew System::EventHandler(this, &MainForm::tbItemFilterSearch_TextChanged);
 			// 
 			// label74
 			// 
@@ -4886,6 +4938,7 @@ private: System::Windows::Forms::Button^  button1;
 			this->bItemFilterAdd->TabIndex = 26;
 			this->bItemFilterAdd->Text = L"Add";
 			this->bItemFilterAdd->UseVisualStyleBackColor = true;
+			this->bItemFilterAdd->Click += gcnew System::EventHandler(this, &MainForm::bItemFilterAdd_Click);
 			// 
 			// tbItemFilterID
 			// 
@@ -4916,22 +4969,23 @@ private: System::Windows::Forms::Button^  button1;
 				static_cast<System::Int32>(static_cast<System::Byte>(35)), static_cast<System::Int32>(static_cast<System::Byte>(35)));
 			this->tbItemFilterMesos->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 			this->tbItemFilterMesos->ForeColor = System::Drawing::Color::White;
-			this->tbItemFilterMesos->Location = System::Drawing::Point(324, 3);
+			this->tbItemFilterMesos->Location = System::Drawing::Point(334, 3);
 			this->tbItemFilterMesos->Name = L"tbItemFilterMesos";
-			this->tbItemFilterMesos->Size = System::Drawing::Size(49, 21);
+			this->tbItemFilterMesos->Size = System::Drawing::Size(39, 21);
 			this->tbItemFilterMesos->TabIndex = 22;
 			this->tbItemFilterMesos->Text = L"0";
 			this->tbItemFilterMesos->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			this->tbItemFilterMesos->TextChanged += gcnew System::EventHandler(this, &MainForm::tbItemFilterMesos_TextChanged);
 			this->tbItemFilterMesos->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &MainForm::tbItemFilterMesos_KeyPress);
 			// 
 			// label70
 			// 
 			this->label70->AutoSize = true;
-			this->label70->Location = System::Drawing::Point(284, 6);
+			this->label70->Location = System::Drawing::Point(280, 6);
 			this->label70->Name = L"label70";
-			this->label70->Size = System::Drawing::Size(41, 13);
+			this->label70->Size = System::Drawing::Size(56, 13);
 			this->label70->TabIndex = 23;
-			this->label70->Text = L"Mesos:";
+			this->label70->Text = L"Mesos <=";
 			// 
 			// rbItemFilterWhiteList
 			// 
@@ -4945,6 +4999,7 @@ private: System::Windows::Forms::Button^  button1;
 			this->rbItemFilterWhiteList->TabStop = true;
 			this->rbItemFilterWhiteList->Text = L"WhiteList";
 			this->rbItemFilterWhiteList->UseVisualStyleBackColor = true;
+			this->rbItemFilterWhiteList->CheckedChanged += gcnew System::EventHandler(this, &MainForm::rbItemFilterWhiteList_CheckedChanged);
 			// 
 			// rbItemFilterBlackList
 			// 
@@ -4969,34 +5024,7 @@ private: System::Windows::Forms::Button^  button1;
 			this->bItemFilter->TabIndex = 19;
 			this->bItemFilter->Text = L"Enable Item Filter";
 			this->bItemFilter->UseVisualStyleBackColor = true;
-			// 
-			// lvItemSearchLog
-			// 
-			this->lvItemSearchLog->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(25)), static_cast<System::Int32>(static_cast<System::Byte>(25)),
-				static_cast<System::Int32>(static_cast<System::Byte>(25)));
-			this->lvItemSearchLog->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
-			this->lvItemSearchLog->CheckBoxes = true;
-			this->lvItemSearchLog->ForeColor = System::Drawing::Color::White;
-			this->lvItemSearchLog->Location = System::Drawing::Point(194, 48);
-			this->lvItemSearchLog->Name = L"lvItemSearchLog";
-			this->lvItemSearchLog->Size = System::Drawing::Size(179, 82);
-			this->lvItemSearchLog->TabIndex = 18;
-			this->lvItemSearchLog->UseCompatibleStateImageBehavior = false;
-			this->lvItemSearchLog->View = System::Windows::Forms::View::Details;
-			// 
-			// lvItemFilter
-			// 
-			this->lvItemFilter->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(25)), static_cast<System::Int32>(static_cast<System::Byte>(25)),
-				static_cast<System::Int32>(static_cast<System::Byte>(25)));
-			this->lvItemFilter->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
-			this->lvItemFilter->CheckBoxes = true;
-			this->lvItemFilter->ForeColor = System::Drawing::Color::White;
-			this->lvItemFilter->Location = System::Drawing::Point(3, 2);
-			this->lvItemFilter->Name = L"lvItemFilter";
-			this->lvItemFilter->Size = System::Drawing::Size(185, 128);
-			this->lvItemFilter->TabIndex = 17;
-			this->lvItemFilter->UseCompatibleStateImageBehavior = false;
-			this->lvItemFilter->View = System::Windows::Forms::View::Details;
+			this->bItemFilter->Click += gcnew System::EventHandler(this, &MainForm::bItemFilter_Click);
 			// 
 			// tabPage8
 			// 
@@ -5866,18 +5894,6 @@ private: System::Windows::Forms::Button^  button1;
 			this->AutoCCCSTimer->Interval = 250;
 			this->AutoCCCSTimer->Tick += gcnew System::EventHandler(this, &MainForm::AutoCCCSTimer_Tick);
 			// 
-			// button1
-			// 
-			this->button1->FlatAppearance->BorderColor = System::Drawing::Color::Gray;
-			this->button1->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->button1->Location = System::Drawing::Point(408, 3);
-			this->button1->Name = L"button1";
-			this->button1->Size = System::Drawing::Size(56, 24);
-			this->button1->TabIndex = 51;
-			this->button1->Text = L"Test";
-			this->button1->UseVisualStyleBackColor = true;
-			this->button1->Click += gcnew System::EventHandler(this, &MainForm::button1_Click);
-			// 
 			// MainForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
@@ -6141,5 +6157,22 @@ private: System::Windows::Forms::Button^  button1;
 	private: System::Void bSendRevive_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void bSendRestore127Health_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void lbItemFilter_MouseDoubleClick(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e);
+	private: System::Void lbItemSearchLog_MouseDoubleClick(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e);
+	private: System::Void lbMobFilter_MouseDoubleClick(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e);
+	private: System::Void lbMobSearchLog_MouseDoubleClick(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e);
+	private: System::Void bItemFilter_Click(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void rbItemFilterWhiteList_CheckedChanged(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void cbItemFilterLog_CheckedChanged(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void bItemFilterAdd_Click(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void bItemSearchLogClear_Click(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void bMobFilter_Click(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void rbMobFilterWhiteList_CheckedChanged(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void cbMobFilterLog_CheckedChanged(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void bMobSearchLogClear_Click(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void bMobFilterAdd_Click(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void tbMobFilterSearch_TextChanged(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void tbItemFilterSearch_TextChanged(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void tbItemFilterMesos_TextChanged(System::Object^  sender, System::EventArgs^  e);
 };
 }

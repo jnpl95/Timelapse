@@ -150,6 +150,9 @@
         kIdoWVLuz3oAAAAASUVORK5CYII=
 </value>
   </data>
+  <metadata name="statusStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>132, 17</value>
+  </metadata>
   <data name="pictureBox1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAYQAAABdCAYAAACl+xGAAAAABGdBTUEAALGPC/xhBQAAT9ZJREFUeF7t
@@ -502,15 +505,12 @@
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 - Recommended injector - Extreme Injector v3.7.2 (unloads dll)
-- Level, job, stats, and mesos are hooked on map load
+- Hover over controls to see helpful tooltips
 - May this trainer bring you everything you ever wanted, 
    hoped, or dreamed
 - Tutorial coming soon
 - Leave feedback!</value>
   </data>
-  <metadata name="statusStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>132, 17</value>
-  </metadata>
   <metadata name="GUITimer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>248, 17</value>
   </metadata>

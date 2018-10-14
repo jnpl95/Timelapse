@@ -8,10 +8,15 @@
 #include <atlstr.h>
 #include <stdlib.h>
 #include "Structs.h"
+#include "resource.h"
 
 #define NewThread(threadFunc) CreateThread(NULL, NULL, (LPTHREAD_START_ROUTINE)&threadFunc, NULL, NULL, NULL);
 //#define jmp(frm, to) (int)(((int)to - (int)frm) - 5);
-HWND mapleWindow = nullptr;
+
+namespace GlobalVars {
+	static HMODULE hDLL;
+	static HWND mapleWindow = nullptr;
+}
 
 #pragma region General Functions
 static void MakePageWritable(ULONG ulAddress, ULONG ulSize) {
@@ -147,21 +152,14 @@ static HWND GetMSWindowHandle() {
 
 //Get MS ThreadID
 static ULONG GetMSThreadID() {
-	if(mapleWindow == nullptr)
-		mapleWindow = GetMSWindowHandle();
-	return GetWindowThreadProcessId(mapleWindow, nullptr);
+	if(GlobalVars::mapleWindow == nullptr)
+		GlobalVars::mapleWindow = GetMSWindowHandle();
+	return GetWindowThreadProcessId(GlobalVars::mapleWindow, nullptr);
 }
 
 //Get MS ProcessID
 static System::String^ GetMSProcID() {
 	return "0x" + GetCurrentProcessId().ToString("X");
-}
-
-//Get DLL Module Handle
-static HMODULE GetCurrentModule() {
-	HMODULE hModule = nullptr;
-	GetModuleHandleEx( GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS, (LPCTSTR)GetCurrentModule, &hModule);
-	return hModule;
 }
 
 //Keycode based on index selected in combo boxes
@@ -215,20 +213,110 @@ static bool isKeyValid(System::Object^ sender, System::Windows::Forms::KeyPressE
 	return result;
 }
 
+//Find item name using item ID in the ItemsList resource
+static System::String^ findItemNameFromID(int itemID) {
+	try {
+		std::string result = "", tmpStr = "";
+		HRSRC hRes = FindResource(GlobalVars::hDLL, MAKEINTRESOURCE(ItemsList), _T("TEXT"));
+		if (hRes == nullptr) return "";
+		HGLOBAL hGlob = LoadResource(GlobalVars::hDLL, hRes);
+		if (hGlob == nullptr) return "";
+		const CHAR* pData = reinterpret_cast<const CHAR*>(::LockResource(hGlob));
+		std::istringstream File(pData);
+
+		while (File.good()) {
+			std::getline(File, tmpStr);
+			if (tmpStr.find(std::to_string(itemID)) == 0) {
+				tmpStr = tmpStr.substr(tmpStr.find('[') + 1, tmpStr.find(']'));
+				tmpStr = tmpStr.substr(0, tmpStr.length() - 2);
+				result = tmpStr;
+			}
+		}
+		UnlockResource(hRes);
+		return ConvertStdToSystemStr(result);
+	}
+	catch (...) { return "Error"; }
+}
+
+//Find mob name using mob ID in the MobsList resource
+static System::String^ findMobNameFromID(int mobID) {
+	try {
+		std::string result = "", tmpStr = "";
+		HRSRC hRes = FindResource(GlobalVars::hDLL, MAKEINTRESOURCE(MobsList), _T("TEXT"));
+		if (hRes == nullptr) return "";		
+		HGLOBAL hGlob = LoadResource(GlobalVars::hDLL, hRes);
+		if (hGlob == nullptr) return "";
+		const CHAR* pData = reinterpret_cast<const CHAR*>(::LockResource(hGlob));
+		std::istringstream File(pData);
+
+		while (File.good()) {
+			std::getline(File, tmpStr);
+			if (tmpStr.find(std::to_string(mobID)) == 0) {
+				tmpStr = tmpStr.substr(tmpStr.find('[') + 1, tmpStr.find(']'));
+				tmpStr = tmpStr.substr(0, tmpStr.length() - 2);
+				result = tmpStr;
+			}
+		}
+		UnlockResource(hRes);
+		return ConvertStdToSystemStr(result);
+	}
+	catch (...) { return "Error"; }
+}
 #pragma endregion
 
 namespace CodeCaves {
 	ULONG curHP = 0, maxHP = 0, curMP = 0, maxMP = 0, curEXP = 0, maxEXP = 0, mapNameAddr = 0x0;
 	int ItemX = 0, ItemY = 0;
 	double hpPercent = 0.00, mpPercent = 0.00, expPercent = 0.00;
-	static std::vector<SpawnControlStruct*>* spawnControl = new std::vector<SpawnControlStruct*>();
+	bool isItemLoggingEnabled = false, isItemFilterEnabled = false, isItemFilterWhiteList = true;
+	bool isMobLoggingEnabled = false, isMobFilterEnabled = false, isMobFilterWhiteList = true;
+	ULONG itemLogged = 0, itemFilterMesos = 0, mobLogged = 0;
+	static std::vector<ULONG> *itemList = new std::vector<ULONG>(), *mobList = new std::vector<ULONG>();
+	static std::vector<SpawnControlStruct*> *spawnControl = new std::vector<SpawnControlStruct*>();
 
 	static SpawnControlStruct* __stdcall getSpawnControlStruct() {
 		if (spawnControl->size() == 0) return nullptr;
-		for (std::vector<SpawnControlStruct*>::const_iterator i = spawnControl->begin(); i != spawnControl->end(); ++i)
-			if ((*i)->mapID == ReadPointer(UIMiniMapBase, OFS_MapID))
-				return (*i);
+		for (SpawnControlStruct *spawnControlStruct : *spawnControl)
+			if (spawnControlStruct->mapID == ReadPointer(UIMiniMapBase, OFS_MapID))
+				return spawnControlStruct;
 		return nullptr;
+	}
+
+	void __stdcall itemLog() {
+		if (itemLogged < 50000) return; //Ignore mesos
+		System::String^ itemName = findItemNameFromID(itemLogged);
+		if (itemLogged > 0 && !Timelapse::MainForm::TheInstance->lbItemSearchLog->Items->Contains(itemName + " (" + itemLogged.ToString() + ")"))
+			Timelapse::MainForm::TheInstance->lbItemSearchLog->Items->Add(itemName + " (" + itemLogged.ToString() + ")");
+	}
+
+	bool __stdcall shouldItemBeFiltered() {
+		if(isItemFilterWhiteList) {
+			for (ULONG item : *itemList)
+				if(item == itemLogged)
+					return false;
+			return true;
+		}
+		else {
+			for (ULONG item : *itemList)
+				if (item == itemLogged)
+					return true;
+			return false;
+		}
+	}
+
+	bool __stdcall shouldMobBeFiltered() {
+		if (isMobFilterWhiteList) {
+			for (ULONG mob : *mobList)
+				if (mob == mobLogged)
+					return false;
+			return true;
+		}
+		else {
+			for (ULONG mob : *mobList)
+				if (mob == mobLogged)
+					return true;
+			return false;
+		}
 	}
 
 #pragma unmanaged
@@ -427,10 +515,8 @@ namespace CodeCaves {
 		}
 	}
 
-	static void __declspec(naked) _stdcall ItemHook()
-	{
-		__asm
-		{
+	__declspec(naked) static void __stdcall ItemHook() {
+		__asm {
 			cmp dword ptr[esp], 0x005047B8
 			jne NormalAPICall //If return not in CDropPool::TryPickUpDrop, skip
 			push eax
@@ -445,6 +531,131 @@ namespace CodeCaves {
 		}
 	}
 
+	__declspec(naked) static void __stdcall ItemFilterHook() {
+		__asm {
+			push ebx
+			cmp byte ptr[isItemLoggingEnabled], 0
+			je Continue //Skip Logging Items
+			push eax
+			mov [itemLogged], eax
+			call itemLog
+			pop eax
+
+			Continue:
+			cmp byte ptr[isItemFilterEnabled], 0
+			je EndFilter //Skip if Item Filter is disabled
+			mov ebx,[itemFilterMesos]
+			cmp eax,ebx //Assumes item is mesos because there the mesos drop limit is 50,000 whereas the smallest item id is greater than that
+			jle RemoveMesos //Remove mesos if item id is less than or equal to the user set limit. 
+			push eax
+			mov [itemLogged], eax
+			call shouldItemBeFiltered
+			cmp eax, 0 //Item shouldn't be filtered
+			pop eax
+			je EndFilter
+			mov eax, 0x00 //Remove Item
+			jmp EndFilter
+
+			RemoveMesos:
+			mov[edi + 0x30], 0x00 //Remove Mesos
+
+			EndFilter:
+			pop ebx
+			mov [edi+0x34],eax
+			mov edi,[ebp-0x14]
+			jmp [itemFilterAddrRet]
+		}
+	}
+
+	__declspec(naked) static void __stdcall MobFilter1Hook() {
+		__asm {
+			push ebx
+			call [cInPacketDecode4Addr] //CInPacket::Decode4()
+			cmp dword ptr[mFilter], 0x00
+			je EndMobFilter1
+			mov ebx, offset mobList
+			cmp dword ptr[mFtype], 0x00
+			je RejectFilter1
+			cmp dword ptr[mFtype], 0x01
+			je AcceptFilter1
+			jmp Exit1
+
+			RejectFilter1 :
+			cmp eax, [ebx]
+			je Filter1
+			cmp[ebx], 0x00
+			je EndMobFilter1
+			add ebx, 0x04
+			jmp RejectFilter1
+
+			AcceptFilter1 :
+			cmp eax, [ebx]
+			je EndMobFilter1
+			cmp[ebx], 0x00
+			je Filter1
+			add ebx, 0x04
+			jmp AcceptFilter1
+
+			Filter1 :
+			pop ebx
+			jmp[mFilter1Jmp] // mov ecx,[esp+??] above the ret 00?? at the end of function
+
+			EndMobFilter1:
+			pop ebx
+			jmp [MobFilter1AddrRet]
+		}
+	}
+
+	__declspec(naked) static void __stdcall MobFilter2Hook() {
+		__asm {
+			push ebx
+			call[mFilterCall] // Opcode
+			cmp dword ptr[mFlog], 0x01
+			je mLog
+			jmp mcont
+
+			mcont :
+			cmp dword ptr[mFilter], 0x00
+			je Exit2
+			mov ebx, offset mobList
+			cmp dword ptr[mFtype], 0x00
+			je RejectFilter2
+			cmp dword ptr[mFtype], 0x01
+			je AcceptFilter2
+			jmp Exit2
+
+			mLog :
+			push eax
+			mov[mFitem], eax
+			call mobLog
+			pop eax
+			jmp mcont
+
+			RejectFilter2 :
+			cmp eax, [ebx]
+			je Filter2
+			cmp[ebx], 0x00
+			je Exit2
+			add ebx, 0x04
+			jmp RejectFilter2
+
+			AcceptFilter2 :
+			cmp eax, [ebx]
+			je Exit2
+			cmp[ebx], 0x00
+			je Filter2
+			add ebx, 0x04
+			jmp AcceptFilter2
+
+			Filter2 :
+			pop ebx
+			jmp[mFilter2Jmp]  // mov ecx,[esp+??] above the ret 00?? at the end of function
+
+			Exit2 :
+			pop ebx
+			jmp[MobFilter2AddrRet]
+		}
+	}
 #pragma managed
 }
 

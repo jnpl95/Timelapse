@@ -1,4 +1,4 @@
-#include <Windows.h>
+﻿#include <Windows.h>
 #include <sstream>
 #include "MainForm.h"
 #include "Pointers.h"
@@ -10,9 +10,8 @@
 
 using namespace Timelapse;
  
-//Manged Global Variables
-ref class GlobalRefs {
-public:
+//Managed Global Variables
+ref struct GlobalRefs {
 	static Macro ^macroHP, ^macroMP, ^macroAttack, ^macroLoot;
 	static bool isChangingField = false, isMapRushing = false;
 	static bool bClickTeleport = false, bMouseTeleport = false, bTeleport = false, bKami = false, bKamiLoot;
@@ -25,7 +24,6 @@ public:
 #pragma region General Form
 [STAThreadAttribute]
 void Main() {
-	[assembly:System::Diagnostics::DebuggableAttribute(true, true)];
 	Application::EnableVisualStyles();
 	Application::SetCompatibleTextRenderingDefault(false);
 	Application::Run(gcnew MainForm);
@@ -34,18 +32,21 @@ void Main() {
 
 #pragma unmanaged
 BOOL WINAPI DllMain(HMODULE hModule, DWORD dwReason, LPVOID lpvReserved) {
+	GlobalVars::hDLL = hModule;
+
 	switch (dwReason) {
-	case DLL_PROCESS_ATTACH:
-		CreateThread(nullptr, 0, (LPTHREAD_START_ROUTINE)&Main, nullptr, 0, nullptr);
-		break;
-	case DLL_PROCESS_DETACH:
-		FreeLibraryAndExitThread(hModule, 0);
-	case DLL_THREAD_ATTACH:
-		break;
-	case DLL_THREAD_DETACH:
-		break;
-	default:
-		break;
+		case DLL_PROCESS_ATTACH:
+			//GlobalVars::hDLL = hModule;
+			CreateThread(nullptr, 0, (LPTHREAD_START_ROUTINE)&Main, nullptr, 0, nullptr);
+			break;
+		case DLL_PROCESS_DETACH:
+			FreeLibraryAndExitThread(hModule, 0);
+		case DLL_THREAD_ATTACH:
+			break;
+		case DLL_THREAD_DETACH:
+			break;
+		default:
+			break;
 	}
 	__writefsdword(0x6B0, GetMSThreadID());
 
@@ -451,18 +452,19 @@ void MainForm::tbBuffInterval_KeyPress(Object^  sender, Windows::Forms::KeyPress
 
 #pragma region Auto CC/CS
 void CallCCFunc(int channel) {
+	if (PointerFuncs::getMapID()->Equals("0")) return;
 	WritePointer(UserLocalBase, OFS_Breath, 0);
 	CField__SendTransferChannelRequest(channel);
 	Sleep(200);
 }
 
 void CallCSFunc() {
+	if (PointerFuncs::getMapID()->Equals("0")) return;
 	WritePointer(UserLocalBase, OFS_Breath, 0);
-	CWvsContext__SendMigrateToShopRequest(*reinterpret_cast<PULONG>(UserLocalBase), 0);
+	CWvsContext__SendMigrateToShopRequest(*(PVOID*)ServerBase, (PVOID)0x2FDFE1D, 0);
 	Sleep(Convert::ToUInt32(MainForm::TheInstance->tbCSDelay->Text));
-	CCashShop__SendTransferFieldPacket();
-	CCashShop__SendTransferFieldPacket();
-	Sleep(500);
+	//CCashShop__SendTransferFieldPacket();
+	Sleep(1000);
 }
 
 void _stdcall AutoCC(int toChannel) {
@@ -1214,35 +1216,145 @@ void MainForm::cbItemVac_CheckedChanged(Object^  sender, EventArgs^  e) {
 		WriteMemory(itemVacAddr, 7, 0x50, 0xFF, 0x75, 0xDC, 0x8D, 0x45, 0xCC);
 }
 
-
-
 #pragma endregion
 
 #pragma region Filters Tab
 #pragma region ItemFilter
-//Find item name using item ID in the ItemsList resource
-static std::string findItemNameFromID(int itemID) {
+//Find items in ItemsList resource with names starting with string passed in
+static void findItemsStartingWithStr(String^ str) {
 	try {
-		std::string result = "", tmpStr = "";
-		HRSRC hRes = FindResource(GetCurrentModule(), MAKEINTRESOURCE(ItemsList), _T("TEXT"));
-		if (hRes == nullptr) return "";
-		HGLOBAL hGlob = LoadResource(GetCurrentModule(), hRes);
-		if (hGlob == nullptr) return "";
+		if (String::IsNullOrEmpty(str)) return;
+		std::string tmpStr = "", itemID = "", itemStr = ConvertSystemToStdStr(str); //TODO
+		HRSRC hRes = FindResource(GlobalVars::hDLL, MAKEINTRESOURCE(ItemsList), _T("TEXT"));
+		if (hRes == nullptr) return;
+		HGLOBAL hGlob = LoadResource(GlobalVars::hDLL, hRes);
+		if (hGlob == nullptr) return;
 		const CHAR* pData = reinterpret_cast<const CHAR*>(::LockResource(hGlob));
 		std::istringstream File(pData);
 
 		while (File.good()) {
 			std::getline(File, tmpStr);
-			if (tmpStr.find(std::to_string(itemID)) == 0) {
-				tmpStr = tmpStr.substr(tmpStr.find('[') + 1, tmpStr.find(']'));
-				tmpStr = tmpStr.substr(0, tmpStr.length() - 2);
-				result = tmpStr;
+			itemID = tmpStr.substr(0, tmpStr.find(' '));
+			tmpStr = tmpStr.substr(tmpStr.find('[') + 1, tmpStr.find(']'));
+			tmpStr = tmpStr.substr(0, tmpStr.length() - 2);
+
+			if (tmpStr.find(itemStr) != std::string::npos) {
+				std::string tmpLine = tmpStr + " (" + itemID.c_str() + ")";
+				String^ result = gcnew String(tmpLine.c_str());
+				if (!MainForm::TheInstance->lbItemSearchLog->Items->Contains(result))
+					MainForm::TheInstance->lbItemSearchLog->Items->Add(result);
 			}
 		}
 		UnlockResource(hRes);
-		return result;
 	}
-	catch (...) { return ""; }
+	catch (...) {}
+}
+
+//Enable Item Filter
+void MainForm::bItemFilter_Click(System::Object^  sender, System::EventArgs^  e) {
+	if(bItemFilter->Text->Equals("Enable Item Filter")) {
+		bItemFilter->Text = "Disable Item Filter";
+		if (Convert::ToUInt32(tbItemFilterMesos->Text) > 50000) MessageBox::Show("Please enter mesos value ranging from 0 to 50,000. Default: 0");
+
+		CodeCaves::isItemFilterEnabled = 1;
+		if (CodeCaves::isItemLoggingEnabled == 0)
+			Jump(itemFilterAddr, CodeCaves::ItemFilterHook, 1);
+	}
+	else {
+		bItemFilter->Text = "Enable Item Filter";
+		CodeCaves::isItemFilterEnabled = 0;
+		if(CodeCaves::isItemLoggingEnabled == 0)
+			WriteMemory(itemFilterAddr, 6, 0x89, 0x47, 0x34, 0x8B, 0x7D, 0xEC); //mov [edi+34],eax; mov edi,[ebp-14];
+	}
+}
+
+//Change Item Filter type (either White List or Black List)
+void MainForm::rbItemFilterWhiteList_CheckedChanged(System::Object^  sender, System::EventArgs^  e) {
+	if (rbItemFilterWhiteList->Checked)
+		CodeCaves::isItemFilterWhiteList = 1;
+	else
+		CodeCaves::isItemFilterWhiteList = 0;
+}
+
+//Enable Item Filter Log
+void MainForm::cbItemFilterLog_CheckedChanged(System::Object^  sender, System::EventArgs^  e) {
+	if(cbItemFilterLog->Checked) {
+		CodeCaves::isItemLoggingEnabled = 1;
+		if (CodeCaves::isItemFilterEnabled == 0)
+			Jump(itemFilterAddr, CodeCaves::ItemFilterHook, 1);
+	}
+	else {
+		CodeCaves::isItemLoggingEnabled = 0;
+		if (CodeCaves::isItemFilterEnabled == 0)
+			WriteMemory(itemFilterAddr, 6, 0x89, 0x47, 0x34, 0x8B, 0x7D, 0xEC); //mov [edi+34],eax; mov edi,[ebp-14];
+	}
+}
+
+//Add item to Item Filter ListBox
+void MainForm::bItemFilterAdd_Click(System::Object^  sender, System::EventArgs^  e) {
+	if(tbItemFilterID->TextLength > 0) {
+		try {
+			UINT itemID = Convert::ToUInt32(tbItemFilterID->Text);
+			String^ item = findItemNameFromID(itemID);
+
+			if(itemID > 0 && !lbItemFilter->Items->Contains(item + " (" + itemID.ToString() + ")")) {
+				lbItemFilter->Items->Add(item + " (" + itemID.ToString() + ")");
+				tbItemFilterID->Text = "";
+				lbItemFilter->SelectedIndex = -1;
+				CodeCaves::itemList->push_back(itemID);
+			}
+		}
+		catch (...) { MessageBox::Show("Item ID not found"); }
+	}
+}
+
+//Delete item from Item Filter ListBox
+void MainForm::lbItemFilter_MouseDoubleClick(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
+	if(lbItemFilter->SelectedItem != nullptr) {
+		String ^itemStr = lbItemFilter->GetItemText(lbItemFilter->SelectedItem);
+		int startIndex = itemStr->IndexOf('(') + 1, endIndex = itemStr->IndexOf(')');
+
+		String^ itemIDStr = itemStr->Substring(startIndex, endIndex - startIndex);
+		CodeCaves::itemList->erase(std::find(CodeCaves::itemList->begin(), CodeCaves::itemList->end(), Convert::ToUInt32(itemIDStr)));
+
+		lbItemFilter->Items->Remove(lbItemFilter->SelectedItem);
+		lbItemFilter->SelectedIndex = -1;
+	}
+}
+
+//Transfer item from Item Search Log ListBox to Item Filter ListBox
+void MainForm::lbItemSearchLog_MouseDoubleClick(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
+	if(lbItemSearchLog->SelectedItem != nullptr && lbItemSearchLog->SelectedItem->ToString()->Length > 0) {
+		String ^itemStr = lbItemSearchLog->GetItemText(lbItemSearchLog->SelectedItem);
+		int startIndex = itemStr->IndexOf('(')+1, endIndex = itemStr->IndexOf(')');
+
+		String^ itemIDStr = itemStr->Substring(startIndex, endIndex - startIndex);
+		CodeCaves::itemList->push_back(Convert::ToUInt32(itemIDStr));
+
+		lbItemFilter->Items->Add(lbItemSearchLog->SelectedItem);
+		lbItemSearchLog->SelectedIndex = -1;
+		lbItemFilter->SelectedIndex = -1;
+	}
+}
+
+//Clear items in Item Search Log
+void MainForm::bItemSearchLogClear_Click(System::Object^  sender, System::EventArgs^  e) {
+	lbItemSearchLog->Items->Clear();
+}
+
+//Searches ItemList resource for items starting with text entered so far
+void MainForm::tbItemFilterSearch_TextChanged(System::Object^  sender, System::EventArgs^  e) {
+	lbItemSearchLog->Items->Clear();
+	findItemsStartingWithStr(tbItemFilterSearch->Text);
+}
+
+//Changes limit for Mesos (Range: 0<=limit<=50000)
+void MainForm::tbItemFilterMesos_TextChanged(System::Object^  sender, System::EventArgs^  e) {
+	if (!String::IsNullOrEmpty(tbItemFilterMesos->Text)) {
+		ULONG mesosLimit = Convert::ToUInt32(tbItemFilterMesos->Text);
+		if (mesosLimit >= 0 && mesosLimit <= 50000)
+			CodeCaves::itemFilterMesos = mesosLimit;
+	}
 }
 
 void MainForm::tbItemFilterID_KeyPress(Object^  sender, Windows::Forms::KeyPressEventArgs^  e) {
@@ -1255,6 +1367,30 @@ void MainForm::tbItemFilterMesos_KeyPress(Object^  sender, Windows::Forms::KeyPr
 #pragma endregion
 
 #pragma region MobFilter
+void MainForm::bMobFilter_Click(System::Object^  sender, System::EventArgs^  e) {
+
+}
+void MainForm::rbMobFilterWhiteList_CheckedChanged(System::Object^  sender, System::EventArgs^  e) {
+
+}
+void MainForm::cbMobFilterLog_CheckedChanged(System::Object^  sender, System::EventArgs^  e) {
+
+}
+void MainForm::bMobFilterAdd_Click(System::Object^  sender, System::EventArgs^  e) {
+
+}
+void MainForm::bMobSearchLogClear_Click(System::Object^  sender, System::EventArgs^  e) {
+
+}
+void MainForm::lbMobFilter_MouseDoubleClick(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
+
+}
+void MainForm::lbMobSearchLog_MouseDoubleClick(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
+
+}
+void MainForm::tbMobFilterSearch_TextChanged(System::Object^  sender, System::EventArgs^  e) {
+
+}
 void MainForm::tbMobFilterID_KeyPress(Object^  sender, Windows::Forms::KeyPressEventArgs^  e) {
 	if (!isKeyValid(sender, e, false)) e->Handled = true; //If key is not valid, do nothing and indicate that it has been handled
 }
@@ -1361,8 +1497,95 @@ void MainForm::tbAPLUK_KeyPress(Object^  sender, Windows::Forms::KeyPressEventAr
 
 #pragma endregion
 
+template <class T>
+class ZXString
+{
+public:
+	T* str_;
+
+	ZXString() : str_(nullptr) { }
+
+	ZXString(const T* s, int n)
+	{
+		Assign(s, n);
+	}
+
+	explicit ZXString(const std::string& text) : ZXString(text.data(), text.length() + 1) { }
+
+	~ZXString()
+	{
+		delete[] str_;
+	}
+
+	operator const T*()
+	{
+		return str_;
+	}
+
+	ZXString<T>& operator=(ZXString<T> str)
+	{
+		delete[] str_;
+		str_ = str.str_;
+		return *this;
+	}
+
+	void Assign(const T* s, size_t lenght = -1)
+	{
+		if (s) {
+			delete[] str_;
+
+			if (lenght == -1) lenght = std::strlen(s) + 1;
+
+			T* data = new char[lenght + 4];
+			*reinterpret_cast<size_t*>(data) = lenght;
+			str_ = &data[4];
+			std::strcpy(str_, s);
+		}
+	}
+
+	size_t GetLength()
+	{
+		if (str_) return *reinterpret_cast<size_t*>(str_ - 4);
+		return 0;
+	}
+};
+
+
+typedef ZXString<char>*(__stdcall *lpfnCItemInfo__GetMapString)(PVOID, PVOID, ZXString<char>*, UINT);
+lpfnCItemInfo__GetMapString CItemInfo__GetMapString = (lpfnCItemInfo__GetMapString)0x005CF792;
+
+typedef ZXString<char>*(__stdcall* StringPool__GetString_t)(PVOID, PVOID, ZXString<char>*, UINT);
+//typedef UINT(__stdcall* StringPool__GetString_t)(PVOID, PVOID, UINT, UINT);
+StringPool__GetString_t StringPool__GetString = (StringPool__GetString_t)0x00406455;
+
 //Test stuff out
 void MainForm::button1_Click(System::Object^  sender, System::EventArgs^  e) {
+	char lpsz[256];
+	ZXString<char> *buf = new ZXString<char>(lpsz, 257);
+	buf = StringPool__GetString(*(PVOID*)StringPool, nullptr, buf, 0x222);
+	char* blah = buf->str_;
+	String^ test = gcnew String(blah);
+	MessageBox::Show(test);
 
+	//char lpsz[256];
+	//ZXString<char> *buf = new ZXString<char>(lpsz, 257);
+
+	//finalMapString is not returned, so finalMapString is empty
+	/*String^ finalMapString = gcnew String((char*)(CItemInfo__GetMapString(*(PVOID*)CItemInfo, NULL, buf, 100000000)->str_));
+	if (!String::IsNullOrEmpty(finalMapString))
+		MessageBox::Show(finalMapString);*/
+
+	//Successfully displays string, but crashes shortly after.
+	
+	//StringPool__GetString((PVOID)(*(ULONG*)StringPool), nullptr, buf, 266);
+
+	//buf = StringPool__GetString((PVOID)(*(ULONG*)StringPool), nullptr, buf, 0);
+
+	//char* str = (char*)buf->GetText();
+	/*String^ test = gcnew String(Convert::ToString(buf->GetText()));
+	if (!String::IsNullOrEmpty(test))
+		MessageBox::Show(test);
+	else
+		MessageBox::Show("String is empty :(");*/
 }
     

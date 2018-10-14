@@ -3,9 +3,9 @@
 // Used by Timelapse.rc
 //
 #define IDI_ICON1                       101
-#define ItemsList                           102
-#define MobsList                            103
-#define MapsList                            104
+#define ItemsList                       102
+#define MobsList                        103
+#define MapsList                        104
 
 // Next default values for new objects
 // 

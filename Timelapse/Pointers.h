@@ -33,13 +33,19 @@ ULONG spawnPointAddr = 0x009B12A8; //Start of CVecCtrl::SetActive()
 ULONG spawnPointAddrRet = spawnPointAddr + 5;
 ULONG itemFilterAddr = 0x005059CC; //Inside CDropPool::OnDropEnterField()
 ULONG itemFilterAddrRet = itemFilterAddr + 6;
+ULONG mobFilter1Addr = 0x0067832D; //Inside CMobPool::SetLocalMob()
+ULONG mobFilter1AddrRet = mobFilter1Addr + 5;
+ULONG cInPacketDecode4Addr = 0x00406629; //Start of CInPacket::Decode4()
+ULONG mobFilter2Addr = 0x0067948C; //Inside CMobPool::OnMobEnterField()
+ULONG mobFilter2AddrRet = mobFilter2Addr + 5;
+
 #pragma endregion
 
 #pragma region FunctionPointers
-typedef int(__thiscall *lpfnCWvsContext__SendMigrateToShopRequest)(ULONG, int); // Enters Cash Shop
+typedef void(__stdcall *lpfnCWvsContext__SendMigrateToShopRequest)(PVOID, PVOID, int); // Enters Cash Shop
 lpfnCWvsContext__SendMigrateToShopRequest CWvsContext__SendMigrateToShopRequest = (lpfnCWvsContext__SendMigrateToShopRequest)0x00A04DCA;
 
-typedef int(__stdcall *lpfnCCashShop__SendTransferFieldPacket)(); // Exits Cash Shop
+typedef void(__stdcall *lpfnCCashShop__SendTransferFieldPacket)(); // Exits Cash Shop
 lpfnCCashShop__SendTransferFieldPacket CCashShop__SendTransferFieldPacket = (lpfnCCashShop__SendTransferFieldPacket)0x0047C108;
 
 typedef int(__stdcall *lpfnCField__SendTransferChannelRequest)(int nTargetChannel); // Changes Channel
@@ -144,6 +150,7 @@ ULONG OFS_DeadMob = 0x7C; //Wrong
 ULONG OFS_MobCount = 0x24;
 
 ULONG CItemInfo = 0xBE78D8;
+ULONG StringPool = 0xBF0D0C;
 #pragma endregion
 
 #endif

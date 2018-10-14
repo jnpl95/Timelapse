@@ -23,7 +23,7 @@ public:
 	static bool closeMacroQueue = false;
 
 	static void MacroQueueWorker() {
-		if (mapleWindow == nullptr) mapleWindow = GetMSWindowHandle();
+		if (GlobalVars::mapleWindow == nullptr) GlobalVars::mapleWindow = GetMSWindowHandle();
 		while(!closeMacroQueue) {
 			if(macroQueue == nullptr || macroQueue->empty()) { Sleep(50); continue; }
 			
@@ -36,27 +36,27 @@ public:
 					if (MacrosEnabled::bMacroLoot) {
 						if (System::String::IsNullOrWhiteSpace(Timelapse::MainForm::TheInstance->tbLootItem->Text)) break;
 						if (ReadPointer(DropPoolBase, OFS_ItemCount) > System::Convert::ToUInt32(Timelapse::MainForm::TheInstance->tbLootItem->Text))
-							PostMessage(mapleWindow, WM_KEYDOWN, key->keyCode, MapVirtualKey(key->keyCode, MAPVK_VK_TO_VSC) << 16);
+							PostMessage(GlobalVars::mapleWindow, WM_KEYDOWN, key->keyCode, MapVirtualKey(key->keyCode, MAPVK_VK_TO_VSC) << 16);
 					}
 					break;
 				case MacroType::ATTACKMACRO:
 					if (MacrosEnabled::bMacroAttack) {
 						if (System::String::IsNullOrWhiteSpace(Timelapse::MainForm::TheInstance->tbAttackMob->Text)) break;
 						if (ReadPointer(MobPoolBase, OFS_MobCount) > System::Convert::ToUInt32(Timelapse::MainForm::TheInstance->tbAttackMob->Text))
-							PostMessage(mapleWindow, WM_KEYDOWN, key->keyCode, MapVirtualKey(key->keyCode, MAPVK_VK_TO_VSC) << 16);
+							PostMessage(GlobalVars::mapleWindow, WM_KEYDOWN, key->keyCode, MapVirtualKey(key->keyCode, MAPVK_VK_TO_VSC) << 16);
 					}
 					break;
 				case MacroType::BUFFMACRO:
 					Sleep(15);
-					PostMessage(mapleWindow, WM_KEYDOWN, key->keyCode, MapVirtualKey(key->keyCode, MAPVK_VK_TO_VSC) << 16);
-					PostMessage(mapleWindow, WM_KEYUP, key->keyCode, MapVirtualKey(key->keyCode, MAPVK_VK_TO_VSC) << 16);
+					PostMessage(GlobalVars::mapleWindow, WM_KEYDOWN, key->keyCode, MapVirtualKey(key->keyCode, MAPVK_VK_TO_VSC) << 16);
+					PostMessage(GlobalVars::mapleWindow, WM_KEYUP, key->keyCode, MapVirtualKey(key->keyCode, MAPVK_VK_TO_VSC) << 16);
 					Sleep(50);
 					break;
 				case MacroType::MPPOTMACRO:
 					if(MacrosEnabled::bMacroMP) {
 						if (System::String::IsNullOrWhiteSpace(Timelapse::MainForm::TheInstance->tbMP->Text)) break;
 						if (CodeCaves::curMP < System::Convert::ToUInt32(Timelapse::MainForm::TheInstance->tbMP->Text))
-							PostMessage(mapleWindow, WM_KEYDOWN, key->keyCode, MapVirtualKey(key->keyCode, MAPVK_VK_TO_VSC) << 16);
+							PostMessage(GlobalVars::mapleWindow, WM_KEYDOWN, key->keyCode, MapVirtualKey(key->keyCode, MAPVK_VK_TO_VSC) << 16);
 					}
 						
 					break;
@@ -64,7 +64,7 @@ public:
 					if (MacrosEnabled::bMacroHP) {
 						if (System::String::IsNullOrWhiteSpace(Timelapse::MainForm::TheInstance->tbHP->Text)) break;
 						if (CodeCaves::curHP < System::Convert::ToUInt32(Timelapse::MainForm::TheInstance->tbHP->Text))
-							PostMessage(mapleWindow, WM_KEYDOWN, key->keyCode, MapVirtualKey(key->keyCode, MAPVK_VK_TO_VSC) << 16);
+							PostMessage(GlobalVars::mapleWindow, WM_KEYDOWN, key->keyCode, MapVirtualKey(key->keyCode, MAPVK_VK_TO_VSC) << 16);
 					}
 					break;
 			}
@@ -75,7 +75,6 @@ public:
 };
 
 ref class Macro {
-private:
 	System::Threading::Timer^ timer;
 	void TimerElapsed(System::Object^ state) {
 		//if ((macroType == MacroType::LOOTMACRO || macroType == MacroType::ATTACKMACRO) && PriorityQueue::macroQueue->size() > 20) return;
