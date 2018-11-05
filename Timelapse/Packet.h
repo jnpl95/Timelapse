@@ -2,9 +2,11 @@
 #define PACKET_H
 
 #include <Windows.h>
+
 bool SendPacket(System::String^ packetStr);
 bool RecvPacket(System::String^ packetStr);
 void __stdcall SendPacketHook();
+//void __stdcall RecordPacketsSent(COutPacket packet);
 
 struct COutPacket {
 	int Loopback;
@@ -39,6 +41,5 @@ struct CInPacket {
 	UINT uOffset;
 	PVOID lpv;
 };
-//void __stdcall RecordPacketsSent(COutPacket packet);
 
 #endif

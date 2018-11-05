@@ -10,6 +10,7 @@ PacketSend Send = (PacketSend)0x0049637B;
 typedef void(__thiscall *PacketRecv)(PVOID clientSocket, CInPacket* packet); //Receive packet from client to server
 PacketRecv Recv = (PacketRecv)0x004965F1;
 
+
 inline PUCHAR atohx(PUCHAR szDestination, LPCSTR szSource)
 {
 	const PUCHAR szReturn = szDestination;

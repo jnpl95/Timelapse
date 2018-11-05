@@ -50,7 +50,7 @@ A MapleStory v83 Trainer
 - (ADD) code/find defined packets including Auto AP, Auto-Sell, intercontinental packets if possible 
 
 ## Map Rusher: 
-- Code Map Rusher (already coded in old trainer)
+- Code the actual Map Rush part
 - (ADD) Make Map Rush intercontinental
 - (ADD) Code Auto-Rushback
 - (ADD) Code allowing for both packet based and teleport based map rush
@@ -58,23 +58,23 @@ A MapleStory v83 Trainer
 ## Other: 
 - Look into making sure trainer can be injected into multiple instances with no interference between
 - (ADD) check for auto-loot to see if inventory is full, add option to sell useless shit and buy pots 
-- (ADD) Make a label visible for a bit (or log) all options in trainer
+- (ADD) Make a label visible for a bit (or log) all actions in trainer
 - (ADD) Make Tooltips for everything
 - (ADD) Logger for mesos picked up/mobs killed/# of levels leveled up during hacking session
-- (ADD) countdown for Auto CC/CS on bottom of trainer (look into replacing useless time label on bottom right)
-- (ADD) chat messages for style points hehe
+- (ADD) countdown for Auto CC/CS on bottom of trainer if active (look into replacing useless time label on bottom right)
 
 ## NOTES: 
 - Use Stealth Inject option in Settings for Extreme Injector
 - For all new number only textboxes, double check to see if the keypress event (in MainForm.h) is defined
 
 
-## Temp Unsorted TODO:  
+## Bugs:  
 - Fix ClickTeleport() tbClickTeleport, MouseTeleport() tbMouseTeleport, TeleportLoop() tbTeleportLoopDelay being empty
 - Check and fix all textbox error messages
-- Add spawn point dynamic stuff to Codecave and see if Strucs.h/SpawnControlStruct is necessary ??? maybe in helper function in codecave::, loop through listviews and return a dynamically constructed struct/array
-- Look into seeing if there is a pointer to see if map has reloaded (for map rush & auto cc/cs), otherwise users can click multiple times, causing the function to complete multiple times before cc'ing is actually finished
+- Add spawn point dynamic stuff to Codecave and see if Strucs.h/SpawnControlStruct is necessary ??? maybe in helper function in codecave namespace, loop through listviews and return a dynamically constructed struct/array
+- Look into seeing if there is a pointer to see if map has finshed loading (uses: map rush & auto cc/cs), otherwise users can click multiple times, causing the function to complete multiple times before cc'ing is actually finished
 - Fix null pointer exception for reading char for level pointer
+- Find better functions to code cave in for map name, hp, mp and exp pointers
 
 
 

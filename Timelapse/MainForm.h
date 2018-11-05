@@ -228,14 +228,16 @@ private: System::Windows::Forms::Button^  bItemSearchLogClear;
 	private: System::Windows::Forms::Button^  bRecvClear;
 	private: System::Windows::Forms::Button^  bRecvPacket;
 	private: System::Windows::Forms::ListView^  lvRecv;
-	private: System::Windows::Forms::Label^  lbMapRusherStatus;
+public: System::Windows::Forms::Label^  lbMapRusherStatus;
+private:
+
 	private: System::Windows::Forms::TextBox^  tbMapRusherDestination;
 	private: System::Windows::Forms::Label^  label79;
 	private: System::Windows::Forms::Button^  bMapRush;
 	private: System::Windows::Forms::TextBox^  tbMapRusherSearch;
 	private: System::Windows::Forms::Label^  label78;
-	private: System::Windows::Forms::ListView^  lvMapRusherSearch;
-	private: System::Windows::Forms::ListView^  lvMapRusher;
+
+
 	private: System::Windows::Forms::CheckBox^  cbDisablePointers;
 public: System::Windows::Forms::Timer^  AutoCCCSTimer;
 private: System::Windows::Forms::TabPage^  tabPage17;
@@ -421,6 +423,29 @@ private:
 public: System::Windows::Forms::ListBox^  lbMobFilter;
 public: System::Windows::Forms::ListBox^  lbItemSearchLog;
 public: System::Windows::Forms::ListBox^  lbItemFilter;
+
+public: System::Windows::Forms::TreeView^  tvMapRusherSearch;
+
+
+
+private:
+
+public: System::Windows::Forms::RadioButton^  rbMapRusherTeleport;
+private:
+
+public: System::Windows::Forms::RadioButton^  rbMapRusherPacket;
+
+
+private: System::Windows::Forms::Panel^  panel30;
+public: System::Windows::Forms::ListView^  lvMapRusherSearch;
+private:
+private: System::Windows::Forms::ColumnHeader^  columnHeader7;
+public:
+private: System::Windows::Forms::ColumnHeader^  columnHeader8;
+public:
+public:
+
+public:
 	private: System::ComponentModel::IContainer^  components;
 
 	private:
@@ -807,14 +832,19 @@ public: System::Windows::Forms::ListBox^  lbItemFilter;
 			this->tbAPLevel = (gcnew System::Windows::Forms::TextBox());
 			this->cbAP = (gcnew System::Windows::Forms::CheckBox());
 			this->tabPage9 = (gcnew System::Windows::Forms::TabPage());
+			this->tvMapRusherSearch = (gcnew System::Windows::Forms::TreeView());
+			this->rbMapRusherTeleport = (gcnew System::Windows::Forms::RadioButton());
+			this->rbMapRusherPacket = (gcnew System::Windows::Forms::RadioButton());
 			this->lbMapRusherStatus = (gcnew System::Windows::Forms::Label());
 			this->tbMapRusherDestination = (gcnew System::Windows::Forms::TextBox());
 			this->label79 = (gcnew System::Windows::Forms::Label());
 			this->bMapRush = (gcnew System::Windows::Forms::Button());
+			this->panel30 = (gcnew System::Windows::Forms::Panel());
+			this->lvMapRusherSearch = (gcnew System::Windows::Forms::ListView());
+			this->columnHeader7 = (gcnew System::Windows::Forms::ColumnHeader());
+			this->columnHeader8 = (gcnew System::Windows::Forms::ColumnHeader());
 			this->tbMapRusherSearch = (gcnew System::Windows::Forms::TextBox());
 			this->label78 = (gcnew System::Windows::Forms::Label());
-			this->lvMapRusherSearch = (gcnew System::Windows::Forms::ListView());
-			this->lvMapRusher = (gcnew System::Windows::Forms::ListView());
 			this->lbMapName = (gcnew System::Windows::Forms::Label());
 			this->lbDateTime = (gcnew System::Windows::Forms::Label());
 			this->label21 = (gcnew System::Windows::Forms::Label());
@@ -878,6 +908,7 @@ public: System::Windows::Forms::ListBox^  lbItemFilter;
 			this->panel29->SuspendLayout();
 			this->panel6->SuspendLayout();
 			this->tabPage9->SuspendLayout();
+			this->panel30->SuspendLayout();
 			this->SuspendLayout();
 			// 
 			// menuStrip1
@@ -1328,7 +1359,7 @@ public: System::Windows::Forms::ListBox^  lbItemFilter;
 			// 
 			this->lbChannel->AutoSize = true;
 			this->lbChannel->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
-			this->lbChannel->ForeColor = System::Drawing::Color::LightBlue;
+			this->lbChannel->ForeColor = System::Drawing::Color::LightPink;
 			this->lbChannel->Location = System::Drawing::Point(457, 188);
 			this->lbChannel->Name = L"lbChannel";
 			this->lbChannel->Size = System::Drawing::Size(19, 13);
@@ -3646,11 +3677,11 @@ public: System::Windows::Forms::ListBox^  lbItemFilter;
 				static_cast<System::Int32>(static_cast<System::Byte>(35)), static_cast<System::Int32>(static_cast<System::Byte>(35)));
 			this->tbSpawnControlMapID->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 			this->tbSpawnControlMapID->ForeColor = System::Drawing::Color::White;
-			this->tbSpawnControlMapID->Location = System::Drawing::Point(101, 3);
+			this->tbSpawnControlMapID->Location = System::Drawing::Point(98, 3);
 			this->tbSpawnControlMapID->Name = L"tbSpawnControlMapID";
-			this->tbSpawnControlMapID->Size = System::Drawing::Size(57, 21);
+			this->tbSpawnControlMapID->Size = System::Drawing::Size(60, 21);
 			this->tbSpawnControlMapID->TabIndex = 51;
-			this->tbSpawnControlMapID->Text = L"000000000";
+			this->tbSpawnControlMapID->Text = L"0";
 			this->tbSpawnControlMapID->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
 			this->tbSpawnControlMapID->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &MainForm::tbSpawnControlMapID_KeyPress);
 			// 
@@ -3670,9 +3701,9 @@ public: System::Windows::Forms::ListBox^  lbItemFilter;
 				static_cast<System::Int32>(static_cast<System::Byte>(35)));
 			this->tbSpawnControlY->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 			this->tbSpawnControlY->ForeColor = System::Drawing::Color::White;
-			this->tbSpawnControlY->Location = System::Drawing::Point(101, 27);
+			this->tbSpawnControlY->Location = System::Drawing::Point(98, 27);
 			this->tbSpawnControlY->Name = L"tbSpawnControlY";
-			this->tbSpawnControlY->Size = System::Drawing::Size(57, 21);
+			this->tbSpawnControlY->Size = System::Drawing::Size(60, 21);
 			this->tbSpawnControlY->TabIndex = 30;
 			this->tbSpawnControlY->Text = L"0";
 			this->tbSpawnControlY->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
@@ -3696,9 +3727,9 @@ public: System::Windows::Forms::ListBox^  lbItemFilter;
 				static_cast<System::Int32>(static_cast<System::Byte>(35)));
 			this->tbSpawnControlX->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 			this->tbSpawnControlX->ForeColor = System::Drawing::Color::White;
-			this->tbSpawnControlX->Location = System::Drawing::Point(20, 27);
+			this->tbSpawnControlX->Location = System::Drawing::Point(17, 27);
 			this->tbSpawnControlX->Name = L"tbSpawnControlX";
-			this->tbSpawnControlX->Size = System::Drawing::Size(57, 21);
+			this->tbSpawnControlX->Size = System::Drawing::Size(60, 21);
 			this->tbSpawnControlX->TabIndex = 28;
 			this->tbSpawnControlX->Text = L"0";
 			this->tbSpawnControlX->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
@@ -5677,28 +5708,66 @@ public: System::Windows::Forms::ListBox^  lbItemFilter;
 			// 
 			this->tabPage9->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(25)), static_cast<System::Int32>(static_cast<System::Byte>(25)),
 				static_cast<System::Int32>(static_cast<System::Byte>(25)));
+			this->tabPage9->Controls->Add(this->tvMapRusherSearch);
+			this->tabPage9->Controls->Add(this->rbMapRusherTeleport);
+			this->tabPage9->Controls->Add(this->rbMapRusherPacket);
 			this->tabPage9->Controls->Add(this->lbMapRusherStatus);
 			this->tabPage9->Controls->Add(this->tbMapRusherDestination);
 			this->tabPage9->Controls->Add(this->label79);
 			this->tabPage9->Controls->Add(this->bMapRush);
-			this->tabPage9->Controls->Add(this->tbMapRusherSearch);
-			this->tabPage9->Controls->Add(this->label78);
-			this->tabPage9->Controls->Add(this->lvMapRusherSearch);
-			this->tabPage9->Controls->Add(this->lvMapRusher);
+			this->tabPage9->Controls->Add(this->panel30);
 			this->tabPage9->Location = System::Drawing::Point(4, 22);
 			this->tabPage9->Name = L"tabPage9";
 			this->tabPage9->Size = System::Drawing::Size(390, 335);
 			this->tabPage9->TabIndex = 6;
 			this->tabPage9->Text = L"Map Rusher";
 			// 
+			// tvMapRusherSearch
+			// 
+			this->tvMapRusherSearch->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(25)),
+				static_cast<System::Int32>(static_cast<System::Byte>(25)), static_cast<System::Int32>(static_cast<System::Byte>(25)));
+			this->tvMapRusherSearch->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->tvMapRusherSearch->ForeColor = System::Drawing::Color::White;
+			this->tvMapRusherSearch->Location = System::Drawing::Point(4, 35);
+			this->tvMapRusherSearch->Name = L"tvMapRusherSearch";
+			this->tvMapRusherSearch->Size = System::Drawing::Size(188, 277);
+			this->tvMapRusherSearch->TabIndex = 42;
+			this->tvMapRusherSearch->MouseDoubleClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::tvMapRusherSearch_MouseDoubleClick);
+			// 
+			// rbMapRusherTeleport
+			// 
+			this->rbMapRusherTeleport->AutoSize = true;
+			this->rbMapRusherTeleport->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->rbMapRusherTeleport->Location = System::Drawing::Point(206, 10);
+			this->rbMapRusherTeleport->Name = L"rbMapRusherTeleport";
+			this->rbMapRusherTeleport->Size = System::Drawing::Size(103, 17);
+			this->rbMapRusherTeleport->TabIndex = 40;
+			this->rbMapRusherTeleport->Text = L"Teleport Method";
+			this->rbMapRusherTeleport->UseVisualStyleBackColor = true;
+			// 
+			// rbMapRusherPacket
+			// 
+			this->rbMapRusherPacket->AutoSize = true;
+			this->rbMapRusherPacket->Checked = true;
+			this->rbMapRusherPacket->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->rbMapRusherPacket->Location = System::Drawing::Point(10, 10);
+			this->rbMapRusherPacket->Name = L"rbMapRusherPacket";
+			this->rbMapRusherPacket->Size = System::Drawing::Size(95, 17);
+			this->rbMapRusherPacket->TabIndex = 39;
+			this->rbMapRusherPacket->TabStop = true;
+			this->rbMapRusherPacket->Text = L"Packet Method";
+			this->rbMapRusherPacket->UseVisualStyleBackColor = false;
+			// 
 			// lbMapRusherStatus
 			// 
+			this->lbMapRusherStatus->Anchor = System::Windows::Forms::AnchorStyles::Bottom;
 			this->lbMapRusherStatus->AutoSize = true;
-			this->lbMapRusherStatus->Location = System::Drawing::Point(199, 318);
+			this->lbMapRusherStatus->Location = System::Drawing::Point(3, 316);
 			this->lbMapRusherStatus->Name = L"lbMapRusherStatus";
 			this->lbMapRusherStatus->Size = System::Drawing::Size(93, 13);
 			this->lbMapRusherStatus->TabIndex = 37;
 			this->lbMapRusherStatus->Text = L"Status: Waiting...";
+			this->lbMapRusherStatus->TextChanged += gcnew System::EventHandler(this, &MainForm::lbMapRusherStatus_TextChanged);
 			// 
 			// tbMapRusherDestination
 			// 
@@ -5706,20 +5775,21 @@ public: System::Windows::Forms::ListBox^  lbItemFilter;
 				static_cast<System::Int32>(static_cast<System::Byte>(35)), static_cast<System::Int32>(static_cast<System::Byte>(35)));
 			this->tbMapRusherDestination->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 			this->tbMapRusherDestination->ForeColor = System::Drawing::Color::White;
-			this->tbMapRusherDestination->Location = System::Drawing::Point(197, 262);
+			this->tbMapRusherDestination->Location = System::Drawing::Point(301, 262);
 			this->tbMapRusherDestination->Name = L"tbMapRusherDestination";
-			this->tbMapRusherDestination->Size = System::Drawing::Size(189, 21);
+			this->tbMapRusherDestination->Size = System::Drawing::Size(85, 21);
 			this->tbMapRusherDestination->TabIndex = 35;
+			this->tbMapRusherDestination->Text = L"0";
 			this->tbMapRusherDestination->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
 			// 
 			// label79
 			// 
 			this->label79->AutoSize = true;
-			this->label79->Location = System::Drawing::Point(195, 246);
+			this->label79->Location = System::Drawing::Point(206, 266);
 			this->label79->Name = L"label79";
-			this->label79->Size = System::Drawing::Size(65, 13);
+			this->label79->Size = System::Drawing::Size(95, 13);
 			this->label79->TabIndex = 36;
-			this->label79->Text = L"Destination:";
+			this->label79->Text = L"Rush To (Map ID):";
 			// 
 			// bMapRush
 			// 
@@ -5727,12 +5797,55 @@ public: System::Windows::Forms::ListBox^  lbItemFilter;
 			this->bMapRush->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->bMapRush->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->bMapRush->Location = System::Drawing::Point(196, 289);
+			this->bMapRush->Location = System::Drawing::Point(196, 288);
 			this->bMapRush->Name = L"bMapRush";
-			this->bMapRush->Size = System::Drawing::Size(190, 26);
+			this->bMapRush->Size = System::Drawing::Size(190, 24);
 			this->bMapRush->TabIndex = 34;
-			this->bMapRush->Text = L"Start Rush";
+			this->bMapRush->Text = L"Start Map Rush";
 			this->bMapRush->UseVisualStyleBackColor = true;
+			this->bMapRush->Click += gcnew System::EventHandler(this, &MainForm::bMapRush_Click);
+			// 
+			// panel30
+			// 
+			this->panel30->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->panel30->Controls->Add(this->lvMapRusherSearch);
+			this->panel30->Controls->Add(this->tbMapRusherSearch);
+			this->panel30->Controls->Add(this->label78);
+			this->panel30->Location = System::Drawing::Point(196, 35);
+			this->panel30->Name = L"panel30";
+			this->panel30->Size = System::Drawing::Size(190, 223);
+			this->panel30->TabIndex = 43;
+			// 
+			// lvMapRusherSearch
+			// 
+			this->lvMapRusherSearch->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(25)),
+				static_cast<System::Int32>(static_cast<System::Byte>(25)), static_cast<System::Int32>(static_cast<System::Byte>(25)));
+			this->lvMapRusherSearch->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->lvMapRusherSearch->Columns->AddRange(gcnew cli::array< System::Windows::Forms::ColumnHeader^  >(2) {
+				this->columnHeader7,
+					this->columnHeader8
+			});
+			this->lvMapRusherSearch->ForeColor = System::Drawing::Color::White;
+			this->lvMapRusherSearch->FullRowSelect = true;
+			this->lvMapRusherSearch->HeaderStyle = System::Windows::Forms::ColumnHeaderStyle::Nonclickable;
+			this->lvMapRusherSearch->Location = System::Drawing::Point(-1, -1);
+			this->lvMapRusherSearch->MultiSelect = false;
+			this->lvMapRusherSearch->Name = L"lvMapRusherSearch";
+			this->lvMapRusherSearch->Size = System::Drawing::Size(190, 190);
+			this->lvMapRusherSearch->TabIndex = 34;
+			this->lvMapRusherSearch->UseCompatibleStateImageBehavior = false;
+			this->lvMapRusherSearch->View = System::Windows::Forms::View::Details;
+			this->lvMapRusherSearch->MouseDoubleClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::lvMapRusherSearch_MouseDoubleClick);
+			// 
+			// columnHeader7
+			// 
+			this->columnHeader7->Text = L"Map Name:";
+			this->columnHeader7->Width = 105;
+			// 
+			// columnHeader8
+			// 
+			this->columnHeader8->Text = L"Map ID:";
+			this->columnHeader8->Width = 67;
 			// 
 			// tbMapRusherSearch
 			// 
@@ -5740,48 +5853,21 @@ public: System::Windows::Forms::ListBox^  lbItemFilter;
 				static_cast<System::Int32>(static_cast<System::Byte>(35)), static_cast<System::Int32>(static_cast<System::Byte>(35)));
 			this->tbMapRusherSearch->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 			this->tbMapRusherSearch->ForeColor = System::Drawing::Color::White;
-			this->tbMapRusherSearch->Location = System::Drawing::Point(198, 209);
+			this->tbMapRusherSearch->Location = System::Drawing::Point(48, 195);
 			this->tbMapRusherSearch->Name = L"tbMapRusherSearch";
-			this->tbMapRusherSearch->Size = System::Drawing::Size(188, 21);
+			this->tbMapRusherSearch->Size = System::Drawing::Size(134, 21);
 			this->tbMapRusherSearch->TabIndex = 32;
 			this->tbMapRusherSearch->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			this->tbMapRusherSearch->TextChanged += gcnew System::EventHandler(this, &MainForm::tbMapRusherSearch_TextChanged);
 			// 
 			// label78
 			// 
 			this->label78->AutoSize = true;
-			this->label78->Location = System::Drawing::Point(196, 193);
+			this->label78->Location = System::Drawing::Point(4, 199);
 			this->label78->Name = L"label78";
-			this->label78->Size = System::Drawing::Size(89, 13);
+			this->label78->Size = System::Drawing::Size(44, 13);
 			this->label78->TabIndex = 33;
-			this->label78->Text = L"Search By Name:";
-			// 
-			// lvMapRusherSearch
-			// 
-			this->lvMapRusherSearch->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(25)),
-				static_cast<System::Int32>(static_cast<System::Byte>(25)), static_cast<System::Int32>(static_cast<System::Byte>(25)));
-			this->lvMapRusherSearch->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
-			this->lvMapRusherSearch->CheckBoxes = true;
-			this->lvMapRusherSearch->ForeColor = System::Drawing::Color::White;
-			this->lvMapRusherSearch->Location = System::Drawing::Point(196, 4);
-			this->lvMapRusherSearch->Name = L"lvMapRusherSearch";
-			this->lvMapRusherSearch->Size = System::Drawing::Size(190, 186);
-			this->lvMapRusherSearch->TabIndex = 31;
-			this->lvMapRusherSearch->UseCompatibleStateImageBehavior = false;
-			this->lvMapRusherSearch->View = System::Windows::Forms::View::Details;
-			// 
-			// lvMapRusher
-			// 
-			this->lvMapRusher->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(25)), static_cast<System::Int32>(static_cast<System::Byte>(25)),
-				static_cast<System::Int32>(static_cast<System::Byte>(25)));
-			this->lvMapRusher->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
-			this->lvMapRusher->CheckBoxes = true;
-			this->lvMapRusher->ForeColor = System::Drawing::Color::White;
-			this->lvMapRusher->Location = System::Drawing::Point(4, 4);
-			this->lvMapRusher->Name = L"lvMapRusher";
-			this->lvMapRusher->Size = System::Drawing::Size(189, 327);
-			this->lvMapRusher->TabIndex = 30;
-			this->lvMapRusher->UseCompatibleStateImageBehavior = false;
-			this->lvMapRusher->View = System::Windows::Forms::View::Details;
+			this->label78->Text = L"Search:";
 			// 
 			// lbMapName
 			// 
@@ -6008,6 +6094,8 @@ public: System::Windows::Forms::ListBox^  lbItemFilter;
 			this->panel6->PerformLayout();
 			this->tabPage9->ResumeLayout(false);
 			this->tabPage9->PerformLayout();
+			this->panel30->ResumeLayout(false);
+			this->panel30->PerformLayout();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -6173,5 +6261,10 @@ public: System::Windows::Forms::ListBox^  lbItemFilter;
 	private: System::Void tbMobFilterSearch_TextChanged(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void tbItemFilterSearch_TextChanged(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void tbItemFilterMesos_TextChanged(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void tvMapRusherSearch_MouseDoubleClick(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e);
+	private: System::Void lvMapRusherSearch_MouseDoubleClick(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e);
+	private: System::Void tbMapRusherSearch_TextChanged(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void bMapRush_Click(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void lbMapRusherStatus_TextChanged(System::Object^  sender, System::EventArgs^  e);
 };
 }

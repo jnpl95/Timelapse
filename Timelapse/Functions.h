@@ -11,7 +11,6 @@
 #include "resource.h"
 
 #define NewThread(threadFunc) CreateThread(NULL, NULL, (LPTHREAD_START_ROUTINE)&threadFunc, NULL, NULL, NULL);
-//#define jmp(frm, to) (int)(((int)to - (int)frm) - 5);
 
 namespace GlobalVars {
 	static HMODULE hDLL;
@@ -72,11 +71,12 @@ static UINT8 readCharValueZtlSecureFuse(int at) {
 static INT16 readShortValueZtlSecureFuse(int a1) {
 	PUINT8 v2 = (PUINT8)(a1 + 2);
 	DWORD v4 = (DWORD)&a1 - a1;
-
-	v2[v4] = *v2 ^ *(v2 - 2);
-	v2++;
-	v2[v4] = *v2 ^ *(v2 - 2);
-
+	try {
+		v2[v4] = *v2 ^ *(v2 - 2);
+		v2++;
+		v2[v4] = *v2 ^ *(v2 - 2);
+	}
+	catch (...) { return 0; }
 	return HIWORD(a1);
 }
 
@@ -272,11 +272,11 @@ namespace CodeCaves {
 	bool isMobLoggingEnabled = false, isMobFilterEnabled = false, isMobFilterWhiteList = true;
 	ULONG itemLogged = 0, itemFilterMesos = 0, mobLogged = 0;
 	static std::vector<ULONG> *itemList = new std::vector<ULONG>(), *mobList = new std::vector<ULONG>();
-	static std::vector<SpawnControlStruct*> *spawnControl = new std::vector<SpawnControlStruct*>();
+	static std::vector<SpawnControlData*> *spawnControl = new std::vector<SpawnControlData*>();
 
-	static SpawnControlStruct* __stdcall getSpawnControlStruct() {
+	static SpawnControlData* __stdcall getSpawnControlStruct() {
 		if (spawnControl->size() == 0) return nullptr;
-		for (SpawnControlStruct *spawnControlStruct : *spawnControl)
+		for (SpawnControlData *spawnControlStruct : *spawnControl)
 			if (spawnControlStruct->mapID == ReadPointer(UIMiniMapBase, OFS_MapID))
 				return spawnControlStruct;
 		return nullptr;

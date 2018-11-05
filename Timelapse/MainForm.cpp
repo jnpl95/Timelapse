@@ -1,4 +1,5 @@
 ﻿#include <Windows.h>
+#include <cliext/vector>
 #include <sstream>
 #include "MainForm.h"
 #include "Pointers.h"
@@ -9,7 +10,9 @@
 #include "resource.h"
 
 using namespace Timelapse;
- 
+static void loadMaps(); //Forward declaration
+[assembly:System::Diagnostics::DebuggableAttribute(true, true)]; //For debugging purposes
+
 //Managed Global Variables
 ref struct GlobalRefs {
 	static Macro ^macroHP, ^macroMP, ^macroAttack, ^macroLoot;
@@ -19,6 +22,7 @@ ref struct GlobalRefs {
 	static bool isDragging = false;
 	static Point dragOffset;
 	static double formOpacity;
+	static Generic::List<MapData^>^ maps; 
 };
 
 #pragma region General Form
@@ -48,7 +52,7 @@ BOOL WINAPI DllMain(HMODULE hModule, DWORD dwReason, LPVOID lpvReserved) {
 		default:
 			break;
 	}
-	__writefsdword(0x6B0, GetMSThreadID());
+	//__writefsdword(0x6B0, GetMSThreadID());
 
 	return TRUE;
 }
@@ -71,6 +75,7 @@ void MainForm::MainForm_Shown(Object^  sender, EventArgs^  e) {
 	lbTitle->Text = "Timelapse Trainer - PID: " + GetMSProcID();
 	Threading::Thread^ macroThread = gcnew Threading::Thread(gcnew Threading::ThreadStart(PriorityQueue::MacroQueueWorker));
 	macroThread->Start();
+	loadMaps();
 }
 
 void MainForm::MainForm_FormClosing(Object^  sender, Windows::Forms::FormClosingEventArgs^  e) {
@@ -1013,13 +1018,13 @@ void MainForm::bSpawnControlAdd_Click(Object^  sender, EventArgs^  e) {
 	lvSpawnControl->Items->Add(lvi);
 
 
-	SpawnControlStruct* sps = new SpawnControlStruct(Convert::ToUInt32(tbSpawnControlMapID->Text), Convert::ToInt32(tbSpawnControlX->Text), Convert::ToInt32(tbSpawnControlY->Text));
+	SpawnControlData* sps = new SpawnControlData(Convert::ToUInt32(tbSpawnControlMapID->Text), Convert::ToInt32(tbSpawnControlX->Text), Convert::ToInt32(tbSpawnControlY->Text));
 	CodeCaves::spawnControl->push_back(sps);
 }
 
 void MainForm::bSpawnControlDelete_Click(Object^  sender, EventArgs^  e) {
 	for each(ListViewItem^ lvi in lvSpawnControl->SelectedItems) {
-		for (std::vector<SpawnControlStruct*>::const_iterator i = CodeCaves::spawnControl->begin(); i != CodeCaves::spawnControl->end(); ++i) {
+		for (std::vector<SpawnControlData*>::const_iterator i = CodeCaves::spawnControl->begin(); i != CodeCaves::spawnControl->end(); ++i) {
 			if (Convert::ToString((*i)->mapID)->Equals(lvi->SubItems[0]->Text)) {
 				CodeCaves::spawnControl->erase(i);
 				break;
@@ -1342,7 +1347,7 @@ void MainForm::bItemSearchLogClear_Click(System::Object^  sender, System::EventA
 	lbItemSearchLog->Items->Clear();
 }
 
-//Searches ItemList resource for items starting with text entered so far
+//Find items in ItemsList resource with names starting with text entered so far
 void MainForm::tbItemFilterSearch_TextChanged(System::Object^  sender, System::EventArgs^  e) {
 	lbItemSearchLog->Items->Clear();
 	findItemsStartingWithStr(tbItemFilterSearch->Text);
@@ -1604,98 +1609,312 @@ void MainForm::tbAPLUK_KeyPress(Object^  sender, Windows::Forms::KeyPressEventAr
 #pragma endregion
 
 #pragma region Map Rusher Tab
+//Load all maps into GlobalRefs::maps & load into TreeView in Map Rusher tab
+static void loadMaps() {
+	GlobalRefs::maps = gcnew Generic::List<MapData^>();
+	try {
+		HRSRC hRes = FindResource(GlobalVars::hDLL, MAKEINTRESOURCE(MapsList), _T("TEXT"));
+		HGLOBAL hGlob = LoadResource(GlobalVars::hDLL, hRes);
+		const char* pData = reinterpret_cast<const char*>(::LockResource(hGlob));
+		IO::StringReader^ strReader = gcnew IO::StringReader(gcnew String(pData));
 
-#pragma endregion
+		while(strReader->Peek() != -1) {
+			MapData^ tempMapData = gcnew MapData();
+			String^ tempString = "";
+			int startIndex = 0, endIndex = 0;
+			int numPortals = 0; 
 
-template <class T>
-class ZXString
-{
-public:
-	T* str_;
+			//Get Map ID
+			tempString = strReader->ReadLine();
+			if (!tempString->Contains("[")) continue;
+			startIndex = tempString->IndexOf('[') + 1;
+			endIndex = tempString->IndexOf(']');
+			tempMapData->mapID = Convert::ToInt32(tempString->Substring(startIndex, endIndex - startIndex));
 
-	ZXString() : str_(nullptr) { }
+			//Get Map's Island Name
+			tempString = strReader->ReadLine();
+			tempMapData->islandName = tempString->Substring(7);
 
-	ZXString(const T* s, int n)
-	{
-		Assign(s, n);
+			//Get Map's Street Name
+			tempString = strReader->ReadLine();
+			tempMapData->streetName = tempString->Substring(11);
+
+			//Get Map's Street Name
+			tempString = strReader->ReadLine();
+			tempMapData->mapName = tempString->Substring(8);
+
+			//Get the number of portals in Map
+			tempString = strReader->ReadLine();
+			numPortals = Convert::ToInt32(tempString->Substring(6));
+
+			//Loop through all portals, and add to tempMapData's Portals
+			Generic::List<PortalData^>^ tempPortals = gcnew Generic::List<PortalData^>();
+			for(int i = 0; i < numPortals; i++) {
+				PortalData tempPortalData;
+				tempString = strReader->ReadLine();
+				array<String^>^ tempArray = tempString->Split(' ');
+
+				tempPortalData.portalName = tempArray[0];
+				tempPortalData.xPos = Convert::ToInt32(tempArray[1]);
+				tempPortalData.yPos = Convert::ToInt32(tempArray[2]);
+				tempPortalData.portalType = Convert::ToInt32(tempArray[3]);
+				tempPortalData.toMapID = Convert::ToInt32(tempArray[4]);
+
+				tempPortals->Add(%tempPortalData); //Add portal to tempPortals
+			}
+			tempMapData->portals = tempPortals; //Insert portals to temp map
+			GlobalRefs::maps->Add(tempMapData); //Add temp map
+		}
+
+		UnlockResource(hRes);
 	}
+	catch (...) { MessageBox::Show("Error: Couldn't load map data"); }
 
-	explicit ZXString(const std::string& text) : ZXString(text.data(), text.length() + 1) { }
+	//Load all maps into the tree view in Map Rusher tab
+	for each (MapData^ map in GlobalRefs::maps) {
+		TreeNode^ islandNode = gcnew TreeNode(map->islandName); 
+		TreeNode^ streetNode = gcnew TreeNode(map->streetName); 
+		TreeNode^ mapNode = gcnew TreeNode(map->mapName);
+		TreeNode^ mapIDNode = gcnew TreeNode(Convert::ToString(map->mapID));;
+		islandNode->Name = map->islandName;
+		streetNode->Name = map->streetName;
+		mapNode->Name = map->mapName;
+		mapNode->Tag = map;
+		mapIDNode->Name = Convert::ToString(map->mapID);
+		mapIDNode->Tag = "MapID";
+		mapNode->Nodes->Add(mapIDNode);
 
-	~ZXString()
-	{
-		delete[] str_;
-	}
+		if(MainForm::TheInstance->tvMapRusherSearch->Nodes->ContainsKey(islandNode->Name)) {
+			TreeNode^ tempIslandNode = MainForm::TheInstance->tvMapRusherSearch->Nodes[islandNode->Name];
+			MainForm::TheInstance->tvMapRusherSearch->BeginUpdate();
 
-	operator const T*()
-	{
-		return str_;
-	}
+			if(tempIslandNode->Nodes->ContainsKey(streetNode->Name)) {
+				tempIslandNode->Nodes[streetNode->Name]->Nodes->Add(mapNode);
+			}
+			else {
+				tempIslandNode->Nodes->Add(streetNode);
+				streetNode->Nodes->Add(mapNode);
+			}
 
-	ZXString<T>& operator=(ZXString<T> str)
-	{
-		delete[] str_;
-		str_ = str.str_;
-		return *this;
-	}
-
-	void Assign(const T* s, size_t lenght = -1)
-	{
-		if (s) {
-			delete[] str_;
-
-			if (lenght == -1) lenght = std::strlen(s) + 1;
-
-			T* data = new char[lenght + 4];
-			*reinterpret_cast<size_t*>(data) = lenght;
-			str_ = &data[4];
-			std::strcpy(str_, s);
+			MainForm::TheInstance->tvMapRusherSearch->EndUpdate();
+		}
+		else {
+			MainForm::TheInstance->tvMapRusherSearch->BeginUpdate();
+			MainForm::TheInstance->tvMapRusherSearch->Nodes->Add(islandNode);
+			islandNode->Nodes->Add(streetNode);
+			streetNode->Nodes->Add(mapNode);
+			MainForm::TheInstance->tvMapRusherSearch->EndUpdate();
 		}
 	}
+}
 
-	size_t GetLength()
-	{
-		if (str_) return *reinterpret_cast<size_t*>(str_ - 4);
-		return 0;
+//Get's MapData of the passed in mapID. Callee function checks if nullptr is returned
+static MapData^ getMap(int mapID) {
+	for each(MapData^ map in GlobalRefs::maps)
+		if (map->mapID == mapID)
+			return map;
+	return nullptr;
+}
+
+//Recursive Depth First Search (DFS) to find path
+void existsInNextMapDFS(int currMapID, int startMapID, int destMapID, int numRecursions, cliext::vector<MapPath^>^ searchList, cliext::vector<MapPath^>^ finalPath) {
+	if (currMapID == destMapID) {
+		if ((int)(finalPath->size()) == 0 || finalPath->size() > searchList->size()) 
+			*finalPath = searchList; //Current path is the shortest path to destination map
+		
+		return; //Returning so that no further maps from this one are searched
 	}
-};
 
+	if (getMap(currMapID)->portals->Count == 0 || numRecursions > 300) 
+		return; //If current map is an endpoint or if number of recursions are over 300, no further maps are searched
 
-typedef ZXString<char>*(__stdcall *lpfnCItemInfo__GetMapString)(PVOID, PVOID, ZXString<char>*, UINT);
+	for each(PortalData^ portalData in getMap(currMapID)->portals) {
+		bool existsInSearchList = false;
+		for each(MapPath^ mapData in searchList) 
+			if (mapData->mapID == portalData->toMapID) existsInSearchList = true;
+
+		if (getMap(portalData->toMapID) == nullptr) continue; //Skips portals where the portal's map is not found
+		//if (portalData->toMapID == startMapID || portalData->toMapID == currMapID) continue; //Skip portals that come back to starting or current map
+		if (existsInSearchList) continue; //Skip portals where it goes to maps already in search path to prevent loop backs
+
+		MapPath^ mapPath = gcnew MapPath(portalData->toMapID, portalData);
+		searchList->push_back(mapPath);
+		existsInNextMapDFS(portalData->toMapID, startMapID, destMapID, numRecursions + 1, searchList, finalPath); //Recursive call
+		searchList->pop_back();
+	}
+}
+
+//Uses recursive existsInNextMapDFS() to generate a path
+cliext::vector<MapPath^>^ generatePath(int startMapID, int destMapID) {
+	cliext::vector<MapPath^> ^searchList = gcnew cliext::vector<MapPath^>(), ^finalPath = gcnew cliext::vector<MapPath^>();
+	existsInNextMapDFS(startMapID, startMapID, destMapID, 0, searchList, finalPath); //
+	return finalPath;
+}
+
+//Map Rush
+static void mapRush(int destMapID) {
+	GlobalRefs::isMapRushing = true;
+	int startMapID = ReadPointer(UIMiniMapBase, OFS_MapID);
+	if (startMapID == destMapID) {
+		MainForm::TheInstance->lbMapRusherStatus->Text = "Status: Cannot Map Rush to same map";
+		GlobalRefs::isMapRushing = false;
+		return;
+	}
+
+	MainForm::TheInstance->lbMapRusherStatus->Text = "Status: Calculating a path to Destination Map ID";
+	cliext::vector<MapPath^>^ mapPath = generatePath(startMapID, destMapID);
+
+	if (mapPath->size() == 0) {
+		MainForm::TheInstance->lbMapRusherStatus->Text = "Status: Cannot find a path to Destination Map ID";
+		GlobalRefs::isMapRushing = false;
+		return;
+	}
+
+	int remainingMapCount = mapPath->size();
+	MainForm::TheInstance->lbMapRusherStatus->Text = "Status: Map Rushing, Remaining Maps: " + Convert::ToString(remainingMapCount);
+
+	String^ testPortalData = "";
+	for each(MapPath^ mapData in mapPath) {
+		testPortalData += "Rushing to " + mapData->mapID.ToString() + " Map Name: " + getMap(mapData->mapID)->mapName + "\n";
+		remainingMapCount--;
+		MainForm::TheInstance->lbMapRusherStatus->Text = "Status: Map Rushing, Remaining Maps: " + Convert::ToString(remainingMapCount);
+	}
+	MessageBox::Show(testPortalData);
+
+	MainForm::TheInstance->lbMapRusherStatus->Text = "Status: Map Rushing Complete";
+	GlobalRefs::isMapRushing = false;
+}
+
+//Find maps with names starting with text entered so far
+static void findMapNamesStartingWithStr(String^ str) {
+	MainForm::TheInstance->lvMapRusherSearch->BeginUpdate();
+	for each(MapData^ map in GlobalRefs::maps) {
+		if(map->mapName->StartsWith(str)) {
+			array<String^>^ row = { map->mapName, Convert::ToString(map->mapID) };
+			ListViewItem^ lvi = gcnew ListViewItem(row);
+			MainForm::TheInstance->lvMapRusherSearch->Items->Add(lvi);
+		}
+	}
+	MainForm::TheInstance->lvMapRusherSearch->EndUpdate();
+}
+
+//Starts Map Rush when clicked
+void MainForm::bMapRush_Click(System::Object^  sender, System::EventArgs^  e) {
+	if(!GlobalRefs::isMapRushing && !PointerFuncs::getMapID()->Equals("0")) {
+		int mapDestID = 0;
+		if (INT::TryParse(tbMapRusherDestination->Text, mapDestID))
+			if (mapDestID >= 0 && mapDestID <= 999999999)
+				mapRush(mapDestID);
+	}
+}
+
+//Adds tree view selected map's mapID to tbMapRusherDestination textbox
+void MainForm::tvMapRusherSearch_MouseDoubleClick(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
+	if (tvMapRusherSearch->SelectedNode == nullptr) return;
+	if(dynamic_cast<MapData^>(tvMapRusherSearch->SelectedNode->Tag) != nullptr)
+		tbMapRusherDestination->Text = tvMapRusherSearch->SelectedNode->Nodes[0]->Name;
+
+	if(tvMapRusherSearch->SelectedNode->Tag->Equals("MapID"))
+		tbMapRusherDestination->Text = tvMapRusherSearch->SelectedNode->Name;
+
+	tvMapRusherSearch->SelectedNode = nullptr;
+}
+
+//Adds list view selected map's mapID to tbMapRusherDestination textbox
+void MainForm::lvMapRusherSearch_MouseDoubleClick(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
+	tbMapRusherDestination->Text = lvMapRusherSearch->SelectedItems[0]->SubItems[1]->Text;
+	lvMapRusherSearch->SelectedItems->Clear();
+}
+
+//Find maps with names starting with text entered so far
+void MainForm::tbMapRusherSearch_TextChanged(System::Object^  sender, System::EventArgs^  e) {
+	lvMapRusherSearch->Items->Clear();
+
+	if(tbMapRusherSearch->Text != "")
+		findMapNamesStartingWithStr(tbMapRusherSearch->Text);
+}
+
+//Changes color of text to show that the text has changed
+void MainForm::lbMapRusherStatus_TextChanged(System::Object^  sender, System::EventArgs^  e) {	
+	lbMapRusherStatus->ForeColor = Color::DimGray;
+	Application::DoEvents();
+	Sleep(50);
+	lbMapRusherStatus->ForeColor = Color::White;
+	Application::DoEvents();
+}
+#pragma endregion
+
+#pragma region testing
+//Start of testing stuff
+ULONG getStringValHookAddr = 0x0079E9A3;
+ULONG getStringRetValHookAddr = 0x0079EA58;
+char* maplestring;
+__declspec(naked) static void __stdcall GetStringHook() {
+	__asm {
+		mov [ebp + 0x0C], 0x2
+		push ecx
+		and dword ptr[ebp - 0x10], 0x00
+		jmp[getStringValHookAddr]
+	}
+} //Non working
+
+__declspec(naked) static void __stdcall GetStringRetValHook() {
+	__asm {
+		push ebx
+		mov ebx, [eax]
+		mov[maplestring], ebx
+		pop ebx
+		mov eax, edi
+		pop edi
+		pop esi
+		pop ebx
+		jmp [getStringRetValHookAddr]
+	}
+} //Working
+
+typedef char**(__stdcall* StringPool__GetString_t)(PVOID, PVOID, char**, UINT, UINT);	//typedef ZXString<char>*(__stdcall* StringPool__GetString_t)(PVOID, PVOID, ZXString<char>*, UINT);
+StringPool__GetString_t StringPool__GetString = (StringPool__GetString_t)0x0079E993;	//0x00406455;
+
+typedef char**(__stdcall *lpfnCItemInfo__GetMapString)(PVOID, PVOID, char*, UINT, const char*);
 lpfnCItemInfo__GetMapString CItemInfo__GetMapString = (lpfnCItemInfo__GetMapString)0x005CF792;
 
-typedef ZXString<char>*(__stdcall* StringPool__GetString_t)(PVOID, PVOID, ZXString<char>*, UINT);
-//typedef UINT(__stdcall* StringPool__GetString_t)(PVOID, PVOID, UINT, UINT);
-StringPool__GetString_t StringPool__GetString = (StringPool__GetString_t)0x00406455;
-
-//Test stuff out
+//Test stuff out //https://pastebin.com/aULY72tG
 void MainForm::button1_Click(System::Object^  sender, System::EventArgs^  e) {
-	char lpsz[256];
-	ZXString<char> *buf = new ZXString<char>(lpsz, 257);
-	buf = StringPool__GetString(*(PVOID*)StringPool, nullptr, buf, 0x222);
-	char* blah = buf->str_;
-	String^ test = gcnew String(blah);
-	MessageBox::Show(test);
-
-	//char lpsz[256];
-	//ZXString<char> *buf = new ZXString<char>(lpsz, 257);
-
-	//finalMapString is not returned, so finalMapString is empty
-	/*String^ finalMapString = gcnew String((char*)(CItemInfo__GetMapString(*(PVOID*)CItemInfo, NULL, buf, 100000000)->str_));
-	if (!String::IsNullOrEmpty(finalMapString))
-		MessageBox::Show(finalMapString);*/
-
-	//Successfully displays string, but crashes shortly after.
-	
-	//StringPool__GetString((PVOID)(*(ULONG*)StringPool), nullptr, buf, 266);
-
-	//buf = StringPool__GetString((PVOID)(*(ULONG*)StringPool), nullptr, buf, 0);
-
-	//char* str = (char*)buf->GetText();
-	/*String^ test = gcnew String(Convert::ToString(buf->GetText()));
-	if (!String::IsNullOrEmpty(test))
-		MessageBox::Show(test);
+	/*char result[300];
+	char* str = *CItemInfo__GetMapString(*(PVOID*)CItemInfo, NULL, result, 100000000, 0);
+	String^ test = Convert::ToString(str);
+	if (String::IsNullOrEmpty(test))
+		MessageBox::Show("Error! Empty string was returned");
 	else
-		MessageBox::Show("String is empty :(");*/
+		MessageBox::Show(test); */
+	
+	
+	/*//Displays 0th string, but crashes shortly after. What I wanted was the 2nd maplestring
+	char** result;
+	char* str = *StringPool__GetString(*(PVOID*)StringPool, nullptr, (char**)result, 2, 0);
+	String^ test = gcnew String(str);
+	
+	if (String::IsNullOrEmpty(test))
+		MessageBox::Show("Error! Empty string was returned");
+	else 
+		MessageBox::Show(test);*/
+
+
+	//char result[256];
+	//Jump(0x0079E99E, GetStringHook, 0);
+	/*Jump(0x0079EA53, GetStringRetValHook, 0);
+	String^ test = gcnew String(maplestring);
+	if (String::IsNullOrEmpty(test))
+		MessageBox::Show("Error! Empty string was returned");
+	else
+		MessageBox::Show(test);*/
 }
-    
+
+//CMobPool UML Diagram
+//V95 00C687B8+28]+4]+10C]+28]+60 = mob x || v83 00BEBFA4+28]4]120]24]60 = mob x
+//&v3->m_pvcHead.m_pInterface->vfptr;
+//vfptr[8].addRef
+//What I know: in v95, 00C687B8 is a CMobPool pointer, +28 = ZList<ZRef<CMob*>>, + 4 = ZList<ZRef<CMob*>>.pHead (CMob) + 10C = m_pvcHead
+//m_pvcHead.m_pInterface->vpptr is type IUnknown* (Microsoft's Component object model) 
+//that points to some class (maybe CVecCtrlMob) but the offsets 28 and 60 doesn't seem point to an offset in CVecCtrl or CVecCtrl mob that is the xy coordinates of a mob
+#pragma endregion
