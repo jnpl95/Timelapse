@@ -56,18 +56,13 @@ A MapleStory v83 Trainer
 - (ADD) Code allowing for both packet based and teleport based map rush
 - Remake wz xml parser in C++ since there are a lot of portals missing from maps (ie kerning square from subway lobby in kerning)
 
-## Other: 
+## Overall: 
 - Look into making sure trainer can be injected into multiple instances with no interference between
 - (ADD) check for auto-loot to see if inventory is full, add option to sell useless shit and buy pots 
 - (ADD) Make a label visible for a bit (or log) all actions in trainer
 - (ADD) Make Tooltips for everything
 - (ADD) Logger for mesos picked up/mobs killed/# of levels leveled up during hacking session
 - (ADD) countdown for Auto CC/CS on bottom of trainer if active (look into replacing useless time label on bottom right)
-
-## NOTES: 
-- Use Stealth Inject option in Settings for Extreme Injector
-- For all new number only textboxes, double check to see if the keypress event (in MainForm.h) is defined
-- Check to make sure all char arrays are textual and unsigned char are for memory usage
 
 ## Bugs:  
 - Fix ClickTeleport() tbClickTeleport, MouseTeleport() tbMouseTeleport, TeleportLoop() tbTeleportLoopDelay being empty
@@ -81,8 +76,10 @@ A MapleStory v83 Trainer
 - Fix aesthetics of listviews (accommodating for vertical scrollbars), and make sure all listview code is identical in terms of adding/deleting/searching
 - Look into changing names of certain textboxes to add Count (ie tbHPMob should be tbHPMobCount)
 - Look into changing names of all textboxes with name "interval" to "delay", makes more sense
+- For all new number only textboxes, double check to see if the keypress event (in MainForm.h) is defined
+- Check to make sure all char arrays are textual and unsigned char are for memory usage
 
-##Tips
+## Tips
 - For preventing new line before opening brace:
 	Go to Tools -> Options -> Text Editor -> C# -> Code Style -> Formatting-> New Lines. Here there are a lot of options. Remove the check on all options here to never put the open bracket on a new line
 	Resharper overrides the native VS behavior. If that's the case go to Resharper > Options, Code Editing > C# > Formatting Style > Braces Layout, set all top "Braces Layout" options to "At end of line (K&R style)
@@ -92,3 +89,4 @@ A MapleStory v83 Trainer
 - C++/CLI Pointers
 	Native:  P *ptr = new P; // usual pointer allocated on heap		    P &nat = *ptr; //Reference to object
 	CLI:     MngdObj ^mngd = gcnew MngdObj; // allocated on CLI heap    MngdObj %obj = *mngd; //Reference to CLI Object
+- Use Stealth Inject option in Settings for Extreme Injector
