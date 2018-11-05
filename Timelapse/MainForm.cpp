@@ -1609,6 +1609,23 @@ void MainForm::tbAPLUK_KeyPress(Object^  sender, Windows::Forms::KeyPressEventAr
 #pragma endregion
 
 #pragma region Map Rusher Tab
+/*
+   Map Rusher Data Exceptions: 
+	TimedMaps
+		case 100020000: // pig
+		case 105040304: // golem
+		case 105050100: // mushroom
+		case 221023400: // rabbit
+		case 240020500: // kentasaurus
+		case 240040511: // skelegons
+		case 240040520: // newties
+		case 260020600: // sand rats
+		case 261020300: // magatia
+		   MaplePortal pfrom = from.getPortal("MD00");
+	MapleDoorsInTown
+	Maple NPCs for Inter Island travel
+ */
+
 //Load all maps into GlobalRefs::maps & load into TreeView in Map Rusher tab
 static void loadMaps() {
 	GlobalRefs::maps = gcnew Generic::List<MapData^>();

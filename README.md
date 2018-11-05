@@ -54,6 +54,7 @@ A MapleStory v83 Trainer
 - (ADD) Make Map Rush intercontinental
 - (ADD) Code Auto-Rushback
 - (ADD) Code allowing for both packet based and teleport based map rush
+- Remake wz xml parser in C++ since there are a lot of portals missing from maps (ie kerning square from subway lobby in kerning)
 
 ## Other: 
 - Look into making sure trainer can be injected into multiple instances with no interference between
@@ -66,7 +67,7 @@ A MapleStory v83 Trainer
 ## NOTES: 
 - Use Stealth Inject option in Settings for Extreme Injector
 - For all new number only textboxes, double check to see if the keypress event (in MainForm.h) is defined
-
+- Check to make sure all char arrays are textual and unsigned char are for memory usage
 
 ## Bugs:  
 - Fix ClickTeleport() tbClickTeleport, MouseTeleport() tbMouseTeleport, TeleportLoop() tbTeleportLoopDelay being empty
@@ -75,6 +76,19 @@ A MapleStory v83 Trainer
 - Look into seeing if there is a pointer to see if map has finshed loading (uses: map rush & auto cc/cs), otherwise users can click multiple times, causing the function to complete multiple times before cc'ing is actually finished
 - Fix null pointer exception for reading char for level pointer
 - Find better functions to code cave in for map name, hp, mp and exp pointers
+- All readpointers/readmultipointers pointer functions should return integer values, caller function should convert to string. Only applicable to number values, not text values
+- Look into disabling textbox values if something is checked, also remove all textChanged events
+- Fix aesthetics of listviews (accommodating for vertical scrollbars), and make sure all listview code is identical in terms of adding/deleting/searching
+- Look into changing names of certain textboxes to add Count (ie tbHPMob should be tbHPMobCount)
+- Look into changing names of all textboxes with name "interval" to "delay", makes more sense
 
-
-
+##Tips
+- For preventing new line before opening brace:
+	Go to Tools -> Options -> Text Editor -> C# -> Code Style -> Formatting-> New Lines. Here there are a lot of options. Remove the check on all options here to never put the open bracket on a new line
+	Resharper overrides the native VS behavior. If that's the case go to Resharper > Options, Code Editing > C# > Formatting Style > Braces Layout, set all top "Braces Layout" options to "At end of line (K&R style)
+- For issues with Resharper marking everything with red:
+	Visual Studio > Tools > Options > Re-sharper > General > Options > General > Clear Caches | Visual Studio > Tools > Options > Re-sharper > General > Suspend Now > Resume Now
+	If above doesn't work, disable code analysis in Options
+- C++/CLI Pointers
+	Native:  P *ptr = new P; // usual pointer allocated on heap		    P &nat = *ptr; //Reference to object
+	CLI:     MngdObj ^mngd = gcnew MngdObj; // allocated on CLI heap    MngdObj %obj = *mngd; //Reference to CLI Object
