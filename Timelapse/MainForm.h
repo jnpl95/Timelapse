@@ -275,9 +275,13 @@ private: System::Windows::Forms::Label^  label32;
 private: System::Windows::Forms::TextBox^  tbAPLevel;
 private: System::Windows::Forms::CheckBox^  cbAP;
 private: System::Windows::Forms::Panel^  panel25;
-private: System::Windows::Forms::CheckBox^  cbNoMapTiles;
+public: System::Windows::Forms::CheckBox^  cbNoMapTiles;
+private:
+
 private: System::Windows::Forms::CheckBox^  cbNoSkillEffects;
-private: System::Windows::Forms::CheckBox^  cbNoMapObjects;
+public: System::Windows::Forms::CheckBox^  cbNoMapObjects;
+private:
+
 private: System::Windows::Forms::CheckBox^  cbInstantLootItems;
 private: System::Windows::Forms::CheckBox^  cbJumpDownAnyTile;
 private: System::Windows::Forms::Panel^  panel24;
@@ -289,8 +293,11 @@ private: System::Windows::Forms::CheckBox^  cbNoPlayerKickback;
 private: System::Windows::Forms::CheckBox^  cbNoMobKickback;
 private: System::Windows::Forms::Panel^  panel23;
 private: System::Windows::Forms::CheckBox^  cbNoMobDeathEffect;
-private: System::Windows::Forms::CheckBox^  cbNoMapFadeEffect;
-private: System::Windows::Forms::CheckBox^  cbNoMapBackground;
+public: System::Windows::Forms::CheckBox^  cbNoMapFadeEffect;
+public: System::Windows::Forms::CheckBox^  cbNoMapBackground;
+private:
+
+
 private: System::Windows::Forms::TabPage^  tabPage20;
 private: System::Windows::Forms::Panel^  panel27;
 private: System::Windows::Forms::ListView^  lvSpawnControl;
@@ -430,10 +437,10 @@ public: System::Windows::Forms::TreeView^  tvMapRusherSearch;
 
 private:
 
-public: System::Windows::Forms::RadioButton^  rbMapRusherTeleport;
+
 private:
 
-public: System::Windows::Forms::RadioButton^  rbMapRusherPacket;
+
 
 
 private: System::Windows::Forms::Panel^  panel30;
@@ -442,6 +449,12 @@ private:
 private: System::Windows::Forms::ColumnHeader^  columnHeader7;
 public:
 private: System::Windows::Forms::ColumnHeader^  columnHeader8;
+public: System::Windows::Forms::TextBox^  tbMapRusherDelay;
+private:
+
+private: System::Windows::Forms::Label^  label66;
+
+
 public:
 public:
 
@@ -832,9 +845,9 @@ public:
 			this->tbAPLevel = (gcnew System::Windows::Forms::TextBox());
 			this->cbAP = (gcnew System::Windows::Forms::CheckBox());
 			this->tabPage9 = (gcnew System::Windows::Forms::TabPage());
+			this->label66 = (gcnew System::Windows::Forms::Label());
+			this->tbMapRusherDelay = (gcnew System::Windows::Forms::TextBox());
 			this->tvMapRusherSearch = (gcnew System::Windows::Forms::TreeView());
-			this->rbMapRusherTeleport = (gcnew System::Windows::Forms::RadioButton());
-			this->rbMapRusherPacket = (gcnew System::Windows::Forms::RadioButton());
 			this->lbMapRusherStatus = (gcnew System::Windows::Forms::Label());
 			this->tbMapRusherDestination = (gcnew System::Windows::Forms::TextBox());
 			this->label79 = (gcnew System::Windows::Forms::Label());
@@ -2633,13 +2646,11 @@ public:
 			// rbFunction
 			// 
 			this->rbFunction->AutoSize = true;
-			this->rbFunction->Checked = true;
 			this->rbFunction->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->rbFunction->Location = System::Drawing::Point(23, 6);
+			this->rbFunction->Location = System::Drawing::Point(116, 6);
 			this->rbFunction->Name = L"rbFunction";
 			this->rbFunction->Size = System::Drawing::Size(65, 17);
 			this->rbFunction->TabIndex = 1;
-			this->rbFunction->TabStop = true;
 			this->rbFunction->Text = L"Function";
 			this->rbFunction->UseVisualStyleBackColor = true;
 			this->rbFunction->CheckedChanged += gcnew System::EventHandler(this, &MainForm::rbFunction_CheckedChanged);
@@ -2647,11 +2658,13 @@ public:
 			// rbPacket
 			// 
 			this->rbPacket->AutoSize = true;
+			this->rbPacket->Checked = true;
 			this->rbPacket->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->rbPacket->Location = System::Drawing::Point(116, 6);
+			this->rbPacket->Location = System::Drawing::Point(23, 6);
 			this->rbPacket->Name = L"rbPacket";
 			this->rbPacket->Size = System::Drawing::Size(56, 17);
 			this->rbPacket->TabIndex = 0;
+			this->rbPacket->TabStop = true;
 			this->rbPacket->Text = L"Packet";
 			this->rbPacket->UseVisualStyleBackColor = false;
 			// 
@@ -5708,9 +5721,9 @@ public:
 			// 
 			this->tabPage9->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(25)), static_cast<System::Int32>(static_cast<System::Byte>(25)),
 				static_cast<System::Int32>(static_cast<System::Byte>(25)));
+			this->tabPage9->Controls->Add(this->label66);
+			this->tabPage9->Controls->Add(this->tbMapRusherDelay);
 			this->tabPage9->Controls->Add(this->tvMapRusherSearch);
-			this->tabPage9->Controls->Add(this->rbMapRusherTeleport);
-			this->tabPage9->Controls->Add(this->rbMapRusherPacket);
 			this->tabPage9->Controls->Add(this->lbMapRusherStatus);
 			this->tabPage9->Controls->Add(this->tbMapRusherDestination);
 			this->tabPage9->Controls->Add(this->label79);
@@ -5722,41 +5735,40 @@ public:
 			this->tabPage9->TabIndex = 6;
 			this->tabPage9->Text = L"Map Rusher";
 			// 
+			// label66
+			// 
+			this->label66->AutoSize = true;
+			this->label66->BackColor = System::Drawing::Color::Transparent;
+			this->label66->Location = System::Drawing::Point(198, 293);
+			this->label66->Name = L"label66";
+			this->label66->Size = System::Drawing::Size(62, 13);
+			this->label66->TabIndex = 45;
+			this->label66->Text = L"Delay [ms]:";
+			// 
+			// tbMapRusherDelay
+			// 
+			this->tbMapRusherDelay->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(35)), static_cast<System::Int32>(static_cast<System::Byte>(35)),
+				static_cast<System::Int32>(static_cast<System::Byte>(35)));
+			this->tbMapRusherDelay->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->tbMapRusherDelay->ForeColor = System::Drawing::Color::White;
+			this->tbMapRusherDelay->Location = System::Drawing::Point(260, 290);
+			this->tbMapRusherDelay->Name = L"tbMapRusherDelay";
+			this->tbMapRusherDelay->Size = System::Drawing::Size(35, 21);
+			this->tbMapRusherDelay->TabIndex = 44;
+			this->tbMapRusherDelay->Text = L"500";
+			this->tbMapRusherDelay->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			// 
 			// tvMapRusherSearch
 			// 
 			this->tvMapRusherSearch->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(25)),
 				static_cast<System::Int32>(static_cast<System::Byte>(25)), static_cast<System::Int32>(static_cast<System::Byte>(25)));
 			this->tvMapRusherSearch->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 			this->tvMapRusherSearch->ForeColor = System::Drawing::Color::White;
-			this->tvMapRusherSearch->Location = System::Drawing::Point(4, 35);
+			this->tvMapRusherSearch->Location = System::Drawing::Point(4, 3);
 			this->tvMapRusherSearch->Name = L"tvMapRusherSearch";
-			this->tvMapRusherSearch->Size = System::Drawing::Size(188, 277);
+			this->tvMapRusherSearch->Size = System::Drawing::Size(188, 309);
 			this->tvMapRusherSearch->TabIndex = 42;
 			this->tvMapRusherSearch->MouseDoubleClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::tvMapRusherSearch_MouseDoubleClick);
-			// 
-			// rbMapRusherTeleport
-			// 
-			this->rbMapRusherTeleport->AutoSize = true;
-			this->rbMapRusherTeleport->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->rbMapRusherTeleport->Location = System::Drawing::Point(206, 10);
-			this->rbMapRusherTeleport->Name = L"rbMapRusherTeleport";
-			this->rbMapRusherTeleport->Size = System::Drawing::Size(103, 17);
-			this->rbMapRusherTeleport->TabIndex = 40;
-			this->rbMapRusherTeleport->Text = L"Teleport Method";
-			this->rbMapRusherTeleport->UseVisualStyleBackColor = true;
-			// 
-			// rbMapRusherPacket
-			// 
-			this->rbMapRusherPacket->AutoSize = true;
-			this->rbMapRusherPacket->Checked = true;
-			this->rbMapRusherPacket->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->rbMapRusherPacket->Location = System::Drawing::Point(10, 10);
-			this->rbMapRusherPacket->Name = L"rbMapRusherPacket";
-			this->rbMapRusherPacket->Size = System::Drawing::Size(95, 17);
-			this->rbMapRusherPacket->TabIndex = 39;
-			this->rbMapRusherPacket->TabStop = true;
-			this->rbMapRusherPacket->Text = L"Packet Method";
-			this->rbMapRusherPacket->UseVisualStyleBackColor = false;
 			// 
 			// lbMapRusherStatus
 			// 
@@ -5764,9 +5776,10 @@ public:
 			this->lbMapRusherStatus->AutoSize = true;
 			this->lbMapRusherStatus->Location = System::Drawing::Point(3, 316);
 			this->lbMapRusherStatus->Name = L"lbMapRusherStatus";
-			this->lbMapRusherStatus->Size = System::Drawing::Size(93, 13);
+			this->lbMapRusherStatus->Size = System::Drawing::Size(381, 13);
 			this->lbMapRusherStatus->TabIndex = 37;
-			this->lbMapRusherStatus->Text = L"Status: Waiting...";
+			this->lbMapRusherStatus->Text = L"Status: Waiting...                                                               "
+				L"                                 \r\n";
 			this->lbMapRusherStatus->TextChanged += gcnew System::EventHandler(this, &MainForm::lbMapRusherStatus_TextChanged);
 			// 
 			// tbMapRusherDestination
@@ -5785,11 +5798,12 @@ public:
 			// label79
 			// 
 			this->label79->AutoSize = true;
-			this->label79->Location = System::Drawing::Point(206, 266);
+			this->label79->BackColor = System::Drawing::Color::Transparent;
+			this->label79->Location = System::Drawing::Point(200, 266);
 			this->label79->Name = L"label79";
-			this->label79->Size = System::Drawing::Size(95, 13);
+			this->label79->Size = System::Drawing::Size(102, 13);
 			this->label79->TabIndex = 36;
-			this->label79->Text = L"Rush To (Map ID):";
+			this->label79->Text = L"Destination Map ID:";
 			// 
 			// bMapRush
 			// 
@@ -5797,11 +5811,11 @@ public:
 			this->bMapRush->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->bMapRush->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->bMapRush->Location = System::Drawing::Point(196, 288);
+			this->bMapRush->Location = System::Drawing::Point(301, 288);
 			this->bMapRush->Name = L"bMapRush";
-			this->bMapRush->Size = System::Drawing::Size(190, 24);
+			this->bMapRush->Size = System::Drawing::Size(85, 24);
 			this->bMapRush->TabIndex = 34;
-			this->bMapRush->Text = L"Start Map Rush";
+			this->bMapRush->Text = L"Map Rush";
 			this->bMapRush->UseVisualStyleBackColor = true;
 			this->bMapRush->Click += gcnew System::EventHandler(this, &MainForm::bMapRush_Click);
 			// 
@@ -5811,9 +5825,9 @@ public:
 			this->panel30->Controls->Add(this->lvMapRusherSearch);
 			this->panel30->Controls->Add(this->tbMapRusherSearch);
 			this->panel30->Controls->Add(this->label78);
-			this->panel30->Location = System::Drawing::Point(196, 35);
+			this->panel30->Location = System::Drawing::Point(196, 3);
 			this->panel30->Name = L"panel30";
-			this->panel30->Size = System::Drawing::Size(190, 223);
+			this->panel30->Size = System::Drawing::Size(190, 255);
 			this->panel30->TabIndex = 43;
 			// 
 			// lvMapRusherSearch
@@ -5831,7 +5845,7 @@ public:
 			this->lvMapRusherSearch->Location = System::Drawing::Point(-1, -1);
 			this->lvMapRusherSearch->MultiSelect = false;
 			this->lvMapRusherSearch->Name = L"lvMapRusherSearch";
-			this->lvMapRusherSearch->Size = System::Drawing::Size(190, 190);
+			this->lvMapRusherSearch->Size = System::Drawing::Size(190, 223);
 			this->lvMapRusherSearch->TabIndex = 34;
 			this->lvMapRusherSearch->UseCompatibleStateImageBehavior = false;
 			this->lvMapRusherSearch->View = System::Windows::Forms::View::Details;
@@ -5853,7 +5867,7 @@ public:
 				static_cast<System::Int32>(static_cast<System::Byte>(35)), static_cast<System::Int32>(static_cast<System::Byte>(35)));
 			this->tbMapRusherSearch->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 			this->tbMapRusherSearch->ForeColor = System::Drawing::Color::White;
-			this->tbMapRusherSearch->Location = System::Drawing::Point(48, 195);
+			this->tbMapRusherSearch->Location = System::Drawing::Point(48, 227);
 			this->tbMapRusherSearch->Name = L"tbMapRusherSearch";
 			this->tbMapRusherSearch->Size = System::Drawing::Size(134, 21);
 			this->tbMapRusherSearch->TabIndex = 32;
@@ -5863,7 +5877,7 @@ public:
 			// label78
 			// 
 			this->label78->AutoSize = true;
-			this->label78->Location = System::Drawing::Point(4, 199);
+			this->label78->Location = System::Drawing::Point(4, 231);
 			this->label78->Name = L"label78";
 			this->label78->Size = System::Drawing::Size(44, 13);
 			this->label78->TabIndex = 33;

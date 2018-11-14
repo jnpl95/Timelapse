@@ -1,9 +1,16 @@
-#ifndef POINTERS_H
-#define POINTERS_H
+#ifndef ADDRESSES_H
+#define ADDRESSES_H
 
 #include "Packet.h"
 
-#pragma region HookAddresses
+/*  
+ *  Addresses defined here were found using the following programs: Cheat Engine, Hex-Rays IDA, ReClassEx
+ *  Default Image Base Address for a 32-bit exe in Windows, when loaded into Memory is 0x400000
+ *  So all the addresses defined here already have 0x400000 added for convenience purposes 
+ *  These addresses are all virtual addresses defined in MapleStory.exe's virtual address space
+ */
+
+#pragma region CodeCave Addresses
 /*ULONG levelHookAddr = 0x004E2B28; //Inside GW_CharacterStat::Decode()
 ULONG levelHookDecode = 0x004E807A; //Start of _ZtrlSecureTear<unsigned char>
 ULONG levelHookAddrRet = levelHookAddr + 7;
@@ -42,26 +49,24 @@ ULONG mobFilter2JmpAddr = 0x0067957F; //mov ecx,[ebp-0C] above the ret 0004 at t
 ULONG cInPacketDecode4Addr = 0x00406629; //Start of CInPacket::Decode4()
 #pragma endregion
 
-#pragma region FunctionPointers
-typedef void(__stdcall *lpfnCWvsContext__SendMigrateToShopRequest)(PVOID, PVOID, int); // Enters Cash Shop
-lpfnCWvsContext__SendMigrateToShopRequest CWvsContext__SendMigrateToShopRequest = (lpfnCWvsContext__SendMigrateToShopRequest)0x00A04DCA;
+#pragma region MapleStory Function Addresses
+typedef void(__stdcall *pfnCWvsContext__SendMigrateToShopRequest)(PVOID, PVOID, int); // Enters Cash Shop
+auto CWvsContext__SendMigrateToShopRequest = (pfnCWvsContext__SendMigrateToShopRequest)0x00A04DCA;
 
-typedef void(__stdcall *lpfnCCashShop__SendTransferFieldPacket)(); // Exits Cash Shop
-lpfnCCashShop__SendTransferFieldPacket CCashShop__SendTransferFieldPacket = (lpfnCCashShop__SendTransferFieldPacket)0x0047C108;
+typedef void(__stdcall *pfnCCashShop__SendTransferFieldPacket)(); // Exits Cash Shop
+auto CCashShop__SendTransferFieldPacket = (pfnCCashShop__SendTransferFieldPacket)0x0047C108;
 
-typedef int(__stdcall *lpfnCField__SendTransferChannelRequest)(int nTargetChannel); // Changes Channel
-lpfnCField__SendTransferChannelRequest CField__SendTransferChannelRequest = (lpfnCField__SendTransferChannelRequest)0x5304AF;
+typedef int(__stdcall *pfnCField__SendTransferChannelRequest)(int nTargetChannel); // Changes Channel
+auto CField__SendTransferChannelRequest = (pfnCField__SendTransferChannelRequest)0x5304AF;
 
-typedef int(__stdcall *lpfnCWvsContext__GetCharacterLevel)(ULONG, LPVOID); // Retrieves Character Level
-lpfnCWvsContext__GetCharacterLevel CWvsContext__GetCharacterLevel = (lpfnCWvsContext__GetCharacterLevel)0x004A8DE0; // TODO: Fix address
+typedef int(__stdcall *pfnCWvsContext__GetCharacterLevel)(ULONG, PVOID); // Retrieves Character Level
+auto CWvsContext__GetCharacterLevel = (pfnCWvsContext__GetCharacterLevel)0x004A8DE0; // TODO: Fix address
 
-typedef char*(__cdecl *get_job_name)(int); // Retrieves Job name
-get_job_name GetJobName = (get_job_name)0x004A77EF;
+typedef char*(__cdecl *pfnGet_Job_Name)(int); // Retrieves Job name
+auto GetJobName = (pfnGet_Job_Name)0x004A77EF;
 
-
-//ZRef<CharacterData> *__thiscall CWvsContext::GetCharacterData(CWvsContext *this, ZRef<CharacterData> *result) 
-typedef void*(__thiscall *lpfnCWvsContext__GetCharacterData)(ULONG, PVOID);
-lpfnCWvsContext__GetCharacterData CWvsContext__GetCharacterData = (lpfnCWvsContext__GetCharacterData)0x00425D0B;
+typedef void*(__thiscall *pfnCWvsContext__GetCharacterData)(ULONG, PVOID);
+auto CWvsContext__GetCharacterData = (pfnCWvsContext__GetCharacterData)0x00425D0B;
 
 //typedef ZXString<char>*(__fastcall* StringPool__GetString_t)(void *StringPool, void *edx, ZXString<char> *result, unsigned int nIdx);
 //auto StringPool__GetString = (StringPool__GetString_t)0x0049B330; //
@@ -69,7 +74,7 @@ lpfnCWvsContext__GetCharacterData CWvsContext__GetCharacterData = (lpfnCWvsConte
 
 #pragma endregion
 
-#pragma region Pointers
+#pragma region Pointers Addresses & Offsets
 ULONG PtInRectAddr = 0xBF0484;
 
 ULONG UIInfoBase = 0xBEC208; 
@@ -90,7 +95,7 @@ ULONG OFS_Level = 0x33;
 ULONG OFS_JobID = 0x39;
 ULONG OFS_Mesos = 0xA5;
 
-ULONG NPCBase = 0xBED780;
+ULONG NPCPoolBase = 0xBED780; //CNPCPool
 ULONG OFS_NPCCount = 0x24;
 
 ULONG PortalListBase = 0xBED768; // CPortalList 

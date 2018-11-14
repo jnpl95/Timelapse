@@ -69,7 +69,6 @@ A MapleStory v83 Trainer
 - Check and fix all textbox error messages
 - Add spawn point dynamic stuff to Codecave and see if Strucs.h/SpawnControlStruct is necessary ??? maybe in helper function in codecave namespace, loop through listviews and return a dynamically constructed struct/array
 - Look into seeing if there is a pointer to see if map has finshed loading (uses: map rush & auto cc/cs), otherwise users can click multiple times, causing the function to complete multiple times before cc'ing is actually finished
-- Fix null pointer exception for reading char for level pointer
 - Find better functions to code cave in for map name, hp, mp and exp pointers
 - All readpointers/readmultipointers pointer functions should return integer values, caller function should convert to string. Only applicable to number values, not text values
 - Look into disabling textbox values if something is checked, also remove all textChanged events
@@ -78,6 +77,9 @@ A MapleStory v83 Trainer
 - Look into changing names of all textboxes with name "interval" to "delay", makes more sense
 - For all new number only textboxes, double check to see if the keypress event (in MainForm.h) is defined
 - Check to make sure all char arrays are textual and unsigned char are for memory usage
+- Hack Fix: Turned all booleans to false on form closing to prevent maplestory from closing as well, this might not work in the case that the delay for the loop is high, consider keeping all seperate threads in a list and exiting each thread in a better more elegant way
+- Account for there being no channel 0 (channel starts at 1 ingame, label already changed, but make sure funcs are change to reflect that)
+- Change SendPacket's passed in packet str, in AutoCC/CS, to the packet write methods 
 
 ## Tips
 - For preventing new line before opening brace:

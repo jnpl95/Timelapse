@@ -2,7 +2,7 @@
 #define FUNCTIONS_H
 
 #include <Windows.h>
-#include "Pointers.h"
+#include "Addresses.h"
 #include <msclr\marshal_cppstd.h>
 #include <string>
 #include <atlstr.h>
@@ -18,6 +18,9 @@ namespace GlobalVars {
 }
 
 #pragma region General Functions
+static void SendKey(BYTE keyCode) {
+	PostMessage(GlobalVars::mapleWindow, WM_KEYDOWN, keyCode, MapVirtualKey(keyCode, MAPVK_VK_TO_VSC) << 16);
+}
 static void MakePageWritable(ULONG ulAddress, ULONG ulSize) {
 	MEMORY_BASIC_INFORMATION* mbi = new MEMORY_BASIC_INFORMATION;
 	VirtualQuery((PVOID)ulAddress, mbi, ulSize);
@@ -81,7 +84,10 @@ static INT16 readShortValueZtlSecureFuse(int a1) {
 }
 
 unsigned int readLongValueZtlSecureFuse(ULONG *a1) {
-	return *a1 ^ _rotl(a1[1], 5);
+	try {
+		return *a1 ^ _rotl(a1[1], 5);
+	}
+	catch (...) { return 0; }
 }
 
 #pragma unmanaged
@@ -101,6 +107,28 @@ static LONG_PTR ReadMultiPointerSigned(LONG_PTR ulBase, int level, ...) {
 			ulBase = *(LONG_PTR*)(ulBase + offset);
 		}
 		ulResult = ulBase;
+	}
+
+	va_end(vaarg);
+	return ulResult;
+}
+
+static PCHAR ReadMultiPointerString(LONG_PTR ulBase, int level, ...) {
+	PCHAR ulResult = nullptr;
+	va_list vaarg;
+	va_start(vaarg, level);
+
+	if (!IsBadReadPtr((PVOID)ulBase, sizeof(LONG_PTR))) {
+		ulBase = *(LONG_PTR*)ulBase;
+		for (int i = 0; i < level; i++) {
+			const int offset = va_arg(vaarg, int);
+			if (IsBadReadPtr((PVOID)(ulBase + offset), sizeof(LONG_PTR))) {
+				va_end(vaarg);
+				return nullptr;
+			}
+			ulBase = *(LONG_PTR*)(ulBase + offset);
+		}
+		ulResult = (PCHAR)ulBase;
 	}
 
 	va_end(vaarg);
@@ -174,12 +202,12 @@ static bool isPosValid(int X, int Y) {
 
 //Teleport to parameter position
 static void Teleport(int X, int Y) {
-	if (isPosValid(X, Y)) {
+	//if (isPosValid(X, Y)) {
 		WritePointer(UserLocalBase, OFS_TeleX, X);
 		WritePointer(UserLocalBase, OFS_TeleY, Y);
 		WritePointer(UserLocalBase, OFS_Tele, 1);
-		WritePointer(UserLocalBase, OFS_Tele + 4, 1);
-	}
+		//WritePointer(UserLocalBase, OFS_Tele + 4, 1);
+	//}
 }
 
 //Teleport to parameter point
@@ -626,7 +654,7 @@ namespace CodeCaves {
 }
 
 namespace PointerFuncs {
-	bool isHooked = true;
+	bool isHooksEnabled = true; //For the future, disable pointers that requires Codecaves or function calls
 
 	//Retrieve Char Level
 	static System::String^ getCharLevel() {
@@ -659,7 +687,7 @@ namespace PointerFuncs {
 
 	//Retrieve Char HP
 	static System::String^ getCharHP() {
-		if (isHooked)
+		if (isHooksEnabled)
 			Jump(statHookAddr, CodeCaves::StatHook, 0);
 		else
 			WriteMemory(statHookAddr, 5, 0x8D, 0x0C, 0x80, 0x3B, 0xCB);
@@ -670,7 +698,7 @@ namespace PointerFuncs {
 
 	//Retrieve Char MP
 	static System::String^ getCharMP() {
-		if (isHooked)
+		if (isHooksEnabled)
 			Jump(statHookAddr, CodeCaves::StatHook, 0);
 		else
 			WriteMemory(statHookAddr, 5, 0x8D, 0x0C, 0x80, 0x3B, 0xCB);
@@ -681,7 +709,7 @@ namespace PointerFuncs {
 
 	//Retrieve Char EXP
 	static System::String^ getCharEXP() {
-		if (isHooked)
+		if (isHooksEnabled)
 			Jump(statHookAddr, CodeCaves::StatHook, 0);
 		else
 			WriteMemory(statHookAddr, 5, 0x8D, 0x0C, 0x80, 0x3B, 0xCB);
@@ -691,22 +719,13 @@ namespace PointerFuncs {
 	}
 
 	//Retrieve Char Mesos
-	static System::String^ getCharMesos() {
-		/*if (isHooked) {
-			Jump(mesosHookAddr, CodeCaves::MesosHook, 1);
-			Jump(mesosChangeHookAddr, CodeCaves::MesosChangeHook, 1);
-		}
-		else {
-			WriteMemory(mesosHookAddr, 6, 0x8D, 0x96, 0xA5, 0x00, 0x00, 0x00);
-			WriteMemory(mesosChangeHookAddr, 6, 0x8D, 0x96, 0xA5, 0x00, 0x00, 0x00);
-		}*/
-
-		return readLongValueZtlSecureFuse((ULONG*)(*(ULONG*)CharacterStatBase + OFS_Mesos)).ToString("N0");
+	static UINT getCharMesos() {
+		return readLongValueZtlSecureFuse((ULONG*)(*(ULONG*)CharacterStatBase + OFS_Mesos));
 	}
 
 	//Retrieve Map Name
 	static System::String^ getMapName() {
-		if (isHooked)
+		if (isHooksEnabled)
 			Jump(mapNameHookAddr, CodeCaves::MapNameHook, 1);
 		else
 			WriteMemory(mapNameHookAddr, 6, 0x89, 0x7D, 0xD8, 0x8D, 0x4D, 0xEC);
@@ -770,7 +789,7 @@ namespace PointerFuncs {
 
 	//Retrieve Channel
 	static System::String^ getChannel() {
-		return ReadPointer(ServerBase, OFS_Channel).ToString();
+		return (ReadPointer(ServerBase, OFS_Channel)+1).ToString();
 	}
 
 	//Retrieve MapID
@@ -845,7 +864,7 @@ namespace PointerFuncs {
 
 	//Retrieve NPC Count
 	static System::String^ getNPCCount() {
-		return ReadPointer(NPCBase, OFS_NPCCount).ToString();
+		return ReadPointer(NPCPoolBase, OFS_NPCCount).ToString();
 	}
 }
 

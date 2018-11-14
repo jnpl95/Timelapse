@@ -3,12 +3,38 @@
 #include <Windows.h>
 
 //TODO: Define in Pointers.h instead of here
-LPVOID* ClientSocket = (LPVOID*)0x00BE7914;
+PVOID* ClientSocket = (PVOID*)0x00BE7914;
 typedef void(__thiscall *PacketSend)(PVOID clientSocket, COutPacket* packet); //Send packet from client to server
 PacketSend Send = (PacketSend)0x0049637B;
 
 typedef void(__thiscall *PacketRecv)(PVOID clientSocket, CInPacket* packet); //Receive packet from client to server
 PacketRecv Recv = (PacketRecv)0x004965F1;
+
+void writeByte(System::String^ %packet, BYTE byte) {
+	packet += byte.ToString("X2") + " ";
+}
+
+void writeBytes(System::String^ %packet, array<BYTE>^ bytes) {
+	for each(BYTE byte in bytes) packet += byte.ToString("X2") + " ";
+}
+
+void writeString(System::String^ %packet, System::String^ str) {
+	writeByte(packet, str->Length);
+	writeByte(packet, 0);
+	writeBytes(packet, System::Text::Encoding::UTF8->GetBytes(str));
+}
+
+void writeInt(System::String^ %packet, int num) {
+	writeByte(packet, (BYTE)num);
+	writeByte(packet, (BYTE)((UINT)num >> 8 & 0xFF));
+	writeByte(packet, (BYTE)((UINT)num >> 16 & 0xFF));
+	writeByte(packet, (BYTE)((UINT)num >> 24 & 0xFF));
+}
+
+void writeShort(System::String^ %packet, short num) {
+	writeByte(packet, (BYTE)num);
+	writeByte(packet, (BYTE)((UINT)num >> 8 & 0xFF));
+}
 
 
 inline PUCHAR atohx(PUCHAR szDestination, LPCSTR szSource)
@@ -37,7 +63,7 @@ bool SendPacket(System::String^ packetStr)
 	SecureZeroMemory(&Packet, sizeof(COutPacket));
 	System::String^ rawPacket = packetStr->Replace(" ", System::String::Empty)->Replace("*", (rand() % 16).ToString("X"));
 	byte tmpPacketStr[150];
-	const LPCSTR lpcszPacket = (LPCSTR)(System::Runtime::InteropServices::Marshal::StringToHGlobalAnsi(rawPacket).ToPointer());
+	LPCSTR lpcszPacket = (LPCSTR)(System::Runtime::InteropServices::Marshal::StringToHGlobalAnsi(rawPacket).ToPointer());
 	
 	Packet.Size = strlen(lpcszPacket) / 2;
 	Packet.Data = atohx(tmpPacketStr, lpcszPacket);

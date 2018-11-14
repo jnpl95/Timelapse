@@ -17,11 +17,11 @@ struct SpawnControlData {
 
 //Managed struct for holding Portal data for each map in MapData
 ref struct PortalData {
-	int toMapID;
 	System::String^ portalName;
+	int portalType;
 	int xPos;
 	int yPos;
-	int portalType;
+	int toMapID;
 };
 
 //Managed struct for holding Map data for map rusher

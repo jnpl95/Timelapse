@@ -146,7 +146,7 @@
     <ClInclude Include="Functions.h" />
     <ClInclude Include="Macro.h" />
     <ClInclude Include="Packet.h" />
-    <ClInclude Include="Pointers.h" />
+    <ClInclude Include="Addresses.h" />
     <ClInclude Include="MainForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>

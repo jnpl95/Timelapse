@@ -2,7 +2,7 @@
 #include <cliext/vector>
 #include <sstream>
 #include "MainForm.h"
-#include "Pointers.h"
+#include "Addresses.h"
 #include "Functions.h"
 #include "Macro.h"
 #include "Packet.h"
@@ -10,14 +10,17 @@
 #include "resource.h"
 
 using namespace Timelapse;
-static void loadMaps(); //Forward declaration
+
+//Forward declarations
+static void loadMaps(); 
+static void mapRush(int destMapID); 
 [assembly:System::Diagnostics::DebuggableAttribute(true, true)]; //For debugging purposes
 
 //Managed Global Variables
 ref struct GlobalRefs {
 	static Macro ^macroHP, ^macroMP, ^macroAttack, ^macroLoot;
 	static bool isChangingField = false, isMapRushing = false;
-	static bool bClickTeleport = false, bMouseTeleport = false, bTeleport = false, bKami = false, bKamiLoot;
+	static bool bClickTeleport = false, bMouseTeleport = false, bTeleport = false, bKami = false, bKamiLoot = false;
 	static UINT cccsTimerTickCount = 0;
 	static bool isDragging = false;
 	static Point dragOffset;
@@ -35,7 +38,7 @@ void Main() {
 }
 
 #pragma unmanaged
-BOOL WINAPI DllMain(HMODULE hModule, DWORD dwReason, LPVOID lpvReserved) {
+BOOL WINAPI DllMain(HMODULE hModule, DWORD dwReason, PVOID lpvReserved) {
 	GlobalVars::hDLL = hModule;
 
 	switch (dwReason) {
@@ -79,12 +82,18 @@ void MainForm::MainForm_Shown(Object^  sender, EventArgs^  e) {
 }
 
 void MainForm::MainForm_FormClosing(Object^  sender, Windows::Forms::FormClosingEventArgs^  e) {
+	//Turn off all loops
+	GlobalRefs::isChangingField = false, GlobalRefs::isMapRushing = false;
+	GlobalRefs::bClickTeleport = false, GlobalRefs::bMouseTeleport = false, GlobalRefs::bTeleport = false;
+	GlobalRefs::bKami = false, GlobalRefs::bKamiLoot = false;
+	GlobalRefs::isDragging = false;
 	PriorityQueue::closeMacroQueue = true;
 	for (double i = this->Opacity; i > 0;) {
 		i -= 0.1;
 		this->Opacity = i;
 		this->Refresh();
 	}
+	Sleep(200);
 }
 
 void MainForm::btnClose_Click(Object^  sender, EventArgs^  e) {
@@ -199,7 +208,7 @@ void MainForm::GUITimer_Tick(Object^  sender, EventArgs^  e) {
 		lbHP->Text = PointerFuncs::getCharHP();
 		lbMP->Text = PointerFuncs::getCharMP();
 		lbEXP->Text = PointerFuncs::getCharEXP();
-		lbMesos->Text = PointerFuncs::getCharMesos();
+		lbMesos->Text = PointerFuncs::getCharMesos().ToString("N0");
 
 		lbWorld->Text = PointerFuncs::getWorld();
 		lbChannel->Text = PointerFuncs::getChannel();
@@ -473,31 +482,29 @@ void CallCSFunc() {
 }
 
 void _stdcall AutoCC(int toChannel) {
-	if (GlobalRefs::isMapRushing) return;
 	int channel;
 	if (toChannel == -1) channel = rand() % 19;
 	else channel = toChannel;
 
-	if (MainForm::TheInstance->rbFunction->Checked) //Call Auto CC Function
-		CallCCFunc(channel);
-	else //Send Auto CC Packet
-		SendPacket(gcnew String("27 00 " + channel.ToString("X2") + " ** ** ** 00"));
+	if (MainForm::TheInstance->rbPacket->Checked) 
+		SendPacket(gcnew String("27 00 " + channel.ToString("X2") + " ** ** ** 00")); //Send Auto CC Packet
+	else
+		CallCCFunc(channel); //Call Auto CC Function
 }
 
 void _stdcall AutoCS() {
-	if (GlobalRefs::isMapRushing) return;
-	if (MainForm::TheInstance->rbFunction->Checked) //Call Auto CS Function
-		CallCSFunc();
-	else if (MainForm::TheInstance->rbPacket->Checked) { //Send Auto CS Packet
+	if (MainForm::TheInstance->rbPacket->Checked) { 
 		if(String::IsNullOrWhiteSpace(MainForm::TheInstance->tbCSDelay->Text)) {
 			MessageBox::Show("Error: CS Delay textbox cannot be empty");
 			return;
 		}
-		SendPacket(gcnew String("28 00 ** ** ** 00"));
+		SendPacket(gcnew String("28 00 ** ** ** 00")); //Send go to CS packet
 		Sleep(Convert::ToUInt32(MainForm::TheInstance->tbCSDelay->Text));
-		SendPacket(gcnew String("26 00"));
+		SendPacket(gcnew String("26 00")); //Send transfer back to field packet
 		Sleep(500);
 	}
+	else 
+		CallCSFunc(); //Call CS Function and return to field Function
 }
 
 void MainForm::rbFunction_CheckedChanged(Object^  sender, EventArgs^  e) {
@@ -517,6 +524,7 @@ void MainForm::rbCC_CheckedChanged(Object^  sender, EventArgs^  e) {
 }
 
 void MainForm::AutoCCCSTimer_Tick(Object^  sender, EventArgs^  e) {
+	if (GlobalRefs::isMapRushing) return;
 	if(cbCCCSTime->Checked) {
 		GlobalRefs::cccsTimerTickCount += 250;
 		if ((GlobalRefs::cccsTimerTickCount/1000) >= Convert::ToUInt32(tbCCCSTime->Text)) {
@@ -1016,7 +1024,6 @@ void MainForm::bSpawnControlAdd_Click(Object^  sender, EventArgs^  e) {
 	array<String^>^ row = { tbSpawnControlMapID->Text, tbSpawnControlX->Text, tbSpawnControlY->Text };
 	ListViewItem^ lvi = gcnew ListViewItem(row);
 	lvSpawnControl->Items->Add(lvi);
-
 
 	SpawnControlData* sps = new SpawnControlData(Convert::ToUInt32(tbSpawnControlMapID->Text), Convert::ToInt32(tbSpawnControlX->Text), Convert::ToInt32(tbSpawnControlY->Text));
 	CodeCaves::spawnControl->push_back(sps);
@@ -1626,6 +1633,12 @@ void MainForm::tbAPLUK_KeyPress(Object^  sender, Windows::Forms::KeyPressEventAr
 	Maple NPCs for Inter Island travel
  */
 
+//Get map id for special maps, manually found
+static int getSpecialMapID(int mapID, String^ portalName) {
+	if (mapID == 101000000 && portalName->Equals("in04")) return 101000400;
+	return 999999999;
+}
+
 //Load all maps into GlobalRefs::maps & load into TreeView in Map Rusher tab
 static void loadMaps() {
 	GlobalRefs::maps = gcnew Generic::List<MapData^>();
@@ -1675,7 +1688,10 @@ static void loadMaps() {
 				tempPortalData.xPos = Convert::ToInt32(tempArray[1]);
 				tempPortalData.yPos = Convert::ToInt32(tempArray[2]);
 				tempPortalData.portalType = Convert::ToInt32(tempArray[3]);
-				tempPortalData.toMapID = Convert::ToInt32(tempArray[4]);
+				if (tempPortalData.portalType == 7) 
+					tempPortalData.toMapID = getSpecialMapID(tempMapData->mapID, tempPortalData.portalName);
+				else 
+					tempPortalData.toMapID = Convert::ToInt32(tempArray[4]);
 
 				tempPortals->Add(%tempPortalData); //Add portal to tempPortals
 			}
@@ -1751,10 +1767,9 @@ void existsInNextMapDFS(int currMapID, int startMapID, int destMapID, int numRec
 			if (mapData->mapID == portalData->toMapID) existsInSearchList = true;
 
 		if (getMap(portalData->toMapID) == nullptr) continue; //Skips portals where the portal's map is not found
-		//if (portalData->toMapID == startMapID || portalData->toMapID == currMapID) continue; //Skip portals that come back to starting or current map
 		if (existsInSearchList) continue; //Skip portals where it goes to maps already in search path to prevent loop backs
 
-		MapPath^ mapPath = gcnew MapPath(portalData->toMapID, portalData);
+		MapPath^ mapPath = gcnew MapPath(currMapID, portalData);
 		searchList->push_back(mapPath);
 		existsInNextMapDFS(portalData->toMapID, startMapID, destMapID, numRecursions + 1, searchList, finalPath); //Recursive call
 		searchList->pop_back();
@@ -1764,8 +1779,169 @@ void existsInNextMapDFS(int currMapID, int startMapID, int destMapID, int numRec
 //Uses recursive existsInNextMapDFS() to generate a path
 cliext::vector<MapPath^>^ generatePath(int startMapID, int destMapID) {
 	cliext::vector<MapPath^> ^searchList = gcnew cliext::vector<MapPath^>(), ^finalPath = gcnew cliext::vector<MapPath^>();
-	existsInNextMapDFS(startMapID, startMapID, destMapID, 0, searchList, finalPath); //
+	existsInNextMapDFS(startMapID, startMapID, destMapID, 0, searchList, finalPath); //Gets shortest path and puts it into finalPath (if there exists a path)
 	return finalPath;
+}
+
+//Returns correct portal data (reading client's mem) in the case the stored values are incorrect
+PortalData^ findPortal(int toMapID) {
+	short portalZRef = 0x4; //First portal
+	int portalIndex = ReadMultiPointerSigned(PortalListBase, 3, 0x4, portalZRef, 0x0);
+	if (portalIndex != 0) return nullptr; //Check if First Portal Exists
+	bool nextPortalExists = true;
+
+	while(nextPortalExists) {
+		int currMap = ReadMultiPointerSigned(PortalListBase, 3, 0x4, portalZRef, 0x1C);
+		if(currMap == toMapID) {
+			PortalData^ newPortalData = gcnew PortalData();
+			char* portalName = ReadMultiPointerString(PortalListBase, 3, 0x4, portalZRef, 0x4);
+			newPortalData->portalName = gcnew System::String(portalName);
+			newPortalData->portalType = ReadMultiPointerSigned(PortalListBase, 3, 0x4, portalZRef, 0x8);
+			newPortalData->xPos = ReadMultiPointerSigned(PortalListBase, 3, 0x4, portalZRef, 0xC);
+			newPortalData->yPos = ReadMultiPointerSigned(PortalListBase, 3, 0x4, portalZRef, 0x10);
+			return newPortalData;
+		}
+		
+		//Check next portal
+		portalZRef += 0x8;
+		int prevIndex = portalIndex;
+		portalIndex = ReadMultiPointerSigned(PortalListBase, 3, 0x4, portalZRef, 0x0);
+		if (portalIndex != (prevIndex + 1)) nextPortalExists = false;
+	}
+
+	return nullptr;
+}
+
+//Classifies each island by the first 2 digits of the Map Ids within the island
+int getIsland(int mapID) {
+	if (mapID < 100000000) return 0; //Maple
+	return mapID / 10000000; //Returns first 2 digits of mapID as the island
+	/*
+	if (mapID >= 130000000 && mapID < 140000000) return 13; //Ereve
+	if (mapID >= 140000000 && mapID < 150000000) return 14; //Rien
+	if (mapID >= 100000000 && mapID < 200000000) return 10; //Victoria
+	if (mapID >= 200000000 && mapID < 210000000) return 20; //Orbis
+	if (mapID >= 210000000 && mapID < 220000000) return 21; //El Nath 
+	if (mapID >= 220000000 && mapID < 230000000) return 22; //Ludus Lake
+	if (mapID >= 230000000 && mapID < 240000000) return 23; //Aquarium
+	if (mapID >= 240000000 && mapID < 250000000) return 24; //Minar Forest
+	if (mapID >= 250000000 && mapID < 260000000) return 25; //Mu Lung Garden
+	if (mapID >= 260000000 && mapID < 270000000) return 26; //Nihal Desert
+	if (mapID >= 270000000 && mapID < 280000000) return 27; //Temple of Time
+	if (mapID >= 300000000 && mapID < 310000000) return 30; //elin
+	if (mapID >= 540000000 && mapID < 550000000) return 54; //Singapore
+	if (mapID >= 550000000 && mapID < 560000000) return 55; //Malaysia
+	if (mapID >= 600000000 && mapID < 620000000) return 60; //Masteria
+	if (mapID >= 680000000 && mapID < 690000000) return 68; //Amoria
+	if (mapID >= 800000000 && mapID < 810000000) return 80; //Zipangu
+	return 100; //Island not found*/
+}
+
+void SendNPCPacket(int npcID, int xPos, int yPos) {
+	String^ packet = "";
+	writeBytes(packet, gcnew array<BYTE>{0x3A, 0x00}); //NPC Talk OpCode
+	writeInt(packet, npcID);
+	writeShort(packet, xPos); //Char x pos when npc is clicked, not really important
+	writeShort(packet, yPos); //Char y pos when npc is clicked, not really important
+	SendPacket(packet);
+}
+
+/*WriteMemory(0x0074661D, 1, 0xEB); //Enables multiple open dialogs (in CScriptMan::OnScriptMessage)
+typedef int(__stdcall *pfnCUtilDlgEx__ForcedRet)(); //Close Dialogs (not the yes/no dialogue :sadface:)
+auto CUtilDlgEx__ForcedRet = (pfnCUtilDlgEx__ForcedRet)0x009A3C2C;
+CUtilDlgEx__ForcedRet();*/
+/*SendPacket("3C 00 01 01"); Sleep(200); //Click Yes
+SendPacket("3C 00 00 01 "); Sleep(200); //Click Next*/
+
+//Rushes to next island to route to Destination Map's island
+int rushNextIsland(int startMapID, int destMapID) {
+	int startIsland = getIsland(startMapID), destIsland = getIsland(destMapID);
+	switch (startIsland) {
+		case 0: //Rush to Victoria
+			if (PointerFuncs::getCharMesos() < 150) {
+				MainForm::TheInstance->lbMapRusherStatus->Text = "Status: You need 150 mesos to rush out of Maple Island";
+				GlobalRefs::isMapRushing = false;
+				return -1;
+			}
+			if (startMapID != 2000000) mapRush(2000000); //Rush to the map that links to Victoria
+			Sleep(1000);
+			SendNPCPacket(1000000003, 3366, -112); Sleep(500); //NPC Shanks 
+			SendKey(VK_RIGHT); Sleep(500); //Send Right Arrow to select yes
+			SendKey(VK_RETURN); Sleep(500); //Send Enter to press yes
+			SendKey(VK_RETURN); Sleep(500); //Send Enter to press next
+			SendKey(VK_RETURN); Sleep(500); //Send Enter to press next
+			return 104000000;
+		case 10:
+			if (destIsland == 11) {
+				if (PointerFuncs::getCharMesos() < 1500) {
+					MainForm::TheInstance->lbMapRusherStatus->Text = "Status: You need 1500 mesos to rush to Florina Beach";
+					GlobalRefs::isMapRushing = false;
+					return -1;
+				}
+				if (startMapID != 104000000) mapRush(104000000); //Rush to the map that links to Florina Beach
+				Sleep(1000);
+				SendNPCPacket(1000000008, 1746, 647); Sleep(500); //NPC Pason
+				SendKey(VK_RETURN); Sleep(500); //Send Enter to press yes
+				return 110000000;
+			}
+		case 11:
+			if (startMapID != 110000000) mapRush(110000000); //Rush to the map that links to Victoria
+			Sleep(1000);
+			SendNPCPacket(1000000004, -273, 151); Sleep(500);
+			SendKey(VK_RETURN); Sleep(500); //Send Enter to press next
+			SendKey(VK_RIGHT); Sleep(500); //Send Right Arrow to select yes
+			SendKey(VK_RETURN); Sleep(500); //Send Enter to press yes
+			return 104000000;
+	}
+
+	return 0;
+}
+
+//Checks if path exists to Destination Map's island
+bool existsInterIslandPath(int startMapID, int destMapID) {
+	int startIsland = getIsland(startMapID), destIsland = getIsland(destMapID);
+	if (destIsland == 0) return false; //Cannot travel to Maple island from anywhere
+	
+	switch(startIsland) { 
+		case 0:
+			if (destIsland == 10 || destIsland == 11) return true;
+			break;
+		case 10:
+			if (destIsland == 11) return true;
+			break;
+		case 11:
+			if (destIsland == 10) return true;
+			break;
+	}
+
+	return false;
+}
+
+//Enables hacks to make map rush faster
+void toggleFastMapRushHacks(bool isChecked) {
+	if(isChecked) {
+		//A way to save the original state of the hacks to restore later without needing to create global vars
+		if (MainForm::TheInstance->cbNoMapFadeEffect->Checked) MainForm::TheInstance->cbNoMapFadeEffect->ForeColor = Color::Green;
+		if (MainForm::TheInstance->cbNoMapBackground->Checked) MainForm::TheInstance->cbNoMapBackground->ForeColor = Color::Green;
+		if (MainForm::TheInstance->cbNoMapTiles->Checked) MainForm::TheInstance->cbNoMapTiles->ForeColor = Color::Green;
+		if (MainForm::TheInstance->cbNoMapObjects->Checked) MainForm::TheInstance->cbNoMapObjects->ForeColor = Color::Green;
+		
+		MainForm::TheInstance->cbNoMapFadeEffect->Checked = true;
+		MainForm::TheInstance->cbNoMapBackground->Checked = true;
+		MainForm::TheInstance->cbNoMapTiles->Checked = true;
+		MainForm::TheInstance->cbNoMapObjects->Checked = true;
+	}
+	else {
+		if(MainForm::TheInstance->cbNoMapFadeEffect->ForeColor != Color::Green) MainForm::TheInstance->cbNoMapFadeEffect->Checked = false;
+		if(MainForm::TheInstance->cbNoMapBackground->ForeColor != Color::Green) MainForm::TheInstance->cbNoMapBackground->Checked = false;
+		if(MainForm::TheInstance->cbNoMapTiles->ForeColor != Color::Green) MainForm::TheInstance->cbNoMapTiles->Checked = false;
+		if(MainForm::TheInstance->cbNoMapObjects->ForeColor != Color::Green) MainForm::TheInstance->cbNoMapObjects->Checked = false;
+
+		MainForm::TheInstance->cbNoMapFadeEffect->ForeColor = Color::White;
+		MainForm::TheInstance->cbNoMapBackground->ForeColor = Color::White;
+		MainForm::TheInstance->cbNoMapTiles->ForeColor = Color::White;
+		MainForm::TheInstance->cbNoMapObjects->ForeColor = Color::White;
+	}
 }
 
 //Map Rush
@@ -1779,26 +1955,109 @@ static void mapRush(int destMapID) {
 	}
 
 	MainForm::TheInstance->lbMapRusherStatus->Text = "Status: Calculating a path to Destination Map ID";
-	cliext::vector<MapPath^>^ mapPath = generatePath(startMapID, destMapID);
+	if (getIsland(startMapID) != getIsland(destMapID)) {
+		for(int i = 0; i < 5; i++) { //Max islands to travel to has to be at max 5 islands
+			if (!existsInterIslandPath(startMapID, destMapID)) break; //Check if path between islands exists
+			startMapID = rushNextIsland(startMapID, destMapID); //Rushes to next island to dest map's island, return val is new starting map id
+			if (startMapID == -1) return; //Error ocurred, rushNextIsland() handles error message
+			if (startMapID == 0) break; //End of rushNextIsland() reached, shouldn't happen because of existsInterIslandPath()
 
+			//If first map on new island is the destination, finish
+			if (startMapID == destMapID) {
+				MainForm::TheInstance->lbMapRusherStatus->Text = "Status: Map Rushing Complete";
+				GlobalRefs::isMapRushing = false;
+				return;
+			} 
+		}
+
+		//Couldn't rush to same island as Destination Map
+		if (getIsland(startMapID) != getIsland(destMapID)) {
+			MainForm::TheInstance->lbMapRusherStatus->Text = "Status: Cannot find a path to Destination Map ID";
+			GlobalRefs::isMapRushing = false;
+			return;
+		}
+	}
+
+	cliext::vector<MapPath^>^ mapPath = generatePath(startMapID, destMapID);
 	if (mapPath->size() == 0) {
 		MainForm::TheInstance->lbMapRusherStatus->Text = "Status: Cannot find a path to Destination Map ID";
 		GlobalRefs::isMapRushing = false;
 		return;
 	}
 
-	int remainingMapCount = mapPath->size();
-	MainForm::TheInstance->lbMapRusherStatus->Text = "Status: Map Rushing, Remaining Maps: " + Convert::ToString(remainingMapCount);
+	int remainingMapCount = mapPath->size(), delay = Convert::ToInt32(MainForm::TheInstance->tbMapRusherDelay->Text);
+	if (delay <= 0 || delay > 999999) delay = 500;
+	toggleFastMapRushHacks(true); //Enables No Map Background, Fade, Tiles, & Objects for quicker map rush
+	int oldChannel = ReadPointer(ServerBase, OFS_Channel);
 
-	String^ testPortalData = "";
-	for each(MapPath^ mapData in mapPath) {
-		testPortalData += "Rushing to " + mapData->mapID.ToString() + " Map Name: " + getMap(mapData->mapID)->mapName + "\n";
+	std::vector<SpawnControlData*> *oldSpawnControl = CodeCaves::spawnControl; //Save old spawn control list
+	CodeCaves::spawnControl = new std::vector<SpawnControlData*>(); //Create a new spawn control list for map rushing
+	Jump(spawnPointAddr, CodeCaves::SpawnPointHook, 0); //Enable spawn control 
+
+	for (auto i = mapPath->begin(); i != mapPath->end(); ++i) {
+		MapPath^ mapData = *i;
+		PortalData^ foundPortal = findPortal(mapData->portal->toMapID); //Find portal in mem in case wz files are different in private server
+		if (foundPortal != nullptr) mapData->portal = foundPortal;
+
+		//If first map, add spawn point to spawnControl & CC to new channel to enable hacks
+		if (i == mapPath->begin()) {
+			CodeCaves::spawnControl->push_back(new SpawnControlData((*i)->mapID, (*i)->portal->xPos, (*i)->portal->yPos - 10));
+			if (oldChannel == 1) AutoCC(2); else AutoCC(1);
+			Sleep(delay);
+		}
+
+		//Add next map's spawn point to spawnControl
+		if((i+1) != mapPath->end()) CodeCaves::spawnControl->push_back(new SpawnControlData((*(i+1))->mapID, (*(i+1))->portal->xPos, (*(i+1))->portal->yPos - 10));
+
+		//Construct Packet
+		String^ packet = "";
+		if(mapData->portal->portalType == 2) {
+			writeBytes(packet, gcnew array<BYTE>{0x26, 0x00}); //Change Map OpCode
+			writeByte(packet, 0); // 0 = Change Map through Regular Portals, 1 = Change Map From Dying
+			writeInt(packet, -1); // Target Map ID, only not -1 when character is dead, a GM, or for certain maps like Aran Introduction, Intro Map, Adventurer Intro, etc.
+			writeString(packet, mapData->portal->portalName); // Portal Name
+			writeShort(packet, (short)mapData->portal->xPos); //Portal x Position
+			writeShort(packet, (short)mapData->portal->yPos); //Portal y Position
+			writeByte(packet, 0); //Unknown
+			writeShort(packet, 0); //Wheel of Destiny (item that revtestives char in same map)
+		}
+		else if(mapData->portal->portalType == 7) {
+			writeBytes(packet, gcnew array<BYTE>{0x64, 0x00}); //Change Map Special OpCode
+			writeByte(packet, 0); // 0 = Change Map through Regular Portals, 1 = Change Map From Dying
+			writeString(packet, mapData->portal->portalName); // Portal Name
+			writeShort(packet, (short)mapData->portal->xPos); //Portal x Position
+			writeShort(packet, (short)mapData->portal->yPos); //Portal y Position
+		}
+		else {
+			MessageBox::Show(Convert::ToString(mapData->portal->portalType));
+			break; //Only deal with visible portals for now
+		}
+
+		//Spawn in next map
+		SendPacket(packet);
+
+		//Check to see if next map is loaded, try max 20 attempts
+		for(int i = 0; i < 50; i++) {
+			Sleep(25);
+			if (ReadPointer(UIMiniMapBase, OFS_MapID) != mapData->mapID) break;
+			if (i % 3 == 0) SendPacket(packet);
+			if (i == 20) Teleport(mapData->portal->xPos, mapData->portal->yPos - 20);
+		}
+		
 		remainingMapCount--;
 		MainForm::TheInstance->lbMapRusherStatus->Text = "Status: Map Rushing, Remaining Maps: " + Convert::ToString(remainingMapCount);
 	}
-	MessageBox::Show(testPortalData);
 
-	MainForm::TheInstance->lbMapRusherStatus->Text = "Status: Map Rushing Complete";
+	CodeCaves::spawnControl = oldSpawnControl; //Restore old spawn control list
+	toggleFastMapRushHacks(false); //Restores hacks to original state
+	AutoCC(oldChannel); //CC back to original channel
+	Sleep(delay);
+
+	if (ReadPointer(UIMiniMapBase, OFS_MapID) != destMapID) 
+		MainForm::TheInstance->lbMapRusherStatus->Text = "Status: An error has occurred, try setting delay higher";
+	else 
+		MainForm::TheInstance->lbMapRusherStatus->Text = "Status: Map Rushing Complete";
+
 	GlobalRefs::isMapRushing = false;
 }
 
@@ -1806,7 +2065,7 @@ static void mapRush(int destMapID) {
 static void findMapNamesStartingWithStr(String^ str) {
 	MainForm::TheInstance->lvMapRusherSearch->BeginUpdate();
 	for each(MapData^ map in GlobalRefs::maps) {
-		if(map->mapName->StartsWith(str)) {
+		if(map->mapName->ToLower()->StartsWith(str->ToLower())) {
 			array<String^>^ row = { map->mapName, Convert::ToString(map->mapID) };
 			ListViewItem^ lvi = gcnew ListViewItem(row);
 			MainForm::TheInstance->lvMapRusherSearch->Items->Add(lvi);
@@ -1814,15 +2073,19 @@ static void findMapNamesStartingWithStr(String^ str) {
 	}
 	MainForm::TheInstance->lvMapRusherSearch->EndUpdate();
 }
-
+#include <chrono>
 //Starts Map Rush when clicked
 void MainForm::bMapRush_Click(System::Object^  sender, System::EventArgs^  e) {
+	auto start = std::chrono::high_resolution_clock::now();
 	if(!GlobalRefs::isMapRushing && !PointerFuncs::getMapID()->Equals("0")) {
 		int mapDestID = 0;
 		if (INT::TryParse(tbMapRusherDestination->Text, mapDestID))
 			if (mapDestID >= 0 && mapDestID <= 999999999)
 				mapRush(mapDestID);
 	}
+	auto finish = std::chrono::high_resolution_clock::now();
+	std::chrono::duration<double> elapsed = finish - start;
+	MessageBox::Show("Elapsed Time: " + Convert::ToString(elapsed.count()));
 }
 
 //Adds tree view selected map's mapID to tbMapRusherDestination textbox
@@ -1831,7 +2094,7 @@ void MainForm::tvMapRusherSearch_MouseDoubleClick(System::Object^  sender, Syste
 	if(dynamic_cast<MapData^>(tvMapRusherSearch->SelectedNode->Tag) != nullptr)
 		tbMapRusherDestination->Text = tvMapRusherSearch->SelectedNode->Nodes[0]->Name;
 
-	if(tvMapRusherSearch->SelectedNode->Tag->Equals("MapID"))
+	if(tvMapRusherSearch->SelectedNode->Tag != nullptr && tvMapRusherSearch->SelectedNode->Tag->Equals("MapID"))
 		tbMapRusherDestination->Text = tvMapRusherSearch->SelectedNode->Name;
 
 	tvMapRusherSearch->SelectedNode = nullptr;
@@ -1889,14 +2152,16 @@ __declspec(naked) static void __stdcall GetStringRetValHook() {
 	}
 } //Working
 
-typedef char**(__stdcall* StringPool__GetString_t)(PVOID, PVOID, char**, UINT, UINT);	//typedef ZXString<char>*(__stdcall* StringPool__GetString_t)(PVOID, PVOID, ZXString<char>*, UINT);
-StringPool__GetString_t StringPool__GetString = (StringPool__GetString_t)0x0079E993;	//0x00406455;
+typedef char**(__stdcall* pfnStringPool__GetString)(PVOID, PVOID, char**, UINT, UINT);	//typedef ZXString<char>*(__stdcall* StringPool__GetString_t)(PVOID, PVOID, ZXString<char>*, UINT);
+auto StringPool__GetString = (pfnStringPool__GetString)0x0079E993;	//0x00406455;
 
-typedef char**(__stdcall *lpfnCItemInfo__GetMapString)(PVOID, PVOID, char*, UINT, const char*);
-lpfnCItemInfo__GetMapString CItemInfo__GetMapString = (lpfnCItemInfo__GetMapString)0x005CF792;
+typedef char**(__stdcall *pfnCItemInfo__GetMapString)(PVOID, PVOID, char*, UINT, const char*);
+auto CItemInfo__GetMapString = (pfnCItemInfo__GetMapString)0x005CF792;
 
 //Test stuff out //https://pastebin.com/aULY72tG
 void MainForm::button1_Click(System::Object^  sender, System::EventArgs^  e) {
+	
+
 	/*char result[300];
 	char* str = *CItemInfo__GetMapString(*(PVOID*)CItemInfo, NULL, result, 100000000, 0);
 	String^ test = Convert::ToString(str);
