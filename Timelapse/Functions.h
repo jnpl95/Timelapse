@@ -21,6 +21,7 @@ namespace GlobalVars {
 static void SendKey(BYTE keyCode) {
 	PostMessage(GlobalVars::mapleWindow, WM_KEYDOWN, keyCode, MapVirtualKey(keyCode, MAPVK_VK_TO_VSC) << 16);
 }
+
 static void MakePageWritable(ULONG ulAddress, ULONG ulSize) {
 	MEMORY_BASIC_INFORMATION* mbi = new MEMORY_BASIC_INFORMATION;
 	VirtualQuery((PVOID)ulAddress, mbi, ulSize);
