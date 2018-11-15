@@ -776,6 +776,19 @@ void MainForm::cbNoPlayerNameTag_CheckedChanged(Object^  sender, EventArgs^  e) 
 		WriteMemory(0x00942DCC, 5, 0xB8, 0x14, 0xDA, 0xAD, 0x00); //mov eax,00ADDA14
 }
 
+//Attack animation delay
+//TODO: the value is a byte thus should be settable in range of -128_127
+void MainForm::cbAttackAnimDelay_CheckedChanged(Object^  sender, EventArgs^  e) {
+	if (this->cbAttackAnimDelay->Checked)
+	{
+		WriteMemory(0x00454795, 3, 0x83, 0xC1, 0x05); //add ecx,05
+	}
+	else
+	{
+		WriteMemory(0x00454795, 3, 0x83, 0xC0, 0x0A); //add eax,0a
+	}
+}
+
 //Instant Drop Items
 void MainForm::cbInstantDropItems_CheckedChanged(Object^  sender, EventArgs^  e) {
 	if (this->cbInstantDropItems->Checked)
@@ -1219,6 +1232,20 @@ void MainForm::cbFullMapAttack_CheckedChanged(Object^  sender, EventArgs^  e) {
 		WriteMemory(0x006785CA, 2, 0x90, 0x90); //nop; nop;
 	else
 		WriteMemory(0x006785CA, 2, 0x74, 0x22); //je 006785EE
+}
+
+//ZZ Vac
+void MainForm::cbZzVac_CheckedChanged(Object^  sender, EventArgs^  e) {
+	if (this->cbZzVac->Checked)
+	{
+		WriteMemory(0x009B17A0, 3, 0x90, 0x90, 0x90); //nop; nop; nop;
+		WriteMemory(0x009B17B0, 3, 0x90, 0x90, 0x90); //nop; nop; nop;			
+	}
+	else
+	{
+		WriteMemory(0x009B17A0, 3, 0xDD, 0x45, 0xF0); //fld qword ptr [ebp-10]
+		WriteMemory(0x009B17B0, 3, 0xDD, 0x45, 0xE8); //fld qword ptr [ebp-18]		
+	}
 }
 
 void MainForm::cbItemVac_CheckedChanged(Object^  sender, EventArgs^  e) {
