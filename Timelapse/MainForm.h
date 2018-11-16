@@ -969,6 +969,7 @@ namespace Timelapse {
 			this->openSettingsToolStripMenuItem->Name = L"openSettingsToolStripMenuItem";
 			this->openSettingsToolStripMenuItem->Size = System::Drawing::Size(157, 22);
 			this->openSettingsToolStripMenuItem->Text = L"Open Settings";
+			this->openSettingsToolStripMenuItem->Click += gcnew System::EventHandler(this, &MainForm::loadSettingsToolStripMenuItem_Click);
 			// 
 			// saveSettingsToolStripMenuItem
 			// 
@@ -978,6 +979,7 @@ namespace Timelapse {
 			this->saveSettingsToolStripMenuItem->Name = L"saveSettingsToolStripMenuItem";
 			this->saveSettingsToolStripMenuItem->Size = System::Drawing::Size(157, 22);
 			this->saveSettingsToolStripMenuItem->Text = L"Save Settings";
+			this->saveSettingsToolStripMenuItem->Click += gcnew System::EventHandler(this, &MainForm::saveSettingsToolStripMenuItem_Click);
 			// 
 			// closeMapleStoryToolStripMenuItem
 			// 
@@ -6169,6 +6171,7 @@ namespace Timelapse {
 		}
 #pragma endregion
 
+
 	private: System::Void MainForm_Load(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void MainForm_FormClosing(System::Object^  sender, System::Windows::Forms::FormClosingEventArgs^  e);
 	private: System::Void btnClose_Click(System::Object^  sender, System::EventArgs^  e);
@@ -6178,6 +6181,8 @@ namespace Timelapse {
 	private: System::Void pnlFull_MouseMove(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e);
 	private: System::Void GUITimer_Tick(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void closeMapleStoryToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void loadSettingsToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void saveSettingsToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void lbEXP_MouseHover(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void lbMP_MouseHover(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void lbHP_MouseHover(System::Object^  sender, System::EventArgs^  e);

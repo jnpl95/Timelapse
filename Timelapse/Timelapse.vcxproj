@@ -139,11 +139,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Log.cpp" />
     <ClCompile Include="MainForm.cpp" />
     <ClCompile Include="Packet.cpp" />
+    <ClCompile Include="Settings.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Functions.h" />
+    <ClInclude Include="Log.h" />
     <ClInclude Include="Macro.h" />
     <ClInclude Include="Packet.h" />
     <ClInclude Include="Addresses.h" />
@@ -151,6 +154,7 @@
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="resource.h" />
+    <ClInclude Include="Settings.h" />
     <ClInclude Include="Structs.h" />
   </ItemGroup>
   <ItemGroup>
