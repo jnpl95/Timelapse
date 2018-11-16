@@ -8,6 +8,7 @@
 #include "Packet.h"
 #include "Structs.h"
 #include "resource.h"
+#include "Settings.h"
 
 using namespace Timelapse;
 
@@ -139,8 +140,16 @@ void MainForm::pnlFull_MouseMove(Object^  sender, Windows::Forms::MouseEventArgs
 void MainForm::closeMapleStoryToolStripMenuItem_Click(Object^  sender, EventArgs^  e) {
 	TerminateProcess(GetCurrentProcess(), 0);
 }
-#pragma endregion
-#pragma endregion
+
+#pragma endregion LoadSettings
+void MainForm::loadSettingsToolStripMenuItem_Click(Object^  sender, EventArgs^  e) {
+	Settings::Deserialize(this, Settings::GetSettingsPath());
+}
+
+#pragma endregion SaveSettings
+void MainForm::saveSettingsToolStripMenuItem_Click(Object^  sender, EventArgs^  e) {
+	Settings::Serialize(this, Settings::GetSettingsPath());
+}
 
 #pragma region Pointers
 //Display Char Job value on hover
