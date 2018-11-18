@@ -474,6 +474,8 @@ void MainForm::tbBuffInterval_KeyPress(Object^  sender, Windows::Forms::KeyPress
 #pragma endregion
 
 #pragma region Auto CC/CS
+//TODO: add option to whitelist or blacklist channels
+
 void CallCCFunc(int channel) {
 	if (PointerFuncs::getMapID()->Equals("0")) return;
 	WritePointer(UserLocalBase, OFS_Breath, 0);
@@ -534,9 +536,10 @@ void MainForm::rbCC_CheckedChanged(Object^  sender, EventArgs^  e) {
 
 void MainForm::AutoCCCSTimer_Tick(Object^  sender, EventArgs^  e) {
 	if (GlobalRefs::isMapRushing) return;
+
 	if(cbCCCSTime->Checked) {
 		GlobalRefs::cccsTimerTickCount += 250;
-		if ((GlobalRefs::cccsTimerTickCount/1000) >= Convert::ToUInt32(tbCCCSTime->Text)) {
+		if ((GlobalRefs::cccsTimerTickCount/1000) > Convert::ToUInt32(tbCCCSTime->Text)) {
 			if (rbCC->Checked) AutoCC(-1);
 			else AutoCS();
 			GlobalRefs::cccsTimerTickCount = 0;
@@ -544,21 +547,21 @@ void MainForm::AutoCCCSTimer_Tick(Object^  sender, EventArgs^  e) {
 	}
 
 	if (cbCCCSPeople->Checked) {
-		if (ReadPointer(UserPoolBase, OFS_PeopleCount) >= Convert::ToUInt32(tbCCCSPeople->Text)) {
+		if (ReadPointer(UserPoolBase, OFS_PeopleCount) > Convert::ToUInt32(tbCCCSPeople->Text)) {
 			if (rbCC->Checked) AutoCC(-1);
 			else AutoCS();
 		}
 	}
 
 	if (cbCCCSAttack->Checked) {
-		if(ReadPointer(UserLocalBase, OFS_AttackCount) >= Convert::ToUInt32(tbCCCSAttack->Text)) {
+		if(ReadPointer(UserLocalBase, OFS_AttackCount) > Convert::ToUInt32(tbCCCSAttack->Text)) {
 			if (rbCC->Checked) AutoCC(-1);
 			else AutoCS();
 		}
 	}
 
 	if (cbCCCSMob->Checked) {
-		if (ReadPointer(MobPoolBase, OFS_MobCount) <= Convert::ToUInt32(tbCCCSMob->Text)) {
+		if (ReadPointer(MobPoolBase, OFS_MobCount) < Convert::ToUInt32(tbCCCSMob->Text)) {
 			if (rbCC->Checked) AutoCC(-1);
 			else AutoCS();
 		}
@@ -622,25 +625,25 @@ void MainForm::tbCSDelay_KeyPress(Object^  sender, Windows::Forms::KeyPressEvent
 //Full Godmode (CUserLocal::SetDamaged())
 void MainForm::cbFullGodmode_CheckedChanged(Object^  sender, EventArgs^  e) {
 	if (this->cbFullGodmode->Checked)
-		WriteMemory(0x009581D5, 2, 0x0F, 0x84); //je 009596F7 [first 2 bytes]
+		WriteMemory(fullGodmodeAddr, 2, 0x0F, 0x84); //je 009596F7 [first 2 bytes]
 	else
-		WriteMemory(0x009581D5, 2, 0x0F, 0x85); //jne 009596F7 [first 2 bytes]
+		WriteMemory(fullGodmodeAddr, 2, 0x0F, 0x85); //jne 009596F7 [first 2 bytes]
 }
 
 //Miss Godmode (CUserLocal::SetDamaged())
 void MainForm::cbMissGodmode_CheckedChanged(Object^  sender, EventArgs^  e) {
 	if (this->cbMissGodmode->Checked)
-		WriteMemory(0x009582E9, 8, 0xC7, 0x06, 0x00, 0x00, 0x00, 0x00, 0x90, 0x90); //mov [esi],00000000; nop; nop;
+		WriteMemory(missGodmodeAddr, 8, 0xC7, 0x06, 0x00, 0x00, 0x00, 0x00, 0x90, 0x90); //mov [esi],00000000; nop; nop;
 	else
-		WriteMemory(0x009582E9, 8, 0x89, 0x06, 0x83, 0xC6, 0x04, 0xFF, 0x4D, 0xC4); //mov [esi],eax; add esi,04; dec [ebp-3C];
+		WriteMemory(missGodmodeAddr, 8, 0x89, 0x06, 0x83, 0xC6, 0x04, 0xFF, 0x4D, 0xC4); //mov [esi],eax; add esi,04; dec [ebp-3C];
 }
 
 //Blink Godmode (CUser::Update())
 void MainForm::cbBlinkGodmode_CheckedChanged(Object^  sender, EventArgs^  e) {
 	if (this->cbBlinkGodmode->Checked)
-		WriteMemory(0x00932501, 2, 0x83, 0xC7); //add edi,1E
+		WriteMemory(blinkGodmodeAddr, 2, 0x83, 0xC7); //add edi,1E
 	else
-		WriteMemory(0x00932501, 2, 0x83, 0xEF); //sub edi,1E
+		WriteMemory(blinkGodmodeAddr, 2, 0x83, 0xEF); //sub edi,1E
 }
 
 void ClickTeleport() {
@@ -700,89 +703,89 @@ void MainForm::cbMouseFly_CheckedChanged(Object^  sender, EventArgs^  e) {
 //Swim in Air (CVecCtrl::IsSwimming())
 void MainForm::cbSwimInAir_CheckedChanged(Object^  sender, EventArgs^  e) {
 	if (this->cbSwimInAir->Checked)
-		WriteMemory(0x00704704, 2, 0x74, 0x04); //je 0070470A
+		WriteMemory(swimInAirAddr, 2, 0x74, 0x04); //je 0070470A
 	else
-		WriteMemory(0x00704704, 2, 0x75, 0x04); //jne 0070470A
+		WriteMemory(swimInAirAddr, 2, 0x75, 0x04); //jne 0070470A
 }
 
 //Speed Attack (CAvatar::PrepareActionLayer())
 void MainForm::cbSpeedAttack_CheckedChanged(Object^  sender, EventArgs^  e) {
 	if (this->cbSpeedAttack->Checked)
-		WriteMemory(0x0045478F, 2, 0x0F, 0x8F); //jg 0045483D [first 2 bytes]
+		WriteMemory(speedAttackAddr, 2, 0x0F, 0x8F); //jg 0045483D [first 2 bytes]
 	else
-		WriteMemory(0x0045478F, 2, 0x0F, 0x8E); //jng 0045483D [first 2 bytes]
+		WriteMemory(speedAttackAddr, 2, 0x0F, 0x8E); //jng 0045483D [first 2 bytes]
 }
 
 //Unlimited Attack (CAntiRepeat::TryRepeat())
 void MainForm::cbUnlimitedAttack_CheckedChanged(Object^  sender, EventArgs^  e) {
 	if (this->cbUnlimitedAttack->Checked)
-		WriteMemory(0x009536E0, 1, 0xEB); //jmp 0095370C [first byte]
+		WriteMemory(unlimitedAttackAddr, 1, 0xEB); //jmp 0095370C [first byte]
 	else
-		WriteMemory(0x009536E0, 1, 0x7E); //jle 0095370C [first byte]
+		WriteMemory(unlimitedAttackAddr, 1, 0x7E); //jle 0095370C [first byte]
 }
 
 //Full Accuracy
 void MainForm::cbFullAccuracy_CheckedChanged(Object^  sender, EventArgs^  e) {
 	if (this->cbFullAccuracy->Checked)
-		WriteMemory(0x00AFE7F8, 8, 0x00, 0x00, 0x00, 0xE0, 0xCF, 0x12, 0x63, 0x41); //add [eax],al; add al,ah; iretd; adc ah,byte ptr [ebx+41];
+		WriteMemory(fullAccuracyAddr, 8, 0x00, 0x00, 0x00, 0xE0, 0xCF, 0x12, 0x63, 0x41); //add [eax],al; add al,ah; iretd; adc ah,byte ptr [ebx+41];
 	else
-		WriteMemory(0x00AFE7F8, 8, 0x66, 0x66, 0x66, 0x66, 0x66, 0x66, 0xE6, 0x3F); //out 3F,al
+		WriteMemory(fullAccuracyAddr, 8, 0x66, 0x66, 0x66, 0x66, 0x66, 0x66, 0xE6, 0x3F); //out 3F,al
 }
 
 //No Breath (CAvatar::Update())
 void MainForm::cbNoBreath_CheckedChanged(Object^  sender, EventArgs^  e) {
 	if (this->cbNoBreath->Checked)
-		WriteMemory(0x00452316, 1, 0x7C); //jl 0045233D [first byte]
+		WriteMemory(noBreathAddr, 1, 0x7C); //jl 0045233D [first byte]
 	else
-		WriteMemory(0x00452316, 1, 0x7D); //jnl 0045233D [first byte]
+		WriteMemory(noBreathAddr, 1, 0x7D); //jnl 0045233D [first byte]
 }
 
-//No Player Kickback (CVecCtrl::SetImpactNext())
-void MainForm::cbNoPlayerKickback_CheckedChanged(Object^  sender, EventArgs^  e) {
-	if (this->cbNoPlayerKickback->Checked)
-		WriteMemory(0x007A637F, 3, 0xC7, 0x00, 0x00); //mov [eax],00000000 [first 3 bytes] 
+//No Player Knockback (CVecCtrl::SetImpactNext())
+void MainForm::cbNoPlayerKnockback_CheckedChanged(Object^  sender, EventArgs^  e) {
+	if (this->cbNoPlayerKnockback->Checked)
+		WriteMemory(noPlayerKnocbackAddr, 3, 0xC7, 0x00, 0x00); //mov [eax],00000000 [first 3 bytes] 
 	else
-		WriteMemory(0x007A637F, 3, 0xC7, 0x00, 0x01); //mov [eax],00000001 [first 3 bytes]
+		WriteMemory(noPlayerKnocbackAddr, 3, 0xC7, 0x00, 0x01); //mov [eax],00000001 [first 3 bytes]
 }
 
 //No Player Death (CUserLocal::OnResolveMoveAction())
 void MainForm::cbNoPlayerDeath_CheckedChanged(Object^  sender, EventArgs^  e) {
 	if (this->cbNoPlayerDeath->Checked)
-		WriteMemory(0x009506C6, 2, 0xEB, 0x0B); //jmp 009506D3
+		WriteMemory(noPlayerDeathAddr, 2, 0xEB, 0x0B); //jmp 009506D3
 	else
-		WriteMemory(0x009506C6, 2, 0x74, 0x0B); //je 009506D3
+		WriteMemory(noPlayerDeathAddr, 2, 0x74, 0x0B); //je 009506D3
 }
 
 //Jump Down Any Tile (CUserLocal::FallDown())
 void MainForm::cbJumpDownAnyTile_CheckedChanged(Object^  sender, EventArgs^  e) {
 	if (this->cbJumpDownAnyTile->Checked)
-		WriteMemory(0x0094C6EE, 2, 0x90, 0x90); //nop; nop;
+		WriteMemory(jumpDownAnywhereAddr, 2, 0x90, 0x90); //nop; nop;
 	else
-		WriteMemory(0x0094C6EE, 2, 0x74, 0x1E); //je 0094C70E
+		WriteMemory(jumpDownAnywhereAddr, 2, 0x74, 0x1E); //je 0094C70E
 }
 
 //No Skill Effects (CUser::ShowSkillEffect())
 void MainForm::cbNoSkillEffects_CheckedChanged(Object^  sender, EventArgs^  e) {
 	if (this->cbNoSkillEffects->Checked)
-		WriteMemory(0x00933990, 5, 0xC2, 0x14, 0x00, 0x90, 0x90); //ret 0014; nop; nop; nop;
+		WriteMemory(noSkillEffectAddr, 5, 0xC2, 0x14, 0x00, 0x90, 0x90); //ret 0014; nop; nop; nop;
 	else
-		WriteMemory(0x00933990, 5, 0xB8, 0x34, 0xC3, 0xAD, 0x00); //mov eax,00ADC334
+		WriteMemory(noSkillEffectAddr, 5, 0xB8, 0x34, 0xC3, 0xAD, 0x00); //mov eax,00ADC334
 }
 
 //No Attack Delay (CUser::SetAttackAction())
 void MainForm::cbNoAttackDelay_CheckedChanged(Object^  sender, EventArgs^  e) {
 	if (this->cbNoAttackDelay->Checked)
-		WriteMemory(0x0092EDB2, 10, 0x6A, 0x01, 0x58, 0xC2, 0x10, 0x00, 0x90, 0x90, 0x90, 0x90); //push 01; pop eax; ret 0010; nop; nop; nop; nop;
+		WriteMemory(noAttackDelayAddr, 10, 0x6A, 0x01, 0x58, 0xC2, 0x10, 0x00, 0x90, 0x90, 0x90, 0x90); //push 01; pop eax; ret 0010; nop; nop; nop; nop;
 	else
-		WriteMemory(0x0092EDB2, 10, 0xB8, 0x88, 0xB7, 0xAD, 0x00, 0xE8, 0xDC, 0x1C, 0x13, 0x00); //mov eax,00ADB788; call 00A60B98;
+		WriteMemory(noAttackDelayAddr, 10, 0xB8, 0x88, 0xB7, 0xAD, 0x00, 0xE8, 0xDC, 0x1C, 0x13, 0x00); //mov eax,00ADB788; call 00A60B98;
 }
 
 //No Player Name Tag (CUser::DrawNameTags())
 void MainForm::cbNoPlayerNameTag_CheckedChanged(Object^  sender, EventArgs^  e) {
 	if (this->cbNoPlayerNameTag->Checked)
-		WriteMemory(0x00942DCC, 5, 0xC3, 0x90, 0x90, 0x90, 0x90); //ret; nop; nop; nop; nop;
+		WriteMemory(noPlayerNameTagAddr, 5, 0xC3, 0x90, 0x90, 0x90, 0x90); //ret; nop; nop; nop; nop;
 	else
-		WriteMemory(0x00942DCC, 5, 0xB8, 0x14, 0xDA, 0xAD, 0x00); //mov eax,00ADDA14
+		WriteMemory(noPlayerNameTagAddr, 5, 0xB8, 0x14, 0xDA, 0xAD, 0x00); //mov eax,00ADDA14
 }
 
 //Attack animation delay
@@ -790,60 +793,60 @@ void MainForm::cbNoPlayerNameTag_CheckedChanged(Object^  sender, EventArgs^  e) 
 void MainForm::cbAttackAnimDelay_CheckedChanged(Object^  sender, EventArgs^  e) {
 	if (this->cbAttackAnimDelay->Checked)
 	{
-		WriteMemory(0x00454795, 3, 0x83, 0xC1, 0x05); //add ecx,05
+		WriteMemory(attackAnimFrameDelayAddr, 3, 0x83, 0xC1, 0x05); //add ecx,05
 	}
 	else
 	{
-		WriteMemory(0x00454795, 3, 0x83, 0xC0, 0x0A); //add eax,0a
+		WriteMemory(attackAnimFrameDelayAddr, 3, 0x83, 0xC0, 0x0A); //add eax,0a
 	}
 }
 
 //Instant Drop Items
 void MainForm::cbInstantDropItems_CheckedChanged(Object^  sender, EventArgs^  e) {
 	if (this->cbInstantDropItems->Checked)
-		WriteMemory(0x00AF0E1C, 4, 0x00, 0x00, 0x00, 0x00); //add [eax],al; add [eax],al;
+		WriteMemory(instantDropItemsAddr, 4, 0x00, 0x00, 0x00, 0x00); //add [eax],al; add [eax],al;
 	else
-		WriteMemory(0x00AF0E1C, 4, 0x00, 0x40, 0x8F, 0x40); //add [eax-71],al; inc eax;
+		WriteMemory(instantDropItemsAddr, 4, 0x00, 0x40, 0x8F, 0x40); //add [eax-71],al; inc eax;
 }
 
 //Instant Loot Items (CAnimationDisplayer::ABSORBITEM::Update())
 void MainForm::cbInstantLootItems_CheckedChanged(Object^  sender, EventArgs^  e) {
 	if (this->cbInstantLootItems->Checked)
-		WriteMemory(0x004417E3, 6, 0x81, 0xFB, 0x00, 0x00, 0x00, 0x00); //cmp ebx,00000000
+		WriteMemory(instantLootItemsAddr, 6, 0x81, 0xFB, 0x00, 0x00, 0x00, 0x00); //cmp ebx,00000000
 	else
-		WriteMemory(0x004417E3, 6, 0x81, 0xFB, 0xBC, 0x02, 0x00, 0x00); //cmp ebx,000002BC
+		WriteMemory(instantLootItemsAddr, 6, 0x81, 0xFB, 0xBC, 0x02, 0x00, 0x00); //cmp ebx,000002BC
 }
 
 //Fast Loot Items (CWvsContext::CanSendExclRequest())
 void MainForm::cbFastLootItems_CheckedChanged(Object^  sender, EventArgs^  e) {
 	if (this->cbFastLootItems->Checked)
-		WriteMemory(0x00485C01, 2, 0x90, 0x90); //nop; nop;
+		WriteMemory(fastLootItemsAddr, 2, 0x90, 0x90); //nop; nop;
 	else
-		WriteMemory(0x00485C01, 2, 0x75, 0x36); //jne 00485C39
+		WriteMemory(fastLootItemsAddr, 2, 0x75, 0x36); //jne 00485C39
 }
 
 //No Mob Reaction (CMob::AddDamageInfo())
 void MainForm::cbNoMobReaction_CheckedChanged(Object^  sender, EventArgs^  e) {
 	if (this->cbNoMobReaction->Checked)
-		WriteMemory(0x0066B05E, 5, 0xC2, 0x44, 0x00, 0x90, 0x90); //ret 0044; nop; nop;
+		WriteMemory(noMobReactionAddr, 5, 0xC2, 0x44, 0x00, 0x90, 0x90); //ret 0044; nop; nop;
 	else
-		WriteMemory(0x0066B05E, 5, 0xB8, 0x50, 0x1A, 0xAA, 0x00); //mov eax,00AA1A50
+		WriteMemory(noMobReactionAddr, 5, 0xB8, 0x50, 0x1A, 0xAA, 0x00); //mov eax,00AA1A50
 }
 
 //No Mob Death Effect (CMob::OnDie())
 void MainForm::cbNoMobDeathEffect_CheckedChanged(Object^  sender, EventArgs^  e) {
 	if (this->cbNoMobDeathEffect->Checked)
-		WriteMemory(0x00663995, 5, 0xC3, 0x90, 0x90, 0x90, 0x90); //ret; nop; nop; nop; nop;
+		WriteMemory(noMobDeathEffectAddr, 5, 0xC3, 0x90, 0x90, 0x90, 0x90); //ret; nop; nop; nop; nop;
 	else
-		WriteMemory(0x00663995, 5, 0xB8, 0xD4, 0x13, 0xAA, 0x00); //mov eax,00AA13D4
+		WriteMemory(noMobDeathEffectAddr, 5, 0xB8, 0xD4, 0x13, 0xAA, 0x00); //mov eax,00AA13D4
 }
 
-//No Mob Kickback (CMob::OnHit())
-void MainForm::cbNoMobKickback_CheckedChanged(Object^  sender, EventArgs^  e) {
-	if (this->cbNoMobKickback->Checked)
-		WriteMemory(0x00668C9E, 2, 0x90, 0x90); //nop; nop;
+//No Mob Knockback (CMob::OnHit())
+void MainForm::cbNoMobKnockback_CheckedChanged(Object^  sender, EventArgs^  e) {
+	if (this->cbNoMobKnockback->Checked)
+		WriteMemory(noMobKnockbackAddr, 2, 0x90, 0x90); //nop; nop;
 	else
-		WriteMemory(0x00668C9E, 2, 0x74, 0x20); //je 00668CC0
+		WriteMemory(noMobKnockbackAddr, 2, 0x74, 0x20); //je 00668CC0
 }
 
 //Mob Freeze (CVecCtrlMob::WorkUpdateActive())
@@ -858,9 +861,9 @@ void MainForm::cbMobFreeze_CheckedChanged(Object^  sender, EventArgs^  e)
 //Mob Disarm (CMob::Update())
 void MainForm::cbMobDisarm_CheckedChanged(Object^  sender, EventArgs^  e) {
 	if (this->cbMobDisarm->Checked)
-		WriteMemory(0x00667A00, 9, 0xE9, 0xFD, 0x01, 0x00, 0x00, 0x90, 0x90, 0x90, 0x90); //jmp 00667C02; nop; nop; nop; nop;
+		WriteMemory(mobDisarmAddr, 9, 0xE9, 0xFD, 0x01, 0x00, 0x00, 0x90, 0x90, 0x90, 0x90); //jmp 00667C02; nop; nop; nop; nop;
 	else
-		WriteMemory(0x00667A00, 9, 0x75, 0x0E, 0x8B, 0xCB, 0xE8, 0x24, 0x69, 0x00, 0x00); //jne 00667A10; mov ecx,ebx; call 0066E32D;
+		WriteMemory(mobDisarmAddr, 9, 0x75, 0x0E, 0x8B, 0xCB, 0xE8, 0x24, 0x69, 0x00, 0x00); //jne 00667A10; mov ecx,ebx; call 0066E32D;
 }
 
 //Mob Auto Aggro (CVecCtrlMob::WorkUpdateActive())
@@ -874,65 +877,65 @@ void MainForm::cbMobAutoAggro_CheckedChanged(Object^  sender, EventArgs^  e) {
 //No Map Background (CMapReloadable::LoadMap())
 void MainForm::cbNoMapBackground_CheckedChanged(Object^  sender, EventArgs^  e) {
 	if (this->cbNoMapBackground->Checked)
-		WriteMemory(0x00639CB6, 5, 0x90, 0x90, 0x90, 0x90, 0x90); //nop; nop; nop; nop; nop;
+		WriteMemory(noMapBackgroundAddr, 5, 0x90, 0x90, 0x90, 0x90, 0x90); //nop; nop; nop; nop; nop;
 	else
-		WriteMemory(0x00639CB6, 5, 0xE8, 0xFF, 0x2E, 0x00, 0x00); //call 0063CBBA
+		WriteMemory(noMapBackgroundAddr, 5, 0xE8, 0xFF, 0x2E, 0x00, 0x00); //call 0063CBBA
 }
 
 //No Map Objects (CMapReloadable::LoadMap())
 void MainForm::cbNoMapObjects_CheckedChanged(Object^  sender, EventArgs^  e) {
 	if (this->cbNoMapObjects->Checked)
-		WriteMemory(0x00639CAF, 5, 0x90, 0x90, 0x90, 0x90, 0x90); //nop; nop; nop; nop; nop;
+		WriteMemory(noMapObjectsAddr, 5, 0x90, 0x90, 0x90, 0x90, 0x90); //nop; nop; nop; nop; nop;
 	else
-		WriteMemory(0x00639CAF, 5, 0xE8, 0xCA, 0x0D, 0x00, 0x00); //call 0063AA7E
+		WriteMemory(noMapObjectsAddr, 5, 0xE8, 0xCA, 0x0D, 0x00, 0x00); //call 0063AA7E
 }
 
 //No Map Tiles (CMapReloadable::LoadMap())
 void MainForm::cbNoMapTiles_CheckedChanged(Object^  sender, EventArgs^  e) {
 	if (this->cbNoMapTiles->Checked)
-		WriteMemory(0x00639CA8, 5, 0x90, 0x90, 0x90, 0x90, 0x90); //nop; nop; nop; nop; nop;
+		WriteMemory(noMapTitlesAddr, 5, 0x90, 0x90, 0x90, 0x90, 0x90); //nop; nop; nop; nop; nop;
 	else
-		WriteMemory(0x00639CA8, 5, 0xE8, 0x53, 0x04, 0x00, 0x00); //call 0063A100
+		WriteMemory(noMapTitlesAddr, 5, 0xE8, 0x53, 0x04, 0x00, 0x00); //call 0063A100
 }
 
 //No Map Fade Effect (CStage::FadeOut())
 void MainForm::cbNoMapFadeEffect_CheckedChanged(Object^  sender, EventArgs^  e) {
 	if (this->cbNoMapFadeEffect->Checked)
-		WriteMemory(0x00776E65, 5, 0xC3, 0x90, 0x90, 0x90, 0x90); //ret; nop; nop; nop; nop;
+		WriteMemory(noMapFadeEffect, 5, 0xC3, 0x90, 0x90, 0x90, 0x90); //ret; nop; nop; nop; nop;
 	else
-		WriteMemory(0x00776E65, 5, 0xB8, 0x44, 0x61, 0xAB, 0x00); //mov eax,00AB6144
+		WriteMemory(noMapFadeEffect, 5, 0xB8, 0x44, 0x61, 0xAB, 0x00); //mov eax,00AB6144
 }
 
 //Map Speed Up (max_walk_speed())
 void MainForm::cbMapSpeedUp_CheckedChanged(Object^  sender, EventArgs^  e) {
 	if (this->cbMapSpeedUp->Checked)
-		WriteMemory(0x009B21A0, 3, 0x8D, 0x48, 0x0C); //lea ecx,[eax+0C]
+		WriteMemory(mapSpeedUpAddr, 3, 0x8D, 0x48, 0x0C); //lea ecx,[eax+0C]
 	else
-		WriteMemory(0x009B21A0, 3, 0x8D, 0x48, 0x24); //lea ecx,[eax+24]
+		WriteMemory(mapSpeedUpAddr, 3, 0x8D, 0x48, 0x24); //lea ecx,[eax+24]
 }
 
 //Infinite & Uncensored Chat
 void MainForm::cbInfiniteChat_CheckedChanged(Object^  sender, EventArgs^  e) {
 	if (this->cbInfiniteChat->Checked) {
-		WriteMemory(0x00490607, 2, 0xEB, 0x27); //jmp 00490630
-		WriteMemory(0x00490651, 2, 0xEB, 0x1D); //jmp 00490670
-		WriteMemory(0x004CAA09, 2, 0xEB, 0x7E); //jmp 004CAA89
-		WriteMemory(0x004CAA84, 2, 0xEB, 0x03); //jmp 004CAA89
+		WriteMemory(removeSpamFilterAddr1, 2, 0xEB, 0x27); //jmp 00490630
+		WriteMemory(removeSpamFilterAddr2, 2, 0xEB, 0x1D); //jmp 00490670
+		WriteMemory(infiniteChatboxAddr1, 2, 0xEB, 0x7E); //jmp 004CAA89
+		WriteMemory(infiniteChatboxAddr2, 2, 0xEB, 0x03); //jmp 004CAA89
 	}
 	else {
-		WriteMemory(0x00490607, 2, 0x74, 0x27); //je 00490630
-		WriteMemory(0x00490651, 2, 0x73, 0x1D); //jae 00490670
-		WriteMemory(0x004CAA09, 2, 0x7E, 0x7E); //jle 004CAA89
-		WriteMemory(0x004CAA84, 2, 0x7E, 0x03); //jle 004CAA89
+		WriteMemory(removeSpamFilterAddr1, 2, 0x74, 0x27); //je 00490630
+		WriteMemory(removeSpamFilterAddr2, 2, 0x73, 0x1D); //jae 00490670
+		WriteMemory(infiniteChatboxAddr1, 2, 0x7E, 0x7E); //jle 004CAA89
+		WriteMemory(infiniteChatboxAddr2, 2, 0x7E, 0x03); //jle 004CAA89
 	}
 }
 
 //No Blue Boxes (CUtilDlg::Notice())
 void MainForm::cbNoBlueBoxes_CheckedChanged(Object^  sender, EventArgs^  e) {
 	if (this->cbNoBlueBoxes->Checked)
-		WriteMemory(0x009929DD, 5, 0xC3, 0x90, 0x90, 0x90, 0x90); //ret; nop; nop; nop; nop;
+		WriteMemory(noBlueBoxesAddr, 5, 0xC3, 0x90, 0x90, 0x90, 0x90); //ret; nop; nop; nop; nop;
 	else
-		WriteMemory(0x009929DD, 5, 0xB8, 0x92, 0x21, 0xAE, 0x00); //mov eax,00AE2192
+		WriteMemory(noBlueBoxesAddr, 5, 0xB8, 0x92, 0x21, 0xAE, 0x00); //mov eax,00AE2192
 }
 #pragma endregion
 
@@ -1238,22 +1241,22 @@ void MainForm::tbMMCY_KeyPress(Object^  sender, Windows::Forms::KeyPressEventArg
 //Full Map Attack (CMobPool::FindHitMobInRect())
 void MainForm::cbFullMapAttack_CheckedChanged(Object^  sender, EventArgs^  e) {
 	if (this->cbFullMapAttack->Checked)
-		WriteMemory(0x006785CA, 2, 0x90, 0x90); //nop; nop;
+		WriteMemory(fullMapAttackAddr, 2, 0x90, 0x90); //nop; nop;
 	else
-		WriteMemory(0x006785CA, 2, 0x74, 0x22); //je 006785EE
+		WriteMemory(fullMapAttackAddr, 2, 0x74, 0x22); //je 006785EE
 }
 
 //ZZ Vac
 void MainForm::cbZzVac_CheckedChanged(Object^  sender, EventArgs^  e) {
 	if (this->cbZzVac->Checked)
 	{
-		WriteMemory(0x009B17A0, 3, 0x90, 0x90, 0x90); //nop; nop; nop;
-		WriteMemory(0x009B17B0, 3, 0x90, 0x90, 0x90); //nop; nop; nop;			
+		WriteMemory(zzVacAddr1, 3, 0x90, 0x90, 0x90); //nop; nop; nop;
+		WriteMemory(zzVacAddr2, 3, 0x90, 0x90, 0x90); //nop; nop; nop;			
 	}
 	else
 	{
-		WriteMemory(0x009B17A0, 3, 0xDD, 0x45, 0xF0); //fld qword ptr [ebp-10]
-		WriteMemory(0x009B17B0, 3, 0xDD, 0x45, 0xE8); //fld qword ptr [ebp-18]		
+		WriteMemory(zzVacAddr1, 3, 0xDD, 0x45, 0xF0); //fld qword ptr [ebp-10]
+		WriteMemory(zzVacAddr2, 3, 0xDD, 0x45, 0xE8); //fld qword ptr [ebp-18]		
 	}
 }
 
@@ -1263,7 +1266,6 @@ void MainForm::cbItemVac_CheckedChanged(Object^  sender, EventArgs^  e) {
 	else
 		WriteMemory(itemVacAddr, 7, 0x50, 0xFF, 0x75, 0xDC, 0x8D, 0x45, 0xCC);
 }
-
 #pragma endregion
 
 #pragma region Filters Tab
@@ -1617,6 +1619,7 @@ void MainForm::bSendDrop50000_Click(System::Object^  sender, System::EventArgs^ 
 void MainForm::bSendRestore127Health_Click(System::Object^  sender, System::EventArgs^  e) {
 	SendPacket("59 00 A1 7F F7 08 00 14 00 00 7F 00 00 00 00");
 }
+#pragma endregion
 
 #pragma region AutoAP
 void MainForm::tbAPLevel_KeyPress(Object^  sender, Windows::Forms::KeyPressEventArgs^  e) {
@@ -1647,8 +1650,6 @@ void MainForm::tbAPLUK_KeyPress(Object^  sender, Windows::Forms::KeyPressEventAr
 	if (!isKeyValid(sender, e, false)) e->Handled = true; //If key is not valid, do nothing and indicate that it has been handled
 }
 #pragma endregion
-#pragma endregion
-
 #pragma endregion
 
 #pragma region Map Rusher Tab

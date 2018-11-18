@@ -84,7 +84,7 @@ Void Settings::AddChildControls(XmlTextWriter^ xmlSerializedForm, Control^ c)
 	for each(Control^ childCtrl in c->Controls)
 	{
 		auto type = childCtrl->GetType();
-		auto name = childCtrl->Name;
+		//auto name = childCtrl->Name;
 
 		//TODO: save press state of buttons?
 
@@ -103,9 +103,9 @@ Void Settings::AddChildControls(XmlTextWriter^ xmlSerializedForm, Control^ c)
 			else if (type == TextBox::typeid)
 				xmlSerializedForm->WriteAttributeString("Text", safe_cast<TextBox^>(childCtrl)->Text->ToString());
 
-			//TODO: save itemFilter as array of strings
-			//else if (name == "lbItemFilter")				
-			//xmlSerializedForm->WriteAttributeString("ItemFilterList", safe_cast<ListBox^>(childCtrl)->Items->ToString());
+			// TODO: save itemFilter as array of strings
+			// else if (name == "lbItemFilter")				
+			// xmlSerializedForm->WriteAttributeString("ItemFilterList", safe_cast<ListBox^>(childCtrl)->Items->ToString());
 
 			// see if this control has any children, and if so, serialize them
 			if (childCtrl->HasChildren && type != NumericUpDown::typeid) 
@@ -157,9 +157,9 @@ Void Settings::SetControlProperties(Control^ currentCtrl, XmlNode^ n)
 		else if (n->Attributes["Text"])
 			safe_cast<TextBox^>(ctrl[0])->Text = Convert::ToString(n->Attributes["Text"]->Value);
 
-		//TODO: parse array of strings and add by one to ListBox
-		//else if (n->Attributes["ItemFilterList"])		
-	    //safe_cast<ListBox^>(ctrl[0])->Items->Add(Convert::ToString(n->Attributes["ItemFilterList"]->Value));
+		// TODO: parse array of strings and add by one to ListBox
+		// else if (n->Attributes["ItemFilterList"])		
+	    // safe_cast<ListBox^>(ctrl[0])->Items->Add(Convert::ToString(n->Attributes["ItemFilterList"]->Value));
 
 		// if n has any children that are controls, deserialize them as well
 		if (n->HasChildNodes && ctrl[0]->HasChildren)

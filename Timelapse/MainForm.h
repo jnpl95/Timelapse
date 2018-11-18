@@ -289,8 +289,8 @@ namespace Timelapse {
 	private: System::Windows::Forms::CheckBox^  cbMapSpeedUp;
 	private: System::Windows::Forms::CheckBox^  cbMobDisarm;
 	private: System::Windows::Forms::CheckBox^  cbNoMobReaction;
-	private: System::Windows::Forms::CheckBox^  cbNoPlayerKickback;
-	private: System::Windows::Forms::CheckBox^  cbNoMobKickback;
+	private: System::Windows::Forms::CheckBox^  cbNoPlayerKnockback;
+	private: System::Windows::Forms::CheckBox^  cbNoMobKnockback;
 	private: System::Windows::Forms::Panel^  panel23;
 	private: System::Windows::Forms::CheckBox^  cbNoMobDeathEffect;
 	public: System::Windows::Forms::CheckBox^  cbNoMapFadeEffect;
@@ -638,6 +638,7 @@ namespace Timelapse {
 			this->cbHP = (gcnew System::Windows::Forms::CheckBox());
 			this->cbMP = (gcnew System::Windows::Forms::CheckBox());
 			this->tabPage5 = (gcnew System::Windows::Forms::TabPage());
+			this->tbAttackAnimDelay = (gcnew System::Windows::Forms::TextBox());
 			this->panel12 = (gcnew System::Windows::Forms::Panel());
 			this->cbFastLootItems = (gcnew System::Windows::Forms::CheckBox());
 			this->cbInstantDropItems = (gcnew System::Windows::Forms::CheckBox());
@@ -656,14 +657,15 @@ namespace Timelapse {
 			this->cbMobDisarm = (gcnew System::Windows::Forms::CheckBox());
 			this->cbNoMobReaction = (gcnew System::Windows::Forms::CheckBox());
 			this->cbNoMobDeathEffect = (gcnew System::Windows::Forms::CheckBox());
-			this->cbNoMobKickback = (gcnew System::Windows::Forms::CheckBox());
+			this->cbNoMobKnockback = (gcnew System::Windows::Forms::CheckBox());
 			this->panel23 = (gcnew System::Windows::Forms::Panel());
+			this->cbAttackAnimDelay = (gcnew System::Windows::Forms::CheckBox());
 			this->cbNoPlayerNameTag = (gcnew System::Windows::Forms::CheckBox());
 			this->cbNoAttackDelay = (gcnew System::Windows::Forms::CheckBox());
 			this->cbNoBreath = (gcnew System::Windows::Forms::CheckBox());
 			this->cbNoSkillEffects = (gcnew System::Windows::Forms::CheckBox());
 			this->cbFullAccuracy = (gcnew System::Windows::Forms::CheckBox());
-			this->cbNoPlayerKickback = (gcnew System::Windows::Forms::CheckBox());
+			this->cbNoPlayerKnockback = (gcnew System::Windows::Forms::CheckBox());
 			this->cbSpeedAttack = (gcnew System::Windows::Forms::CheckBox());
 			this->cbJumpDownAnyTile = (gcnew System::Windows::Forms::CheckBox());
 			this->cbNoPlayerDeath = (gcnew System::Windows::Forms::CheckBox());
@@ -873,8 +875,6 @@ namespace Timelapse {
 			this->btnMinimize = (gcnew System::Windows::Forms::Button());
 			this->GUITimer = (gcnew System::Windows::Forms::Timer(this->components));
 			this->AutoCCCSTimer = (gcnew System::Windows::Forms::Timer(this->components));
-			this->cbAttackAnimDelay = (gcnew System::Windows::Forms::CheckBox());
-			this->tbAttackAnimDelay = (gcnew System::Windows::Forms::TextBox());
 			this->menuStrip1->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->BeginInit();
 			this->pnlFull->SuspendLayout();
@@ -3031,6 +3031,19 @@ namespace Timelapse {
 			this->tabPage5->TabIndex = 2;
 			this->tabPage5->Text = L"Hacks I";
 			// 
+			// tbAttackAnimDelay
+			// 
+			this->tbAttackAnimDelay->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(35)),
+				static_cast<System::Int32>(static_cast<System::Byte>(35)), static_cast<System::Int32>(static_cast<System::Byte>(35)));
+			this->tbAttackAnimDelay->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->tbAttackAnimDelay->ForeColor = System::Drawing::Color::White;
+			this->tbAttackAnimDelay->Location = System::Drawing::Point(133, 307);
+			this->tbAttackAnimDelay->Name = L"tbAttackAnimDelay";
+			this->tbAttackAnimDelay->Size = System::Drawing::Size(49, 21);
+			this->tbAttackAnimDelay->TabIndex = 23;
+			this->tbAttackAnimDelay->Text = L"10";
+			this->tbAttackAnimDelay->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			// 
 			// panel12
 			// 
 			this->panel12->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
@@ -3207,7 +3220,7 @@ namespace Timelapse {
 			this->panel24->Controls->Add(this->cbMobDisarm);
 			this->panel24->Controls->Add(this->cbNoMobReaction);
 			this->panel24->Controls->Add(this->cbNoMobDeathEffect);
-			this->panel24->Controls->Add(this->cbNoMobKickback);
+			this->panel24->Controls->Add(this->cbNoMobKnockback);
 			this->panel24->Location = System::Drawing::Point(133, 159);
 			this->panel24->Name = L"panel24";
 			this->panel24->Size = System::Drawing::Size(126, 138);
@@ -3283,20 +3296,20 @@ namespace Timelapse {
 			this->cbNoMobDeathEffect->UseVisualStyleBackColor = false;
 			this->cbNoMobDeathEffect->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbNoMobDeathEffect_CheckedChanged);
 			// 
-			// cbNoMobKickback
+			// cbNoMobKnockback
 			// 
-			this->cbNoMobKickback->AutoSize = true;
-			this->cbNoMobKickback->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
-			this->cbNoMobKickback->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->cbNoMobKickback->ForeColor = System::Drawing::Color::White;
-			this->cbNoMobKickback->Location = System::Drawing::Point(5, 49);
-			this->cbNoMobKickback->Name = L"cbNoMobKickback";
-			this->cbNoMobKickback->Size = System::Drawing::Size(102, 17);
-			this->cbNoMobKickback->TabIndex = 4;
-			this->cbNoMobKickback->Text = L"No Mob Kickback";
-			this->cbNoMobKickback->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
-			this->cbNoMobKickback->UseVisualStyleBackColor = false;
-			this->cbNoMobKickback->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbNoMobKickback_CheckedChanged);
+			this->cbNoMobKnockback->AutoSize = true;
+			this->cbNoMobKnockback->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
+			this->cbNoMobKnockback->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->cbNoMobKnockback->ForeColor = System::Drawing::Color::White;
+			this->cbNoMobKnockback->Location = System::Drawing::Point(5, 49);
+			this->cbNoMobKnockback->Name = L"cbNoMobKnockback";
+			this->cbNoMobKnockback->Size = System::Drawing::Size(112, 17);
+			this->cbNoMobKnockback->TabIndex = 4;
+			this->cbNoMobKnockback->Text = L"No Mob Knockback";
+			this->cbNoMobKnockback->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
+			this->cbNoMobKnockback->UseVisualStyleBackColor = false;
+			this->cbNoMobKnockback->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbNoMobKnockback_CheckedChanged);
 			// 
 			// panel23
 			// 
@@ -3307,7 +3320,7 @@ namespace Timelapse {
 			this->panel23->Controls->Add(this->cbNoBreath);
 			this->panel23->Controls->Add(this->cbNoSkillEffects);
 			this->panel23->Controls->Add(this->cbFullAccuracy);
-			this->panel23->Controls->Add(this->cbNoPlayerKickback);
+			this->panel23->Controls->Add(this->cbNoPlayerKnockback);
 			this->panel23->Controls->Add(this->cbSpeedAttack);
 			this->panel23->Controls->Add(this->cbJumpDownAnyTile);
 			this->panel23->Controls->Add(this->cbNoPlayerDeath);
@@ -3316,6 +3329,19 @@ namespace Timelapse {
 			this->panel23->Name = L"panel23";
 			this->panel23->Size = System::Drawing::Size(123, 247);
 			this->panel23->TabIndex = 20;
+			// 
+			// cbAttackAnimDelay
+			// 
+			this->cbAttackAnimDelay->AutoSize = true;
+			this->cbAttackAnimDelay->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
+			this->cbAttackAnimDelay->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->cbAttackAnimDelay->ForeColor = System::Drawing::Color::White;
+			this->cbAttackAnimDelay->Location = System::Drawing::Point(5, 225);
+			this->cbAttackAnimDelay->Name = L"cbAttackAnimDelay";
+			this->cbAttackAnimDelay->Size = System::Drawing::Size(110, 17);
+			this->cbAttackAnimDelay->TabIndex = 25;
+			this->cbAttackAnimDelay->Text = L"Attack Anim Delay";
+			this->cbAttackAnimDelay->UseVisualStyleBackColor = false;
 			// 
 			// cbNoPlayerNameTag
 			// 
@@ -3388,19 +3414,19 @@ namespace Timelapse {
 			this->cbFullAccuracy->UseVisualStyleBackColor = false;
 			this->cbFullAccuracy->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbFullAccuracy_CheckedChanged);
 			// 
-			// cbNoPlayerKickback
+			// cbNoPlayerKnockback
 			// 
-			this->cbNoPlayerKickback->AutoSize = true;
-			this->cbNoPlayerKickback->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
-			this->cbNoPlayerKickback->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->cbNoPlayerKickback->ForeColor = System::Drawing::Color::White;
-			this->cbNoPlayerKickback->Location = System::Drawing::Point(5, 93);
-			this->cbNoPlayerKickback->Name = L"cbNoPlayerKickback";
-			this->cbNoPlayerKickback->Size = System::Drawing::Size(112, 17);
-			this->cbNoPlayerKickback->TabIndex = 5;
-			this->cbNoPlayerKickback->Text = L"No Player Kickback";
-			this->cbNoPlayerKickback->UseVisualStyleBackColor = false;
-			this->cbNoPlayerKickback->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbNoPlayerKickback_CheckedChanged);
+			this->cbNoPlayerKnockback->AutoSize = true;
+			this->cbNoPlayerKnockback->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
+			this->cbNoPlayerKnockback->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->cbNoPlayerKnockback->ForeColor = System::Drawing::Color::White;
+			this->cbNoPlayerKnockback->Location = System::Drawing::Point(5, 93);
+			this->cbNoPlayerKnockback->Name = L"cbNoPlayerKnockback";
+			this->cbNoPlayerKnockback->Size = System::Drawing::Size(122, 17);
+			this->cbNoPlayerKnockback->TabIndex = 5;
+			this->cbNoPlayerKnockback->Text = L"No Player Knockback";
+			this->cbNoPlayerKnockback->UseVisualStyleBackColor = false;
+			this->cbNoPlayerKnockback->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbNoPlayerKnockback_CheckedChanged);
 			// 
 			// cbSpeedAttack
 			// 
@@ -6021,32 +6047,6 @@ namespace Timelapse {
 			this->AutoCCCSTimer->Interval = 250;
 			this->AutoCCCSTimer->Tick += gcnew System::EventHandler(this, &MainForm::AutoCCCSTimer_Tick);
 			// 
-			// cbAttackAnimDelay
-			// 
-			this->cbAttackAnimDelay->AutoSize = true;
-			this->cbAttackAnimDelay->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
-			this->cbAttackAnimDelay->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->cbAttackAnimDelay->ForeColor = System::Drawing::Color::White;
-			this->cbAttackAnimDelay->Location = System::Drawing::Point(5, 225);
-			this->cbAttackAnimDelay->Name = L"cbAttackAnimDelay";
-			this->cbAttackAnimDelay->Size = System::Drawing::Size(110, 17);
-			this->cbAttackAnimDelay->TabIndex = 25;
-			this->cbAttackAnimDelay->Text = L"Attack Anim Delay";
-			this->cbAttackAnimDelay->UseVisualStyleBackColor = false;
-			// 
-			// tbAttackAnimDelay
-			// 
-			this->tbAttackAnimDelay->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(35)),
-				static_cast<System::Int32>(static_cast<System::Byte>(35)), static_cast<System::Int32>(static_cast<System::Byte>(35)));
-			this->tbAttackAnimDelay->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
-			this->tbAttackAnimDelay->ForeColor = System::Drawing::Color::White;
-			this->tbAttackAnimDelay->Location = System::Drawing::Point(133, 307);
-			this->tbAttackAnimDelay->Name = L"tbAttackAnimDelay";
-			this->tbAttackAnimDelay->Size = System::Drawing::Size(49, 21);
-			this->tbAttackAnimDelay->TabIndex = 23;
-			this->tbAttackAnimDelay->Text = L"10";
-			this->tbAttackAnimDelay->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
-			// 
 			// MainForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
@@ -6283,10 +6283,10 @@ namespace Timelapse {
 	private: System::Void bTeleportLoop_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void cbNoMobReaction_CheckedChanged(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void cbNoMobDeathEffect_CheckedChanged(System::Object^  sender, System::EventArgs^  e);
-	private: System::Void cbNoMobKickback_CheckedChanged(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void cbNoMobKnockback_CheckedChanged(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void cbMobFreeze_CheckedChanged(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void cbMobDisarm_CheckedChanged(System::Object^  sender, System::EventArgs^  e);
-	private: System::Void cbNoPlayerKickback_CheckedChanged(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void cbNoPlayerKnockback_CheckedChanged(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void cbJumpDownAnyTile_CheckedChanged(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void cbNoSkillEffects_CheckedChanged(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void cbNoAttackDelay_CheckedChanged(System::Object^  sender, System::EventArgs^  e);
@@ -6340,5 +6340,6 @@ namespace Timelapse {
 	private: System::Void tbMapRusherSearch_TextChanged(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void bMapRush_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void lbMapRusherStatus_TextChanged(System::Object^  sender, System::EventArgs^  e);
+	
 	};
 }

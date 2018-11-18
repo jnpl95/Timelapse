@@ -198,7 +198,7 @@ static int keyCollection[] = { 0x10, 0x11, 0x12, 0x20, 0x2D, 0x2E, 0x24, 0x23, 0
 //Check if position is valid 
 static bool isPosValid(int X, int Y) {
 	return ((ReadPointerSigned(CWvsPhysicalSpace2DBase, OFS_LeftWall) <= X) && (ReadPointerSigned(CWvsPhysicalSpace2DBase, OFS_RightWall) >= X) 
-		&& (ReadPointerSigned(CWvsPhysicalSpace2DBase, OFS_UpWall) <= Y) && (ReadPointerSigned(CWvsPhysicalSpace2DBase, OFS_DownWall) >= Y));
+		&& (ReadPointerSigned(CWvsPhysicalSpace2DBase, OFS_TopWall) <= Y) && (ReadPointerSigned(CWvsPhysicalSpace2DBase, OFS_BottomWall) >= Y));
 }
 
 //Teleport to parameter position

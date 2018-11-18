@@ -12,9 +12,24 @@ ref struct MacrosEnabled { static bool bMacroHP = false, bMacroMP = false, bMacr
 ref struct KeyMacro {
 	int keyCode;
 	MacroType macroType;
+
 	bool operator<(const KeyMacro^ km) {
 		return macroType < km->macroType;
 	}
+
+	// Funny thing is this is different from holding a key down and yet its different from holding and then releasing key down
+	// basically this represents magical keyboard which repeatedly presses keys down but doesn't need any kind of going up with keys
+	// thus this non-physical keyboard will cause certain skills like charge abilities to be permanently stuck charging
+	static void SendKey(int Key) {
+		PostMessage(GlobalVars::mapleWindow, WM_KEYDOWN, Key, MapVirtualKey(Key, 0) << 16);
+	}
+
+	// This simulates repeated bashing of a keystroke on a regular physical keyboard
+	static void SpamKey(int Key) {
+		PostMessage(GlobalVars::mapleWindow, WM_KEYDOWN, Key, MapVirtualKey(Key, 0) << 16);
+		PostMessage(GlobalVars::mapleWindow, WM_KEYUP, Key, MapVirtualKey(Key, 0) << 16);
+	}
+
 };
 
 ref class PriorityQueue {
@@ -36,27 +51,30 @@ public:
 					if (MacrosEnabled::bMacroLoot) {
 						if (System::String::IsNullOrWhiteSpace(Timelapse::MainForm::TheInstance->tbLootItem->Text)) break;
 						if (ReadPointer(DropPoolBase, OFS_ItemCount) > System::Convert::ToUInt32(Timelapse::MainForm::TheInstance->tbLootItem->Text))
-							PostMessage(GlobalVars::mapleWindow, WM_KEYDOWN, key->keyCode, MapVirtualKey(key->keyCode, MAPVK_VK_TO_VSC) << 16);
+							KeyMacro::SendKey(key->keyCode);
 					}
 					break;
+
 				case MacroType::ATTACKMACRO:
 					if (MacrosEnabled::bMacroAttack) {
 						if (System::String::IsNullOrWhiteSpace(Timelapse::MainForm::TheInstance->tbAttackMob->Text)) break;
 						if (ReadPointer(MobPoolBase, OFS_MobCount) > System::Convert::ToUInt32(Timelapse::MainForm::TheInstance->tbAttackMob->Text))
-							PostMessage(GlobalVars::mapleWindow, WM_KEYDOWN, key->keyCode, MapVirtualKey(key->keyCode, MAPVK_VK_TO_VSC) << 16);
+							KeyMacro::SpamKey(key->keyCode);
 					}
 					break;
+
 				case MacroType::BUFFMACRO:
-					Sleep(15);
-					PostMessage(GlobalVars::mapleWindow, WM_KEYDOWN, key->keyCode, MapVirtualKey(key->keyCode, MAPVK_VK_TO_VSC) << 16);
-					PostMessage(GlobalVars::mapleWindow, WM_KEYUP, key->keyCode, MapVirtualKey(key->keyCode, MAPVK_VK_TO_VSC) << 16);
-					Sleep(50);
+					// Using Sleep(X) in a one threaded code is a very bad idea, the entire thread goes to sleeping
+					// Sleep(15); 
+					KeyMacro::SpamKey(key->keyCode);
+					// Sleep(50);
 					break;
+
 				case MacroType::MPPOTMACRO:
 					if(MacrosEnabled::bMacroMP) {
 						if (System::String::IsNullOrWhiteSpace(Timelapse::MainForm::TheInstance->tbMP->Text)) break;
 						if (CodeCaves::curMP < System::Convert::ToUInt32(Timelapse::MainForm::TheInstance->tbMP->Text))
-							PostMessage(GlobalVars::mapleWindow, WM_KEYDOWN, key->keyCode, MapVirtualKey(key->keyCode, MAPVK_VK_TO_VSC) << 16);
+							KeyMacro::SendKey(key->keyCode);
 					}
 						
 					break;
@@ -64,10 +82,11 @@ public:
 					if (MacrosEnabled::bMacroHP) {
 						if (System::String::IsNullOrWhiteSpace(Timelapse::MainForm::TheInstance->tbHP->Text)) break;
 						if (CodeCaves::curHP < System::Convert::ToUInt32(Timelapse::MainForm::TheInstance->tbHP->Text))
-							PostMessage(GlobalVars::mapleWindow, WM_KEYDOWN, key->keyCode, MapVirtualKey(key->keyCode, MAPVK_VK_TO_VSC) << 16);
+							KeyMacro::SendKey(key->keyCode);
 					}
 					break;
 			}
+
 			System::Threading::Monitor::Exit(PriorityQueue::macroQueue);
 		}
 	}
