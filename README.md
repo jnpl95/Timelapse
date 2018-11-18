@@ -6,14 +6,17 @@ A MapleStory v83 Trainer
 # TODO List
 
 ## ToolBar
-- Code Save/Load for all options, Enable/Disable All
+- Better save/load mechanism, add saving of itemFilter and mapRusher predefined routes
+- Code Enable/Disable All
+- Code Launch MS client.
+- Code Injection routines to deploy the trainer
+- Code Rezise and Embed MS client into form of the trainer
 - Code Hide/Show MS Window (already coded in old trainer)
-- Code Embed MS (already coded in old trainer)
-- Code inject dll (already coded in old trainer)
 
 ## Main Tab
 ##### AutoLogin
-- (ADD) AutoLogin
+- Code AutoLogin routines either thru packets or by hooking client functions
+- Code Pin/Pic bypass
 - Code Skip Logo (already found in .CT)
 ##### Options
 - Code disable pointers
@@ -21,26 +24,34 @@ A MapleStory v83 Trainer
 ## Bots Tab
 ##### Main
 - (ADD) Auto Turn? 
+- Code console for output of various logging streams
 ##### AutoCC/CS
-- (ADD) Add option for auto face left after cc/cs
-- Fix AutoCC tbCCCSTime, tbCCCSPeople, tbCCCSAttack, tbCCCSMob empty/null (add error message) :: if time == 0, change to 1 second
+- (ADD) Add option for auto face left/right after cc/cs
+- Fix AutoCC tbCCCSTime, tbCCCSPeople, tbCCCSAttack, tbCCCSMob being possibly empty/null (add error message) :: if time/people == 0, change to 1
 - Fix Auto CS function call (doesn't work as intended, get rid of blue box popup on MigrateToCashShop Call)
 - Make Auto CC/CS run on threads instead of timers. Timers cause the trainer to hang up 
+- Add option to select witch channels should be used as random choice of AutoCC and which should be prohibited from entering
+- How does actually autoCC and NoBreath relate? Is it valid to send CC packet when having no breath?
 ##### Advanced Bot
-- (ADD)Flat bot
+- (ADD) Flat bot
 - (ADD) climbing ladders/rope (CVecCtrl::GetLadderOrRope/CVecCtrl::IsOnLadder/CVecCtrl::IsOnRope 
-- (ADD)Find nearest mob/most grouped mobs in a platform (spiral algo with rings started from inside (for loop with 2 for loops inside)
+- (ADD) Find nearest mob/most grouped mobs in a platform (spiral algo with rings started from inside (for loop with 2 for loops inside)
 - (ADD) level based map rush
+- (ADD) walk left/right
+- (ADD) mouse emulation autoclicking etc...
 
 ## Hacks Tab
+- (ADD) Alot of missing hacks BYOR(Bring Your Own Rope!), ItsRainingMobs, MSCRC Bypass, MP/HP regen hack, AttackUnrandomizer etc...
 - (ADD) Char Walk & Jump Speed editing(double), damage, and other physics, 
 - Auto Assign AP (make sure packet auto ap not enabled) 
 
 ## Vacs Tab
 - Code DupeX/MMC/Wall Vac (already coded in old trainer)
-- (ADD) Vami, Portal Kami, dEMi, CSEAX vac if possible
+- (ADD) Vami, Portal Kami, dEMi, CSEAX vac, Mouse CSEAX, Force Vac, Pvac, Vac right, Vac left if possible
+- (ADD) Pet Item Vac
 
 ## Filters Tab
+- (Bug) Not all items are ingame items can be found via string search.
 - Modifications?
 
 ## Packets Tab
@@ -57,7 +68,10 @@ A MapleStory v83 Trainer
 - Remake wz xml parser in C++ since there are a lot of portals missing from maps (ie kerning square from subway lobby in kerning)
 
 ## Overall
+- The GUI needs overall change
 - Look into making sure trainer can be injected into multiple instances with no interference between
+- Rewrite memory management into proper mememory manager which is type generic and more operation safe.
+- Change c style casts into c++ style casts?
 - (ADD) check for auto-loot to see if inventory is full, add option to sell useless shit and buy pots 
 - (ADD) Make a label visible for a bit (or log) all actions in trainer
 - (ADD) Make Tooltips for everything
@@ -80,6 +94,21 @@ A MapleStory v83 Trainer
 - Hack Fix: Turned all booleans to false on form closing to prevent maplestory from closing as well, this might not work in the case that the delay for the loop is high, consider keeping all seperate threads in a list and exiting each thread in a better more elegant way
 - Account for there being no channel 0 (channel starts at 1 ingame, label already changed, but make sure funcs are change to reflect that)
 - Change SendPacket's passed in packet str, in AutoCC/CS, to the packet write methods 
+
+##### HotkeyQue
+- The current hotkey handling system is very unresponsive and laggs the entire input system to maplestory.
+- Just having auto attack on 200ms and loot on 200ms is sufficient to overspam maple input so much that no else key command will be executed unless agresivelly repeatedly pressed or held down for an ammount of time
+
+##### Stability issues
+- FMA
+- unstable on large maps in both directions as long or tall
+- unstable on maps with flying/jumping monsters
+- unstable when u miss or hit too many times till mob dies 
+
+- relatively stable on small maps where mobs die qucikly
+
+- Kami
+- the same as above the stability of both seems to increase with timed autoCC
 
 ## Tips
 - For preventing new line before opening brace:
