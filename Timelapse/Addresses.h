@@ -10,6 +10,94 @@
  *  These addresses are all virtual addresses defined in MapleStory.exe's virtual address space
  */
 
+#pragma region Hack Adresses
+// HACK TAB REGION 
+ULONG fullGodmodeAddr = 0x009581D5;
+ULONG missGodmodeAddr = 0x009582E9;
+ULONG blinkGodmodeAddr = 0x00932501;
+ULONG swimInAirAddr = 0x00704704;
+ULONG speedAttackAddr = 0x0045478F; //Instant speed attack?
+ULONG unlimitedAttackAddr = 0x009536E0; 
+ULONG fullAccuracyAddr = 0x00AFE7F8; //Client sided only version?? This is incomplete acc hack.
+ULONG noBreathAddr = 0x00452316; //Fake/imperfect no breath?
+ULONG noPlayerKnocbackAddr = 0x007A637F;
+ULONG noPlayerDeathAddr = 0x009506C6;
+ULONG jumpDownAnywhereAddr = 0x0094C6EE;
+ULONG noSkillEffectAddr = 0x00933990;
+ULONG noAttackDelayAddr = 0x0092EDB2;
+ULONG noPlayerNameTagAddr = 0x00942DCC;
+ULONG attackAnimFrameDelayAddr = 0x00454795;
+ULONG instantDropItemsAddr = 0x00AF0E1C;
+ULONG instantLootItemsAddr = 0x004417E3;
+ULONG fastLootItemsAddr = 0x00485C01;
+ULONG noMobReactionAddr = 0x0066B05E;
+ULONG noMobDeathEffectAddr = 0x00663995;
+ULONG noMobKnockbackAddr = 0x00668C9E;
+ULONG mobDisarmAddr = 0x00667A00;
+ULONG noMapBackgroundAddr = 0x00639CB6;
+ULONG noMapObjectsAddr = 0x00639CAF;
+ULONG noMapTitlesAddr = 0x00639CA8;
+ULONG noMapFadeEffect = 0x00776E65;
+ULONG mapSpeedUpAddr = 0x009B21A0;
+ULONG removeSpamFilterAddr1 = 0x00490607; 
+ULONG removeSpamFilterAddr2 = 0x00490651;
+ULONG infiniteChatboxAddr1 = 0x004CAA09;
+ULONG infiniteChatboxAddr2 = 0x004CAA84;
+ULONG noBlueBoxesAddr = 0x009929DD;
+
+// VAC TAB REGION
+ULONG fullMapAttackAddr = 0x006785CA;
+ULONG zzVacAddr1 = 0x009B17A0; 
+ULONG zzVacAddr2 = 0x009B17B0;
+
+// NOT YET IMPLEMENTED?
+ULONG multiClientAddr = 0x00949BC7; // jne -> jmp
+ULONG lagHackAddr = 0x009B16F2; // je -> jne
+ULONG accuracyHackAddr1 = 0x00424D22; // codecave
+ULONG accuracyHackAddr2 = 0x00AFE7F8; // codecave
+ULONG accuracyHackAddr3 = 0x005E2AAA; // codecave
+ULONG mpRegenTickTimeAddr = 0x00A031F5; // cmp ebx,00002710 -> cmp ebx, [BYTE_VALUE]
+ULONG sitAnywhereAddr = 0x009506E9; // je -> 2x nop
+ULONG speedWalkAddr = 0x009B268D; // je -> 6x nop
+ULONG mouseCSEAXVacYAddr = 0x009B6352; // codecave
+ULONG mouseCSEAXVacXAddr = 0x009B62ED; // codecave
+ULONG mesoDropCap = 0x0081DAC7; // 4 bytes
+ULONG magicAttCap = 0x00780621; // 4 bytes
+ULONG gravity = 0x00AF0DE0; // double
+ULONG bringYourOwnRopeAddr = 0x00A45B03; // codecave
+ULONG MSCRCBypassAddr1 = 0x004A27E7; // codecave
+ULONG MSCRCBypassAddr2 = 0x004A27EC; // codecave
+ULONG slideRightAddr = 0x009B2C0A; // jna -> jne
+ULONG itsRainingMobsAddr = 0x009B1E8E; // F1 -> F2, bugged diassembly??
+ULONG rapidGlideAddr = 0x009B4365; // je -> jne
+ULONG attackUnrandommizerAddr = 0x0076609C; // codecave
+ULONG etcExplosionAddr = 0x00505806; // 6x nop
+ULONG useRechargableItemsAfterDepletionAddr1 = 0x009516BA; // 6x nop
+ULONG useRechargableItemsAfterDepletionAddr2 = 0x009516C2; // je -> jns
+
+// OLDSKOOL STUFF
+// pin typer v0.62 004A0A6B: //83 FA 6F 0F 86 ?? ?? ?? ?? 83 FA 7B 
+// jbe -> je
+// take one dmg v0.62 00670090: // DF E0 9E 72 04 DD D8 D9 E8 DC 15
+// jb -> ja
+// ZPVac v0.62 007F2A18: // C3 DD D8 5D C3 55 8B EC
+// fstp st(0) -> fstp st(6)
+// Unlimited summon v0.62 004D6D95: //74 2D 8B 7C 24 0C 8B 07 6A 05 50 E8 ?? ?? ?? ??
+// je -> jne
+// Suck Jump Monsters to left: v0.62 007F4055: //DF E0 9E 73 53 DD 45 EC 8B CE 51 51
+// jae -> je
+// Suck Jump Monsters to right: v0.62 007F40C4: //DF E0 9E 76 72 DD 45 EC 8B CE 51 51
+// jna -> ja
+// NoJumpingAllowed v0.62 007F3EF7: //57 8B F9 8B 87 ?? ?? ?? ?? 85 C0 0F 84 ?? ?? ?? ?? DD 40 40 53 56
+// je -> jne
+// Suck Vac Monsters Left v0.62 007F423C: //D9 C1 DE D9 DF E0 9E 73 66 8B BF ?? ?? ?? ?? DD D8 2B 4F 0C
+// jae -> je
+// Suck Vac Monsters Right v0.62 007F42B9: //DE D9 DF E0 DD D8 9E 0F 86 ?? ?? ?? ?? 8B BF ?? ?? ?? ?? 2B 4F ??
+// jbe -> je
+// Glide v0.62 007F1EE2: //39 7D F0 74 7C 8B 8E ?? ?? ?? ?? 83 C1 ?? E8 ?? ?? ?? ?? 51 51 DD 1C 24
+// je -> ja
+#pragma endregion
+
 #pragma region CodeCave Addresses
 /*ULONG levelHookAddr = 0x004E2B28; //Inside GW_CharacterStat::Decode()
 ULONG levelHookDecode = 0x004E807A; //Start of _ZtrlSecureTear<unsigned char>
@@ -71,7 +159,6 @@ auto CWvsContext__GetCharacterData = (pfnCWvsContext__GetCharacterData)0x00425D0
 //typedef ZXString<char>*(__fastcall* StringPool__GetString_t)(void *StringPool, void *edx, ZXString<char> *result, unsigned int nIdx);
 //auto StringPool__GetString = (StringPool__GetString_t)0x0049B330; //
 //void **ms_pInstance_StringPool = (void **)0x01C1C200; pointer that gets all Strings in StringPool
-
 #pragma endregion
 
 #pragma region Pointers Addresses & Offsets
@@ -119,13 +206,13 @@ ULONG OFS_CharX = 0x3124;
 ULONG OFS_CharY = OFS_CharX + 4;
 ULONG OFS_AttackCount = 0x2B88;
 ULONG OFS_Breath = 0x56C;
-ULONG OFS_Morph = 528; //Change pointer to 9 and freeze
-ULONG OFS_CharAnimation = 570;
+ULONG OFS_Morph = 0x528; //Change pointer to 9 and freeze
+ULONG OFS_CharAnimation = 0x570;
 ULONG OFS_Tele = 0x2B18;
 ULONG OFS_TeleX = OFS_Tele + 8;
 ULONG OFS_TeleY = OFS_TeleX + 4;
 ULONG OFS_BuffCount = 0xBF4AD4; // Couldn't find it within CUserLocal, so static address
-
+ULONG OFS_ComboCount = 0x3220;
 
 ULONG DropPoolBase = 0xBED6AC; // CDropPool 
 ULONG OFS_ItemCount = 0x14;
@@ -133,8 +220,8 @@ ULONG OFS_ItemCount = 0x14;
 ULONG CWvsPhysicalSpace2DBase = 0xBEBFA0; // CWvsPhysicalSpace2D 
 ULONG OFS_LeftWall = 0x24;
 ULONG OFS_RightWall = 0x2C;
-ULONG OFS_UpWall = 0x28;
-ULONG OFS_DownWall = 0x30;
+ULONG OFS_TopWall = 0x28;
+ULONG OFS_BottomWall = 0x30;
 
 ULONG UserPoolBase = 0xBEBFA8; // CUserPool
 ULONG OFS_PeopleCount = 0x18;

@@ -39,7 +39,7 @@ String^ Log::GetLogPath() {
 	try
 	{
 		String^ TimelapseFolderPath = Path::Combine(AppDataFolder, "Timelapse");
-		LogsFilePath = Path::Combine(TimelapseFolderPath, "log.txt");
+		LogsFilePath = Path::Combine(TimelapseFolderPath, "Log.txt");
 	}
 
 	catch (Exception^ ex)
