@@ -407,7 +407,7 @@ namespace Timelapse {
 	private: System::Windows::Forms::Label^  label87;
 	private: System::Windows::Forms::CheckBox^  cbUEMI;
 	private: System::Windows::Forms::ColumnHeader^  columnHeader6;
-	private: System::Windows::Forms::Panel^  panel28;
+
 	private: System::Windows::Forms::Panel^  panel17;
 	private: System::Windows::Forms::CheckBox^  checkBox3;
 	private: System::Windows::Forms::Button^  bSendMount;
@@ -464,6 +464,34 @@ private: System::Windows::Forms::GroupBox^  gbOtherHacks;
 private: System::Windows::Forms::GroupBox^  gbLootHacks;
 private: System::Windows::Forms::GroupBox^  gbMapHacks;
 private: System::Windows::Forms::CheckBox^  cbItemVac;
+private: System::Windows::Forms::CheckBox^  cbVacLeft;
+private: System::Windows::Forms::CheckBox^  cbVacRight;
+private: System::Windows::Forms::GroupBox^  gbFullMapVacs;
+private: System::Windows::Forms::CheckBox^  cbVacJumpLeft;
+private: System::Windows::Forms::CheckBox^  cbVacForceRight;
+private: System::Windows::Forms::CheckBox^  cbVacJumpRight;
+private: System::Windows::Forms::CheckBox^  checkBox5;
+private: System::Windows::Forms::GroupBox^  gbPartialMapVacs;
+private: System::Windows::Forms::CheckBox^  checkBox4;
+private: System::Windows::Forms::Label^  lbLeftWallPos;
+private: System::Windows::Forms::Label^  lbMapLeftWall;
+private: System::Windows::Forms::Label^  lbBottomWall;
+
+private: System::Windows::Forms::Label^  lbTopWall;
+
+
+private: System::Windows::Forms::Label^  lbMapRightWall;
+private: System::Windows::Forms::Label^  lbBottomWallPos;
+private: System::Windows::Forms::Label^  lbTopWallPos;
+private: System::Windows::Forms::Label^  lbRightWallPos;
+private: System::Windows::Forms::Label^  lbCharFootholdID;
+
+private: System::Windows::Forms::Label^  lbCharAnimID;
+
+private: System::Windows::Forms::Label^  lbCharFoothold;
+private: System::Windows::Forms::Label^  lbCharAnim;
+private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
+
 	public:
 
 
@@ -504,6 +532,18 @@ private: System::Windows::Forms::CheckBox^  cbItemVac;
 			this->pictureBox2 = (gcnew System::Windows::Forms::PictureBox());
 			this->pnlFull = (gcnew System::Windows::Forms::Panel());
 			this->pnlMiddle = (gcnew System::Windows::Forms::Panel());
+			this->lbCharFootholdID = (gcnew System::Windows::Forms::Label());
+			this->lbCharAnimID = (gcnew System::Windows::Forms::Label());
+			this->lbCharFoothold = (gcnew System::Windows::Forms::Label());
+			this->lbCharAnim = (gcnew System::Windows::Forms::Label());
+			this->lbBottomWallPos = (gcnew System::Windows::Forms::Label());
+			this->lbTopWallPos = (gcnew System::Windows::Forms::Label());
+			this->lbRightWallPos = (gcnew System::Windows::Forms::Label());
+			this->lbBottomWall = (gcnew System::Windows::Forms::Label());
+			this->lbTopWall = (gcnew System::Windows::Forms::Label());
+			this->lbMapRightWall = (gcnew System::Windows::Forms::Label());
+			this->lbLeftWallPos = (gcnew System::Windows::Forms::Label());
+			this->lbMapLeftWall = (gcnew System::Windows::Forms::Label());
 			this->EXPForeground = (gcnew System::Windows::Forms::PictureBox());
 			this->lbMapName = (gcnew System::Windows::Forms::Label());
 			this->MPForeground = (gcnew System::Windows::Forms::PictureBox());
@@ -660,6 +700,8 @@ private: System::Windows::Forms::CheckBox^  cbItemVac;
 			this->tbClickTeleport = (gcnew System::Windows::Forms::TextBox());
 			this->cbClickTeleport = (gcnew System::Windows::Forms::CheckBox());
 			this->cbMouseTeleport = (gcnew System::Windows::Forms::CheckBox());
+			this->cbJumpDownAnyTile = (gcnew System::Windows::Forms::CheckBox());
+			this->cbNoPlayerKnockback = (gcnew System::Windows::Forms::CheckBox());
 			this->gbLootHacks = (gcnew System::Windows::Forms::GroupBox());
 			this->cbItemVac = (gcnew System::Windows::Forms::CheckBox());
 			this->cbFastLootItems = (gcnew System::Windows::Forms::CheckBox());
@@ -690,8 +732,6 @@ private: System::Windows::Forms::CheckBox^  cbItemVac;
 			this->cbMissGodmode = (gcnew System::Windows::Forms::CheckBox());
 			this->cbNoSkillEffects = (gcnew System::Windows::Forms::CheckBox());
 			this->cbNoBreath = (gcnew System::Windows::Forms::CheckBox());
-			this->cbJumpDownAnyTile = (gcnew System::Windows::Forms::CheckBox());
-			this->cbNoPlayerKnockback = (gcnew System::Windows::Forms::CheckBox());
 			this->cbNoPlayerDeath = (gcnew System::Windows::Forms::CheckBox());
 			this->cbSpeedAttack = (gcnew System::Windows::Forms::CheckBox());
 			this->cbUnlimitedAttack = (gcnew System::Windows::Forms::CheckBox());
@@ -732,9 +772,17 @@ private: System::Windows::Forms::CheckBox^  cbItemVac;
 			this->label63 = (gcnew System::Windows::Forms::Label());
 			this->tbTeleportY = (gcnew System::Windows::Forms::TextBox());
 			this->tabPage6 = (gcnew System::Windows::Forms::TabPage());
-			this->panel28 = (gcnew System::Windows::Forms::Panel());
-			this->cbZzVac = (gcnew System::Windows::Forms::CheckBox());
+			this->gbFullMapVacs = (gcnew System::Windows::Forms::GroupBox());
+			this->cbVacJumpLeft = (gcnew System::Windows::Forms::CheckBox());
+			this->cbVacForceRight = (gcnew System::Windows::Forms::CheckBox());
+			this->cbVacJumpRight = (gcnew System::Windows::Forms::CheckBox());
+			this->checkBox5 = (gcnew System::Windows::Forms::CheckBox());
+			this->cbVacLeft = (gcnew System::Windows::Forms::CheckBox());
+			this->cbVacRight = (gcnew System::Windows::Forms::CheckBox());
+			this->gbPartialMapVacs = (gcnew System::Windows::Forms::GroupBox());
+			this->checkBox4 = (gcnew System::Windows::Forms::CheckBox());
 			this->cbFullMapAttack = (gcnew System::Windows::Forms::CheckBox());
+			this->cbZzVac = (gcnew System::Windows::Forms::CheckBox());
 			this->panel17 = (gcnew System::Windows::Forms::Panel());
 			this->checkBox3 = (gcnew System::Windows::Forms::CheckBox());
 			this->cbUEMI = (gcnew System::Windows::Forms::CheckBox());
@@ -884,6 +932,7 @@ private: System::Windows::Forms::CheckBox^  cbItemVac;
 			this->btnMinimize = (gcnew System::Windows::Forms::Button());
 			this->GUITimer = (gcnew System::Windows::Forms::Timer(this->components));
 			this->AutoCCCSTimer = (gcnew System::Windows::Forms::Timer(this->components));
+			this->cbNoWalkFricSlide = (gcnew System::Windows::Forms::CheckBox());
 			this->menuStrip1->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->BeginInit();
 			this->pnlFull->SuspendLayout();
@@ -923,7 +972,8 @@ private: System::Windows::Forms::CheckBox^  cbItemVac;
 			this->panel26->SuspendLayout();
 			this->panel18->SuspendLayout();
 			this->tabPage6->SuspendLayout();
-			this->panel28->SuspendLayout();
+			this->gbFullMapVacs->SuspendLayout();
+			this->gbPartialMapVacs->SuspendLayout();
 			this->panel17->SuspendLayout();
 			this->panel16->SuspendLayout();
 			this->panel19->SuspendLayout();
@@ -1115,6 +1165,18 @@ private: System::Windows::Forms::CheckBox^  cbItemVac;
 			this->pnlMiddle->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(19)), static_cast<System::Int32>(static_cast<System::Byte>(19)),
 				static_cast<System::Int32>(static_cast<System::Byte>(19)));
 			this->pnlMiddle->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->pnlMiddle->Controls->Add(this->lbCharFootholdID);
+			this->pnlMiddle->Controls->Add(this->lbCharAnimID);
+			this->pnlMiddle->Controls->Add(this->lbCharFoothold);
+			this->pnlMiddle->Controls->Add(this->lbCharAnim);
+			this->pnlMiddle->Controls->Add(this->lbBottomWallPos);
+			this->pnlMiddle->Controls->Add(this->lbTopWallPos);
+			this->pnlMiddle->Controls->Add(this->lbRightWallPos);
+			this->pnlMiddle->Controls->Add(this->lbBottomWall);
+			this->pnlMiddle->Controls->Add(this->lbTopWall);
+			this->pnlMiddle->Controls->Add(this->lbMapRightWall);
+			this->pnlMiddle->Controls->Add(this->lbLeftWallPos);
+			this->pnlMiddle->Controls->Add(this->lbMapLeftWall);
 			this->pnlMiddle->Controls->Add(this->EXPForeground);
 			this->pnlMiddle->Controls->Add(this->lbMapName);
 			this->pnlMiddle->Controls->Add(this->MPForeground);
@@ -1178,6 +1240,136 @@ private: System::Windows::Forms::CheckBox^  cbItemVac;
 			this->pnlMiddle->MouseMove += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::pnlFull_MouseMove);
 			this->pnlMiddle->MouseUp += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::pnlFull_MouseUp);
 			// 
+			// lbCharFootholdID
+			// 
+			this->lbCharFootholdID->AutoSize = true;
+			this->lbCharFootholdID->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
+			this->lbCharFootholdID->ForeColor = System::Drawing::Color::LightPink;
+			this->lbCharFootholdID->Location = System::Drawing::Point(510, 195);
+			this->lbCharFootholdID->Name = L"lbCharFootholdID";
+			this->lbCharFootholdID->Size = System::Drawing::Size(19, 13);
+			this->lbCharFootholdID->TabIndex = 66;
+			this->lbCharFootholdID->Text = L"00";
+			// 
+			// lbCharAnimID
+			// 
+			this->lbCharAnimID->AutoSize = true;
+			this->lbCharAnimID->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
+			this->lbCharAnimID->ForeColor = System::Drawing::Color::LightPink;
+			this->lbCharAnimID->Location = System::Drawing::Point(515, 180);
+			this->lbCharAnimID->Name = L"lbCharAnimID";
+			this->lbCharAnimID->Size = System::Drawing::Size(19, 13);
+			this->lbCharAnimID->TabIndex = 65;
+			this->lbCharAnimID->Text = L"00";
+			// 
+			// lbCharFoothold
+			// 
+			this->lbCharFoothold->AutoSize = true;
+			this->lbCharFoothold->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
+			this->lbCharFoothold->Location = System::Drawing::Point(430, 195);
+			this->lbCharFoothold->Name = L"lbCharFoothold";
+			this->lbCharFoothold->Size = System::Drawing::Size(79, 13);
+			this->lbCharFoothold->TabIndex = 64;
+			this->lbCharFoothold->Text = L"Char Foothold:";
+			// 
+			// lbCharAnim
+			// 
+			this->lbCharAnim->AutoSize = true;
+			this->lbCharAnim->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
+			this->lbCharAnim->Location = System::Drawing::Point(430, 180);
+			this->lbCharAnim->Name = L"lbCharAnim";
+			this->lbCharAnim->Size = System::Drawing::Size(84, 13);
+			this->lbCharAnim->TabIndex = 63;
+			this->lbCharAnim->Text = L"Char Animation:";
+			// 
+			// lbBottomWallPos
+			// 
+			this->lbBottomWallPos->AutoSize = true;
+			this->lbBottomWallPos->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
+			this->lbBottomWallPos->ForeColor = System::Drawing::Color::MediumPurple;
+			this->lbBottomWallPos->Location = System::Drawing::Point(517, 313);
+			this->lbBottomWallPos->Name = L"lbBottomWallPos";
+			this->lbBottomWallPos->Size = System::Drawing::Size(31, 13);
+			this->lbBottomWallPos->TabIndex = 62;
+			this->lbBottomWallPos->Text = L"0000";
+			// 
+			// lbTopWallPos
+			// 
+			this->lbTopWallPos->AutoSize = true;
+			this->lbTopWallPos->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
+			this->lbTopWallPos->ForeColor = System::Drawing::Color::MediumPurple;
+			this->lbTopWallPos->Location = System::Drawing::Point(500, 298);
+			this->lbTopWallPos->Name = L"lbTopWallPos";
+			this->lbTopWallPos->Size = System::Drawing::Size(31, 13);
+			this->lbTopWallPos->TabIndex = 61;
+			this->lbTopWallPos->Text = L"0000";
+			// 
+			// lbRightWallPos
+			// 
+			this->lbRightWallPos->AutoSize = true;
+			this->lbRightWallPos->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
+			this->lbRightWallPos->ForeColor = System::Drawing::Color::MediumPurple;
+			this->lbRightWallPos->Location = System::Drawing::Point(508, 283);
+			this->lbRightWallPos->Name = L"lbRightWallPos";
+			this->lbRightWallPos->Size = System::Drawing::Size(31, 13);
+			this->lbRightWallPos->TabIndex = 60;
+			this->lbRightWallPos->Text = L"0000";
+			// 
+			// lbBottomWall
+			// 
+			this->lbBottomWall->AutoSize = true;
+			this->lbBottomWall->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
+			this->lbBottomWall->ForeColor = System::Drawing::Color::White;
+			this->lbBottomWall->Location = System::Drawing::Point(430, 313);
+			this->lbBottomWall->Name = L"lbBottomWall";
+			this->lbBottomWall->Size = System::Drawing::Size(88, 13);
+			this->lbBottomWall->TabIndex = 59;
+			this->lbBottomWall->Text = L"Map BottomWall:";
+			// 
+			// lbTopWall
+			// 
+			this->lbTopWall->AutoSize = true;
+			this->lbTopWall->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
+			this->lbTopWall->ForeColor = System::Drawing::Color::White;
+			this->lbTopWall->Location = System::Drawing::Point(430, 298);
+			this->lbTopWall->Name = L"lbTopWall";
+			this->lbTopWall->Size = System::Drawing::Size(72, 13);
+			this->lbTopWall->TabIndex = 58;
+			this->lbTopWall->Text = L"Map TopWall:";
+			// 
+			// lbMapRightWall
+			// 
+			this->lbMapRightWall->AutoSize = true;
+			this->lbMapRightWall->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
+			this->lbMapRightWall->ForeColor = System::Drawing::Color::White;
+			this->lbMapRightWall->Location = System::Drawing::Point(430, 283);
+			this->lbMapRightWall->Name = L"lbMapRightWall";
+			this->lbMapRightWall->Size = System::Drawing::Size(79, 13);
+			this->lbMapRightWall->TabIndex = 57;
+			this->lbMapRightWall->Text = L"Map RightWall:";
+			// 
+			// lbLeftWallPos
+			// 
+			this->lbLeftWallPos->AutoSize = true;
+			this->lbLeftWallPos->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
+			this->lbLeftWallPos->ForeColor = System::Drawing::Color::MediumPurple;
+			this->lbLeftWallPos->Location = System::Drawing::Point(500, 268);
+			this->lbLeftWallPos->Name = L"lbLeftWallPos";
+			this->lbLeftWallPos->Size = System::Drawing::Size(31, 13);
+			this->lbLeftWallPos->TabIndex = 56;
+			this->lbLeftWallPos->Text = L"0000";
+			// 
+			// lbMapLeftWall
+			// 
+			this->lbMapLeftWall->AutoSize = true;
+			this->lbMapLeftWall->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
+			this->lbMapLeftWall->ForeColor = System::Drawing::Color::White;
+			this->lbMapLeftWall->Location = System::Drawing::Point(430, 268);
+			this->lbMapLeftWall->Name = L"lbMapLeftWall";
+			this->lbMapLeftWall->Size = System::Drawing::Size(73, 13);
+			this->lbMapLeftWall->TabIndex = 55;
+			this->lbMapLeftWall->Text = L"Map LeftWall:";
+			// 
 			// EXPForeground
 			// 
 			this->EXPForeground->BackColor = System::Drawing::Color::GreenYellow;
@@ -1193,7 +1385,7 @@ private: System::Windows::Forms::CheckBox^  cbItemVac;
 			this->lbMapName->AutoSize = true;
 			this->lbMapName->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
 			this->lbMapName->ForeColor = System::Drawing::Color::White;
-			this->lbMapName->Location = System::Drawing::Point(490, 219);
+			this->lbMapName->Location = System::Drawing::Point(490, 253);
 			this->lbMapName->Name = L"lbMapName";
 			this->lbMapName->Size = System::Drawing::Size(55, 13);
 			this->lbMapName->TabIndex = 42;
@@ -1217,7 +1409,7 @@ private: System::Windows::Forms::CheckBox^  cbItemVac;
 			this->label21->AutoSize = true;
 			this->label21->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
 			this->label21->ForeColor = System::Drawing::Color::White;
-			this->label21->Location = System::Drawing::Point(430, 218);
+			this->label21->Location = System::Drawing::Point(430, 253);
 			this->label21->Name = L"label21";
 			this->label21->Size = System::Drawing::Size(61, 13);
 			this->label21->TabIndex = 22;
@@ -1230,7 +1422,7 @@ private: System::Windows::Forms::CheckBox^  cbItemVac;
 			// 
 			this->label22->AutoSize = true;
 			this->label22->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
-			this->label22->Location = System::Drawing::Point(543, 378);
+			this->label22->Location = System::Drawing::Point(543, 436);
 			this->label22->Name = L"label22";
 			this->label22->Size = System::Drawing::Size(62, 13);
 			this->label22->TabIndex = 23;
@@ -1244,7 +1436,7 @@ private: System::Windows::Forms::CheckBox^  cbItemVac;
 			this->lbThreadID->AutoSize = true;
 			this->lbThreadID->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
 			this->lbThreadID->ForeColor = System::Drawing::Color::SpringGreen;
-			this->lbThreadID->Location = System::Drawing::Point(602, 378);
+			this->lbThreadID->Location = System::Drawing::Point(602, 436);
 			this->lbThreadID->Name = L"lbThreadID";
 			this->lbThreadID->Size = System::Drawing::Size(43, 13);
 			this->lbThreadID->TabIndex = 48;
@@ -1329,7 +1521,7 @@ private: System::Windows::Forms::CheckBox^  cbItemVac;
 			this->lbNPCCount->AutoSize = true;
 			this->lbNPCCount->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
 			this->lbNPCCount->ForeColor = System::Drawing::Color::PaleTurquoise;
-			this->lbNPCCount->Location = System::Drawing::Point(510, 378);
+			this->lbNPCCount->Location = System::Drawing::Point(510, 436);
 			this->lbNPCCount->Name = L"lbNPCCount";
 			this->lbNPCCount->Size = System::Drawing::Size(25, 13);
 			this->lbNPCCount->TabIndex = 47;
@@ -1343,7 +1535,7 @@ private: System::Windows::Forms::CheckBox^  cbItemVac;
 			this->lbPortalCount->AutoSize = true;
 			this->lbPortalCount->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
 			this->lbPortalCount->ForeColor = System::Drawing::Color::PaleTurquoise;
-			this->lbPortalCount->Location = System::Drawing::Point(510, 363);
+			this->lbPortalCount->Location = System::Drawing::Point(510, 421);
 			this->lbPortalCount->Name = L"lbPortalCount";
 			this->lbPortalCount->Size = System::Drawing::Size(25, 13);
 			this->lbPortalCount->TabIndex = 46;
@@ -1357,7 +1549,7 @@ private: System::Windows::Forms::CheckBox^  cbItemVac;
 			this->lbItemCount->AutoSize = true;
 			this->lbItemCount->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
 			this->lbItemCount->ForeColor = System::Drawing::Color::PaleTurquoise;
-			this->lbItemCount->Location = System::Drawing::Point(510, 348);
+			this->lbItemCount->Location = System::Drawing::Point(510, 406);
 			this->lbItemCount->Name = L"lbItemCount";
 			this->lbItemCount->Size = System::Drawing::Size(25, 13);
 			this->lbItemCount->TabIndex = 45;
@@ -1371,7 +1563,7 @@ private: System::Windows::Forms::CheckBox^  cbItemVac;
 			this->lbMobCount->AutoSize = true;
 			this->lbMobCount->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
 			this->lbMobCount->ForeColor = System::Drawing::Color::PaleTurquoise;
-			this->lbMobCount->Location = System::Drawing::Point(510, 333);
+			this->lbMobCount->Location = System::Drawing::Point(510, 391);
 			this->lbMobCount->Name = L"lbMobCount";
 			this->lbMobCount->Size = System::Drawing::Size(25, 13);
 			this->lbMobCount->TabIndex = 44;
@@ -1385,7 +1577,7 @@ private: System::Windows::Forms::CheckBox^  cbItemVac;
 			this->lbPeopleCount->AutoSize = true;
 			this->lbPeopleCount->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
 			this->lbPeopleCount->ForeColor = System::Drawing::Color::PaleTurquoise;
-			this->lbPeopleCount->Location = System::Drawing::Point(510, 318);
+			this->lbPeopleCount->Location = System::Drawing::Point(510, 376);
 			this->lbPeopleCount->Name = L"lbPeopleCount";
 			this->lbPeopleCount->Size = System::Drawing::Size(25, 13);
 			this->lbPeopleCount->TabIndex = 43;
@@ -1399,7 +1591,7 @@ private: System::Windows::Forms::CheckBox^  cbItemVac;
 			this->lbBreathCount->AutoSize = true;
 			this->lbBreathCount->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
 			this->lbBreathCount->ForeColor = System::Drawing::Color::PaleTurquoise;
-			this->lbBreathCount->Location = System::Drawing::Point(510, 303);
+			this->lbBreathCount->Location = System::Drawing::Point(510, 361);
 			this->lbBreathCount->Name = L"lbBreathCount";
 			this->lbBreathCount->Size = System::Drawing::Size(25, 13);
 			this->lbBreathCount->TabIndex = 42;
@@ -1413,7 +1605,7 @@ private: System::Windows::Forms::CheckBox^  cbItemVac;
 			this->lbBuffCount->AutoSize = true;
 			this->lbBuffCount->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
 			this->lbBuffCount->ForeColor = System::Drawing::Color::PaleTurquoise;
-			this->lbBuffCount->Location = System::Drawing::Point(510, 288);
+			this->lbBuffCount->Location = System::Drawing::Point(510, 346);
 			this->lbBuffCount->Name = L"lbBuffCount";
 			this->lbBuffCount->Size = System::Drawing::Size(25, 13);
 			this->lbBuffCount->TabIndex = 41;
@@ -1427,7 +1619,7 @@ private: System::Windows::Forms::CheckBox^  cbItemVac;
 			this->lbAttackCount->AutoSize = true;
 			this->lbAttackCount->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
 			this->lbAttackCount->ForeColor = System::Drawing::Color::PaleTurquoise;
-			this->lbAttackCount->Location = System::Drawing::Point(510, 273);
+			this->lbAttackCount->Location = System::Drawing::Point(510, 331);
 			this->lbAttackCount->Name = L"lbAttackCount";
 			this->lbAttackCount->Size = System::Drawing::Size(25, 13);
 			this->lbAttackCount->TabIndex = 40;
@@ -1441,7 +1633,7 @@ private: System::Windows::Forms::CheckBox^  cbItemVac;
 			this->lbMousePos->AutoSize = true;
 			this->lbMousePos->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
 			this->lbMousePos->ForeColor = System::Drawing::Color::LightGreen;
-			this->lbMousePos->Location = System::Drawing::Point(495, 253);
+			this->lbMousePos->Location = System::Drawing::Point(495, 165);
 			this->lbMousePos->Name = L"lbMousePos";
 			this->lbMousePos->Size = System::Drawing::Size(70, 13);
 			this->lbMousePos->TabIndex = 39;
@@ -1455,7 +1647,7 @@ private: System::Windows::Forms::CheckBox^  cbItemVac;
 			this->lbCharPos->AutoSize = true;
 			this->lbCharPos->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
 			this->lbCharPos->ForeColor = System::Drawing::Color::Khaki;
-			this->lbCharPos->Location = System::Drawing::Point(484, 238);
+			this->lbCharPos->Location = System::Drawing::Point(485, 150);
 			this->lbCharPos->Name = L"lbCharPos";
 			this->lbCharPos->Size = System::Drawing::Size(70, 13);
 			this->lbCharPos->TabIndex = 38;
@@ -1469,7 +1661,7 @@ private: System::Windows::Forms::CheckBox^  cbItemVac;
 			this->lbMapID->AutoSize = true;
 			this->lbMapID->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
 			this->lbMapID->ForeColor = System::Drawing::Color::MediumPurple;
-			this->lbMapID->Location = System::Drawing::Point(470, 203);
+			this->lbMapID->Location = System::Drawing::Point(475, 238);
 			this->lbMapID->Name = L"lbMapID";
 			this->lbMapID->Size = System::Drawing::Size(61, 13);
 			this->lbMapID->TabIndex = 37;
@@ -1483,7 +1675,7 @@ private: System::Windows::Forms::CheckBox^  cbItemVac;
 			this->lbChannel->AutoSize = true;
 			this->lbChannel->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
 			this->lbChannel->ForeColor = System::Drawing::Color::LightPink;
-			this->lbChannel->Location = System::Drawing::Point(475, 188);
+			this->lbChannel->Location = System::Drawing::Point(574, 223);
 			this->lbChannel->Name = L"lbChannel";
 			this->lbChannel->Size = System::Drawing::Size(19, 13);
 			this->lbChannel->TabIndex = 35;
@@ -1497,7 +1689,7 @@ private: System::Windows::Forms::CheckBox^  cbItemVac;
 			this->lbWorld->AutoSize = true;
 			this->lbWorld->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
 			this->lbWorld->ForeColor = System::Drawing::Color::LightCoral;
-			this->lbWorld->Location = System::Drawing::Point(470, 173);
+			this->lbWorld->Location = System::Drawing::Point(467, 223);
 			this->lbWorld->Name = L"lbWorld";
 			this->lbWorld->Size = System::Drawing::Size(24, 13);
 			this->lbWorld->TabIndex = 34;
@@ -1512,7 +1704,7 @@ private: System::Windows::Forms::CheckBox^  cbItemVac;
 			this->lbMesos->AutoSize = true;
 			this->lbMesos->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
 			this->lbMesos->ForeColor = System::Drawing::Color::Yellow;
-			this->lbMesos->Location = System::Drawing::Point(471, 131);
+			this->lbMesos->Location = System::Drawing::Point(530, 130);
 			this->lbMesos->Name = L"lbMesos";
 			this->lbMesos->Size = System::Drawing::Size(13, 13);
 			this->lbMesos->TabIndex = 33;
@@ -1586,7 +1778,7 @@ private: System::Windows::Forms::CheckBox^  cbItemVac;
 			this->lbLevel->AutoSize = true;
 			this->lbLevel->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
 			this->lbLevel->ForeColor = System::Drawing::Color::Orange;
-			this->lbLevel->Location = System::Drawing::Point(466, 148);
+			this->lbLevel->Location = System::Drawing::Point(465, 130);
 			this->lbLevel->Name = L"lbLevel";
 			this->lbLevel->Size = System::Drawing::Size(13, 13);
 			this->lbLevel->TabIndex = 28;
@@ -1613,7 +1805,7 @@ private: System::Windows::Forms::CheckBox^  cbItemVac;
 			// 
 			this->label25->AutoSize = true;
 			this->label25->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
-			this->label25->Location = System::Drawing::Point(430, 288);
+			this->label25->Location = System::Drawing::Point(430, 346);
 			this->label25->Name = L"label25";
 			this->label25->Size = System::Drawing::Size(63, 13);
 			this->label25->TabIndex = 26;
@@ -1626,7 +1818,7 @@ private: System::Windows::Forms::CheckBox^  cbItemVac;
 			// 
 			this->label24->AutoSize = true;
 			this->label24->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
-			this->label24->Location = System::Drawing::Point(430, 378);
+			this->label24->Location = System::Drawing::Point(430, 436);
 			this->label24->Name = L"label24";
 			this->label24->Size = System::Drawing::Size(59, 13);
 			this->label24->TabIndex = 25;
@@ -1639,7 +1831,7 @@ private: System::Windows::Forms::CheckBox^  cbItemVac;
 			// 
 			this->label23->AutoSize = true;
 			this->label23->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
-			this->label23->Location = System::Drawing::Point(430, 253);
+			this->label23->Location = System::Drawing::Point(430, 165);
 			this->label23->Name = L"label23";
 			this->label23->Size = System::Drawing::Size(62, 13);
 			this->label23->TabIndex = 24;
@@ -1652,7 +1844,7 @@ private: System::Windows::Forms::CheckBox^  cbItemVac;
 			// 
 			this->label20->AutoSize = true;
 			this->label20->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
-			this->label20->Location = System::Drawing::Point(430, 303);
+			this->label20->Location = System::Drawing::Point(430, 361);
 			this->label20->Name = L"label20";
 			this->label20->Size = System::Drawing::Size(75, 13);
 			this->label20->TabIndex = 21;
@@ -1665,7 +1857,7 @@ private: System::Windows::Forms::CheckBox^  cbItemVac;
 			// 
 			this->label19->AutoSize = true;
 			this->label19->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
-			this->label19->Location = System::Drawing::Point(430, 131);
+			this->label19->Location = System::Drawing::Point(490, 130);
 			this->label19->Name = L"label19";
 			this->label19->Size = System::Drawing::Size(41, 13);
 			this->label19->TabIndex = 20;
@@ -1691,7 +1883,7 @@ private: System::Windows::Forms::CheckBox^  cbItemVac;
 			// 
 			this->label17->AutoSize = true;
 			this->label17->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
-			this->label17->Location = System::Drawing::Point(430, 363);
+			this->label17->Location = System::Drawing::Point(430, 421);
 			this->label17->Name = L"label17";
 			this->label17->Size = System::Drawing::Size(67, 13);
 			this->label17->TabIndex = 18;
@@ -1704,7 +1896,7 @@ private: System::Windows::Forms::CheckBox^  cbItemVac;
 			// 
 			this->label16->AutoSize = true;
 			this->label16->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
-			this->label16->Location = System::Drawing::Point(430, 348);
+			this->label16->Location = System::Drawing::Point(430, 406);
 			this->label16->Name = L"label16";
 			this->label16->Size = System::Drawing::Size(65, 13);
 			this->label16->TabIndex = 17;
@@ -1717,7 +1909,7 @@ private: System::Windows::Forms::CheckBox^  cbItemVac;
 			// 
 			this->label15->AutoSize = true;
 			this->label15->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
-			this->label15->Location = System::Drawing::Point(430, 333);
+			this->label15->Location = System::Drawing::Point(430, 391);
 			this->label15->Name = L"label15";
 			this->label15->Size = System::Drawing::Size(66, 13);
 			this->label15->TabIndex = 16;
@@ -1730,7 +1922,7 @@ private: System::Windows::Forms::CheckBox^  cbItemVac;
 			// 
 			this->label14->AutoSize = true;
 			this->label14->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
-			this->label14->Location = System::Drawing::Point(430, 318);
+			this->label14->Location = System::Drawing::Point(430, 376);
 			this->label14->Name = L"label14";
 			this->label14->Size = System::Drawing::Size(75, 13);
 			this->label14->TabIndex = 15;
@@ -1743,7 +1935,7 @@ private: System::Windows::Forms::CheckBox^  cbItemVac;
 			// 
 			this->label13->AutoSize = true;
 			this->label13->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
-			this->label13->Location = System::Drawing::Point(430, 273);
+			this->label13->Location = System::Drawing::Point(430, 331);
 			this->label13->Name = L"label13";
 			this->label13->Size = System::Drawing::Size(74, 13);
 			this->label13->TabIndex = 14;
@@ -1756,7 +1948,7 @@ private: System::Windows::Forms::CheckBox^  cbItemVac;
 			// 
 			this->label12->AutoSize = true;
 			this->label12->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
-			this->label12->Location = System::Drawing::Point(430, 238);
+			this->label12->Location = System::Drawing::Point(430, 150);
 			this->label12->Name = L"label12";
 			this->label12->Size = System::Drawing::Size(54, 13);
 			this->label12->TabIndex = 13;
@@ -1769,7 +1961,7 @@ private: System::Windows::Forms::CheckBox^  cbItemVac;
 			// 
 			this->label11->AutoSize = true;
 			this->label11->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
-			this->label11->Location = System::Drawing::Point(430, 203);
+			this->label11->Location = System::Drawing::Point(430, 238);
 			this->label11->Name = L"label11";
 			this->label11->Size = System::Drawing::Size(48, 13);
 			this->label11->TabIndex = 12;
@@ -1782,7 +1974,7 @@ private: System::Windows::Forms::CheckBox^  cbItemVac;
 			// 
 			this->label10->AutoSize = true;
 			this->label10->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
-			this->label10->Location = System::Drawing::Point(430, 188);
+			this->label10->Location = System::Drawing::Point(525, 223);
 			this->label10->Name = L"label10";
 			this->label10->Size = System::Drawing::Size(50, 13);
 			this->label10->TabIndex = 11;
@@ -1795,7 +1987,7 @@ private: System::Windows::Forms::CheckBox^  cbItemVac;
 			// 
 			this->label9->AutoSize = true;
 			this->label9->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
-			this->label9->Location = System::Drawing::Point(430, 173);
+			this->label9->Location = System::Drawing::Point(430, 223);
 			this->label9->Name = L"label9";
 			this->label9->Size = System::Drawing::Size(39, 13);
 			this->label9->TabIndex = 10;
@@ -1847,7 +2039,7 @@ private: System::Windows::Forms::CheckBox^  cbItemVac;
 			// 
 			this->label5->AutoSize = true;
 			this->label5->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
-			this->label5->Location = System::Drawing::Point(430, 148);
+			this->label5->Location = System::Drawing::Point(430, 130);
 			this->label5->Name = L"label5";
 			this->label5->Size = System::Drawing::Size(39, 13);
 			this->label5->TabIndex = 6;
@@ -1919,7 +2111,7 @@ private: System::Windows::Forms::CheckBox^  cbItemVac;
 			this->pictureBox1->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox1.Image")));
 			this->pictureBox1->Location = System::Drawing::Point(6, 6);
 			this->pictureBox1->Name = L"pictureBox1";
-			this->pictureBox1->Size = System::Drawing::Size(379, 89);
+			this->pictureBox1->Size = System::Drawing::Size(370, 86);
 			this->pictureBox1->TabIndex = 0;
 			this->pictureBox1->TabStop = false;
 			this->pictureBox1->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::pnlFull_MouseDown);
@@ -3125,6 +3317,8 @@ private: System::Windows::Forms::CheckBox^  cbItemVac;
 			this->gbOtherHacks->Controls->Add(this->tbClickTeleport);
 			this->gbOtherHacks->Controls->Add(this->cbClickTeleport);
 			this->gbOtherHacks->Controls->Add(this->cbMouseTeleport);
+			this->gbOtherHacks->Controls->Add(this->cbJumpDownAnyTile);
+			this->gbOtherHacks->Controls->Add(this->cbNoPlayerKnockback);
 			this->gbOtherHacks->Location = System::Drawing::Point(5, 280);
 			this->gbOtherHacks->Name = L"gbOtherHacks";
 			this->gbOtherHacks->Size = System::Drawing::Size(400, 110);
@@ -3235,6 +3429,35 @@ private: System::Windows::Forms::CheckBox^  cbItemVac;
 			this->cbMouseTeleport->UseVisualStyleBackColor = false;
 			this->cbMouseTeleport->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbMouseTeleport_CheckedChanged);
 			// 
+			// cbJumpDownAnyTile
+			// 
+			this->cbJumpDownAnyTile->AutoSize = true;
+			this->cbJumpDownAnyTile->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
+			this->cbJumpDownAnyTile->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->cbJumpDownAnyTile->ForeColor = System::Drawing::Color::White;
+			this->cbJumpDownAnyTile->Location = System::Drawing::Point(88, 80);
+			this->cbJumpDownAnyTile->Name = L"cbJumpDownAnyTile";
+			this->cbJumpDownAnyTile->Size = System::Drawing::Size(119, 17);
+			this->cbJumpDownAnyTile->TabIndex = 4;
+			this->cbJumpDownAnyTile->Text = L"Jump Down Any Tile";
+			this->cbJumpDownAnyTile->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
+			this->cbJumpDownAnyTile->UseVisualStyleBackColor = false;
+			this->cbJumpDownAnyTile->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbJumpDownAnyTile_CheckedChanged);
+			// 
+			// cbNoPlayerKnockback
+			// 
+			this->cbNoPlayerKnockback->AutoSize = true;
+			this->cbNoPlayerKnockback->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
+			this->cbNoPlayerKnockback->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->cbNoPlayerKnockback->ForeColor = System::Drawing::Color::White;
+			this->cbNoPlayerKnockback->Location = System::Drawing::Point(230, 80);
+			this->cbNoPlayerKnockback->Name = L"cbNoPlayerKnockback";
+			this->cbNoPlayerKnockback->Size = System::Drawing::Size(122, 17);
+			this->cbNoPlayerKnockback->TabIndex = 5;
+			this->cbNoPlayerKnockback->Text = L"No Player Knockback";
+			this->cbNoPlayerKnockback->UseVisualStyleBackColor = false;
+			this->cbNoPlayerKnockback->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbNoPlayerKnockback_CheckedChanged);
+			// 
 			// gbLootHacks
 			// 
 			this->gbLootHacks->Controls->Add(this->cbItemVac);
@@ -3261,6 +3484,7 @@ private: System::Windows::Forms::CheckBox^  cbItemVac;
 			this->cbItemVac->TabIndex = 14;
 			this->cbItemVac->Text = L"Item Vac";
 			this->cbItemVac->UseVisualStyleBackColor = false;
+			this->cbItemVac->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbItemVac_CheckedChanged);
 			// 
 			// cbFastLootItems
 			// 
@@ -3307,6 +3531,7 @@ private: System::Windows::Forms::CheckBox^  cbItemVac;
 			// 
 			// gbMapHacks
 			// 
+			this->gbMapHacks->Controls->Add(this->cbNoWalkFricSlide);
 			this->gbMapHacks->Controls->Add(this->cbNoMapBackground);
 			this->gbMapHacks->Controls->Add(this->cbNoBlueBoxes);
 			this->gbMapHacks->Controls->Add(this->cbInfiniteChat);
@@ -3316,7 +3541,7 @@ private: System::Windows::Forms::CheckBox^  cbItemVac;
 			this->gbMapHacks->Controls->Add(this->cbNoMapObjects);
 			this->gbMapHacks->Location = System::Drawing::Point(235, 120);
 			this->gbMapHacks->Name = L"gbMapHacks";
-			this->gbMapHacks->Size = System::Drawing::Size(170, 150);
+			this->gbMapHacks->Size = System::Drawing::Size(170, 155);
 			this->gbMapHacks->TabIndex = 27;
 			this->gbMapHacks->TabStop = false;
 			this->gbMapHacks->Text = L"Map Hacks";
@@ -3531,13 +3756,11 @@ private: System::Windows::Forms::CheckBox^  cbItemVac;
 			this->gbCharacterHacks->Controls->Add(this->cbMissGodmode);
 			this->gbCharacterHacks->Controls->Add(this->cbNoSkillEffects);
 			this->gbCharacterHacks->Controls->Add(this->cbNoBreath);
-			this->gbCharacterHacks->Controls->Add(this->cbJumpDownAnyTile);
-			this->gbCharacterHacks->Controls->Add(this->cbNoPlayerKnockback);
 			this->gbCharacterHacks->Controls->Add(this->cbNoPlayerDeath);
 			this->gbCharacterHacks->Controls->Add(this->cbSpeedAttack);
 			this->gbCharacterHacks->Controls->Add(this->cbUnlimitedAttack);
 			this->gbCharacterHacks->Controls->Add(this->cbFullAccuracy);
-			this->gbCharacterHacks->Location = System::Drawing::Point(5, 5);
+			this->gbCharacterHacks->Location = System::Drawing::Point(6, 5);
 			this->gbCharacterHacks->Name = L"gbCharacterHacks";
 			this->gbCharacterHacks->Size = System::Drawing::Size(225, 195);
 			this->gbCharacterHacks->TabIndex = 8;
@@ -3550,7 +3773,7 @@ private: System::Windows::Forms::CheckBox^  cbItemVac;
 			this->cbAttackAnimDelay->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
 			this->cbAttackAnimDelay->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->cbAttackAnimDelay->ForeColor = System::Drawing::Color::White;
-			this->cbAttackAnimDelay->Location = System::Drawing::Point(6, 170);
+			this->cbAttackAnimDelay->Location = System::Drawing::Point(6, 150);
 			this->cbAttackAnimDelay->Name = L"cbAttackAnimDelay";
 			this->cbAttackAnimDelay->Size = System::Drawing::Size(110, 17);
 			this->cbAttackAnimDelay->TabIndex = 25;
@@ -3563,7 +3786,7 @@ private: System::Windows::Forms::CheckBox^  cbItemVac;
 				static_cast<System::Int32>(static_cast<System::Byte>(35)), static_cast<System::Int32>(static_cast<System::Byte>(35)));
 			this->tbAttackAnimDelay->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 			this->tbAttackAnimDelay->ForeColor = System::Drawing::Color::White;
-			this->tbAttackAnimDelay->Location = System::Drawing::Point(120, 170);
+			this->tbAttackAnimDelay->Location = System::Drawing::Point(125, 150);
 			this->tbAttackAnimDelay->Name = L"tbAttackAnimDelay";
 			this->tbAttackAnimDelay->Size = System::Drawing::Size(49, 21);
 			this->tbAttackAnimDelay->TabIndex = 23;
@@ -3583,19 +3806,6 @@ private: System::Windows::Forms::CheckBox^  cbItemVac;
 			this->cbFullGodmode->Text = L"Full Godmode";
 			this->cbFullGodmode->UseVisualStyleBackColor = false;
 			this->cbFullGodmode->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbFullGodmode_CheckedChanged);
-			// 
-			// cbAttackAnimDelay
-			// 
-			this->cbAttackAnimDelay->AutoSize = true;
-			this->cbAttackAnimDelay->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
-			this->cbAttackAnimDelay->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->cbAttackAnimDelay->ForeColor = System::Drawing::Color::White;
-			this->cbAttackAnimDelay->Location = System::Drawing::Point(5, 225);
-			this->cbAttackAnimDelay->Name = L"cbAttackAnimDelay";
-			this->cbAttackAnimDelay->Size = System::Drawing::Size(110, 17);
-			this->cbAttackAnimDelay->TabIndex = 25;
-			this->cbAttackAnimDelay->Text = L"Attack Anim Delay";
-			this->cbAttackAnimDelay->UseVisualStyleBackColor = false;
 			// 
 			// cbNoPlayerNameTag
 			// 
@@ -3660,7 +3870,7 @@ private: System::Windows::Forms::CheckBox^  cbItemVac;
 			this->cbNoSkillEffects->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
 			this->cbNoSkillEffects->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->cbNoSkillEffects->ForeColor = System::Drawing::Color::White;
-			this->cbNoSkillEffects->Location = System::Drawing::Point(6, 95);
+			this->cbNoSkillEffects->Location = System::Drawing::Point(6, 94);
 			this->cbNoSkillEffects->Name = L"cbNoSkillEffects";
 			this->cbNoSkillEffects->Size = System::Drawing::Size(93, 17);
 			this->cbNoSkillEffects->TabIndex = 8;
@@ -3682,42 +3892,13 @@ private: System::Windows::Forms::CheckBox^  cbItemVac;
 			this->cbNoBreath->UseVisualStyleBackColor = false;
 			this->cbNoBreath->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbNoBreath_CheckedChanged);
 			// 
-			// cbJumpDownAnyTile
-			// 
-			this->cbJumpDownAnyTile->AutoSize = true;
-			this->cbJumpDownAnyTile->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
-			this->cbJumpDownAnyTile->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->cbJumpDownAnyTile->ForeColor = System::Drawing::Color::White;
-			this->cbJumpDownAnyTile->Location = System::Drawing::Point(6, 140);
-			this->cbJumpDownAnyTile->Name = L"cbJumpDownAnyTile";
-			this->cbJumpDownAnyTile->Size = System::Drawing::Size(119, 17);
-			this->cbJumpDownAnyTile->TabIndex = 4;
-			this->cbJumpDownAnyTile->Text = L"Jump Down Any Tile";
-			this->cbJumpDownAnyTile->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
-			this->cbJumpDownAnyTile->UseVisualStyleBackColor = false;
-			this->cbJumpDownAnyTile->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbJumpDownAnyTile_CheckedChanged);
-			// 
-			// cbNoPlayerKnockback
-			// 
-			this->cbNoPlayerKnockback->AutoSize = true;
-			this->cbNoPlayerKnockback->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
-			this->cbNoPlayerKnockback->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->cbNoPlayerKnockback->ForeColor = System::Drawing::Color::White;
-			this->cbNoPlayerKnockback->Location = System::Drawing::Point(6, 155);
-			this->cbNoPlayerKnockback->Name = L"cbNoPlayerKnockback";
-			this->cbNoPlayerKnockback->Size = System::Drawing::Size(122, 17);
-			this->cbNoPlayerKnockback->TabIndex = 5;
-			this->cbNoPlayerKnockback->Text = L"No Player Knockback";
-			this->cbNoPlayerKnockback->UseVisualStyleBackColor = false;
-			this->cbNoPlayerKnockback->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbNoPlayerKnockback_CheckedChanged);
-			// 
 			// cbNoPlayerDeath
 			// 
 			this->cbNoPlayerDeath->AutoSize = true;
 			this->cbNoPlayerDeath->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
 			this->cbNoPlayerDeath->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->cbNoPlayerDeath->ForeColor = System::Drawing::Color::White;
-			this->cbNoPlayerDeath->Location = System::Drawing::Point(6, 110);
+			this->cbNoPlayerDeath->Location = System::Drawing::Point(6, 109);
 			this->cbNoPlayerDeath->Name = L"cbNoPlayerDeath";
 			this->cbNoPlayerDeath->Size = System::Drawing::Size(101, 17);
 			this->cbNoPlayerDeath->TabIndex = 9;
@@ -4177,7 +4358,8 @@ private: System::Windows::Forms::CheckBox^  cbItemVac;
 			// 
 			this->tabPage6->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(25)), static_cast<System::Int32>(static_cast<System::Byte>(25)),
 				static_cast<System::Int32>(static_cast<System::Byte>(25)));
-			this->tabPage6->Controls->Add(this->panel28);
+			this->tabPage6->Controls->Add(this->gbFullMapVacs);
+			this->tabPage6->Controls->Add(this->gbPartialMapVacs);
 			this->tabPage6->Controls->Add(this->panel17);
 			this->tabPage6->Controls->Add(this->panel16);
 			this->tabPage6->Controls->Add(this->panel15);
@@ -4189,29 +4371,129 @@ private: System::Windows::Forms::CheckBox^  cbItemVac;
 			this->tabPage6->TabIndex = 3;
 			this->tabPage6->Text = L"Vacs";
 			// 
-			// panel28
+			// gbFullMapVacs
 			// 
-			this->panel28->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
-			this->panel28->Controls->Add(this->cbZzVac);
-			this->panel28->Controls->Add(this->cbFullMapAttack);
-			this->panel28->Location = System::Drawing::Point(6, 240);
-			this->panel28->Name = L"panel28";
-			this->panel28->Size = System::Drawing::Size(130, 55);
-			this->panel28->TabIndex = 31;
+			this->gbFullMapVacs->Controls->Add(this->cbVacJumpLeft);
+			this->gbFullMapVacs->Controls->Add(this->cbVacForceRight);
+			this->gbFullMapVacs->Controls->Add(this->cbVacJumpRight);
+			this->gbFullMapVacs->Controls->Add(this->checkBox5);
+			this->gbFullMapVacs->Controls->Add(this->cbVacLeft);
+			this->gbFullMapVacs->Controls->Add(this->cbVacRight);
+			this->gbFullMapVacs->Location = System::Drawing::Point(265, 175);
+			this->gbFullMapVacs->Name = L"gbFullMapVacs";
+			this->gbFullMapVacs->Size = System::Drawing::Size(120, 205);
+			this->gbFullMapVacs->TabIndex = 33;
+			this->gbFullMapVacs->TabStop = false;
+			this->gbFullMapVacs->Text = L"Full Map Vacs";
 			// 
-			// cbZzVac
+			// cbVacJumpLeft
 			// 
-			this->cbZzVac->AutoSize = true;
-			this->cbZzVac->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
-			this->cbZzVac->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->cbZzVac->ForeColor = System::Drawing::Color::White;
-			this->cbZzVac->Location = System::Drawing::Point(6, 25);
-			this->cbZzVac->Name = L"cbZzVac";
-			this->cbZzVac->Size = System::Drawing::Size(55, 17);
-			this->cbZzVac->TabIndex = 24;
-			this->cbZzVac->Text = L"ZZ Vac";
-			this->cbZzVac->UseVisualStyleBackColor = false;
-			this->cbZzVac->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbZzVac_CheckedChanged);
+			this->cbVacJumpLeft->AutoSize = true;
+			this->cbVacJumpLeft->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
+			this->cbVacJumpLeft->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->cbVacJumpLeft->ForeColor = System::Drawing::Color::White;
+			this->cbVacJumpLeft->Location = System::Drawing::Point(5, 75);
+			this->cbVacJumpLeft->Name = L"cbVacJumpLeft";
+			this->cbVacJumpLeft->Size = System::Drawing::Size(90, 17);
+			this->cbVacJumpLeft->TabIndex = 28;
+			this->cbVacJumpLeft->Text = L"Vac Jump Left";
+			this->cbVacJumpLeft->UseVisualStyleBackColor = false;
+			this->cbVacJumpLeft->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbVacJumpLeft_CheckedChanged);
+			// 
+			// cbVacForceRight
+			// 
+			this->cbVacForceRight->AutoSize = true;
+			this->cbVacForceRight->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
+			this->cbVacForceRight->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->cbVacForceRight->ForeColor = System::Drawing::Color::White;
+			this->cbVacForceRight->Location = System::Drawing::Point(5, 15);
+			this->cbVacForceRight->Name = L"cbVacForceRight";
+			this->cbVacForceRight->Size = System::Drawing::Size(98, 17);
+			this->cbVacForceRight->TabIndex = 29;
+			this->cbVacForceRight->Text = L"Vac Force Right";
+			this->cbVacForceRight->UseVisualStyleBackColor = false;
+			this->cbVacForceRight->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbVacForceRight_CheckedChanged);
+			// 
+			// cbVacJumpRight
+			// 
+			this->cbVacJumpRight->AutoSize = true;
+			this->cbVacJumpRight->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
+			this->cbVacJumpRight->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->cbVacJumpRight->ForeColor = System::Drawing::Color::White;
+			this->cbVacJumpRight->Location = System::Drawing::Point(5, 60);
+			this->cbVacJumpRight->Name = L"cbVacJumpRight";
+			this->cbVacJumpRight->Size = System::Drawing::Size(96, 17);
+			this->cbVacJumpRight->TabIndex = 27;
+			this->cbVacJumpRight->Text = L"Vac Jump Right";
+			this->cbVacJumpRight->UseVisualStyleBackColor = false;
+			this->cbVacJumpRight->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbVacJumpRight_CheckedChanged);
+			// 
+			// checkBox5
+			// 
+			this->checkBox5->AutoSize = true;
+			this->checkBox5->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
+			this->checkBox5->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->checkBox5->ForeColor = System::Drawing::Color::White;
+			this->checkBox5->Location = System::Drawing::Point(5, 225);
+			this->checkBox5->Name = L"checkBox5";
+			this->checkBox5->Size = System::Drawing::Size(110, 17);
+			this->checkBox5->TabIndex = 25;
+			this->checkBox5->Text = L"Attack Anim Delay";
+			this->checkBox5->UseVisualStyleBackColor = false;
+			// 
+			// cbVacLeft
+			// 
+			this->cbVacLeft->AutoSize = true;
+			this->cbVacLeft->Enabled = false;
+			this->cbVacLeft->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
+			this->cbVacLeft->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->cbVacLeft->ForeColor = System::Drawing::Color::White;
+			this->cbVacLeft->Location = System::Drawing::Point(5, 45);
+			this->cbVacLeft->Name = L"cbVacLeft";
+			this->cbVacLeft->Size = System::Drawing::Size(62, 17);
+			this->cbVacLeft->TabIndex = 26;
+			this->cbVacLeft->Text = L"Vac Left";
+			this->cbVacLeft->UseVisualStyleBackColor = false;
+			this->cbVacLeft->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbVacLeft_CheckedChanged);
+			// 
+			// cbVacRight
+			// 
+			this->cbVacRight->AutoSize = true;
+			this->cbVacRight->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
+			this->cbVacRight->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->cbVacRight->ForeColor = System::Drawing::Color::White;
+			this->cbVacRight->Location = System::Drawing::Point(5, 30);
+			this->cbVacRight->Name = L"cbVacRight";
+			this->cbVacRight->Size = System::Drawing::Size(68, 17);
+			this->cbVacRight->TabIndex = 25;
+			this->cbVacRight->Text = L"Vac Right";
+			this->cbVacRight->UseVisualStyleBackColor = false;
+			this->cbVacRight->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbVacRight_CheckedChanged);
+			// 
+			// gbPartialMapVacs
+			// 
+			this->gbPartialMapVacs->Controls->Add(this->checkBox4);
+			this->gbPartialMapVacs->Controls->Add(this->cbFullMapAttack);
+			this->gbPartialMapVacs->Controls->Add(this->cbZzVac);
+			this->gbPartialMapVacs->Location = System::Drawing::Point(140, 175);
+			this->gbPartialMapVacs->Name = L"gbPartialMapVacs";
+			this->gbPartialMapVacs->Size = System::Drawing::Size(120, 205);
+			this->gbPartialMapVacs->TabIndex = 32;
+			this->gbPartialMapVacs->TabStop = false;
+			this->gbPartialMapVacs->Text = L"Partial Map Vacs";
+			// 
+			// checkBox4
+			// 
+			this->checkBox4->AutoSize = true;
+			this->checkBox4->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
+			this->checkBox4->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->checkBox4->ForeColor = System::Drawing::Color::White;
+			this->checkBox4->Location = System::Drawing::Point(5, 225);
+			this->checkBox4->Name = L"checkBox4";
+			this->checkBox4->Size = System::Drawing::Size(110, 17);
+			this->checkBox4->TabIndex = 25;
+			this->checkBox4->Text = L"Attack Anim Delay";
+			this->checkBox4->UseVisualStyleBackColor = false;
 			// 
 			// cbFullMapAttack
 			// 
@@ -4219,13 +4501,27 @@ private: System::Windows::Forms::CheckBox^  cbItemVac;
 			this->cbFullMapAttack->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
 			this->cbFullMapAttack->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->cbFullMapAttack->ForeColor = System::Drawing::Color::White;
-			this->cbFullMapAttack->Location = System::Drawing::Point(6, 5);
+			this->cbFullMapAttack->Location = System::Drawing::Point(5, 15);
 			this->cbFullMapAttack->Name = L"cbFullMapAttack";
 			this->cbFullMapAttack->Size = System::Drawing::Size(96, 17);
 			this->cbFullMapAttack->TabIndex = 23;
 			this->cbFullMapAttack->Text = L"Full Map Attack";
 			this->cbFullMapAttack->UseVisualStyleBackColor = false;
 			this->cbFullMapAttack->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbFullMapAttack_CheckedChanged);
+			// 
+			// cbZzVac
+			// 
+			this->cbZzVac->AutoSize = true;
+			this->cbZzVac->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
+			this->cbZzVac->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->cbZzVac->ForeColor = System::Drawing::Color::White;
+			this->cbZzVac->Location = System::Drawing::Point(5, 30);
+			this->cbZzVac->Name = L"cbZzVac";
+			this->cbZzVac->Size = System::Drawing::Size(55, 17);
+			this->cbZzVac->TabIndex = 24;
+			this->cbZzVac->Text = L"ZZ Vac";
+			this->cbZzVac->UseVisualStyleBackColor = false;
+			this->cbZzVac->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbZzVac_CheckedChanged);
 			// 
 			// panel17
 			// 
@@ -6099,6 +6395,20 @@ private: System::Windows::Forms::CheckBox^  cbItemVac;
 			this->AutoCCCSTimer->Interval = 250;
 			this->AutoCCCSTimer->Tick += gcnew System::EventHandler(this, &MainForm::AutoCCCSTimer_Tick);
 			// 
+			// cbNoWalkFricSlide
+			// 
+			this->cbNoWalkFricSlide->AutoSize = true;
+			this->cbNoWalkFricSlide->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
+			this->cbNoWalkFricSlide->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->cbNoWalkFricSlide->ForeColor = System::Drawing::Color::White;
+			this->cbNoWalkFricSlide->Location = System::Drawing::Point(6, 120);
+			this->cbNoWalkFricSlide->Name = L"cbNoWalkFricSlide";
+			this->cbNoWalkFricSlide->Size = System::Drawing::Size(143, 17);
+			this->cbNoWalkFricSlide->TabIndex = 11;
+			this->cbNoWalkFricSlide->Text = L"No Walk Frictionless Slide";
+			this->cbNoWalkFricSlide->UseVisualStyleBackColor = false;
+			this->cbNoWalkFricSlide->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbNoWalkFricSlide_CheckedChanged);
+			// 
 			// MainForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
@@ -6184,8 +6494,10 @@ private: System::Windows::Forms::CheckBox^  cbItemVac;
 			this->panel18->ResumeLayout(false);
 			this->panel18->PerformLayout();
 			this->tabPage6->ResumeLayout(false);
-			this->panel28->ResumeLayout(false);
-			this->panel28->PerformLayout();
+			this->gbFullMapVacs->ResumeLayout(false);
+			this->gbFullMapVacs->PerformLayout();
+			this->gbPartialMapVacs->ResumeLayout(false);
+			this->gbPartialMapVacs->PerformLayout();
 			this->panel17->ResumeLayout(false);
 			this->panel17->PerformLayout();
 			this->panel16->ResumeLayout(false);
@@ -6352,8 +6664,14 @@ private: System::Windows::Forms::CheckBox^  cbItemVac;
 	private: System::Void cbNoMapFadeEffect_CheckedChanged(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void cbMapSpeedUp_CheckedChanged(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void cbNoBlueBoxes_CheckedChanged(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void cbNoWalkFricSlide_CheckedChanged(Object ^ sender, EventArgs ^ e);
 	private: System::Void cbFullMapAttack_CheckedChanged(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void cbZzVac_CheckedChanged(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void cbVacForceRight_CheckedChanged(Object ^ sender, EventArgs ^ e);
+	private: System::Void cbVacRight_CheckedChanged(Object^ sender, EventArgs^ e);
+	private: System::Void cbVacLeft_CheckedChanged(Object^ sender, EventArgs^ e);
+	private: System::Void cbVacJumpRight_CheckedChanged(Object ^ sender, EventArgs ^ e);
+	private: System::Void cbVacJumpLeft_CheckedChanged(Object ^ sender, EventArgs ^ e);
 	private: System::Void bSpawnControlGetCurrentLocation_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void bSpawnControlAdd_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void bSpawnControlDelete_Click(System::Object^  sender, System::EventArgs^  e);

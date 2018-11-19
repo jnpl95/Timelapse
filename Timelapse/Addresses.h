@@ -44,11 +44,22 @@ ULONG removeSpamFilterAddr2 = 0x00490651;
 ULONG infiniteChatboxAddr1 = 0x004CAA09;
 ULONG infiniteChatboxAddr2 = 0x004CAA84;
 ULONG noBlueBoxesAddr = 0x009929DD;
+ULONG frictionlessSlideAddr = 0x009B4365; // je -> jne
 
 // VAC TAB REGION
 ULONG fullMapAttackAddr = 0x006785CA;
 ULONG zzVacAddr1 = 0x009B17A0; 
 ULONG zzVacAddr2 = 0x009B17B0;
+ULONG vacForceRightAddr = 0x009B2C1E; //jae -> jna
+ULONG vacLeftAddr = 0x009B4819;  //jae -> je
+ULONG vacRightAddr = 0x009B4896; //jbe -> je
+ULONG vacJumpRightAddr = 0x009B46A1; //jna -> je
+ULONG vacJumpLeftAddr = 0x009B4698; // ?? -> ??
+ULONG vacJumpUpAddr = 0x009B4732; // jae -> je
+ULONG fangorVacAddr1 = 0x009B2B98; // fld(0) -> fld(1) //vac into left wall
+ULONG fangorVacAddr2 = 0x009B43BE; // fld(0) -> fld(1) //vac into top left corner
+
+ULONG pVacAddr = 0x009B1E43; //codecave
 
 // NOT YET IMPLEMENTED?
 ULONG multiClientAddr = 0x00949BC7; // jne -> jmp
@@ -69,12 +80,17 @@ ULONG MSCRCBypassAddr1 = 0x004A27E7; // codecave
 ULONG MSCRCBypassAddr2 = 0x004A27EC; // codecave
 ULONG slideRightAddr = 0x009B2C0A; // jna -> jne
 ULONG itsRainingMobsAddr = 0x009B1E8E; // F1 -> F2, bugged diassembly??
-ULONG rapidGlideAddr = 0x009B4365; // je -> jne
 ULONG attackUnrandommizerAddr = 0x0076609C; // codecave
 ULONG etcExplosionAddr = 0x00505806; // 6x nop
 ULONG useRechargableItemsAfterDepletionAddr1 = 0x009516BA; // 6x nop
 ULONG useRechargableItemsAfterDepletionAddr2 = 0x009516C2; // je -> jns
 
+ULONG chargeSkillsNoChargingAddr1 = 0x009B2154; //jne -> jmp
+// ULONG chargeSkillsNoChargingAddr2 = ??????????
+ULONG noJumpingMobAndPlayerAddr = 0x009B44D4; //je -> jmp
+ULONG vacLeftAddr2 = 0x009B2441; //??
+ULONG jmpRelatedstub = 0x009B2BF7; //??
+ULONG gravityrelated = 0x009B2BF5; //jae -> jmp for monster fly up on jump
 // OLDSKOOL STUFF
 // pin typer v0.62 004A0A6B: //83 FA 6F 0F 86 ?? ?? ?? ?? 83 FA 7B 
 // jbe -> je
@@ -88,8 +104,6 @@ ULONG useRechargableItemsAfterDepletionAddr2 = 0x009516C2; // je -> jns
 // jae -> je
 // Suck Jump Monsters to right: v0.62 007F40C4: //DF E0 9E 76 72 DD 45 EC 8B CE 51 51
 // jna -> ja
-// NoJumpingAllowed v0.62 007F3EF7: //57 8B F9 8B 87 ?? ?? ?? ?? 85 C0 0F 84 ?? ?? ?? ?? DD 40 40 53 56
-// je -> jne
 // Suck Vac Monsters Left v0.62 007F423C: //D9 C1 DE D9 DF E0 9E 73 66 8B BF ?? ?? ?? ?? DD D8 2B 4F 0C
 // jae -> je
 // Suck Vac Monsters Right v0.62 007F42B9: //DE D9 DF E0 DD D8 9E 0F 86 ?? ?? ?? ?? 8B BF ?? ?? ?? ?? 2B 4F ??

@@ -31,6 +31,15 @@ ref struct KeyMacro {
 		PostMessage(GlobalVars::mapleWindow, WM_KEYUP, Key, MapVirtualKey(Key, 0) << 16);
 	}
 
+	// This simulates key being pressed for a time
+	// Only elementary hack-around not a proper solution
+	// The sleep fucks up entire que processing
+	static void HoldKeyForTime(int Key, int Time) {
+		PostMessage(GlobalVars::mapleWindow, WM_KEYDOWN, Key, MapVirtualKey(Key, 0) << 16);
+		Sleep(Time);
+		PostMessage(GlobalVars::mapleWindow, WM_KEYUP, Key, MapVirtualKey(Key, 0) << 16);
+	}
+
 };
 
 ref class PriorityQueue {

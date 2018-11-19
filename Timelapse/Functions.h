@@ -743,6 +743,26 @@ namespace PointerFuncs {
 		return gcnew System::String(mapNameBuff);
 	}
 
+	//Retrieve Left Wall coord
+	static System::String^ getMapLeftWall() {
+		return ReadPointerSigned(CWvsPhysicalSpace2DBase, OFS_LeftWall).ToString();
+	}
+
+	//Retrieve Right Wall coord
+	static System::String^ getMapRightWall() {
+		return ReadPointerSigned(CWvsPhysicalSpace2DBase, OFS_RightWall).ToString();
+	}
+
+	//Retrieve Top Wall coord
+	static System::String^ getMapTopWall() {
+		return ReadPointerSigned(CWvsPhysicalSpace2DBase, OFS_TopWall).ToString();
+	}
+
+	//Retrieve Bottom Wall coord
+	static System::String^ getMapBottomWall() {
+		return ReadPointerSigned(CWvsPhysicalSpace2DBase, OFS_BottomWall).ToString();
+	}
+
 	//Retrieve Char Name
 	static System::String^ getCharName() {
 		System::String^ charName = System::Runtime::InteropServices::Marshal::PtrToStringAnsi((System::IntPtr)(void*)(ReadPointerString(CharacterStatBase, OFS_Ign)));
@@ -832,6 +852,16 @@ namespace PointerFuncs {
 	//Retrieve Mouse Y Position
 	static System::String^ getMousePosY() {
 		return ReadMultiPointerSigned(InputBase, 2, OFS_MouseLocation, OFS_MouseY).ToString();
+	}
+
+	//Retrieve Char Animation
+	static System::String^ getCharAnimID() {
+		return ReadPointerSigned(UserLocalBase, OFS_CharAnimation).ToString();
+	}
+
+	//Retrieve Char Foothold
+	static System::String^ getCharFootholdID() {
+		return ReadPointerSigned(UserLocalBase, OFS_Foothold).ToString();
 	}
 
 	//Retrieve Attack Count

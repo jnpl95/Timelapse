@@ -231,12 +231,20 @@ void MainForm::GUITimer_Tick(Object^  sender, EventArgs^  e) {
 		lbJob->Text = PointerFuncs::getCharJob();
 		lbMesos->Text = PointerFuncs::getCharMesos().ToString("N0");
 
+		lbCharPos->Text = PointerFuncs::getCharPos();
+		lbMousePos->Text = PointerFuncs::getMousePos();
+		lbCharAnimID->Text = PointerFuncs::getCharAnimID();
+		lbCharFootholdID->Text = PointerFuncs::getCharFootholdID();
+
 		lbWorld->Text = PointerFuncs::getWorld();
 		lbChannel->Text = PointerFuncs::getChannel();
 		lbMapID->Text = PointerFuncs::getMapID();
 		lbMapName->Text = PointerFuncs::getMapName();
-		lbCharPos->Text = PointerFuncs::getCharPos();
-		lbMousePos->Text = PointerFuncs::getMousePos();
+
+		lbLeftWallPos->Text = PointerFuncs::getMapLeftWall();
+		lbRightWallPos->Text = PointerFuncs::getMapRightWall();
+		lbTopWallPos->Text = PointerFuncs::getMapTopWall();
+		lbBottomWallPos->Text = PointerFuncs::getMapBottomWall();
 
 		lbAttackCount->Text = PointerFuncs::getAttackCount();
 		lbBuffCount->Text = PointerFuncs::getBuffCount();
@@ -850,6 +858,14 @@ void MainForm::cbFastLootItems_CheckedChanged(Object^  sender, EventArgs^  e) {
 		WriteMemory(fastLootItemsAddr, 2, 0x75, 0x36); //jne 00485C39
 }
 
+//Item Vac
+void MainForm::cbItemVac_CheckedChanged(Object^  sender, EventArgs^  e) {
+	if (this->cbItemVac->Checked)
+		Jump(itemVacAddr, CodeCaves::ItemVacHook, 2);
+	else
+		WriteMemory(itemVacAddr, 7, 0x50, 0xFF, 0x75, 0xDC, 0x8D, 0x45, 0xCC);
+}
+
 //No Mob Reaction (CMob::AddDamageInfo())
 void MainForm::cbNoMobReaction_CheckedChanged(Object^  sender, EventArgs^  e) {
 	if (this->cbNoMobReaction->Checked)
@@ -961,6 +977,14 @@ void MainForm::cbNoBlueBoxes_CheckedChanged(Object^  sender, EventArgs^  e) {
 		WriteMemory(noBlueBoxesAddr, 5, 0xC3, 0x90, 0x90, 0x90, 0x90); //ret; nop; nop; nop; nop;
 	else
 		WriteMemory(noBlueBoxesAddr, 5, 0xB8, 0x92, 0x21, 0xAE, 0x00); //mov eax,00AE2192
+}
+
+//No Walk Frictionless Slide
+void MainForm::cbNoWalkFricSlide_CheckedChanged(Object^  sender, EventArgs^  e) {
+	if (this->cbNoWalkFricSlide->Checked)
+		WriteMemory(frictionlessSlideAddr, 2, 0x75, 0x05); //jne
+	else
+		WriteMemory(frictionlessSlideAddr, 2, 0x74, 0x05); //je
 }
 #pragma endregion
 
@@ -1285,11 +1309,44 @@ void MainForm::cbZzVac_CheckedChanged(Object^  sender, EventArgs^  e) {
 	}
 }
 
-void MainForm::cbItemVac_CheckedChanged(Object^  sender, EventArgs^  e) {
-	if (this->cbItemVac->Checked)
-		Jump(itemVacAddr, CodeCaves::ItemVacHook, 2);	
+//Vac Force Right
+void MainForm::cbVacForceRight_CheckedChanged(Object^  sender, EventArgs^  e) {
+	if (this->cbVacForceRight->Checked)	
+		WriteMemory(vacForceRightAddr, 2, 0x76, 0x18); //jna		
 	else
-		WriteMemory(itemVacAddr, 7, 0x50, 0xFF, 0x75, 0xDC, 0x8D, 0x45, 0xCC);
+		WriteMemory(vacForceRightAddr, 2, 0x73, 0x18); //jae
+}
+
+//Vac Right
+void MainForm::cbVacRight_CheckedChanged(Object^  sender, EventArgs^  e) {
+	if (this->cbVacRight->Checked)
+		WriteMemory(vacRightAddr, 2, 0x0F, 0x84); //je		
+	else
+		WriteMemory(vacRightAddr, 2, 0x0F, 0x86); //jbe
+}
+
+//Vac Left
+void MainForm::cbVacLeft_CheckedChanged(Object^  sender, EventArgs^  e) {
+	if (this->cbVacLeft->Checked)
+		WriteMemory(vacLeftAddr, 2, 0x74, 0x66); //je		
+	else
+		WriteMemory(vacLeftAddr, 2, 0x73, 0x66); //jae
+}
+
+//Vac Jump Right
+void MainForm::cbVacJumpRight_CheckedChanged(Object^  sender, EventArgs^  e) {
+	if (this->cbVacJumpRight->Checked)
+		WriteMemory(vacJumpRightAddr, 2, 0x74, 0x72); //je		
+	else
+		WriteMemory(vacJumpRightAddr, 2, 0x76, 0x72); //jna
+}
+
+//Vac Jump Left
+void MainForm::cbVacJumpLeft_CheckedChanged(Object^  sender, EventArgs^  e) {
+	if (this->cbVacJumpLeft->Checked)
+		WriteMemory(vacJumpLeftAddr, 2, 0x74, 0x66); //je		
+	else
+		WriteMemory(vacJumpLeftAddr, 2, 0x73, 0x66); //jae
 }
 #pragma endregion
 
