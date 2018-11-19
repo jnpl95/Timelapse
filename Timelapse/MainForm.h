@@ -287,7 +287,6 @@ namespace Timelapse {
 	private: System::Windows::Forms::CheckBox^  cbNoMobReaction;
 	private: System::Windows::Forms::CheckBox^  cbNoPlayerKnockback;
 	private: System::Windows::Forms::CheckBox^  cbNoMobKnockback;
-
 	private: System::Windows::Forms::CheckBox^  cbNoMobDeathEffect;
 	public: System::Windows::Forms::CheckBox^  cbNoMapFadeEffect;
 	public: System::Windows::Forms::CheckBox^  cbNoMapBackground;
@@ -3584,6 +3583,19 @@ private: System::Windows::Forms::CheckBox^  cbItemVac;
 			this->cbFullGodmode->Text = L"Full Godmode";
 			this->cbFullGodmode->UseVisualStyleBackColor = false;
 			this->cbFullGodmode->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbFullGodmode_CheckedChanged);
+			// 
+			// cbAttackAnimDelay
+			// 
+			this->cbAttackAnimDelay->AutoSize = true;
+			this->cbAttackAnimDelay->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
+			this->cbAttackAnimDelay->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->cbAttackAnimDelay->ForeColor = System::Drawing::Color::White;
+			this->cbAttackAnimDelay->Location = System::Drawing::Point(5, 225);
+			this->cbAttackAnimDelay->Name = L"cbAttackAnimDelay";
+			this->cbAttackAnimDelay->Size = System::Drawing::Size(110, 17);
+			this->cbAttackAnimDelay->TabIndex = 25;
+			this->cbAttackAnimDelay->Text = L"Attack Anim Delay";
+			this->cbAttackAnimDelay->UseVisualStyleBackColor = false;
 			// 
 			// cbNoPlayerNameTag
 			// 
