@@ -83,24 +83,24 @@ Void Settings::AddChildControls(XmlTextWriter^ xmlSerializedForm, Control^ c)
 {
 	for each(Control^ childCtrl in c->Controls)
 	{
-		auto type = childCtrl->GetType();
-		//auto name = childCtrl->Name;
+		auto ctrlType = childCtrl->GetType();
+		auto ctrlName = childCtrl->Name;
 
 		//TODO: save press state of buttons?
 
-		if (childCtrl->HasChildren || type == ComboBox::typeid || type == NumericUpDown::typeid || type == CheckBox::typeid || type == TextBox::typeid) // || name == "lbItemFilter"
+		if (childCtrl->HasChildren || ctrlType == ComboBox::typeid || ctrlType == NumericUpDown::typeid || ctrlType == CheckBox::typeid || ctrlType == TextBox::typeid) // || name == "lbItemFilter"
 		{
 			// serialize this control
 			xmlSerializedForm->WriteStartElement("Control");
-			xmlSerializedForm->WriteAttributeString("Name", childCtrl->Name);
+			xmlSerializedForm->WriteAttributeString("Name", ctrlName);
 
-			if (type == ComboBox::typeid)
+			if (ctrlType == ComboBox::typeid)
 				xmlSerializedForm->WriteAttributeString("SelectedIndex", safe_cast<ComboBox^>(childCtrl)->SelectedIndex.ToString());
-			else if (type == NumericUpDown::typeid)
+			else if (ctrlType == NumericUpDown::typeid)
 				xmlSerializedForm->WriteAttributeString("Value", safe_cast<NumericUpDown^>(childCtrl)->Value.ToString());
-			else if (type == CheckBox::typeid)
+			else if (ctrlType == CheckBox::typeid)
 				xmlSerializedForm->WriteAttributeString("Checked", safe_cast<CheckBox^>(childCtrl)->Checked.ToString());
-			else if (type == TextBox::typeid)
+			else if (ctrlType == TextBox::typeid)
 				xmlSerializedForm->WriteAttributeString("Text", safe_cast<TextBox^>(childCtrl)->Text->ToString());
 
 			// TODO: save itemFilter as array of strings
@@ -108,7 +108,7 @@ Void Settings::AddChildControls(XmlTextWriter^ xmlSerializedForm, Control^ c)
 			// xmlSerializedForm->WriteAttributeString("ItemFilterList", safe_cast<ListBox^>(childCtrl)->Items->ToString());
 
 			// see if this control has any children, and if so, serialize them
-			if (childCtrl->HasChildren && type != NumericUpDown::typeid) 
+			if (childCtrl->HasChildren && ctrlType != NumericUpDown::typeid)
 				AddChildControls(xmlSerializedForm, childCtrl);
 
 			xmlSerializedForm->WriteEndElement(); // Control

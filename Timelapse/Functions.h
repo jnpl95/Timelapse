@@ -692,8 +692,10 @@ namespace PointerFuncs {
 			Jump(statHookAddr, CodeCaves::StatHook, 0);
 		else
 			WriteMemory(statHookAddr, 5, 0x8D, 0x0C, 0x80, 0x3B, 0xCB);
+
 		if (CodeCaves::maxHP != 0)
 			CodeCaves::hpPercent = ((double)CodeCaves::curHP / CodeCaves::maxHP) * 100.0;
+
 		return CodeCaves::hpPercent.ToString("f2") + "%";
 	}
 
@@ -703,8 +705,10 @@ namespace PointerFuncs {
 			Jump(statHookAddr, CodeCaves::StatHook, 0);
 		else
 			WriteMemory(statHookAddr, 5, 0x8D, 0x0C, 0x80, 0x3B, 0xCB);
+
 		if (CodeCaves::maxMP != 0)
 			CodeCaves::mpPercent = ((double)CodeCaves::curMP / CodeCaves::maxMP) * 100.0;
+
 		return CodeCaves::mpPercent.ToString("f2") + "%";
 	}
 
@@ -714,8 +718,10 @@ namespace PointerFuncs {
 			Jump(statHookAddr, CodeCaves::StatHook, 0);
 		else
 			WriteMemory(statHookAddr, 5, 0x8D, 0x0C, 0x80, 0x3B, 0xCB);
+
 		if (CodeCaves::maxEXP != 0)
 			CodeCaves::expPercent = ((double)CodeCaves::curEXP / CodeCaves::maxEXP) * 100.0;
+
 		return CodeCaves::expPercent.ToString("f2") + "%";
 	}
 

@@ -5,6 +5,7 @@
 #include "Functions.h"
 #include "MainForm.h"
 #include <Windows.h>
+#include "HelperFunctions.h"
 
 enum class MacroType { LOOTMACRO = 1, ATTACKMACRO = 2, BUFFMACRO = 3, MPPOTMACRO = 4, HPPOTMACRO = 5};
 ref struct MacrosEnabled { static bool bMacroHP = false, bMacroMP = false, bMacroAttack = false, bMacroLoot = false; };
@@ -38,9 +39,14 @@ public:
 	static bool closeMacroQueue = false;
 
 	static void MacroQueueWorker() {
-		if (GlobalVars::mapleWindow == nullptr) GlobalVars::mapleWindow = GetMSWindowHandle();
+		if (GlobalVars::mapleWindow == nullptr) 
+			GlobalVars::mapleWindow = GetMSWindowHandle();
+
 		while(!closeMacroQueue) {
-			if(macroQueue == nullptr || macroQueue->empty()) { Sleep(50); continue; }
+			if(macroQueue == nullptr || macroQueue->empty()) {
+				Sleep(50); 
+				continue; 
+			}
 			
 			System::Threading::Monitor::Enter(PriorityQueue::macroQueue);
 			KeyMacro ^key = macroQueue->top();
@@ -48,7 +54,7 @@ public:
 
 			switch(key->macroType) {
 				case MacroType::LOOTMACRO:
-					if (MacrosEnabled::bMacroLoot) {
+					if (MacrosEnabled::bMacroLoot && ValidToLoot()) {
 						if (System::String::IsNullOrWhiteSpace(Timelapse::MainForm::TheInstance->tbLootItem->Text)) break;
 						if (ReadPointer(DropPoolBase, OFS_ItemCount) > System::Convert::ToUInt32(Timelapse::MainForm::TheInstance->tbLootItem->Text))
 							KeyMacro::SendKey(key->keyCode);
@@ -56,7 +62,7 @@ public:
 					break;
 
 				case MacroType::ATTACKMACRO:
-					if (MacrosEnabled::bMacroAttack) {
+					if (MacrosEnabled::bMacroAttack && ValidToAttack()) {
 						if (System::String::IsNullOrWhiteSpace(Timelapse::MainForm::TheInstance->tbAttackMob->Text)) break;
 						if (ReadPointer(MobPoolBase, OFS_MobCount) > System::Convert::ToUInt32(Timelapse::MainForm::TheInstance->tbAttackMob->Text))
 							KeyMacro::SpamKey(key->keyCode);
@@ -71,7 +77,7 @@ public:
 					break;
 
 				case MacroType::MPPOTMACRO:
-					if(MacrosEnabled::bMacroMP) {
+					if(MacrosEnabled::bMacroMP && IsInGame()) {
 						if (System::String::IsNullOrWhiteSpace(Timelapse::MainForm::TheInstance->tbMP->Text)) break;
 						if (CodeCaves::curMP < System::Convert::ToUInt32(Timelapse::MainForm::TheInstance->tbMP->Text))
 							KeyMacro::SendKey(key->keyCode);
@@ -79,7 +85,7 @@ public:
 						
 					break;
 				case MacroType::HPPOTMACRO:
-					if (MacrosEnabled::bMacroHP) {
+					if (MacrosEnabled::bMacroHP && IsInGame()) {
 						if (System::String::IsNullOrWhiteSpace(Timelapse::MainForm::TheInstance->tbHP->Text)) break;
 						if (CodeCaves::curHP < System::Convert::ToUInt32(Timelapse::MainForm::TheInstance->tbHP->Text))
 							KeyMacro::SendKey(key->keyCode);
@@ -95,6 +101,7 @@ public:
 
 ref class Macro {
 	System::Threading::Timer^ timer;
+
 	void TimerElapsed(System::Object^ state) {
 		//if ((macroType == MacroType::LOOTMACRO || macroType == MacroType::ATTACKMACRO) && PriorityQueue::macroQueue->size() > 20) return;
 		KeyMacro^ keyMacro = gcnew KeyMacro();

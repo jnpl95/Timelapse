@@ -146,6 +146,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Functions.h" />
+    <ClInclude Include="HelperFunctions.h" />
     <ClInclude Include="Log.h" />
     <ClInclude Include="Macro.h" />
     <ClInclude Include="Packet.h" />
