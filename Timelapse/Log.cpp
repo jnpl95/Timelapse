@@ -6,22 +6,21 @@ Void Log::WriteLine(String^ Message)
 
 	try
 	{
-		sw = gcnew StreamWriter(Log::GetLogPath(), true);
+		sw = gcnew StreamWriter(GetLogPath(), true);
 
 		if (Message == String::Empty) 
 			sw->WriteLine();
 		else 
-			sw->WriteLine(DateTime::Now.ToString() + ": " + Message);
+			sw->WriteLine(DateTime::Now.ToString() + " : " + Message);
 	}
 
 	catch (Exception^)
 	{
-		// Can't log here :(
 	}
 
 	finally
 	{
-		if (sw) 
+		if (sw)
 			delete static_cast<IDisposable^>(sw);
 	}
 }
@@ -31,7 +30,8 @@ Void Log::WriteLine()
 	WriteLine(String::Empty);
 }
 
-String^ Log::GetLogPath() {
+String^ Log::GetLogPath() 
+{
 
 	String^ AppDataFolder = Environment::GetFolderPath(Environment::SpecialFolder::ApplicationData);
 	String^ LogsFilePath = {};
@@ -42,12 +42,9 @@ String^ Log::GetLogPath() {
 		LogsFilePath = Path::Combine(TimelapseFolderPath, "Log.txt");
 	}
 
-	catch (Exception^ ex)
+	catch (Exception^)
 	{
-		Log::WriteLine("Exception occured while generating path to log file" + ex->Message);
 	}
-
-	Log::WriteLine("Generated path to Timelapse log file at " + ": " + LogsFilePath);
 
 	return LogsFilePath;
 }

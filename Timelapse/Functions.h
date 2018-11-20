@@ -692,8 +692,10 @@ namespace PointerFuncs {
 			Jump(statHookAddr, CodeCaves::StatHook, 0);
 		else
 			WriteMemory(statHookAddr, 5, 0x8D, 0x0C, 0x80, 0x3B, 0xCB);
+
 		if (CodeCaves::maxHP != 0)
 			CodeCaves::hpPercent = ((double)CodeCaves::curHP / CodeCaves::maxHP) * 100.0;
+
 		return CodeCaves::hpPercent.ToString("f2") + "%";
 	}
 
@@ -703,8 +705,10 @@ namespace PointerFuncs {
 			Jump(statHookAddr, CodeCaves::StatHook, 0);
 		else
 			WriteMemory(statHookAddr, 5, 0x8D, 0x0C, 0x80, 0x3B, 0xCB);
+
 		if (CodeCaves::maxMP != 0)
 			CodeCaves::mpPercent = ((double)CodeCaves::curMP / CodeCaves::maxMP) * 100.0;
+
 		return CodeCaves::mpPercent.ToString("f2") + "%";
 	}
 
@@ -714,8 +718,10 @@ namespace PointerFuncs {
 			Jump(statHookAddr, CodeCaves::StatHook, 0);
 		else
 			WriteMemory(statHookAddr, 5, 0x8D, 0x0C, 0x80, 0x3B, 0xCB);
+
 		if (CodeCaves::maxEXP != 0)
 			CodeCaves::expPercent = ((double)CodeCaves::curEXP / CodeCaves::maxEXP) * 100.0;
+
 		return CodeCaves::expPercent.ToString("f2") + "%";
 	}
 
@@ -735,6 +741,26 @@ namespace PointerFuncs {
 
 		char *mapNameBuff = (char*)(CodeCaves::mapNameAddr + 12);
 		return gcnew System::String(mapNameBuff);
+	}
+
+	//Retrieve Left Wall coord
+	static System::String^ getMapLeftWall() {
+		return ReadPointerSigned(CWvsPhysicalSpace2DBase, OFS_LeftWall).ToString();
+	}
+
+	//Retrieve Right Wall coord
+	static System::String^ getMapRightWall() {
+		return ReadPointerSigned(CWvsPhysicalSpace2DBase, OFS_RightWall).ToString();
+	}
+
+	//Retrieve Top Wall coord
+	static System::String^ getMapTopWall() {
+		return ReadPointerSigned(CWvsPhysicalSpace2DBase, OFS_TopWall).ToString();
+	}
+
+	//Retrieve Bottom Wall coord
+	static System::String^ getMapBottomWall() {
+		return ReadPointerSigned(CWvsPhysicalSpace2DBase, OFS_BottomWall).ToString();
 	}
 
 	//Retrieve Char Name
@@ -826,6 +852,16 @@ namespace PointerFuncs {
 	//Retrieve Mouse Y Position
 	static System::String^ getMousePosY() {
 		return ReadMultiPointerSigned(InputBase, 2, OFS_MouseLocation, OFS_MouseY).ToString();
+	}
+
+	//Retrieve Char Animation
+	static System::String^ getCharAnimID() {
+		return ReadPointerSigned(UserLocalBase, OFS_CharAnimation).ToString();
+	}
+
+	//Retrieve Char Foothold
+	static System::String^ getCharFootholdID() {
+		return ReadPointerSigned(UserLocalBase, OFS_Foothold).ToString();
 	}
 
 	//Retrieve Attack Count

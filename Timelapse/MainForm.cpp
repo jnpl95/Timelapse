@@ -9,6 +9,8 @@
 #include "Structs.h"
 #include "resource.h"
 #include "Settings.h"
+#include "Log.h"
+#include "HelperFunctions.h"
 
 using namespace Timelapse;
 
@@ -26,7 +28,7 @@ ref struct GlobalRefs {
 	static bool isDragging = false;
 	static Point dragOffset;
 	static double formOpacity;
-	static Generic::List<MapData^>^ maps; 
+	static Generic::List<MapData^>^ maps;
 };
 
 #pragma region General Form
@@ -63,6 +65,8 @@ BOOL WINAPI DllMain(HMODULE hModule, DWORD dwReason, PVOID lpvReserved) {
 
 #pragma managed
 void MainForm::MainForm_Load(Object^  sender, EventArgs^  e) {
+	Log::WriteLine();
+	Log::WriteLine("Initialing Timelapse trainer...");
 	RECT msRect;
 	GetWindowRect(GetMSWindowHandle(), &msRect);
 	this->Left = msRect.right;
@@ -71,15 +75,18 @@ void MainForm::MainForm_Load(Object^  sender, EventArgs^  e) {
 
 void MainForm::MainForm_Shown(Object^  sender, EventArgs^  e) {
 	this->Refresh();
+
 	for (double i = 0.100; i < 0.9;) {
 		i += 0.1;
 		this->Opacity = i;
 		this->Refresh();
 	}
+
 	lbTitle->Text = "Timelapse Trainer - PID: " + GetMSProcID();
 	Threading::Thread^ macroThread = gcnew Threading::Thread(gcnew Threading::ThreadStart(PriorityQueue::MacroQueueWorker));
 	macroThread->Start();
 	loadMaps();
+	Log::WriteLine("Initialized Timelapse trainer!");
 }
 
 void MainForm::MainForm_FormClosing(Object^  sender, Windows::Forms::FormClosingEventArgs^  e) {
@@ -95,6 +102,7 @@ void MainForm::MainForm_FormClosing(Object^  sender, Windows::Forms::FormClosing
 		this->Refresh();
 	}
 	Sleep(200);
+	Log::WriteLine("Deinitialized Timelapse trainer!");
 }
 
 void MainForm::btnClose_Click(Object^  sender, EventArgs^  e) {
@@ -135,21 +143,26 @@ void MainForm::pnlFull_MouseMove(Object^  sender, Windows::Forms::MouseEventArgs
 		Location = Point(currentScreenPos.X - GlobalRefs::dragOffset.X, currentScreenPos.Y - GlobalRefs::dragOffset.Y);
 	}
 }
+#pragma endregion
+#pragma endregion
 
 #pragma region ToolStrip
 void MainForm::closeMapleStoryToolStripMenuItem_Click(Object^  sender, EventArgs^  e) {
 	TerminateProcess(GetCurrentProcess(), 0);
 }
+#pragma endregion
 
-#pragma endregion LoadSettings
+#pragma region LoadSettings
 void MainForm::loadSettingsToolStripMenuItem_Click(Object^  sender, EventArgs^  e) {
 	Settings::Deserialize(this, Settings::GetSettingsPath());
 }
+#pragma endregion
 
-#pragma endregion SaveSettings
+#pragma region SaveSettings
 void MainForm::saveSettingsToolStripMenuItem_Click(Object^  sender, EventArgs^  e) {
 	Settings::Serialize(this, Settings::GetSettingsPath());
 }
+#pragma endregion
 
 #pragma region Pointers
 //Display Char Job value on hover
@@ -196,6 +209,7 @@ void MainForm::lbWorld_MouseHover(Object^  sender, EventArgs^  e) {
 void MainForm::GUITimer_Tick(Object^  sender, EventArgs^  e) {
 	lbDateTime->Text = DateTime::Now.ToString();
 	lbThreadID->Text = "0x" + GetMSThreadID().ToString("X");
+
 	if (GetMSThreadID()) {;
 		lbActive->Visible = true;
 		lbInactive->Visible = false;
@@ -205,25 +219,32 @@ void MainForm::GUITimer_Tick(Object^  sender, EventArgs^  e) {
 		lbInactive->Visible = true;
 	}
 
-	if (!PointerFuncs::getMapID()->Equals("0")) {
-		//if (PointerFuncs::getMapName()->Equals("Waiting..") && PointerFuncs::isHooked) 
-			//CCToGetPointers();
+	if (IsInGame()) {
+		lbHP->Text = PointerFuncs::getCharHP();
+		lbMP->Text = PointerFuncs::getCharMP();
+		lbEXP->Text = PointerFuncs::getCharEXP();
 
-		lbMapName->Text = PointerFuncs::getMapName();
+		RedrawStatBars();
 
 		lbCharName->Text = PointerFuncs::getCharName();
 		lbLevel->Text = PointerFuncs::getCharLevel();
 		lbJob->Text = PointerFuncs::getCharJob();
-		lbHP->Text = PointerFuncs::getCharHP();
-		lbMP->Text = PointerFuncs::getCharMP();
-		lbEXP->Text = PointerFuncs::getCharEXP();
 		lbMesos->Text = PointerFuncs::getCharMesos().ToString("N0");
+
+		lbCharPos->Text = PointerFuncs::getCharPos();
+		lbMousePos->Text = PointerFuncs::getMousePos();
+		lbCharAnimID->Text = PointerFuncs::getCharAnimID();
+		lbCharFootholdID->Text = PointerFuncs::getCharFootholdID();
 
 		lbWorld->Text = PointerFuncs::getWorld();
 		lbChannel->Text = PointerFuncs::getChannel();
 		lbMapID->Text = PointerFuncs::getMapID();
-		lbCharPos->Text = PointerFuncs::getCharPos();
-		lbMousePos->Text = PointerFuncs::getMousePos();
+		lbMapName->Text = PointerFuncs::getMapName();
+
+		lbLeftWallPos->Text = PointerFuncs::getMapLeftWall();
+		lbRightWallPos->Text = PointerFuncs::getMapRightWall();
+		lbTopWallPos->Text = PointerFuncs::getMapTopWall();
+		lbBottomWallPos->Text = PointerFuncs::getMapBottomWall();
 
 		lbAttackCount->Text = PointerFuncs::getAttackCount();
 		lbBuffCount->Text = PointerFuncs::getBuffCount();
@@ -232,7 +253,19 @@ void MainForm::GUITimer_Tick(Object^  sender, EventArgs^  e) {
 		lbMobCount->Text = PointerFuncs::getMobCount();
 		lbItemCount->Text = PointerFuncs::getItemCount();
 		lbPortalCount->Text = PointerFuncs::getPortalCount();
-		lbNPCCount->Text = PointerFuncs::getNPCCount();
+		lbNPCCount->Text = PointerFuncs::getNPCCount();	
+	}
+}
+
+void MainForm::RedrawStatBars() 
+{
+	if (CodeCaves::maxEXP > 0 && CodeCaves::maxHP > 0 && CodeCaves::maxMP > 0)
+	{
+		static int lengthOfBars = 150;
+
+		this->HPForeground->Width = (CodeCaves::hpPercent / 100) * lengthOfBars;
+		this->MPForeground->Width = (CodeCaves::mpPercent / 100) * lengthOfBars;
+		this->EXPForeground->Width = (CodeCaves::expPercent / 100) * lengthOfBars;
 	}
 }
 #pragma endregion
@@ -825,6 +858,14 @@ void MainForm::cbFastLootItems_CheckedChanged(Object^  sender, EventArgs^  e) {
 		WriteMemory(fastLootItemsAddr, 2, 0x75, 0x36); //jne 00485C39
 }
 
+//Item Vac
+void MainForm::cbItemVac_CheckedChanged(Object^  sender, EventArgs^  e) {
+	if (this->cbItemVac->Checked)
+		Jump(itemVacAddr, CodeCaves::ItemVacHook, 2);
+	else
+		WriteMemory(itemVacAddr, 7, 0x50, 0xFF, 0x75, 0xDC, 0x8D, 0x45, 0xCC);
+}
+
 //No Mob Reaction (CMob::AddDamageInfo())
 void MainForm::cbNoMobReaction_CheckedChanged(Object^  sender, EventArgs^  e) {
 	if (this->cbNoMobReaction->Checked)
@@ -936,6 +977,14 @@ void MainForm::cbNoBlueBoxes_CheckedChanged(Object^  sender, EventArgs^  e) {
 		WriteMemory(noBlueBoxesAddr, 5, 0xC3, 0x90, 0x90, 0x90, 0x90); //ret; nop; nop; nop; nop;
 	else
 		WriteMemory(noBlueBoxesAddr, 5, 0xB8, 0x92, 0x21, 0xAE, 0x00); //mov eax,00AE2192
+}
+
+//No Walk Frictionless Slide
+void MainForm::cbNoWalkFricSlide_CheckedChanged(Object^  sender, EventArgs^  e) {
+	if (this->cbNoWalkFricSlide->Checked)
+		WriteMemory(frictionlessSlideAddr, 2, 0x75, 0x05); //jne
+	else
+		WriteMemory(frictionlessSlideAddr, 2, 0x74, 0x05); //je
 }
 #pragma endregion
 
@@ -1260,11 +1309,44 @@ void MainForm::cbZzVac_CheckedChanged(Object^  sender, EventArgs^  e) {
 	}
 }
 
-void MainForm::cbItemVac_CheckedChanged(Object^  sender, EventArgs^  e) {
-	if (this->cbItemVac->Checked)
-		Jump(itemVacAddr, CodeCaves::ItemVacHook, 2);
+//Vac Force Right
+void MainForm::cbVacForceRight_CheckedChanged(Object^  sender, EventArgs^  e) {
+	if (this->cbVacForceRight->Checked)	
+		WriteMemory(vacForceRightAddr, 2, 0x76, 0x18); //jna		
 	else
-		WriteMemory(itemVacAddr, 7, 0x50, 0xFF, 0x75, 0xDC, 0x8D, 0x45, 0xCC);
+		WriteMemory(vacForceRightAddr, 2, 0x73, 0x18); //jae
+}
+
+//Vac Right
+void MainForm::cbVacRight_CheckedChanged(Object^  sender, EventArgs^  e) {
+	if (this->cbVacRight->Checked)
+		WriteMemory(vacRightAddr, 2, 0x0F, 0x84); //je		
+	else
+		WriteMemory(vacRightAddr, 2, 0x0F, 0x86); //jbe
+}
+
+//Vac Left
+void MainForm::cbVacLeft_CheckedChanged(Object^  sender, EventArgs^  e) {
+	if (this->cbVacLeft->Checked)
+		WriteMemory(vacLeftAddr, 2, 0x74, 0x66); //je		
+	else
+		WriteMemory(vacLeftAddr, 2, 0x73, 0x66); //jae
+}
+
+//Vac Jump Right
+void MainForm::cbVacJumpRight_CheckedChanged(Object^  sender, EventArgs^  e) {
+	if (this->cbVacJumpRight->Checked)
+		WriteMemory(vacJumpRightAddr, 2, 0x74, 0x72); //je		
+	else
+		WriteMemory(vacJumpRightAddr, 2, 0x76, 0x72); //jna
+}
+
+//Vac Jump Left
+void MainForm::cbVacJumpLeft_CheckedChanged(Object^  sender, EventArgs^  e) {
+	if (this->cbVacJumpLeft->Checked)
+		WriteMemory(vacJumpLeftAddr, 2, 0x74, 0x66); //je		
+	else
+		WriteMemory(vacJumpLeftAddr, 2, 0x73, 0x66); //jae
 }
 #pragma endregion
 

@@ -109,11 +109,8 @@ namespace Timelapse {
 	private: System::Windows::Forms::TabPage^  tabPage8;
 	private: System::Windows::Forms::TabPage^  tabPage9;
 	private: System::Windows::Forms::Label^  lbInactive;
-	private: System::Windows::Forms::Panel^  panel10;
 	private: System::Windows::Forms::CheckBox^  cbMissGodmode;
 	private: System::Windows::Forms::CheckBox^  cbBlinkGodmode;
-	private: System::Windows::Forms::Panel^  panel12;
-	private: System::Windows::Forms::CheckBox^  cbItemVac;
 	private: System::Windows::Forms::CheckBox^  cbNoBreath;
 	private: System::Windows::Forms::CheckBox^  cbSpeedAttack;
 	private: System::Windows::Forms::CheckBox^  cbFullAccuracy;
@@ -122,7 +119,6 @@ namespace Timelapse {
 	private: System::Windows::Forms::CheckBox^  cbUnlimitedAttack;
 	private: System::Windows::Forms::CheckBox^  cbFastLootItems;
 	private: System::Windows::Forms::CheckBox^  cbInstantDropItems;
-	private: System::Windows::Forms::Panel^  panel11;
 	private: System::Windows::Forms::CheckBox^  cbMouseFly;
 	private: System::Windows::Forms::Label^  label49;
 	private: System::Windows::Forms::Label^  label50;
@@ -274,7 +270,7 @@ namespace Timelapse {
 	private: System::Windows::Forms::Label^  label32;
 	private: System::Windows::Forms::TextBox^  tbAPLevel;
 	private: System::Windows::Forms::CheckBox^  cbAP;
-	private: System::Windows::Forms::Panel^  panel25;
+
 	public: System::Windows::Forms::CheckBox^  cbNoMapTiles;
 	private:
 
@@ -284,14 +280,13 @@ namespace Timelapse {
 
 	private: System::Windows::Forms::CheckBox^  cbInstantLootItems;
 	private: System::Windows::Forms::CheckBox^  cbJumpDownAnyTile;
-	private: System::Windows::Forms::Panel^  panel24;
+
 	private: System::Windows::Forms::CheckBox^  cbMobFreeze;
 	private: System::Windows::Forms::CheckBox^  cbMapSpeedUp;
 	private: System::Windows::Forms::CheckBox^  cbMobDisarm;
 	private: System::Windows::Forms::CheckBox^  cbNoMobReaction;
 	private: System::Windows::Forms::CheckBox^  cbNoPlayerKnockback;
 	private: System::Windows::Forms::CheckBox^  cbNoMobKnockback;
-	private: System::Windows::Forms::Panel^  panel23;
 	private: System::Windows::Forms::CheckBox^  cbNoMobDeathEffect;
 	public: System::Windows::Forms::CheckBox^  cbNoMapFadeEffect;
 	public: System::Windows::Forms::CheckBox^  cbNoMapBackground;
@@ -412,7 +407,7 @@ namespace Timelapse {
 	private: System::Windows::Forms::Label^  label87;
 	private: System::Windows::Forms::CheckBox^  cbUEMI;
 	private: System::Windows::Forms::ColumnHeader^  columnHeader6;
-	private: System::Windows::Forms::Panel^  panel28;
+
 	private: System::Windows::Forms::Panel^  panel17;
 	private: System::Windows::Forms::CheckBox^  checkBox3;
 	private: System::Windows::Forms::Button^  bSendMount;
@@ -457,6 +452,46 @@ namespace Timelapse {
 	public: System::Windows::Forms::TextBox^  tbAttackAnimDelay;
 	private:
 	private: System::Windows::Forms::CheckBox^  cbAttackAnimDelay;
+private: System::Windows::Forms::PictureBox^  MPForeground;
+
+private: System::Windows::Forms::PictureBox^  HPForeground;
+private: System::Windows::Forms::PictureBox^  EXPForeground;
+
+private: System::Windows::Forms::GroupBox^  gbMobHacks;
+private: System::Windows::Forms::GroupBox^  gbCharacterHacks;
+private: System::Windows::Forms::GroupBox^  gbOtherHacks;
+
+private: System::Windows::Forms::GroupBox^  gbLootHacks;
+private: System::Windows::Forms::GroupBox^  gbMapHacks;
+private: System::Windows::Forms::CheckBox^  cbItemVac;
+private: System::Windows::Forms::CheckBox^  cbVacLeft;
+private: System::Windows::Forms::CheckBox^  cbVacRight;
+private: System::Windows::Forms::GroupBox^  gbFullMapVacs;
+private: System::Windows::Forms::CheckBox^  cbVacJumpLeft;
+private: System::Windows::Forms::CheckBox^  cbVacForceRight;
+private: System::Windows::Forms::CheckBox^  cbVacJumpRight;
+private: System::Windows::Forms::CheckBox^  checkBox5;
+private: System::Windows::Forms::GroupBox^  gbPartialMapVacs;
+private: System::Windows::Forms::CheckBox^  checkBox4;
+private: System::Windows::Forms::Label^  lbLeftWallPos;
+private: System::Windows::Forms::Label^  lbMapLeftWall;
+private: System::Windows::Forms::Label^  lbBottomWall;
+
+private: System::Windows::Forms::Label^  lbTopWall;
+
+
+private: System::Windows::Forms::Label^  lbMapRightWall;
+private: System::Windows::Forms::Label^  lbBottomWallPos;
+private: System::Windows::Forms::Label^  lbTopWallPos;
+private: System::Windows::Forms::Label^  lbRightWallPos;
+private: System::Windows::Forms::Label^  lbCharFootholdID;
+
+private: System::Windows::Forms::Label^  lbCharAnimID;
+
+private: System::Windows::Forms::Label^  lbCharFoothold;
+private: System::Windows::Forms::Label^  lbCharAnim;
+private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
+
 	public:
 
 
@@ -497,10 +532,29 @@ namespace Timelapse {
 			this->pictureBox2 = (gcnew System::Windows::Forms::PictureBox());
 			this->pnlFull = (gcnew System::Windows::Forms::Panel());
 			this->pnlMiddle = (gcnew System::Windows::Forms::Panel());
+			this->lbCharFootholdID = (gcnew System::Windows::Forms::Label());
+			this->lbCharAnimID = (gcnew System::Windows::Forms::Label());
+			this->lbCharFoothold = (gcnew System::Windows::Forms::Label());
+			this->lbCharAnim = (gcnew System::Windows::Forms::Label());
+			this->lbBottomWallPos = (gcnew System::Windows::Forms::Label());
+			this->lbTopWallPos = (gcnew System::Windows::Forms::Label());
+			this->lbRightWallPos = (gcnew System::Windows::Forms::Label());
+			this->lbBottomWall = (gcnew System::Windows::Forms::Label());
+			this->lbTopWall = (gcnew System::Windows::Forms::Label());
+			this->lbMapRightWall = (gcnew System::Windows::Forms::Label());
+			this->lbLeftWallPos = (gcnew System::Windows::Forms::Label());
+			this->lbMapLeftWall = (gcnew System::Windows::Forms::Label());
+			this->EXPForeground = (gcnew System::Windows::Forms::PictureBox());
+			this->lbMapName = (gcnew System::Windows::Forms::Label());
+			this->MPForeground = (gcnew System::Windows::Forms::PictureBox());
+			this->label21 = (gcnew System::Windows::Forms::Label());
+			this->label22 = (gcnew System::Windows::Forms::Label());
+			this->lbThreadID = (gcnew System::Windows::Forms::Label());
+			this->lbDateTime = (gcnew System::Windows::Forms::Label());
+			this->HPForeground = (gcnew System::Windows::Forms::PictureBox());
 			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->lbInactive = (gcnew System::Windows::Forms::Label());
 			this->lbActive = (gcnew System::Windows::Forms::Label());
-			this->lbThreadID = (gcnew System::Windows::Forms::Label());
 			this->lbNPCCount = (gcnew System::Windows::Forms::Label());
 			this->lbPortalCount = (gcnew System::Windows::Forms::Label());
 			this->lbItemCount = (gcnew System::Windows::Forms::Label());
@@ -524,7 +578,6 @@ namespace Timelapse {
 			this->label25 = (gcnew System::Windows::Forms::Label());
 			this->label24 = (gcnew System::Windows::Forms::Label());
 			this->label23 = (gcnew System::Windows::Forms::Label());
-			this->label22 = (gcnew System::Windows::Forms::Label());
 			this->label20 = (gcnew System::Windows::Forms::Label());
 			this->label19 = (gcnew System::Windows::Forms::Label());
 			this->label18 = (gcnew System::Windows::Forms::Label());
@@ -638,51 +691,51 @@ namespace Timelapse {
 			this->cbHP = (gcnew System::Windows::Forms::CheckBox());
 			this->cbMP = (gcnew System::Windows::Forms::CheckBox());
 			this->tabPage5 = (gcnew System::Windows::Forms::TabPage());
-			this->tbAttackAnimDelay = (gcnew System::Windows::Forms::TextBox());
-			this->panel12 = (gcnew System::Windows::Forms::Panel());
+			this->gbOtherHacks = (gcnew System::Windows::Forms::GroupBox());
+			this->label49 = (gcnew System::Windows::Forms::Label());
+			this->tbMouseTeleport = (gcnew System::Windows::Forms::TextBox());
+			this->cbSwimInAir = (gcnew System::Windows::Forms::CheckBox());
+			this->cbMouseFly = (gcnew System::Windows::Forms::CheckBox());
+			this->label50 = (gcnew System::Windows::Forms::Label());
+			this->tbClickTeleport = (gcnew System::Windows::Forms::TextBox());
+			this->cbClickTeleport = (gcnew System::Windows::Forms::CheckBox());
+			this->cbMouseTeleport = (gcnew System::Windows::Forms::CheckBox());
+			this->cbJumpDownAnyTile = (gcnew System::Windows::Forms::CheckBox());
+			this->cbNoPlayerKnockback = (gcnew System::Windows::Forms::CheckBox());
+			this->gbLootHacks = (gcnew System::Windows::Forms::GroupBox());
+			this->cbItemVac = (gcnew System::Windows::Forms::CheckBox());
 			this->cbFastLootItems = (gcnew System::Windows::Forms::CheckBox());
 			this->cbInstantDropItems = (gcnew System::Windows::Forms::CheckBox());
 			this->cbInstantLootItems = (gcnew System::Windows::Forms::CheckBox());
-			this->panel25 = (gcnew System::Windows::Forms::Panel());
-			this->cbNoBlueBoxes = (gcnew System::Windows::Forms::CheckBox());
-			this->cbNoMapTiles = (gcnew System::Windows::Forms::CheckBox());
-			this->cbMapSpeedUp = (gcnew System::Windows::Forms::CheckBox());
-			this->cbNoMapObjects = (gcnew System::Windows::Forms::CheckBox());
+			this->gbMapHacks = (gcnew System::Windows::Forms::GroupBox());
 			this->cbNoMapBackground = (gcnew System::Windows::Forms::CheckBox());
-			this->cbNoMapFadeEffect = (gcnew System::Windows::Forms::CheckBox());
+			this->cbNoBlueBoxes = (gcnew System::Windows::Forms::CheckBox());
 			this->cbInfiniteChat = (gcnew System::Windows::Forms::CheckBox());
-			this->panel24 = (gcnew System::Windows::Forms::Panel());
+			this->cbMapSpeedUp = (gcnew System::Windows::Forms::CheckBox());
+			this->cbNoMapTiles = (gcnew System::Windows::Forms::CheckBox());
+			this->cbNoMapFadeEffect = (gcnew System::Windows::Forms::CheckBox());
+			this->cbNoMapObjects = (gcnew System::Windows::Forms::CheckBox());
+			this->gbMobHacks = (gcnew System::Windows::Forms::GroupBox());
 			this->cbMobAutoAggro = (gcnew System::Windows::Forms::CheckBox());
-			this->cbMobFreeze = (gcnew System::Windows::Forms::CheckBox());
-			this->cbMobDisarm = (gcnew System::Windows::Forms::CheckBox());
 			this->cbNoMobReaction = (gcnew System::Windows::Forms::CheckBox());
+			this->cbMobDisarm = (gcnew System::Windows::Forms::CheckBox());
+			this->cbMobFreeze = (gcnew System::Windows::Forms::CheckBox());
 			this->cbNoMobDeathEffect = (gcnew System::Windows::Forms::CheckBox());
 			this->cbNoMobKnockback = (gcnew System::Windows::Forms::CheckBox());
-			this->panel23 = (gcnew System::Windows::Forms::Panel());
+			this->gbCharacterHacks = (gcnew System::Windows::Forms::GroupBox());
 			this->cbAttackAnimDelay = (gcnew System::Windows::Forms::CheckBox());
-			this->cbNoPlayerNameTag = (gcnew System::Windows::Forms::CheckBox());
-			this->cbNoAttackDelay = (gcnew System::Windows::Forms::CheckBox());
-			this->cbNoBreath = (gcnew System::Windows::Forms::CheckBox());
-			this->cbNoSkillEffects = (gcnew System::Windows::Forms::CheckBox());
-			this->cbFullAccuracy = (gcnew System::Windows::Forms::CheckBox());
-			this->cbNoPlayerKnockback = (gcnew System::Windows::Forms::CheckBox());
-			this->cbSpeedAttack = (gcnew System::Windows::Forms::CheckBox());
-			this->cbJumpDownAnyTile = (gcnew System::Windows::Forms::CheckBox());
-			this->cbNoPlayerDeath = (gcnew System::Windows::Forms::CheckBox());
-			this->cbUnlimitedAttack = (gcnew System::Windows::Forms::CheckBox());
-			this->panel11 = (gcnew System::Windows::Forms::Panel());
-			this->cbMouseFly = (gcnew System::Windows::Forms::CheckBox());
-			this->label49 = (gcnew System::Windows::Forms::Label());
-			this->label50 = (gcnew System::Windows::Forms::Label());
-			this->tbMouseTeleport = (gcnew System::Windows::Forms::TextBox());
-			this->tbClickTeleport = (gcnew System::Windows::Forms::TextBox());
-			this->cbSwimInAir = (gcnew System::Windows::Forms::CheckBox());
-			this->cbClickTeleport = (gcnew System::Windows::Forms::CheckBox());
-			this->cbMouseTeleport = (gcnew System::Windows::Forms::CheckBox());
-			this->panel10 = (gcnew System::Windows::Forms::Panel());
+			this->tbAttackAnimDelay = (gcnew System::Windows::Forms::TextBox());
 			this->cbFullGodmode = (gcnew System::Windows::Forms::CheckBox());
-			this->cbMissGodmode = (gcnew System::Windows::Forms::CheckBox());
+			this->cbNoPlayerNameTag = (gcnew System::Windows::Forms::CheckBox());
 			this->cbBlinkGodmode = (gcnew System::Windows::Forms::CheckBox());
+			this->cbNoAttackDelay = (gcnew System::Windows::Forms::CheckBox());
+			this->cbMissGodmode = (gcnew System::Windows::Forms::CheckBox());
+			this->cbNoSkillEffects = (gcnew System::Windows::Forms::CheckBox());
+			this->cbNoBreath = (gcnew System::Windows::Forms::CheckBox());
+			this->cbNoPlayerDeath = (gcnew System::Windows::Forms::CheckBox());
+			this->cbSpeedAttack = (gcnew System::Windows::Forms::CheckBox());
+			this->cbUnlimitedAttack = (gcnew System::Windows::Forms::CheckBox());
+			this->cbFullAccuracy = (gcnew System::Windows::Forms::CheckBox());
 			this->tabPage20 = (gcnew System::Windows::Forms::TabPage());
 			this->label42 = (gcnew System::Windows::Forms::Label());
 			this->panel27 = (gcnew System::Windows::Forms::Panel());
@@ -719,10 +772,17 @@ namespace Timelapse {
 			this->label63 = (gcnew System::Windows::Forms::Label());
 			this->tbTeleportY = (gcnew System::Windows::Forms::TextBox());
 			this->tabPage6 = (gcnew System::Windows::Forms::TabPage());
-			this->panel28 = (gcnew System::Windows::Forms::Panel());
-			this->cbZzVac = (gcnew System::Windows::Forms::CheckBox());
+			this->gbFullMapVacs = (gcnew System::Windows::Forms::GroupBox());
+			this->cbVacJumpLeft = (gcnew System::Windows::Forms::CheckBox());
+			this->cbVacForceRight = (gcnew System::Windows::Forms::CheckBox());
+			this->cbVacJumpRight = (gcnew System::Windows::Forms::CheckBox());
+			this->checkBox5 = (gcnew System::Windows::Forms::CheckBox());
+			this->cbVacLeft = (gcnew System::Windows::Forms::CheckBox());
+			this->cbVacRight = (gcnew System::Windows::Forms::CheckBox());
+			this->gbPartialMapVacs = (gcnew System::Windows::Forms::GroupBox());
+			this->checkBox4 = (gcnew System::Windows::Forms::CheckBox());
 			this->cbFullMapAttack = (gcnew System::Windows::Forms::CheckBox());
-			this->cbItemVac = (gcnew System::Windows::Forms::CheckBox());
+			this->cbZzVac = (gcnew System::Windows::Forms::CheckBox());
 			this->panel17 = (gcnew System::Windows::Forms::Panel());
 			this->checkBox3 = (gcnew System::Windows::Forms::CheckBox());
 			this->cbUEMI = (gcnew System::Windows::Forms::CheckBox());
@@ -867,18 +927,19 @@ namespace Timelapse {
 			this->columnHeader8 = (gcnew System::Windows::Forms::ColumnHeader());
 			this->tbMapRusherSearch = (gcnew System::Windows::Forms::TextBox());
 			this->label78 = (gcnew System::Windows::Forms::Label());
-			this->lbMapName = (gcnew System::Windows::Forms::Label());
-			this->lbDateTime = (gcnew System::Windows::Forms::Label());
-			this->label21 = (gcnew System::Windows::Forms::Label());
 			this->statusStrip1 = (gcnew System::Windows::Forms::StatusStrip());
 			this->btnClose = (gcnew System::Windows::Forms::Button());
 			this->btnMinimize = (gcnew System::Windows::Forms::Button());
 			this->GUITimer = (gcnew System::Windows::Forms::Timer(this->components));
 			this->AutoCCCSTimer = (gcnew System::Windows::Forms::Timer(this->components));
+			this->cbNoWalkFricSlide = (gcnew System::Windows::Forms::CheckBox());
 			this->menuStrip1->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->BeginInit();
 			this->pnlFull->SuspendLayout();
 			this->pnlMiddle->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->EXPForeground))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->MPForeground))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->HPForeground))->BeginInit();
 			this->tabControl1->SuspendLayout();
 			this->tabPage1->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
@@ -900,19 +961,19 @@ namespace Timelapse {
 			this->panel3->SuspendLayout();
 			this->panel2->SuspendLayout();
 			this->tabPage5->SuspendLayout();
-			this->panel12->SuspendLayout();
-			this->panel25->SuspendLayout();
-			this->panel24->SuspendLayout();
-			this->panel23->SuspendLayout();
-			this->panel11->SuspendLayout();
-			this->panel10->SuspendLayout();
+			this->gbOtherHacks->SuspendLayout();
+			this->gbLootHacks->SuspendLayout();
+			this->gbMapHacks->SuspendLayout();
+			this->gbMobHacks->SuspendLayout();
+			this->gbCharacterHacks->SuspendLayout();
 			this->tabPage20->SuspendLayout();
 			this->panel27->SuspendLayout();
 			this->panel1->SuspendLayout();
 			this->panel26->SuspendLayout();
 			this->panel18->SuspendLayout();
 			this->tabPage6->SuspendLayout();
-			this->panel28->SuspendLayout();
+			this->gbFullMapVacs->SuspendLayout();
+			this->gbPartialMapVacs->SuspendLayout();
 			this->panel17->SuspendLayout();
 			this->panel16->SuspendLayout();
 			this->panel19->SuspendLayout();
@@ -1044,7 +1105,7 @@ namespace Timelapse {
 				static_cast<System::Int32>(static_cast<System::Byte>(16)));
 			this->label1->Font = (gcnew System::Drawing::Font(L"Tahoma", 6.75F));
 			this->label1->ForeColor = System::Drawing::Color::Gray;
-			this->label1->Location = System::Drawing::Point(474, 2);
+			this->label1->Location = System::Drawing::Point(575, 5);
 			this->label1->Name = L"label1";
 			this->label1->Size = System::Drawing::Size(70, 22);
 			this->label1->TabIndex = 3;
@@ -1086,18 +1147,14 @@ namespace Timelapse {
 			this->pnlFull->BackColor = System::Drawing::Color::Transparent;
 			this->pnlFull->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 			this->pnlFull->Controls->Add(this->pnlMiddle);
-			this->pnlFull->Controls->Add(this->lbMapName);
-			this->pnlFull->Controls->Add(this->lbDateTime);
-			this->pnlFull->Controls->Add(this->label21);
 			this->pnlFull->Controls->Add(this->statusStrip1);
 			this->pnlFull->Controls->Add(this->btnClose);
 			this->pnlFull->Controls->Add(this->btnMinimize);
-			this->pnlFull->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->pnlFull->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
 			this->pnlFull->ForeColor = System::Drawing::Color::White;
 			this->pnlFull->Location = System::Drawing::Point(0, 0);
 			this->pnlFull->Name = L"pnlFull";
-			this->pnlFull->Size = System::Drawing::Size(550, 450);
+			this->pnlFull->Size = System::Drawing::Size(659, 524);
 			this->pnlFull->TabIndex = 13;
 			this->pnlFull->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::pnlFull_MouseDown);
 			this->pnlFull->MouseMove += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::pnlFull_MouseMove);
@@ -1108,10 +1165,29 @@ namespace Timelapse {
 			this->pnlMiddle->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(19)), static_cast<System::Int32>(static_cast<System::Byte>(19)),
 				static_cast<System::Int32>(static_cast<System::Byte>(19)));
 			this->pnlMiddle->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->pnlMiddle->Controls->Add(this->lbCharFootholdID);
+			this->pnlMiddle->Controls->Add(this->lbCharAnimID);
+			this->pnlMiddle->Controls->Add(this->lbCharFoothold);
+			this->pnlMiddle->Controls->Add(this->lbCharAnim);
+			this->pnlMiddle->Controls->Add(this->lbBottomWallPos);
+			this->pnlMiddle->Controls->Add(this->lbTopWallPos);
+			this->pnlMiddle->Controls->Add(this->lbRightWallPos);
+			this->pnlMiddle->Controls->Add(this->lbBottomWall);
+			this->pnlMiddle->Controls->Add(this->lbTopWall);
+			this->pnlMiddle->Controls->Add(this->lbMapRightWall);
+			this->pnlMiddle->Controls->Add(this->lbLeftWallPos);
+			this->pnlMiddle->Controls->Add(this->lbMapLeftWall);
+			this->pnlMiddle->Controls->Add(this->EXPForeground);
+			this->pnlMiddle->Controls->Add(this->lbMapName);
+			this->pnlMiddle->Controls->Add(this->MPForeground);
+			this->pnlMiddle->Controls->Add(this->label21);
+			this->pnlMiddle->Controls->Add(this->label22);
+			this->pnlMiddle->Controls->Add(this->lbThreadID);
+			this->pnlMiddle->Controls->Add(this->lbDateTime);
+			this->pnlMiddle->Controls->Add(this->HPForeground);
 			this->pnlMiddle->Controls->Add(this->button1);
 			this->pnlMiddle->Controls->Add(this->lbInactive);
 			this->pnlMiddle->Controls->Add(this->lbActive);
-			this->pnlMiddle->Controls->Add(this->lbThreadID);
 			this->pnlMiddle->Controls->Add(this->lbNPCCount);
 			this->pnlMiddle->Controls->Add(this->lbPortalCount);
 			this->pnlMiddle->Controls->Add(this->lbItemCount);
@@ -1135,7 +1211,6 @@ namespace Timelapse {
 			this->pnlMiddle->Controls->Add(this->label25);
 			this->pnlMiddle->Controls->Add(this->label24);
 			this->pnlMiddle->Controls->Add(this->label23);
-			this->pnlMiddle->Controls->Add(this->label22);
 			this->pnlMiddle->Controls->Add(this->label20);
 			this->pnlMiddle->Controls->Add(this->label19);
 			this->pnlMiddle->Controls->Add(this->label18);
@@ -1159,17 +1234,247 @@ namespace Timelapse {
 			this->pnlMiddle->Controls->Add(this->tabControl1);
 			this->pnlMiddle->Location = System::Drawing::Point(0, 28);
 			this->pnlMiddle->Name = L"pnlMiddle";
-			this->pnlMiddle->Size = System::Drawing::Size(549, 395);
+			this->pnlMiddle->Size = System::Drawing::Size(658, 452);
 			this->pnlMiddle->TabIndex = 3;
 			this->pnlMiddle->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::pnlFull_MouseDown);
 			this->pnlMiddle->MouseMove += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::pnlFull_MouseMove);
 			this->pnlMiddle->MouseUp += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::pnlFull_MouseUp);
 			// 
+			// lbCharFootholdID
+			// 
+			this->lbCharFootholdID->AutoSize = true;
+			this->lbCharFootholdID->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
+			this->lbCharFootholdID->ForeColor = System::Drawing::Color::LightPink;
+			this->lbCharFootholdID->Location = System::Drawing::Point(510, 195);
+			this->lbCharFootholdID->Name = L"lbCharFootholdID";
+			this->lbCharFootholdID->Size = System::Drawing::Size(19, 13);
+			this->lbCharFootholdID->TabIndex = 66;
+			this->lbCharFootholdID->Text = L"00";
+			// 
+			// lbCharAnimID
+			// 
+			this->lbCharAnimID->AutoSize = true;
+			this->lbCharAnimID->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
+			this->lbCharAnimID->ForeColor = System::Drawing::Color::LightPink;
+			this->lbCharAnimID->Location = System::Drawing::Point(515, 180);
+			this->lbCharAnimID->Name = L"lbCharAnimID";
+			this->lbCharAnimID->Size = System::Drawing::Size(19, 13);
+			this->lbCharAnimID->TabIndex = 65;
+			this->lbCharAnimID->Text = L"00";
+			// 
+			// lbCharFoothold
+			// 
+			this->lbCharFoothold->AutoSize = true;
+			this->lbCharFoothold->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
+			this->lbCharFoothold->Location = System::Drawing::Point(430, 195);
+			this->lbCharFoothold->Name = L"lbCharFoothold";
+			this->lbCharFoothold->Size = System::Drawing::Size(79, 13);
+			this->lbCharFoothold->TabIndex = 64;
+			this->lbCharFoothold->Text = L"Char Foothold:";
+			// 
+			// lbCharAnim
+			// 
+			this->lbCharAnim->AutoSize = true;
+			this->lbCharAnim->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
+			this->lbCharAnim->Location = System::Drawing::Point(430, 180);
+			this->lbCharAnim->Name = L"lbCharAnim";
+			this->lbCharAnim->Size = System::Drawing::Size(84, 13);
+			this->lbCharAnim->TabIndex = 63;
+			this->lbCharAnim->Text = L"Char Animation:";
+			// 
+			// lbBottomWallPos
+			// 
+			this->lbBottomWallPos->AutoSize = true;
+			this->lbBottomWallPos->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
+			this->lbBottomWallPos->ForeColor = System::Drawing::Color::MediumPurple;
+			this->lbBottomWallPos->Location = System::Drawing::Point(517, 313);
+			this->lbBottomWallPos->Name = L"lbBottomWallPos";
+			this->lbBottomWallPos->Size = System::Drawing::Size(31, 13);
+			this->lbBottomWallPos->TabIndex = 62;
+			this->lbBottomWallPos->Text = L"0000";
+			// 
+			// lbTopWallPos
+			// 
+			this->lbTopWallPos->AutoSize = true;
+			this->lbTopWallPos->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
+			this->lbTopWallPos->ForeColor = System::Drawing::Color::MediumPurple;
+			this->lbTopWallPos->Location = System::Drawing::Point(500, 298);
+			this->lbTopWallPos->Name = L"lbTopWallPos";
+			this->lbTopWallPos->Size = System::Drawing::Size(31, 13);
+			this->lbTopWallPos->TabIndex = 61;
+			this->lbTopWallPos->Text = L"0000";
+			// 
+			// lbRightWallPos
+			// 
+			this->lbRightWallPos->AutoSize = true;
+			this->lbRightWallPos->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
+			this->lbRightWallPos->ForeColor = System::Drawing::Color::MediumPurple;
+			this->lbRightWallPos->Location = System::Drawing::Point(508, 283);
+			this->lbRightWallPos->Name = L"lbRightWallPos";
+			this->lbRightWallPos->Size = System::Drawing::Size(31, 13);
+			this->lbRightWallPos->TabIndex = 60;
+			this->lbRightWallPos->Text = L"0000";
+			// 
+			// lbBottomWall
+			// 
+			this->lbBottomWall->AutoSize = true;
+			this->lbBottomWall->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
+			this->lbBottomWall->ForeColor = System::Drawing::Color::White;
+			this->lbBottomWall->Location = System::Drawing::Point(430, 313);
+			this->lbBottomWall->Name = L"lbBottomWall";
+			this->lbBottomWall->Size = System::Drawing::Size(88, 13);
+			this->lbBottomWall->TabIndex = 59;
+			this->lbBottomWall->Text = L"Map BottomWall:";
+			// 
+			// lbTopWall
+			// 
+			this->lbTopWall->AutoSize = true;
+			this->lbTopWall->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
+			this->lbTopWall->ForeColor = System::Drawing::Color::White;
+			this->lbTopWall->Location = System::Drawing::Point(430, 298);
+			this->lbTopWall->Name = L"lbTopWall";
+			this->lbTopWall->Size = System::Drawing::Size(72, 13);
+			this->lbTopWall->TabIndex = 58;
+			this->lbTopWall->Text = L"Map TopWall:";
+			// 
+			// lbMapRightWall
+			// 
+			this->lbMapRightWall->AutoSize = true;
+			this->lbMapRightWall->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
+			this->lbMapRightWall->ForeColor = System::Drawing::Color::White;
+			this->lbMapRightWall->Location = System::Drawing::Point(430, 283);
+			this->lbMapRightWall->Name = L"lbMapRightWall";
+			this->lbMapRightWall->Size = System::Drawing::Size(79, 13);
+			this->lbMapRightWall->TabIndex = 57;
+			this->lbMapRightWall->Text = L"Map RightWall:";
+			// 
+			// lbLeftWallPos
+			// 
+			this->lbLeftWallPos->AutoSize = true;
+			this->lbLeftWallPos->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
+			this->lbLeftWallPos->ForeColor = System::Drawing::Color::MediumPurple;
+			this->lbLeftWallPos->Location = System::Drawing::Point(500, 268);
+			this->lbLeftWallPos->Name = L"lbLeftWallPos";
+			this->lbLeftWallPos->Size = System::Drawing::Size(31, 13);
+			this->lbLeftWallPos->TabIndex = 56;
+			this->lbLeftWallPos->Text = L"0000";
+			// 
+			// lbMapLeftWall
+			// 
+			this->lbMapLeftWall->AutoSize = true;
+			this->lbMapLeftWall->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
+			this->lbMapLeftWall->ForeColor = System::Drawing::Color::White;
+			this->lbMapLeftWall->Location = System::Drawing::Point(430, 268);
+			this->lbMapLeftWall->Name = L"lbMapLeftWall";
+			this->lbMapLeftWall->Size = System::Drawing::Size(73, 13);
+			this->lbMapLeftWall->TabIndex = 55;
+			this->lbMapLeftWall->Text = L"Map LeftWall:";
+			// 
+			// EXPForeground
+			// 
+			this->EXPForeground->BackColor = System::Drawing::Color::GreenYellow;
+			this->EXPForeground->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->EXPForeground->Location = System::Drawing::Point(455, 115);
+			this->EXPForeground->Name = L"EXPForeground";
+			this->EXPForeground->Size = System::Drawing::Size(150, 13);
+			this->EXPForeground->TabIndex = 54;
+			this->EXPForeground->TabStop = false;
+			// 
+			// lbMapName
+			// 
+			this->lbMapName->AutoSize = true;
+			this->lbMapName->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
+			this->lbMapName->ForeColor = System::Drawing::Color::White;
+			this->lbMapName->Location = System::Drawing::Point(490, 253);
+			this->lbMapName->Name = L"lbMapName";
+			this->lbMapName->Size = System::Drawing::Size(55, 13);
+			this->lbMapName->TabIndex = 42;
+			this->lbMapName->Text = L"Waiting...";
+			this->lbMapName->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::pnlFull_MouseDown);
+			this->lbMapName->MouseMove += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::pnlFull_MouseMove);
+			this->lbMapName->MouseUp += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::pnlFull_MouseUp);
+			// 
+			// MPForeground
+			// 
+			this->MPForeground->BackColor = System::Drawing::Color::DodgerBlue;
+			this->MPForeground->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->MPForeground->Location = System::Drawing::Point(455, 100);
+			this->MPForeground->Name = L"MPForeground";
+			this->MPForeground->Size = System::Drawing::Size(150, 13);
+			this->MPForeground->TabIndex = 53;
+			this->MPForeground->TabStop = false;
+			// 
+			// label21
+			// 
+			this->label21->AutoSize = true;
+			this->label21->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
+			this->label21->ForeColor = System::Drawing::Color::White;
+			this->label21->Location = System::Drawing::Point(430, 253);
+			this->label21->Name = L"label21";
+			this->label21->Size = System::Drawing::Size(61, 13);
+			this->label21->TabIndex = 22;
+			this->label21->Text = L"Map Name:";
+			this->label21->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::pnlFull_MouseDown);
+			this->label21->MouseMove += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::pnlFull_MouseMove);
+			this->label21->MouseUp += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::pnlFull_MouseUp);
+			// 
+			// label22
+			// 
+			this->label22->AutoSize = true;
+			this->label22->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
+			this->label22->Location = System::Drawing::Point(543, 436);
+			this->label22->Name = L"label22";
+			this->label22->Size = System::Drawing::Size(62, 13);
+			this->label22->TabIndex = 23;
+			this->label22->Text = L"Thread ID: ";
+			this->label22->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::pnlFull_MouseDown);
+			this->label22->MouseMove += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::pnlFull_MouseMove);
+			this->label22->MouseUp += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::pnlFull_MouseUp);
+			// 
+			// lbThreadID
+			// 
+			this->lbThreadID->AutoSize = true;
+			this->lbThreadID->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
+			this->lbThreadID->ForeColor = System::Drawing::Color::SpringGreen;
+			this->lbThreadID->Location = System::Drawing::Point(602, 436);
+			this->lbThreadID->Name = L"lbThreadID";
+			this->lbThreadID->Size = System::Drawing::Size(43, 13);
+			this->lbThreadID->TabIndex = 48;
+			this->lbThreadID->Text = L"0x0000";
+			this->lbThreadID->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::pnlFull_MouseDown);
+			this->lbThreadID->MouseMove += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::pnlFull_MouseMove);
+			this->lbThreadID->MouseUp += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::pnlFull_MouseUp);
+			// 
+			// lbDateTime
+			// 
+			this->lbDateTime->AutoSize = true;
+			this->lbDateTime->BackColor = System::Drawing::Color::Transparent;
+			this->lbDateTime->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
+			this->lbDateTime->ForeColor = System::Drawing::Color::White;
+			this->lbDateTime->Location = System::Drawing::Point(525, 45);
+			this->lbDateTime->Name = L"lbDateTime";
+			this->lbDateTime->Size = System::Drawing::Size(128, 13);
+			this->lbDateTime->TabIndex = 41;
+			this->lbDateTime->Text = L"00/00/0000 00:00:00 AM";
+			this->lbDateTime->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::pnlFull_MouseDown);
+			this->lbDateTime->MouseMove += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::pnlFull_MouseMove);
+			this->lbDateTime->MouseUp += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::pnlFull_MouseUp);
+			// 
+			// HPForeground
+			// 
+			this->HPForeground->BackColor = System::Drawing::Color::DarkRed;
+			this->HPForeground->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->HPForeground->Location = System::Drawing::Point(455, 84);
+			this->HPForeground->Name = L"HPForeground";
+			this->HPForeground->Size = System::Drawing::Size(150, 13);
+			this->HPForeground->TabIndex = 52;
+			this->HPForeground->TabStop = false;
+			// 
 			// button1
 			// 
 			this->button1->FlatAppearance->BorderColor = System::Drawing::Color::Gray;
 			this->button1->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->button1->Location = System::Drawing::Point(408, 3);
+			this->button1->Location = System::Drawing::Point(430, 5);
 			this->button1->Name = L"button1";
 			this->button1->Size = System::Drawing::Size(56, 24);
 			this->button1->TabIndex = 51;
@@ -1182,7 +1487,7 @@ namespace Timelapse {
 			this->lbInactive->AutoSize = true;
 			this->lbInactive->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
 			this->lbInactive->ForeColor = System::Drawing::Color::Red;
-			this->lbInactive->Location = System::Drawing::Point(498, 24);
+			this->lbInactive->Location = System::Drawing::Point(510, 10);
 			this->lbInactive->Name = L"lbInactive";
 			this->lbInactive->RightToLeft = System::Windows::Forms::RightToLeft::No;
 			this->lbInactive->Size = System::Drawing::Size(46, 13);
@@ -1199,7 +1504,7 @@ namespace Timelapse {
 			this->lbActive->AutoSize = true;
 			this->lbActive->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
 			this->lbActive->ForeColor = System::Drawing::Color::Green;
-			this->lbActive->Location = System::Drawing::Point(507, 24);
+			this->lbActive->Location = System::Drawing::Point(510, 10);
 			this->lbActive->Name = L"lbActive";
 			this->lbActive->RightToLeft = System::Windows::Forms::RightToLeft::No;
 			this->lbActive->Size = System::Drawing::Size(37, 13);
@@ -1211,26 +1516,12 @@ namespace Timelapse {
 			this->lbActive->MouseMove += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::pnlFull_MouseMove);
 			this->lbActive->MouseUp += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::pnlFull_MouseUp);
 			// 
-			// lbThreadID
-			// 
-			this->lbThreadID->AutoSize = true;
-			this->lbThreadID->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
-			this->lbThreadID->ForeColor = System::Drawing::Color::SpringGreen;
-			this->lbThreadID->Location = System::Drawing::Point(468, 377);
-			this->lbThreadID->Name = L"lbThreadID";
-			this->lbThreadID->Size = System::Drawing::Size(43, 13);
-			this->lbThreadID->TabIndex = 48;
-			this->lbThreadID->Text = L"0x0000";
-			this->lbThreadID->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::pnlFull_MouseDown);
-			this->lbThreadID->MouseMove += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::pnlFull_MouseMove);
-			this->lbThreadID->MouseUp += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::pnlFull_MouseUp);
-			// 
 			// lbNPCCount
 			// 
 			this->lbNPCCount->AutoSize = true;
 			this->lbNPCCount->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
 			this->lbNPCCount->ForeColor = System::Drawing::Color::PaleTurquoise;
-			this->lbNPCCount->Location = System::Drawing::Point(485, 358);
+			this->lbNPCCount->Location = System::Drawing::Point(510, 436);
 			this->lbNPCCount->Name = L"lbNPCCount";
 			this->lbNPCCount->Size = System::Drawing::Size(25, 13);
 			this->lbNPCCount->TabIndex = 47;
@@ -1244,7 +1535,7 @@ namespace Timelapse {
 			this->lbPortalCount->AutoSize = true;
 			this->lbPortalCount->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
 			this->lbPortalCount->ForeColor = System::Drawing::Color::PaleTurquoise;
-			this->lbPortalCount->Location = System::Drawing::Point(485, 343);
+			this->lbPortalCount->Location = System::Drawing::Point(510, 421);
 			this->lbPortalCount->Name = L"lbPortalCount";
 			this->lbPortalCount->Size = System::Drawing::Size(25, 13);
 			this->lbPortalCount->TabIndex = 46;
@@ -1258,7 +1549,7 @@ namespace Timelapse {
 			this->lbItemCount->AutoSize = true;
 			this->lbItemCount->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
 			this->lbItemCount->ForeColor = System::Drawing::Color::PaleTurquoise;
-			this->lbItemCount->Location = System::Drawing::Point(485, 328);
+			this->lbItemCount->Location = System::Drawing::Point(510, 406);
 			this->lbItemCount->Name = L"lbItemCount";
 			this->lbItemCount->Size = System::Drawing::Size(25, 13);
 			this->lbItemCount->TabIndex = 45;
@@ -1272,7 +1563,7 @@ namespace Timelapse {
 			this->lbMobCount->AutoSize = true;
 			this->lbMobCount->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
 			this->lbMobCount->ForeColor = System::Drawing::Color::PaleTurquoise;
-			this->lbMobCount->Location = System::Drawing::Point(485, 313);
+			this->lbMobCount->Location = System::Drawing::Point(510, 391);
 			this->lbMobCount->Name = L"lbMobCount";
 			this->lbMobCount->Size = System::Drawing::Size(25, 13);
 			this->lbMobCount->TabIndex = 44;
@@ -1286,7 +1577,7 @@ namespace Timelapse {
 			this->lbPeopleCount->AutoSize = true;
 			this->lbPeopleCount->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
 			this->lbPeopleCount->ForeColor = System::Drawing::Color::PaleTurquoise;
-			this->lbPeopleCount->Location = System::Drawing::Point(485, 298);
+			this->lbPeopleCount->Location = System::Drawing::Point(510, 376);
 			this->lbPeopleCount->Name = L"lbPeopleCount";
 			this->lbPeopleCount->Size = System::Drawing::Size(25, 13);
 			this->lbPeopleCount->TabIndex = 43;
@@ -1300,7 +1591,7 @@ namespace Timelapse {
 			this->lbBreathCount->AutoSize = true;
 			this->lbBreathCount->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
 			this->lbBreathCount->ForeColor = System::Drawing::Color::PaleTurquoise;
-			this->lbBreathCount->Location = System::Drawing::Point(485, 283);
+			this->lbBreathCount->Location = System::Drawing::Point(510, 361);
 			this->lbBreathCount->Name = L"lbBreathCount";
 			this->lbBreathCount->Size = System::Drawing::Size(25, 13);
 			this->lbBreathCount->TabIndex = 42;
@@ -1314,7 +1605,7 @@ namespace Timelapse {
 			this->lbBuffCount->AutoSize = true;
 			this->lbBuffCount->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
 			this->lbBuffCount->ForeColor = System::Drawing::Color::PaleTurquoise;
-			this->lbBuffCount->Location = System::Drawing::Point(485, 268);
+			this->lbBuffCount->Location = System::Drawing::Point(510, 346);
 			this->lbBuffCount->Name = L"lbBuffCount";
 			this->lbBuffCount->Size = System::Drawing::Size(25, 13);
 			this->lbBuffCount->TabIndex = 41;
@@ -1328,7 +1619,7 @@ namespace Timelapse {
 			this->lbAttackCount->AutoSize = true;
 			this->lbAttackCount->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
 			this->lbAttackCount->ForeColor = System::Drawing::Color::PaleTurquoise;
-			this->lbAttackCount->Location = System::Drawing::Point(485, 253);
+			this->lbAttackCount->Location = System::Drawing::Point(510, 331);
 			this->lbAttackCount->Name = L"lbAttackCount";
 			this->lbAttackCount->Size = System::Drawing::Size(25, 13);
 			this->lbAttackCount->TabIndex = 40;
@@ -1342,7 +1633,7 @@ namespace Timelapse {
 			this->lbMousePos->AutoSize = true;
 			this->lbMousePos->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
 			this->lbMousePos->ForeColor = System::Drawing::Color::LightGreen;
-			this->lbMousePos->Location = System::Drawing::Point(470, 233);
+			this->lbMousePos->Location = System::Drawing::Point(495, 165);
 			this->lbMousePos->Name = L"lbMousePos";
 			this->lbMousePos->Size = System::Drawing::Size(70, 13);
 			this->lbMousePos->TabIndex = 39;
@@ -1356,7 +1647,7 @@ namespace Timelapse {
 			this->lbCharPos->AutoSize = true;
 			this->lbCharPos->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
 			this->lbCharPos->ForeColor = System::Drawing::Color::Khaki;
-			this->lbCharPos->Location = System::Drawing::Point(459, 218);
+			this->lbCharPos->Location = System::Drawing::Point(485, 150);
 			this->lbCharPos->Name = L"lbCharPos";
 			this->lbCharPos->Size = System::Drawing::Size(70, 13);
 			this->lbCharPos->TabIndex = 38;
@@ -1370,7 +1661,7 @@ namespace Timelapse {
 			this->lbMapID->AutoSize = true;
 			this->lbMapID->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
 			this->lbMapID->ForeColor = System::Drawing::Color::MediumPurple;
-			this->lbMapID->Location = System::Drawing::Point(452, 203);
+			this->lbMapID->Location = System::Drawing::Point(475, 238);
 			this->lbMapID->Name = L"lbMapID";
 			this->lbMapID->Size = System::Drawing::Size(61, 13);
 			this->lbMapID->TabIndex = 37;
@@ -1384,7 +1675,7 @@ namespace Timelapse {
 			this->lbChannel->AutoSize = true;
 			this->lbChannel->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
 			this->lbChannel->ForeColor = System::Drawing::Color::LightPink;
-			this->lbChannel->Location = System::Drawing::Point(457, 188);
+			this->lbChannel->Location = System::Drawing::Point(574, 223);
 			this->lbChannel->Name = L"lbChannel";
 			this->lbChannel->Size = System::Drawing::Size(19, 13);
 			this->lbChannel->TabIndex = 35;
@@ -1398,7 +1689,7 @@ namespace Timelapse {
 			this->lbWorld->AutoSize = true;
 			this->lbWorld->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
 			this->lbWorld->ForeColor = System::Drawing::Color::LightCoral;
-			this->lbWorld->Location = System::Drawing::Point(443, 173);
+			this->lbWorld->Location = System::Drawing::Point(467, 223);
 			this->lbWorld->Name = L"lbWorld";
 			this->lbWorld->Size = System::Drawing::Size(24, 13);
 			this->lbWorld->TabIndex = 34;
@@ -1413,7 +1704,7 @@ namespace Timelapse {
 			this->lbMesos->AutoSize = true;
 			this->lbMesos->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
 			this->lbMesos->ForeColor = System::Drawing::Color::Yellow;
-			this->lbMesos->Location = System::Drawing::Point(447, 153);
+			this->lbMesos->Location = System::Drawing::Point(530, 130);
 			this->lbMesos->Name = L"lbMesos";
 			this->lbMesos->Size = System::Drawing::Size(13, 13);
 			this->lbMesos->TabIndex = 33;
@@ -1426,8 +1717,8 @@ namespace Timelapse {
 			// 
 			this->lbEXP->AutoSize = true;
 			this->lbEXP->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
-			this->lbEXP->ForeColor = System::Drawing::Color::Lime;
-			this->lbEXP->Location = System::Drawing::Point(433, 138);
+			this->lbEXP->ForeColor = System::Drawing::Color::GreenYellow;
+			this->lbEXP->Location = System::Drawing::Point(609, 115);
 			this->lbEXP->Name = L"lbEXP";
 			this->lbEXP->Size = System::Drawing::Size(40, 13);
 			this->lbEXP->TabIndex = 32;
@@ -1441,8 +1732,8 @@ namespace Timelapse {
 			// 
 			this->lbMP->AutoSize = true;
 			this->lbMP->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
-			this->lbMP->ForeColor = System::Drawing::Color::Aqua;
-			this->lbMP->Location = System::Drawing::Point(433, 123);
+			this->lbMP->ForeColor = System::Drawing::Color::DodgerBlue;
+			this->lbMP->Location = System::Drawing::Point(609, 100);
 			this->lbMP->Name = L"lbMP";
 			this->lbMP->Size = System::Drawing::Size(40, 13);
 			this->lbMP->TabIndex = 31;
@@ -1457,7 +1748,7 @@ namespace Timelapse {
 			this->lbHP->AutoSize = true;
 			this->lbHP->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
 			this->lbHP->ForeColor = System::Drawing::Color::Red;
-			this->lbHP->Location = System::Drawing::Point(432, 108);
+			this->lbHP->Location = System::Drawing::Point(609, 85);
 			this->lbHP->Name = L"lbHP";
 			this->lbHP->Size = System::Drawing::Size(40, 13);
 			this->lbHP->TabIndex = 30;
@@ -1471,8 +1762,8 @@ namespace Timelapse {
 			// 
 			this->lbJob->AutoSize = true;
 			this->lbJob->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
-			this->lbJob->ForeColor = System::Drawing::Color::DodgerBlue;
-			this->lbJob->Location = System::Drawing::Point(432, 93);
+			this->lbJob->ForeColor = System::Drawing::Color::SpringGreen;
+			this->lbJob->Location = System::Drawing::Point(580, 65);
 			this->lbJob->Name = L"lbJob";
 			this->lbJob->Size = System::Drawing::Size(24, 13);
 			this->lbJob->TabIndex = 29;
@@ -1487,7 +1778,7 @@ namespace Timelapse {
 			this->lbLevel->AutoSize = true;
 			this->lbLevel->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
 			this->lbLevel->ForeColor = System::Drawing::Color::Orange;
-			this->lbLevel->Location = System::Drawing::Point(440, 78);
+			this->lbLevel->Location = System::Drawing::Point(465, 130);
 			this->lbLevel->Name = L"lbLevel";
 			this->lbLevel->Size = System::Drawing::Size(13, 13);
 			this->lbLevel->TabIndex = 28;
@@ -1501,7 +1792,7 @@ namespace Timelapse {
 			this->lbCharName->AutoSize = true;
 			this->lbCharName->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
 			this->lbCharName->ForeColor = System::Drawing::Color::Gold;
-			this->lbCharName->Location = System::Drawing::Point(423, 63);
+			this->lbCharName->Location = System::Drawing::Point(450, 65);
 			this->lbCharName->Name = L"lbCharName";
 			this->lbCharName->Size = System::Drawing::Size(57, 13);
 			this->lbCharName->TabIndex = 27;
@@ -1514,7 +1805,7 @@ namespace Timelapse {
 			// 
 			this->label25->AutoSize = true;
 			this->label25->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
-			this->label25->Location = System::Drawing::Point(405, 268);
+			this->label25->Location = System::Drawing::Point(430, 346);
 			this->label25->Name = L"label25";
 			this->label25->Size = System::Drawing::Size(63, 13);
 			this->label25->TabIndex = 26;
@@ -1527,7 +1818,7 @@ namespace Timelapse {
 			// 
 			this->label24->AutoSize = true;
 			this->label24->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
-			this->label24->Location = System::Drawing::Point(405, 358);
+			this->label24->Location = System::Drawing::Point(430, 436);
 			this->label24->Name = L"label24";
 			this->label24->Size = System::Drawing::Size(59, 13);
 			this->label24->TabIndex = 25;
@@ -1540,7 +1831,7 @@ namespace Timelapse {
 			// 
 			this->label23->AutoSize = true;
 			this->label23->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
-			this->label23->Location = System::Drawing::Point(405, 233);
+			this->label23->Location = System::Drawing::Point(430, 165);
 			this->label23->Name = L"label23";
 			this->label23->Size = System::Drawing::Size(62, 13);
 			this->label23->TabIndex = 24;
@@ -1549,24 +1840,11 @@ namespace Timelapse {
 			this->label23->MouseMove += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::pnlFull_MouseMove);
 			this->label23->MouseUp += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::pnlFull_MouseUp);
 			// 
-			// label22
-			// 
-			this->label22->AutoSize = true;
-			this->label22->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
-			this->label22->Location = System::Drawing::Point(405, 378);
-			this->label22->Name = L"label22";
-			this->label22->Size = System::Drawing::Size(62, 13);
-			this->label22->TabIndex = 23;
-			this->label22->Text = L"Thread ID: ";
-			this->label22->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::pnlFull_MouseDown);
-			this->label22->MouseMove += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::pnlFull_MouseMove);
-			this->label22->MouseUp += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::pnlFull_MouseUp);
-			// 
 			// label20
 			// 
 			this->label20->AutoSize = true;
 			this->label20->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
-			this->label20->Location = System::Drawing::Point(405, 283);
+			this->label20->Location = System::Drawing::Point(430, 361);
 			this->label20->Name = L"label20";
 			this->label20->Size = System::Drawing::Size(75, 13);
 			this->label20->TabIndex = 21;
@@ -1579,7 +1857,7 @@ namespace Timelapse {
 			// 
 			this->label19->AutoSize = true;
 			this->label19->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
-			this->label19->Location = System::Drawing::Point(405, 153);
+			this->label19->Location = System::Drawing::Point(490, 130);
 			this->label19->Name = L"label19";
 			this->label19->Size = System::Drawing::Size(41, 13);
 			this->label19->TabIndex = 20;
@@ -1592,7 +1870,7 @@ namespace Timelapse {
 			// 
 			this->label18->AutoSize = true;
 			this->label18->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
-			this->label18->Location = System::Drawing::Point(405, 93);
+			this->label18->Location = System::Drawing::Point(550, 65);
 			this->label18->Name = L"label18";
 			this->label18->Size = System::Drawing::Size(28, 13);
 			this->label18->TabIndex = 19;
@@ -1605,7 +1883,7 @@ namespace Timelapse {
 			// 
 			this->label17->AutoSize = true;
 			this->label17->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
-			this->label17->Location = System::Drawing::Point(405, 343);
+			this->label17->Location = System::Drawing::Point(430, 421);
 			this->label17->Name = L"label17";
 			this->label17->Size = System::Drawing::Size(67, 13);
 			this->label17->TabIndex = 18;
@@ -1618,7 +1896,7 @@ namespace Timelapse {
 			// 
 			this->label16->AutoSize = true;
 			this->label16->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
-			this->label16->Location = System::Drawing::Point(405, 328);
+			this->label16->Location = System::Drawing::Point(430, 406);
 			this->label16->Name = L"label16";
 			this->label16->Size = System::Drawing::Size(65, 13);
 			this->label16->TabIndex = 17;
@@ -1631,7 +1909,7 @@ namespace Timelapse {
 			// 
 			this->label15->AutoSize = true;
 			this->label15->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
-			this->label15->Location = System::Drawing::Point(405, 313);
+			this->label15->Location = System::Drawing::Point(430, 391);
 			this->label15->Name = L"label15";
 			this->label15->Size = System::Drawing::Size(66, 13);
 			this->label15->TabIndex = 16;
@@ -1644,7 +1922,7 @@ namespace Timelapse {
 			// 
 			this->label14->AutoSize = true;
 			this->label14->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
-			this->label14->Location = System::Drawing::Point(405, 298);
+			this->label14->Location = System::Drawing::Point(430, 376);
 			this->label14->Name = L"label14";
 			this->label14->Size = System::Drawing::Size(75, 13);
 			this->label14->TabIndex = 15;
@@ -1657,7 +1935,7 @@ namespace Timelapse {
 			// 
 			this->label13->AutoSize = true;
 			this->label13->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
-			this->label13->Location = System::Drawing::Point(405, 253);
+			this->label13->Location = System::Drawing::Point(430, 331);
 			this->label13->Name = L"label13";
 			this->label13->Size = System::Drawing::Size(74, 13);
 			this->label13->TabIndex = 14;
@@ -1670,7 +1948,7 @@ namespace Timelapse {
 			// 
 			this->label12->AutoSize = true;
 			this->label12->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
-			this->label12->Location = System::Drawing::Point(405, 218);
+			this->label12->Location = System::Drawing::Point(430, 150);
 			this->label12->Name = L"label12";
 			this->label12->Size = System::Drawing::Size(54, 13);
 			this->label12->TabIndex = 13;
@@ -1683,7 +1961,7 @@ namespace Timelapse {
 			// 
 			this->label11->AutoSize = true;
 			this->label11->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
-			this->label11->Location = System::Drawing::Point(405, 203);
+			this->label11->Location = System::Drawing::Point(430, 238);
 			this->label11->Name = L"label11";
 			this->label11->Size = System::Drawing::Size(48, 13);
 			this->label11->TabIndex = 12;
@@ -1696,7 +1974,7 @@ namespace Timelapse {
 			// 
 			this->label10->AutoSize = true;
 			this->label10->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
-			this->label10->Location = System::Drawing::Point(405, 188);
+			this->label10->Location = System::Drawing::Point(525, 223);
 			this->label10->Name = L"label10";
 			this->label10->Size = System::Drawing::Size(50, 13);
 			this->label10->TabIndex = 11;
@@ -1709,7 +1987,7 @@ namespace Timelapse {
 			// 
 			this->label9->AutoSize = true;
 			this->label9->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
-			this->label9->Location = System::Drawing::Point(405, 173);
+			this->label9->Location = System::Drawing::Point(430, 223);
 			this->label9->Name = L"label9";
 			this->label9->Size = System::Drawing::Size(39, 13);
 			this->label9->TabIndex = 10;
@@ -1722,7 +2000,7 @@ namespace Timelapse {
 			// 
 			this->label8->AutoSize = true;
 			this->label8->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
-			this->label8->Location = System::Drawing::Point(405, 138);
+			this->label8->Location = System::Drawing::Point(430, 113);
 			this->label8->Name = L"label8";
 			this->label8->Size = System::Drawing::Size(29, 13);
 			this->label8->TabIndex = 9;
@@ -1735,7 +2013,7 @@ namespace Timelapse {
 			// 
 			this->label7->AutoSize = true;
 			this->label7->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
-			this->label7->Location = System::Drawing::Point(405, 123);
+			this->label7->Location = System::Drawing::Point(430, 98);
 			this->label7->Name = L"label7";
 			this->label7->Size = System::Drawing::Size(25, 13);
 			this->label7->TabIndex = 8;
@@ -1748,7 +2026,7 @@ namespace Timelapse {
 			// 
 			this->label6->AutoSize = true;
 			this->label6->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
-			this->label6->Location = System::Drawing::Point(405, 108);
+			this->label6->Location = System::Drawing::Point(430, 83);
 			this->label6->Name = L"label6";
 			this->label6->Size = System::Drawing::Size(24, 13);
 			this->label6->TabIndex = 7;
@@ -1761,7 +2039,7 @@ namespace Timelapse {
 			// 
 			this->label5->AutoSize = true;
 			this->label5->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
-			this->label5->Location = System::Drawing::Point(405, 78);
+			this->label5->Location = System::Drawing::Point(430, 130);
 			this->label5->Name = L"label5";
 			this->label5->Size = System::Drawing::Size(39, 13);
 			this->label5->TabIndex = 6;
@@ -1774,7 +2052,7 @@ namespace Timelapse {
 			// 
 			this->label4->AutoSize = true;
 			this->label4->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
-			this->label4->Location = System::Drawing::Point(405, 63);
+			this->label4->Location = System::Drawing::Point(430, 65);
 			this->label4->Name = L"label4";
 			this->label4->Size = System::Drawing::Size(22, 13);
 			this->label4->TabIndex = 5;
@@ -1787,7 +2065,7 @@ namespace Timelapse {
 			// 
 			this->label3->AutoSize = true;
 			this->label3->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 15.75F));
-			this->label3->Location = System::Drawing::Point(401, 39);
+			this->label3->Location = System::Drawing::Point(425, 39);
 			this->label3->Name = L"label3";
 			this->label3->Size = System::Drawing::Size(53, 25);
 			this->label3->TabIndex = 4;
@@ -1810,7 +2088,7 @@ namespace Timelapse {
 			this->tabControl1->Location = System::Drawing::Point(2, 29);
 			this->tabControl1->Name = L"tabControl1";
 			this->tabControl1->SelectedIndex = 0;
-			this->tabControl1->Size = System::Drawing::Size(398, 361);
+			this->tabControl1->Size = System::Drawing::Size(422, 422);
 			this->tabControl1->TabIndex = 2;
 			// 
 			// tabPage1
@@ -1823,7 +2101,7 @@ namespace Timelapse {
 			this->tabPage1->Location = System::Drawing::Point(4, 22);
 			this->tabPage1->Name = L"tabPage1";
 			this->tabPage1->Padding = System::Windows::Forms::Padding(3);
-			this->tabPage1->Size = System::Drawing::Size(390, 335);
+			this->tabPage1->Size = System::Drawing::Size(414, 396);
 			this->tabPage1->TabIndex = 0;
 			this->tabPage1->Text = L"Main";
 			// 
@@ -1833,7 +2111,7 @@ namespace Timelapse {
 			this->pictureBox1->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox1.Image")));
 			this->pictureBox1->Location = System::Drawing::Point(6, 6);
 			this->pictureBox1->Name = L"pictureBox1";
-			this->pictureBox1->Size = System::Drawing::Size(379, 89);
+			this->pictureBox1->Size = System::Drawing::Size(370, 86);
 			this->pictureBox1->TabIndex = 0;
 			this->pictureBox1->TabStop = false;
 			this->pictureBox1->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::pnlFull_MouseDown);
@@ -2129,7 +2407,7 @@ namespace Timelapse {
 			this->tabPage2->Location = System::Drawing::Point(4, 22);
 			this->tabPage2->Name = L"tabPage2";
 			this->tabPage2->Padding = System::Windows::Forms::Padding(3);
-			this->tabPage2->Size = System::Drawing::Size(390, 335);
+			this->tabPage2->Size = System::Drawing::Size(414, 396);
 			this->tabPage2->TabIndex = 1;
 			this->tabPage2->Text = L"Bots";
 			// 
@@ -3017,43 +3295,196 @@ namespace Timelapse {
 			// 
 			this->tabPage5->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(25)), static_cast<System::Int32>(static_cast<System::Byte>(25)),
 				static_cast<System::Int32>(static_cast<System::Byte>(25)));
-			this->tabPage5->Controls->Add(this->tbAttackAnimDelay);
-			this->tabPage5->Controls->Add(this->panel12);
-			this->tabPage5->Controls->Add(this->panel25);
-			this->tabPage5->Controls->Add(this->panel24);
-			this->tabPage5->Controls->Add(this->panel23);
-			this->tabPage5->Controls->Add(this->panel11);
-			this->tabPage5->Controls->Add(this->panel10);
+			this->tabPage5->Controls->Add(this->gbOtherHacks);
+			this->tabPage5->Controls->Add(this->gbLootHacks);
+			this->tabPage5->Controls->Add(this->gbMapHacks);
+			this->tabPage5->Controls->Add(this->gbMobHacks);
+			this->tabPage5->Controls->Add(this->gbCharacterHacks);
 			this->tabPage5->Location = System::Drawing::Point(4, 22);
 			this->tabPage5->Name = L"tabPage5";
 			this->tabPage5->Padding = System::Windows::Forms::Padding(3);
-			this->tabPage5->Size = System::Drawing::Size(390, 335);
+			this->tabPage5->Size = System::Drawing::Size(414, 396);
 			this->tabPage5->TabIndex = 2;
 			this->tabPage5->Text = L"Hacks I";
 			// 
-			// tbAttackAnimDelay
+			// gbOtherHacks
 			// 
-			this->tbAttackAnimDelay->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(35)),
-				static_cast<System::Int32>(static_cast<System::Byte>(35)), static_cast<System::Int32>(static_cast<System::Byte>(35)));
-			this->tbAttackAnimDelay->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
-			this->tbAttackAnimDelay->ForeColor = System::Drawing::Color::White;
-			this->tbAttackAnimDelay->Location = System::Drawing::Point(133, 307);
-			this->tbAttackAnimDelay->Name = L"tbAttackAnimDelay";
-			this->tbAttackAnimDelay->Size = System::Drawing::Size(49, 21);
-			this->tbAttackAnimDelay->TabIndex = 23;
-			this->tbAttackAnimDelay->Text = L"10";
-			this->tbAttackAnimDelay->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			this->gbOtherHacks->Controls->Add(this->label49);
+			this->gbOtherHacks->Controls->Add(this->tbMouseTeleport);
+			this->gbOtherHacks->Controls->Add(this->cbSwimInAir);
+			this->gbOtherHacks->Controls->Add(this->cbMouseFly);
+			this->gbOtherHacks->Controls->Add(this->label50);
+			this->gbOtherHacks->Controls->Add(this->tbClickTeleport);
+			this->gbOtherHacks->Controls->Add(this->cbClickTeleport);
+			this->gbOtherHacks->Controls->Add(this->cbMouseTeleport);
+			this->gbOtherHacks->Controls->Add(this->cbJumpDownAnyTile);
+			this->gbOtherHacks->Controls->Add(this->cbNoPlayerKnockback);
+			this->gbOtherHacks->Location = System::Drawing::Point(5, 280);
+			this->gbOtherHacks->Name = L"gbOtherHacks";
+			this->gbOtherHacks->Size = System::Drawing::Size(400, 110);
+			this->gbOtherHacks->TabIndex = 0;
+			this->gbOtherHacks->TabStop = false;
+			this->gbOtherHacks->Text = L"Other Hacks";
 			// 
-			// panel12
+			// label49
 			// 
-			this->panel12->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
-			this->panel12->Controls->Add(this->cbFastLootItems);
-			this->panel12->Controls->Add(this->cbInstantDropItems);
-			this->panel12->Controls->Add(this->cbInstantLootItems);
-			this->panel12->Location = System::Drawing::Point(133, 83);
-			this->panel12->Name = L"panel12";
-			this->panel12->Size = System::Drawing::Size(126, 73);
-			this->panel12->TabIndex = 5;
+			this->label49->AutoSize = true;
+			this->label49->Location = System::Drawing::Point(110, 40);
+			this->label49->Name = L"label49";
+			this->label49->Size = System::Drawing::Size(73, 13);
+			this->label49->TabIndex = 8;
+			this->label49->Text = L"Interval [ms]:";
+			// 
+			// tbMouseTeleport
+			// 
+			this->tbMouseTeleport->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(35)), static_cast<System::Int32>(static_cast<System::Byte>(35)),
+				static_cast<System::Int32>(static_cast<System::Byte>(35)));
+			this->tbMouseTeleport->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->tbMouseTeleport->ForeColor = System::Drawing::Color::White;
+			this->tbMouseTeleport->Location = System::Drawing::Point(190, 40);
+			this->tbMouseTeleport->Name = L"tbMouseTeleport";
+			this->tbMouseTeleport->Size = System::Drawing::Size(49, 21);
+			this->tbMouseTeleport->TabIndex = 4;
+			this->tbMouseTeleport->Text = L"100";
+			this->tbMouseTeleport->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			this->tbMouseTeleport->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &MainForm::tbMouseTeleport_KeyPress);
+			// 
+			// cbSwimInAir
+			// 
+			this->cbSwimInAir->AutoSize = true;
+			this->cbSwimInAir->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
+			this->cbSwimInAir->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->cbSwimInAir->ForeColor = System::Drawing::Color::White;
+			this->cbSwimInAir->Location = System::Drawing::Point(6, 80);
+			this->cbSwimInAir->Name = L"cbSwimInAir";
+			this->cbSwimInAir->Size = System::Drawing::Size(76, 17);
+			this->cbSwimInAir->TabIndex = 7;
+			this->cbSwimInAir->Text = L"Swim In Air";
+			this->cbSwimInAir->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
+			this->cbSwimInAir->UseVisualStyleBackColor = false;
+			this->cbSwimInAir->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbSwimInAir_CheckedChanged);
+			// 
+			// cbMouseFly
+			// 
+			this->cbMouseFly->AutoSize = true;
+			this->cbMouseFly->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
+			this->cbMouseFly->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->cbMouseFly->ForeColor = System::Drawing::Color::White;
+			this->cbMouseFly->Location = System::Drawing::Point(6, 60);
+			this->cbMouseFly->Name = L"cbMouseFly";
+			this->cbMouseFly->Size = System::Drawing::Size(71, 17);
+			this->cbMouseFly->TabIndex = 9;
+			this->cbMouseFly->Text = L"Mouse Fly";
+			this->cbMouseFly->UseVisualStyleBackColor = false;
+			this->cbMouseFly->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbMouseFly_CheckedChanged);
+			// 
+			// label50
+			// 
+			this->label50->AutoSize = true;
+			this->label50->Location = System::Drawing::Point(110, 20);
+			this->label50->Name = L"label50";
+			this->label50->Size = System::Drawing::Size(73, 13);
+			this->label50->TabIndex = 7;
+			this->label50->Text = L"Interval [ms]:";
+			// 
+			// tbClickTeleport
+			// 
+			this->tbClickTeleport->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(35)), static_cast<System::Int32>(static_cast<System::Byte>(35)),
+				static_cast<System::Int32>(static_cast<System::Byte>(35)));
+			this->tbClickTeleport->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->tbClickTeleport->ForeColor = System::Drawing::Color::White;
+			this->tbClickTeleport->Location = System::Drawing::Point(190, 15);
+			this->tbClickTeleport->Name = L"tbClickTeleport";
+			this->tbClickTeleport->Size = System::Drawing::Size(49, 21);
+			this->tbClickTeleport->TabIndex = 3;
+			this->tbClickTeleport->Text = L"100";
+			this->tbClickTeleport->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			this->tbClickTeleport->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &MainForm::tbClickTeleport_KeyPress);
+			// 
+			// cbClickTeleport
+			// 
+			this->cbClickTeleport->AutoSize = true;
+			this->cbClickTeleport->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
+			this->cbClickTeleport->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->cbClickTeleport->ForeColor = System::Drawing::Color::White;
+			this->cbClickTeleport->Location = System::Drawing::Point(6, 20);
+			this->cbClickTeleport->Name = L"cbClickTeleport";
+			this->cbClickTeleport->Size = System::Drawing::Size(87, 17);
+			this->cbClickTeleport->TabIndex = 1;
+			this->cbClickTeleport->Text = L"Click Teleport";
+			this->cbClickTeleport->UseVisualStyleBackColor = false;
+			this->cbClickTeleport->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbClickTeleport_CheckedChanged);
+			// 
+			// cbMouseTeleport
+			// 
+			this->cbMouseTeleport->AutoSize = true;
+			this->cbMouseTeleport->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
+			this->cbMouseTeleport->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->cbMouseTeleport->ForeColor = System::Drawing::Color::White;
+			this->cbMouseTeleport->Location = System::Drawing::Point(6, 40);
+			this->cbMouseTeleport->Name = L"cbMouseTeleport";
+			this->cbMouseTeleport->Size = System::Drawing::Size(97, 17);
+			this->cbMouseTeleport->TabIndex = 2;
+			this->cbMouseTeleport->Text = L"Mouse Teleport";
+			this->cbMouseTeleport->UseVisualStyleBackColor = false;
+			this->cbMouseTeleport->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbMouseTeleport_CheckedChanged);
+			// 
+			// cbJumpDownAnyTile
+			// 
+			this->cbJumpDownAnyTile->AutoSize = true;
+			this->cbJumpDownAnyTile->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
+			this->cbJumpDownAnyTile->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->cbJumpDownAnyTile->ForeColor = System::Drawing::Color::White;
+			this->cbJumpDownAnyTile->Location = System::Drawing::Point(88, 80);
+			this->cbJumpDownAnyTile->Name = L"cbJumpDownAnyTile";
+			this->cbJumpDownAnyTile->Size = System::Drawing::Size(119, 17);
+			this->cbJumpDownAnyTile->TabIndex = 4;
+			this->cbJumpDownAnyTile->Text = L"Jump Down Any Tile";
+			this->cbJumpDownAnyTile->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
+			this->cbJumpDownAnyTile->UseVisualStyleBackColor = false;
+			this->cbJumpDownAnyTile->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbJumpDownAnyTile_CheckedChanged);
+			// 
+			// cbNoPlayerKnockback
+			// 
+			this->cbNoPlayerKnockback->AutoSize = true;
+			this->cbNoPlayerKnockback->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
+			this->cbNoPlayerKnockback->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->cbNoPlayerKnockback->ForeColor = System::Drawing::Color::White;
+			this->cbNoPlayerKnockback->Location = System::Drawing::Point(230, 80);
+			this->cbNoPlayerKnockback->Name = L"cbNoPlayerKnockback";
+			this->cbNoPlayerKnockback->Size = System::Drawing::Size(122, 17);
+			this->cbNoPlayerKnockback->TabIndex = 5;
+			this->cbNoPlayerKnockback->Text = L"No Player Knockback";
+			this->cbNoPlayerKnockback->UseVisualStyleBackColor = false;
+			this->cbNoPlayerKnockback->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbNoPlayerKnockback_CheckedChanged);
+			// 
+			// gbLootHacks
+			// 
+			this->gbLootHacks->Controls->Add(this->cbItemVac);
+			this->gbLootHacks->Controls->Add(this->cbFastLootItems);
+			this->gbLootHacks->Controls->Add(this->cbInstantDropItems);
+			this->gbLootHacks->Controls->Add(this->cbInstantLootItems);
+			this->gbLootHacks->ImeMode = System::Windows::Forms::ImeMode::NoControl;
+			this->gbLootHacks->Location = System::Drawing::Point(5, 205);
+			this->gbLootHacks->Name = L"gbLootHacks";
+			this->gbLootHacks->Size = System::Drawing::Size(225, 70);
+			this->gbLootHacks->TabIndex = 10;
+			this->gbLootHacks->TabStop = false;
+			this->gbLootHacks->Text = L"Loot Hacks";
+			// 
+			// cbItemVac
+			// 
+			this->cbItemVac->AutoSize = true;
+			this->cbItemVac->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
+			this->cbItemVac->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->cbItemVac->ForeColor = System::Drawing::Color::White;
+			this->cbItemVac->Location = System::Drawing::Point(135, 15);
+			this->cbItemVac->Name = L"cbItemVac";
+			this->cbItemVac->Size = System::Drawing::Size(65, 17);
+			this->cbItemVac->TabIndex = 14;
+			this->cbItemVac->Text = L"Item Vac";
+			this->cbItemVac->UseVisualStyleBackColor = false;
+			this->cbItemVac->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbItemVac_CheckedChanged);
 			// 
 			// cbFastLootItems
 			// 
@@ -3061,7 +3492,7 @@ namespace Timelapse {
 			this->cbFastLootItems->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
 			this->cbFastLootItems->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->cbFastLootItems->ForeColor = System::Drawing::Color::White;
-			this->cbFastLootItems->Location = System::Drawing::Point(5, 49);
+			this->cbFastLootItems->Location = System::Drawing::Point(6, 45);
 			this->cbFastLootItems->Name = L"cbFastLootItems";
 			this->cbFastLootItems->Size = System::Drawing::Size(98, 17);
 			this->cbFastLootItems->TabIndex = 5;
@@ -3075,7 +3506,7 @@ namespace Timelapse {
 			this->cbInstantDropItems->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
 			this->cbInstantDropItems->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->cbInstantDropItems->ForeColor = System::Drawing::Color::White;
-			this->cbInstantDropItems->Location = System::Drawing::Point(5, 5);
+			this->cbInstantDropItems->Location = System::Drawing::Point(6, 15);
 			this->cbInstantDropItems->Name = L"cbInstantDropItems";
 			this->cbInstantDropItems->Size = System::Drawing::Size(114, 17);
 			this->cbInstantDropItems->TabIndex = 4;
@@ -3090,7 +3521,7 @@ namespace Timelapse {
 			this->cbInstantLootItems->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
 			this->cbInstantLootItems->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->cbInstantLootItems->ForeColor = System::Drawing::Color::White;
-			this->cbInstantLootItems->Location = System::Drawing::Point(5, 27);
+			this->cbInstantLootItems->Location = System::Drawing::Point(6, 30);
 			this->cbInstantLootItems->Name = L"cbInstantLootItems";
 			this->cbInstantLootItems->Size = System::Drawing::Size(112, 17);
 			this->cbInstantLootItems->TabIndex = 6;
@@ -3098,76 +3529,22 @@ namespace Timelapse {
 			this->cbInstantLootItems->UseVisualStyleBackColor = false;
 			this->cbInstantLootItems->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbInstantLootItems_CheckedChanged);
 			// 
-			// panel25
+			// gbMapHacks
 			// 
-			this->panel25->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
-			this->panel25->Controls->Add(this->cbNoBlueBoxes);
-			this->panel25->Controls->Add(this->cbNoMapTiles);
-			this->panel25->Controls->Add(this->cbMapSpeedUp);
-			this->panel25->Controls->Add(this->cbNoMapObjects);
-			this->panel25->Controls->Add(this->cbNoMapBackground);
-			this->panel25->Controls->Add(this->cbNoMapFadeEffect);
-			this->panel25->Controls->Add(this->cbInfiniteChat);
-			this->panel25->Location = System::Drawing::Point(263, 82);
-			this->panel25->Name = L"panel25";
-			this->panel25->Size = System::Drawing::Size(121, 160);
-			this->panel25->TabIndex = 22;
-			// 
-			// cbNoBlueBoxes
-			// 
-			this->cbNoBlueBoxes->AutoSize = true;
-			this->cbNoBlueBoxes->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
-			this->cbNoBlueBoxes->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->cbNoBlueBoxes->ForeColor = System::Drawing::Color::White;
-			this->cbNoBlueBoxes->Location = System::Drawing::Point(5, 136);
-			this->cbNoBlueBoxes->Name = L"cbNoBlueBoxes";
-			this->cbNoBlueBoxes->Size = System::Drawing::Size(91, 17);
-			this->cbNoBlueBoxes->TabIndex = 10;
-			this->cbNoBlueBoxes->Text = L"No Blue Boxes";
-			this->cbNoBlueBoxes->UseVisualStyleBackColor = false;
-			this->cbNoBlueBoxes->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbNoBlueBoxes_CheckedChanged);
-			// 
-			// cbNoMapTiles
-			// 
-			this->cbNoMapTiles->AutoSize = true;
-			this->cbNoMapTiles->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
-			this->cbNoMapTiles->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->cbNoMapTiles->ForeColor = System::Drawing::Color::White;
-			this->cbNoMapTiles->Location = System::Drawing::Point(5, 49);
-			this->cbNoMapTiles->Name = L"cbNoMapTiles";
-			this->cbNoMapTiles->Size = System::Drawing::Size(83, 17);
-			this->cbNoMapTiles->TabIndex = 9;
-			this->cbNoMapTiles->Text = L"No Map Tiles";
-			this->cbNoMapTiles->UseVisualStyleBackColor = false;
-			this->cbNoMapTiles->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbNoMapTiles_CheckedChanged);
-			// 
-			// cbMapSpeedUp
-			// 
-			this->cbMapSpeedUp->AutoSize = true;
-			this->cbMapSpeedUp->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
-			this->cbMapSpeedUp->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->cbMapSpeedUp->ForeColor = System::Drawing::Color::White;
-			this->cbMapSpeedUp->Location = System::Drawing::Point(5, 93);
-			this->cbMapSpeedUp->Name = L"cbMapSpeedUp";
-			this->cbMapSpeedUp->Size = System::Drawing::Size(92, 17);
-			this->cbMapSpeedUp->TabIndex = 8;
-			this->cbMapSpeedUp->Text = L"Map Speed Up";
-			this->cbMapSpeedUp->UseVisualStyleBackColor = false;
-			this->cbMapSpeedUp->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbMapSpeedUp_CheckedChanged);
-			// 
-			// cbNoMapObjects
-			// 
-			this->cbNoMapObjects->AutoSize = true;
-			this->cbNoMapObjects->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
-			this->cbNoMapObjects->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->cbNoMapObjects->ForeColor = System::Drawing::Color::White;
-			this->cbNoMapObjects->Location = System::Drawing::Point(5, 27);
-			this->cbNoMapObjects->Name = L"cbNoMapObjects";
-			this->cbNoMapObjects->Size = System::Drawing::Size(99, 17);
-			this->cbNoMapObjects->TabIndex = 7;
-			this->cbNoMapObjects->Text = L"No Map Objects";
-			this->cbNoMapObjects->UseVisualStyleBackColor = false;
-			this->cbNoMapObjects->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbNoMapObjects_CheckedChanged);
+			this->gbMapHacks->Controls->Add(this->cbNoWalkFricSlide);
+			this->gbMapHacks->Controls->Add(this->cbNoMapBackground);
+			this->gbMapHacks->Controls->Add(this->cbNoBlueBoxes);
+			this->gbMapHacks->Controls->Add(this->cbInfiniteChat);
+			this->gbMapHacks->Controls->Add(this->cbMapSpeedUp);
+			this->gbMapHacks->Controls->Add(this->cbNoMapTiles);
+			this->gbMapHacks->Controls->Add(this->cbNoMapFadeEffect);
+			this->gbMapHacks->Controls->Add(this->cbNoMapObjects);
+			this->gbMapHacks->Location = System::Drawing::Point(235, 120);
+			this->gbMapHacks->Name = L"gbMapHacks";
+			this->gbMapHacks->Size = System::Drawing::Size(170, 155);
+			this->gbMapHacks->TabIndex = 27;
+			this->gbMapHacks->TabStop = false;
+			this->gbMapHacks->Text = L"Map Hacks";
 			// 
 			// cbNoMapBackground
 			// 
@@ -3175,7 +3552,7 @@ namespace Timelapse {
 			this->cbNoMapBackground->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
 			this->cbNoMapBackground->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->cbNoMapBackground->ForeColor = System::Drawing::Color::White;
-			this->cbNoMapBackground->Location = System::Drawing::Point(5, 5);
+			this->cbNoMapBackground->Location = System::Drawing::Point(6, 15);
 			this->cbNoMapBackground->Name = L"cbNoMapBackground";
 			this->cbNoMapBackground->Size = System::Drawing::Size(118, 17);
 			this->cbNoMapBackground->TabIndex = 4;
@@ -3184,19 +3561,19 @@ namespace Timelapse {
 			this->cbNoMapBackground->UseVisualStyleBackColor = false;
 			this->cbNoMapBackground->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbNoMapBackground_CheckedChanged);
 			// 
-			// cbNoMapFadeEffect
+			// cbNoBlueBoxes
 			// 
-			this->cbNoMapFadeEffect->AutoSize = true;
-			this->cbNoMapFadeEffect->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
-			this->cbNoMapFadeEffect->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->cbNoMapFadeEffect->ForeColor = System::Drawing::Color::White;
-			this->cbNoMapFadeEffect->Location = System::Drawing::Point(5, 71);
-			this->cbNoMapFadeEffect->Name = L"cbNoMapFadeEffect";
-			this->cbNoMapFadeEffect->Size = System::Drawing::Size(118, 17);
-			this->cbNoMapFadeEffect->TabIndex = 5;
-			this->cbNoMapFadeEffect->Text = L"No Map Fade Effect";
-			this->cbNoMapFadeEffect->UseVisualStyleBackColor = false;
-			this->cbNoMapFadeEffect->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbNoMapFadeEffect_CheckedChanged);
+			this->cbNoBlueBoxes->AutoSize = true;
+			this->cbNoBlueBoxes->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
+			this->cbNoBlueBoxes->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->cbNoBlueBoxes->ForeColor = System::Drawing::Color::White;
+			this->cbNoBlueBoxes->Location = System::Drawing::Point(6, 105);
+			this->cbNoBlueBoxes->Name = L"cbNoBlueBoxes";
+			this->cbNoBlueBoxes->Size = System::Drawing::Size(91, 17);
+			this->cbNoBlueBoxes->TabIndex = 10;
+			this->cbNoBlueBoxes->Text = L"No Blue Boxes";
+			this->cbNoBlueBoxes->UseVisualStyleBackColor = false;
+			this->cbNoBlueBoxes->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbNoBlueBoxes_CheckedChanged);
 			// 
 			// cbInfiniteChat
 			// 
@@ -3204,7 +3581,7 @@ namespace Timelapse {
 			this->cbInfiniteChat->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
 			this->cbInfiniteChat->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->cbInfiniteChat->ForeColor = System::Drawing::Color::White;
-			this->cbInfiniteChat->Location = System::Drawing::Point(5, 114);
+			this->cbInfiniteChat->Location = System::Drawing::Point(6, 90);
 			this->cbInfiniteChat->Name = L"cbInfiniteChat";
 			this->cbInfiniteChat->Size = System::Drawing::Size(83, 17);
 			this->cbInfiniteChat->TabIndex = 8;
@@ -3212,19 +3589,76 @@ namespace Timelapse {
 			this->cbInfiniteChat->UseVisualStyleBackColor = false;
 			this->cbInfiniteChat->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbInfiniteChat_CheckedChanged);
 			// 
-			// panel24
+			// cbMapSpeedUp
 			// 
-			this->panel24->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
-			this->panel24->Controls->Add(this->cbMobAutoAggro);
-			this->panel24->Controls->Add(this->cbMobFreeze);
-			this->panel24->Controls->Add(this->cbMobDisarm);
-			this->panel24->Controls->Add(this->cbNoMobReaction);
-			this->panel24->Controls->Add(this->cbNoMobDeathEffect);
-			this->panel24->Controls->Add(this->cbNoMobKnockback);
-			this->panel24->Location = System::Drawing::Point(133, 159);
-			this->panel24->Name = L"panel24";
-			this->panel24->Size = System::Drawing::Size(126, 138);
-			this->panel24->TabIndex = 21;
+			this->cbMapSpeedUp->AutoSize = true;
+			this->cbMapSpeedUp->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
+			this->cbMapSpeedUp->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->cbMapSpeedUp->ForeColor = System::Drawing::Color::White;
+			this->cbMapSpeedUp->Location = System::Drawing::Point(6, 75);
+			this->cbMapSpeedUp->Name = L"cbMapSpeedUp";
+			this->cbMapSpeedUp->Size = System::Drawing::Size(92, 17);
+			this->cbMapSpeedUp->TabIndex = 8;
+			this->cbMapSpeedUp->Text = L"Map Speed Up";
+			this->cbMapSpeedUp->UseVisualStyleBackColor = false;
+			this->cbMapSpeedUp->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbMapSpeedUp_CheckedChanged);
+			// 
+			// cbNoMapTiles
+			// 
+			this->cbNoMapTiles->AutoSize = true;
+			this->cbNoMapTiles->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
+			this->cbNoMapTiles->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->cbNoMapTiles->ForeColor = System::Drawing::Color::White;
+			this->cbNoMapTiles->Location = System::Drawing::Point(6, 45);
+			this->cbNoMapTiles->Name = L"cbNoMapTiles";
+			this->cbNoMapTiles->Size = System::Drawing::Size(83, 17);
+			this->cbNoMapTiles->TabIndex = 9;
+			this->cbNoMapTiles->Text = L"No Map Tiles";
+			this->cbNoMapTiles->UseVisualStyleBackColor = false;
+			this->cbNoMapTiles->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbNoMapTiles_CheckedChanged);
+			// 
+			// cbNoMapFadeEffect
+			// 
+			this->cbNoMapFadeEffect->AutoSize = true;
+			this->cbNoMapFadeEffect->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
+			this->cbNoMapFadeEffect->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->cbNoMapFadeEffect->ForeColor = System::Drawing::Color::White;
+			this->cbNoMapFadeEffect->Location = System::Drawing::Point(6, 60);
+			this->cbNoMapFadeEffect->Name = L"cbNoMapFadeEffect";
+			this->cbNoMapFadeEffect->Size = System::Drawing::Size(118, 17);
+			this->cbNoMapFadeEffect->TabIndex = 5;
+			this->cbNoMapFadeEffect->Text = L"No Map Fade Effect";
+			this->cbNoMapFadeEffect->UseVisualStyleBackColor = false;
+			this->cbNoMapFadeEffect->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbNoMapFadeEffect_CheckedChanged);
+			// 
+			// cbNoMapObjects
+			// 
+			this->cbNoMapObjects->AutoSize = true;
+			this->cbNoMapObjects->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
+			this->cbNoMapObjects->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->cbNoMapObjects->ForeColor = System::Drawing::Color::White;
+			this->cbNoMapObjects->Location = System::Drawing::Point(6, 30);
+			this->cbNoMapObjects->Name = L"cbNoMapObjects";
+			this->cbNoMapObjects->Size = System::Drawing::Size(99, 17);
+			this->cbNoMapObjects->TabIndex = 7;
+			this->cbNoMapObjects->Text = L"No Map Objects";
+			this->cbNoMapObjects->UseVisualStyleBackColor = false;
+			this->cbNoMapObjects->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbNoMapObjects_CheckedChanged);
+			// 
+			// gbMobHacks
+			// 
+			this->gbMobHacks->Controls->Add(this->cbMobAutoAggro);
+			this->gbMobHacks->Controls->Add(this->cbNoMobReaction);
+			this->gbMobHacks->Controls->Add(this->cbMobDisarm);
+			this->gbMobHacks->Controls->Add(this->cbMobFreeze);
+			this->gbMobHacks->Controls->Add(this->cbNoMobDeathEffect);
+			this->gbMobHacks->Controls->Add(this->cbNoMobKnockback);
+			this->gbMobHacks->Location = System::Drawing::Point(235, 5);
+			this->gbMobHacks->Name = L"gbMobHacks";
+			this->gbMobHacks->Size = System::Drawing::Size(170, 110);
+			this->gbMobHacks->TabIndex = 26;
+			this->gbMobHacks->TabStop = false;
+			this->gbMobHacks->Text = L"Mob Hacks";
 			// 
 			// cbMobAutoAggro
 			// 
@@ -3232,7 +3666,7 @@ namespace Timelapse {
 			this->cbMobAutoAggro->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
 			this->cbMobAutoAggro->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->cbMobAutoAggro->ForeColor = System::Drawing::Color::White;
-			this->cbMobAutoAggro->Location = System::Drawing::Point(5, 114);
+			this->cbMobAutoAggro->Location = System::Drawing::Point(6, 89);
 			this->cbMobAutoAggro->Name = L"cbMobAutoAggro";
 			this->cbMobAutoAggro->Size = System::Drawing::Size(101, 17);
 			this->cbMobAutoAggro->TabIndex = 23;
@@ -3240,41 +3674,13 @@ namespace Timelapse {
 			this->cbMobAutoAggro->UseVisualStyleBackColor = false;
 			this->cbMobAutoAggro->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbMobAutoAggro_CheckedChanged);
 			// 
-			// cbMobFreeze
-			// 
-			this->cbMobFreeze->AutoSize = true;
-			this->cbMobFreeze->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
-			this->cbMobFreeze->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->cbMobFreeze->ForeColor = System::Drawing::Color::White;
-			this->cbMobFreeze->Location = System::Drawing::Point(5, 71);
-			this->cbMobFreeze->Name = L"cbMobFreeze";
-			this->cbMobFreeze->Size = System::Drawing::Size(79, 17);
-			this->cbMobFreeze->TabIndex = 9;
-			this->cbMobFreeze->Text = L"Mob Freeze";
-			this->cbMobFreeze->UseVisualStyleBackColor = false;
-			this->cbMobFreeze->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbMobFreeze_CheckedChanged);
-			// 
-			// cbMobDisarm
-			// 
-			this->cbMobDisarm->AutoSize = true;
-			this->cbMobDisarm->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
-			this->cbMobDisarm->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->cbMobDisarm->ForeColor = System::Drawing::Color::White;
-			this->cbMobDisarm->Location = System::Drawing::Point(5, 93);
-			this->cbMobDisarm->Name = L"cbMobDisarm";
-			this->cbMobDisarm->Size = System::Drawing::Size(78, 17);
-			this->cbMobDisarm->TabIndex = 7;
-			this->cbMobDisarm->Text = L"Mob Disarm";
-			this->cbMobDisarm->UseVisualStyleBackColor = false;
-			this->cbMobDisarm->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbMobDisarm_CheckedChanged);
-			// 
 			// cbNoMobReaction
 			// 
 			this->cbNoMobReaction->AutoSize = true;
 			this->cbNoMobReaction->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
 			this->cbNoMobReaction->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->cbNoMobReaction->ForeColor = System::Drawing::Color::White;
-			this->cbNoMobReaction->Location = System::Drawing::Point(5, 5);
+			this->cbNoMobReaction->Location = System::Drawing::Point(6, 15);
 			this->cbNoMobReaction->Name = L"cbNoMobReaction";
 			this->cbNoMobReaction->Size = System::Drawing::Size(104, 17);
 			this->cbNoMobReaction->TabIndex = 6;
@@ -3282,13 +3688,41 @@ namespace Timelapse {
 			this->cbNoMobReaction->UseVisualStyleBackColor = false;
 			this->cbNoMobReaction->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbNoMobReaction_CheckedChanged);
 			// 
+			// cbMobDisarm
+			// 
+			this->cbMobDisarm->AutoSize = true;
+			this->cbMobDisarm->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
+			this->cbMobDisarm->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->cbMobDisarm->ForeColor = System::Drawing::Color::White;
+			this->cbMobDisarm->Location = System::Drawing::Point(6, 75);
+			this->cbMobDisarm->Name = L"cbMobDisarm";
+			this->cbMobDisarm->Size = System::Drawing::Size(78, 17);
+			this->cbMobDisarm->TabIndex = 7;
+			this->cbMobDisarm->Text = L"Mob Disarm";
+			this->cbMobDisarm->UseVisualStyleBackColor = false;
+			this->cbMobDisarm->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbMobDisarm_CheckedChanged);
+			// 
+			// cbMobFreeze
+			// 
+			this->cbMobFreeze->AutoSize = true;
+			this->cbMobFreeze->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
+			this->cbMobFreeze->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->cbMobFreeze->ForeColor = System::Drawing::Color::White;
+			this->cbMobFreeze->Location = System::Drawing::Point(6, 60);
+			this->cbMobFreeze->Name = L"cbMobFreeze";
+			this->cbMobFreeze->Size = System::Drawing::Size(79, 17);
+			this->cbMobFreeze->TabIndex = 9;
+			this->cbMobFreeze->Text = L"Mob Freeze";
+			this->cbMobFreeze->UseVisualStyleBackColor = false;
+			this->cbMobFreeze->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbMobFreeze_CheckedChanged);
+			// 
 			// cbNoMobDeathEffect
 			// 
 			this->cbNoMobDeathEffect->AutoSize = true;
 			this->cbNoMobDeathEffect->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
 			this->cbNoMobDeathEffect->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->cbNoMobDeathEffect->ForeColor = System::Drawing::Color::White;
-			this->cbNoMobDeathEffect->Location = System::Drawing::Point(5, 27);
+			this->cbNoMobDeathEffect->Location = System::Drawing::Point(6, 30);
 			this->cbNoMobDeathEffect->Name = L"cbNoMobDeathEffect";
 			this->cbNoMobDeathEffect->Size = System::Drawing::Size(123, 17);
 			this->cbNoMobDeathEffect->TabIndex = 8;
@@ -3302,7 +3736,7 @@ namespace Timelapse {
 			this->cbNoMobKnockback->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
 			this->cbNoMobKnockback->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->cbNoMobKnockback->ForeColor = System::Drawing::Color::White;
-			this->cbNoMobKnockback->Location = System::Drawing::Point(5, 49);
+			this->cbNoMobKnockback->Location = System::Drawing::Point(6, 45);
 			this->cbNoMobKnockback->Name = L"cbNoMobKnockback";
 			this->cbNoMobKnockback->Size = System::Drawing::Size(112, 17);
 			this->cbNoMobKnockback->TabIndex = 4;
@@ -3311,24 +3745,27 @@ namespace Timelapse {
 			this->cbNoMobKnockback->UseVisualStyleBackColor = false;
 			this->cbNoMobKnockback->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbNoMobKnockback_CheckedChanged);
 			// 
-			// panel23
+			// gbCharacterHacks
 			// 
-			this->panel23->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
-			this->panel23->Controls->Add(this->cbAttackAnimDelay);
-			this->panel23->Controls->Add(this->cbNoPlayerNameTag);
-			this->panel23->Controls->Add(this->cbNoAttackDelay);
-			this->panel23->Controls->Add(this->cbNoBreath);
-			this->panel23->Controls->Add(this->cbNoSkillEffects);
-			this->panel23->Controls->Add(this->cbFullAccuracy);
-			this->panel23->Controls->Add(this->cbNoPlayerKnockback);
-			this->panel23->Controls->Add(this->cbSpeedAttack);
-			this->panel23->Controls->Add(this->cbJumpDownAnyTile);
-			this->panel23->Controls->Add(this->cbNoPlayerDeath);
-			this->panel23->Controls->Add(this->cbUnlimitedAttack);
-			this->panel23->Location = System::Drawing::Point(6, 82);
-			this->panel23->Name = L"panel23";
-			this->panel23->Size = System::Drawing::Size(123, 247);
-			this->panel23->TabIndex = 20;
+			this->gbCharacterHacks->Controls->Add(this->cbAttackAnimDelay);
+			this->gbCharacterHacks->Controls->Add(this->tbAttackAnimDelay);
+			this->gbCharacterHacks->Controls->Add(this->cbFullGodmode);
+			this->gbCharacterHacks->Controls->Add(this->cbNoPlayerNameTag);
+			this->gbCharacterHacks->Controls->Add(this->cbBlinkGodmode);
+			this->gbCharacterHacks->Controls->Add(this->cbNoAttackDelay);
+			this->gbCharacterHacks->Controls->Add(this->cbMissGodmode);
+			this->gbCharacterHacks->Controls->Add(this->cbNoSkillEffects);
+			this->gbCharacterHacks->Controls->Add(this->cbNoBreath);
+			this->gbCharacterHacks->Controls->Add(this->cbNoPlayerDeath);
+			this->gbCharacterHacks->Controls->Add(this->cbSpeedAttack);
+			this->gbCharacterHacks->Controls->Add(this->cbUnlimitedAttack);
+			this->gbCharacterHacks->Controls->Add(this->cbFullAccuracy);
+			this->gbCharacterHacks->Location = System::Drawing::Point(6, 5);
+			this->gbCharacterHacks->Name = L"gbCharacterHacks";
+			this->gbCharacterHacks->Size = System::Drawing::Size(225, 195);
+			this->gbCharacterHacks->TabIndex = 8;
+			this->gbCharacterHacks->TabStop = false;
+			this->gbCharacterHacks->Text = L"Character Hacks";
 			// 
 			// cbAttackAnimDelay
 			// 
@@ -3336,284 +3773,25 @@ namespace Timelapse {
 			this->cbAttackAnimDelay->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
 			this->cbAttackAnimDelay->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->cbAttackAnimDelay->ForeColor = System::Drawing::Color::White;
-			this->cbAttackAnimDelay->Location = System::Drawing::Point(5, 225);
+			this->cbAttackAnimDelay->Location = System::Drawing::Point(6, 150);
 			this->cbAttackAnimDelay->Name = L"cbAttackAnimDelay";
 			this->cbAttackAnimDelay->Size = System::Drawing::Size(110, 17);
 			this->cbAttackAnimDelay->TabIndex = 25;
 			this->cbAttackAnimDelay->Text = L"Attack Anim Delay";
 			this->cbAttackAnimDelay->UseVisualStyleBackColor = false;
 			// 
-			// cbNoPlayerNameTag
+			// tbAttackAnimDelay
 			// 
-			this->cbNoPlayerNameTag->AutoSize = true;
-			this->cbNoPlayerNameTag->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
-			this->cbNoPlayerNameTag->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->cbNoPlayerNameTag->ForeColor = System::Drawing::Color::White;
-			this->cbNoPlayerNameTag->Location = System::Drawing::Point(5, 202);
-			this->cbNoPlayerNameTag->Name = L"cbNoPlayerNameTag";
-			this->cbNoPlayerNameTag->Size = System::Drawing::Size(120, 17);
-			this->cbNoPlayerNameTag->TabIndex = 24;
-			this->cbNoPlayerNameTag->Text = L"No Player Name Tag";
-			this->cbNoPlayerNameTag->UseVisualStyleBackColor = false;
-			this->cbNoPlayerNameTag->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbNoPlayerNameTag_CheckedChanged);
-			// 
-			// cbNoAttackDelay
-			// 
-			this->cbNoAttackDelay->AutoSize = true;
-			this->cbNoAttackDelay->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
-			this->cbNoAttackDelay->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->cbNoAttackDelay->ForeColor = System::Drawing::Color::White;
-			this->cbNoAttackDelay->Location = System::Drawing::Point(5, 180);
-			this->cbNoAttackDelay->Name = L"cbNoAttackDelay";
-			this->cbNoAttackDelay->Size = System::Drawing::Size(100, 17);
-			this->cbNoAttackDelay->TabIndex = 23;
-			this->cbNoAttackDelay->Text = L"No Attack Delay";
-			this->cbNoAttackDelay->UseVisualStyleBackColor = false;
-			this->cbNoAttackDelay->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbNoAttackDelay_CheckedChanged);
-			// 
-			// cbNoBreath
-			// 
-			this->cbNoBreath->AutoSize = true;
-			this->cbNoBreath->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
-			this->cbNoBreath->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->cbNoBreath->ForeColor = System::Drawing::Color::White;
-			this->cbNoBreath->Location = System::Drawing::Point(5, 71);
-			this->cbNoBreath->Name = L"cbNoBreath";
-			this->cbNoBreath->Size = System::Drawing::Size(71, 17);
-			this->cbNoBreath->TabIndex = 12;
-			this->cbNoBreath->Text = L"No Breath";
-			this->cbNoBreath->UseVisualStyleBackColor = false;
-			this->cbNoBreath->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbNoBreath_CheckedChanged);
-			// 
-			// cbNoSkillEffects
-			// 
-			this->cbNoSkillEffects->AutoSize = true;
-			this->cbNoSkillEffects->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
-			this->cbNoSkillEffects->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->cbNoSkillEffects->ForeColor = System::Drawing::Color::White;
-			this->cbNoSkillEffects->Location = System::Drawing::Point(5, 158);
-			this->cbNoSkillEffects->Name = L"cbNoSkillEffects";
-			this->cbNoSkillEffects->Size = System::Drawing::Size(93, 17);
-			this->cbNoSkillEffects->TabIndex = 8;
-			this->cbNoSkillEffects->Text = L"No Skill Effects";
-			this->cbNoSkillEffects->UseVisualStyleBackColor = false;
-			this->cbNoSkillEffects->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbNoSkillEffects_CheckedChanged);
-			// 
-			// cbFullAccuracy
-			// 
-			this->cbFullAccuracy->AutoSize = true;
-			this->cbFullAccuracy->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
-			this->cbFullAccuracy->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->cbFullAccuracy->ForeColor = System::Drawing::Color::White;
-			this->cbFullAccuracy->Location = System::Drawing::Point(5, 49);
-			this->cbFullAccuracy->Name = L"cbFullAccuracy";
-			this->cbFullAccuracy->Size = System::Drawing::Size(86, 17);
-			this->cbFullAccuracy->TabIndex = 10;
-			this->cbFullAccuracy->Text = L"Full Accuracy";
-			this->cbFullAccuracy->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
-			this->cbFullAccuracy->UseVisualStyleBackColor = false;
-			this->cbFullAccuracy->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbFullAccuracy_CheckedChanged);
-			// 
-			// cbNoPlayerKnockback
-			// 
-			this->cbNoPlayerKnockback->AutoSize = true;
-			this->cbNoPlayerKnockback->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
-			this->cbNoPlayerKnockback->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->cbNoPlayerKnockback->ForeColor = System::Drawing::Color::White;
-			this->cbNoPlayerKnockback->Location = System::Drawing::Point(5, 93);
-			this->cbNoPlayerKnockback->Name = L"cbNoPlayerKnockback";
-			this->cbNoPlayerKnockback->Size = System::Drawing::Size(122, 17);
-			this->cbNoPlayerKnockback->TabIndex = 5;
-			this->cbNoPlayerKnockback->Text = L"No Player Knockback";
-			this->cbNoPlayerKnockback->UseVisualStyleBackColor = false;
-			this->cbNoPlayerKnockback->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbNoPlayerKnockback_CheckedChanged);
-			// 
-			// cbSpeedAttack
-			// 
-			this->cbSpeedAttack->AutoSize = true;
-			this->cbSpeedAttack->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
-			this->cbSpeedAttack->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->cbSpeedAttack->ForeColor = System::Drawing::Color::White;
-			this->cbSpeedAttack->Location = System::Drawing::Point(5, 5);
-			this->cbSpeedAttack->Name = L"cbSpeedAttack";
-			this->cbSpeedAttack->Size = System::Drawing::Size(87, 17);
-			this->cbSpeedAttack->TabIndex = 11;
-			this->cbSpeedAttack->Text = L"Speed Attack";
-			this->cbSpeedAttack->UseVisualStyleBackColor = false;
-			this->cbSpeedAttack->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbSpeedAttack_CheckedChanged);
-			// 
-			// cbJumpDownAnyTile
-			// 
-			this->cbJumpDownAnyTile->AutoSize = true;
-			this->cbJumpDownAnyTile->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
-			this->cbJumpDownAnyTile->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->cbJumpDownAnyTile->ForeColor = System::Drawing::Color::White;
-			this->cbJumpDownAnyTile->Location = System::Drawing::Point(5, 136);
-			this->cbJumpDownAnyTile->Name = L"cbJumpDownAnyTile";
-			this->cbJumpDownAnyTile->Size = System::Drawing::Size(119, 17);
-			this->cbJumpDownAnyTile->TabIndex = 4;
-			this->cbJumpDownAnyTile->Text = L"Jump Down Any Tile";
-			this->cbJumpDownAnyTile->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
-			this->cbJumpDownAnyTile->UseVisualStyleBackColor = false;
-			this->cbJumpDownAnyTile->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbJumpDownAnyTile_CheckedChanged);
-			// 
-			// cbNoPlayerDeath
-			// 
-			this->cbNoPlayerDeath->AutoSize = true;
-			this->cbNoPlayerDeath->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
-			this->cbNoPlayerDeath->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->cbNoPlayerDeath->ForeColor = System::Drawing::Color::White;
-			this->cbNoPlayerDeath->Location = System::Drawing::Point(5, 114);
-			this->cbNoPlayerDeath->Name = L"cbNoPlayerDeath";
-			this->cbNoPlayerDeath->Size = System::Drawing::Size(101, 17);
-			this->cbNoPlayerDeath->TabIndex = 9;
-			this->cbNoPlayerDeath->Text = L"No Player Death";
-			this->cbNoPlayerDeath->UseVisualStyleBackColor = false;
-			this->cbNoPlayerDeath->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbNoPlayerDeath_CheckedChanged);
-			// 
-			// cbUnlimitedAttack
-			// 
-			this->cbUnlimitedAttack->AutoSize = true;
-			this->cbUnlimitedAttack->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
-			this->cbUnlimitedAttack->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->cbUnlimitedAttack->ForeColor = System::Drawing::Color::White;
-			this->cbUnlimitedAttack->Location = System::Drawing::Point(5, 27);
-			this->cbUnlimitedAttack->Name = L"cbUnlimitedAttack";
-			this->cbUnlimitedAttack->Size = System::Drawing::Size(100, 17);
-			this->cbUnlimitedAttack->TabIndex = 6;
-			this->cbUnlimitedAttack->Text = L"Unlimited Attack";
-			this->cbUnlimitedAttack->UseVisualStyleBackColor = false;
-			this->cbUnlimitedAttack->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbUnlimitedAttack_CheckedChanged);
-			// 
-			// panel11
-			// 
-			this->panel11->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
-			this->panel11->Controls->Add(this->cbMouseFly);
-			this->panel11->Controls->Add(this->label49);
-			this->panel11->Controls->Add(this->label50);
-			this->panel11->Controls->Add(this->tbMouseTeleport);
-			this->panel11->Controls->Add(this->tbClickTeleport);
-			this->panel11->Controls->Add(this->cbSwimInAir);
-			this->panel11->Controls->Add(this->cbClickTeleport);
-			this->panel11->Controls->Add(this->cbMouseTeleport);
-			this->panel11->Location = System::Drawing::Point(133, 6);
-			this->panel11->Name = L"panel11";
-			this->panel11->Size = System::Drawing::Size(251, 72);
-			this->panel11->TabIndex = 4;
-			// 
-			// cbMouseFly
-			// 
-			this->cbMouseFly->AutoSize = true;
-			this->cbMouseFly->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
-			this->cbMouseFly->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->cbMouseFly->ForeColor = System::Drawing::Color::White;
-			this->cbMouseFly->Location = System::Drawing::Point(5, 50);
-			this->cbMouseFly->Name = L"cbMouseFly";
-			this->cbMouseFly->Size = System::Drawing::Size(71, 17);
-			this->cbMouseFly->TabIndex = 9;
-			this->cbMouseFly->Text = L"Mouse Fly";
-			this->cbMouseFly->UseVisualStyleBackColor = false;
-			this->cbMouseFly->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbMouseFly_CheckedChanged);
-			// 
-			// label49
-			// 
-			this->label49->AutoSize = true;
-			this->label49->Location = System::Drawing::Point(108, 30);
-			this->label49->Name = L"label49";
-			this->label49->Size = System::Drawing::Size(73, 13);
-			this->label49->TabIndex = 8;
-			this->label49->Text = L"Interval [ms]:";
-			// 
-			// label50
-			// 
-			this->label50->AutoSize = true;
-			this->label50->Location = System::Drawing::Point(108, 6);
-			this->label50->Name = L"label50";
-			this->label50->Size = System::Drawing::Size(73, 13);
-			this->label50->TabIndex = 7;
-			this->label50->Text = L"Interval [ms]:";
-			// 
-			// tbMouseTeleport
-			// 
-			this->tbMouseTeleport->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(35)), static_cast<System::Int32>(static_cast<System::Byte>(35)),
-				static_cast<System::Int32>(static_cast<System::Byte>(35)));
-			this->tbMouseTeleport->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
-			this->tbMouseTeleport->ForeColor = System::Drawing::Color::White;
-			this->tbMouseTeleport->Location = System::Drawing::Point(188, 28);
-			this->tbMouseTeleport->Name = L"tbMouseTeleport";
-			this->tbMouseTeleport->Size = System::Drawing::Size(49, 21);
-			this->tbMouseTeleport->TabIndex = 4;
-			this->tbMouseTeleport->Text = L"100";
-			this->tbMouseTeleport->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
-			this->tbMouseTeleport->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &MainForm::tbMouseTeleport_KeyPress);
-			// 
-			// tbClickTeleport
-			// 
-			this->tbClickTeleport->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(35)), static_cast<System::Int32>(static_cast<System::Byte>(35)),
-				static_cast<System::Int32>(static_cast<System::Byte>(35)));
-			this->tbClickTeleport->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
-			this->tbClickTeleport->ForeColor = System::Drawing::Color::White;
-			this->tbClickTeleport->Location = System::Drawing::Point(188, 4);
-			this->tbClickTeleport->Name = L"tbClickTeleport";
-			this->tbClickTeleport->Size = System::Drawing::Size(49, 21);
-			this->tbClickTeleport->TabIndex = 3;
-			this->tbClickTeleport->Text = L"100";
-			this->tbClickTeleport->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
-			this->tbClickTeleport->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &MainForm::tbClickTeleport_KeyPress);
-			// 
-			// cbSwimInAir
-			// 
-			this->cbSwimInAir->AutoSize = true;
-			this->cbSwimInAir->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
-			this->cbSwimInAir->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->cbSwimInAir->ForeColor = System::Drawing::Color::White;
-			this->cbSwimInAir->Location = System::Drawing::Point(135, 50);
-			this->cbSwimInAir->Name = L"cbSwimInAir";
-			this->cbSwimInAir->Size = System::Drawing::Size(76, 17);
-			this->cbSwimInAir->TabIndex = 7;
-			this->cbSwimInAir->Text = L"Swim In Air";
-			this->cbSwimInAir->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
-			this->cbSwimInAir->UseVisualStyleBackColor = false;
-			this->cbSwimInAir->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbSwimInAir_CheckedChanged);
-			// 
-			// cbClickTeleport
-			// 
-			this->cbClickTeleport->AutoSize = true;
-			this->cbClickTeleport->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
-			this->cbClickTeleport->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->cbClickTeleport->ForeColor = System::Drawing::Color::White;
-			this->cbClickTeleport->Location = System::Drawing::Point(5, 5);
-			this->cbClickTeleport->Name = L"cbClickTeleport";
-			this->cbClickTeleport->Size = System::Drawing::Size(87, 17);
-			this->cbClickTeleport->TabIndex = 1;
-			this->cbClickTeleport->Text = L"Click Teleport";
-			this->cbClickTeleport->UseVisualStyleBackColor = false;
-			this->cbClickTeleport->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbClickTeleport_CheckedChanged);
-			// 
-			// cbMouseTeleport
-			// 
-			this->cbMouseTeleport->AutoSize = true;
-			this->cbMouseTeleport->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
-			this->cbMouseTeleport->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->cbMouseTeleport->ForeColor = System::Drawing::Color::White;
-			this->cbMouseTeleport->Location = System::Drawing::Point(5, 27);
-			this->cbMouseTeleport->Name = L"cbMouseTeleport";
-			this->cbMouseTeleport->Size = System::Drawing::Size(97, 17);
-			this->cbMouseTeleport->TabIndex = 2;
-			this->cbMouseTeleport->Text = L"Mouse Teleport";
-			this->cbMouseTeleport->UseVisualStyleBackColor = false;
-			this->cbMouseTeleport->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbMouseTeleport_CheckedChanged);
-			// 
-			// panel10
-			// 
-			this->panel10->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
-			this->panel10->Controls->Add(this->cbFullGodmode);
-			this->panel10->Controls->Add(this->cbMissGodmode);
-			this->panel10->Controls->Add(this->cbBlinkGodmode);
-			this->panel10->Location = System::Drawing::Point(6, 6);
-			this->panel10->Name = L"panel10";
-			this->panel10->Size = System::Drawing::Size(123, 72);
-			this->panel10->TabIndex = 0;
+			this->tbAttackAnimDelay->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(35)),
+				static_cast<System::Int32>(static_cast<System::Byte>(35)), static_cast<System::Int32>(static_cast<System::Byte>(35)));
+			this->tbAttackAnimDelay->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->tbAttackAnimDelay->ForeColor = System::Drawing::Color::White;
+			this->tbAttackAnimDelay->Location = System::Drawing::Point(125, 150);
+			this->tbAttackAnimDelay->Name = L"tbAttackAnimDelay";
+			this->tbAttackAnimDelay->Size = System::Drawing::Size(49, 21);
+			this->tbAttackAnimDelay->TabIndex = 23;
+			this->tbAttackAnimDelay->Text = L"10";
+			this->tbAttackAnimDelay->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
 			// 
 			// cbFullGodmode
 			// 
@@ -3621,7 +3799,7 @@ namespace Timelapse {
 			this->cbFullGodmode->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
 			this->cbFullGodmode->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->cbFullGodmode->ForeColor = System::Drawing::Color::White;
-			this->cbFullGodmode->Location = System::Drawing::Point(5, 5);
+			this->cbFullGodmode->Location = System::Drawing::Point(6, 15);
 			this->cbFullGodmode->Name = L"cbFullGodmode";
 			this->cbFullGodmode->Size = System::Drawing::Size(87, 17);
 			this->cbFullGodmode->TabIndex = 6;
@@ -3629,19 +3807,19 @@ namespace Timelapse {
 			this->cbFullGodmode->UseVisualStyleBackColor = false;
 			this->cbFullGodmode->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbFullGodmode_CheckedChanged);
 			// 
-			// cbMissGodmode
+			// cbNoPlayerNameTag
 			// 
-			this->cbMissGodmode->AutoSize = true;
-			this->cbMissGodmode->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
-			this->cbMissGodmode->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->cbMissGodmode->ForeColor = System::Drawing::Color::White;
-			this->cbMissGodmode->Location = System::Drawing::Point(5, 27);
-			this->cbMissGodmode->Name = L"cbMissGodmode";
-			this->cbMissGodmode->Size = System::Drawing::Size(91, 17);
-			this->cbMissGodmode->TabIndex = 5;
-			this->cbMissGodmode->Text = L"Miss Godmode";
-			this->cbMissGodmode->UseVisualStyleBackColor = false;
-			this->cbMissGodmode->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbMissGodmode_CheckedChanged);
+			this->cbNoPlayerNameTag->AutoSize = true;
+			this->cbNoPlayerNameTag->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
+			this->cbNoPlayerNameTag->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->cbNoPlayerNameTag->ForeColor = System::Drawing::Color::White;
+			this->cbNoPlayerNameTag->Location = System::Drawing::Point(6, 125);
+			this->cbNoPlayerNameTag->Name = L"cbNoPlayerNameTag";
+			this->cbNoPlayerNameTag->Size = System::Drawing::Size(120, 17);
+			this->cbNoPlayerNameTag->TabIndex = 24;
+			this->cbNoPlayerNameTag->Text = L"No Player Name Tag";
+			this->cbNoPlayerNameTag->UseVisualStyleBackColor = false;
+			this->cbNoPlayerNameTag->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbNoPlayerNameTag_CheckedChanged);
 			// 
 			// cbBlinkGodmode
 			// 
@@ -3649,7 +3827,7 @@ namespace Timelapse {
 			this->cbBlinkGodmode->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
 			this->cbBlinkGodmode->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->cbBlinkGodmode->ForeColor = System::Drawing::Color::White;
-			this->cbBlinkGodmode->Location = System::Drawing::Point(5, 49);
+			this->cbBlinkGodmode->Location = System::Drawing::Point(6, 45);
 			this->cbBlinkGodmode->Name = L"cbBlinkGodmode";
 			this->cbBlinkGodmode->Size = System::Drawing::Size(92, 17);
 			this->cbBlinkGodmode->TabIndex = 4;
@@ -3657,6 +3835,119 @@ namespace Timelapse {
 			this->cbBlinkGodmode->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
 			this->cbBlinkGodmode->UseVisualStyleBackColor = false;
 			this->cbBlinkGodmode->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbBlinkGodmode_CheckedChanged);
+			// 
+			// cbNoAttackDelay
+			// 
+			this->cbNoAttackDelay->AutoSize = true;
+			this->cbNoAttackDelay->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
+			this->cbNoAttackDelay->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->cbNoAttackDelay->ForeColor = System::Drawing::Color::White;
+			this->cbNoAttackDelay->Location = System::Drawing::Point(115, 30);
+			this->cbNoAttackDelay->Name = L"cbNoAttackDelay";
+			this->cbNoAttackDelay->Size = System::Drawing::Size(100, 17);
+			this->cbNoAttackDelay->TabIndex = 23;
+			this->cbNoAttackDelay->Text = L"No Attack Delay";
+			this->cbNoAttackDelay->UseVisualStyleBackColor = false;
+			this->cbNoAttackDelay->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbNoAttackDelay_CheckedChanged);
+			// 
+			// cbMissGodmode
+			// 
+			this->cbMissGodmode->AutoSize = true;
+			this->cbMissGodmode->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
+			this->cbMissGodmode->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->cbMissGodmode->ForeColor = System::Drawing::Color::White;
+			this->cbMissGodmode->Location = System::Drawing::Point(6, 30);
+			this->cbMissGodmode->Name = L"cbMissGodmode";
+			this->cbMissGodmode->Size = System::Drawing::Size(91, 17);
+			this->cbMissGodmode->TabIndex = 5;
+			this->cbMissGodmode->Text = L"Miss Godmode";
+			this->cbMissGodmode->UseVisualStyleBackColor = false;
+			this->cbMissGodmode->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbMissGodmode_CheckedChanged);
+			// 
+			// cbNoSkillEffects
+			// 
+			this->cbNoSkillEffects->AutoSize = true;
+			this->cbNoSkillEffects->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
+			this->cbNoSkillEffects->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->cbNoSkillEffects->ForeColor = System::Drawing::Color::White;
+			this->cbNoSkillEffects->Location = System::Drawing::Point(6, 94);
+			this->cbNoSkillEffects->Name = L"cbNoSkillEffects";
+			this->cbNoSkillEffects->Size = System::Drawing::Size(93, 17);
+			this->cbNoSkillEffects->TabIndex = 8;
+			this->cbNoSkillEffects->Text = L"No Skill Effects";
+			this->cbNoSkillEffects->UseVisualStyleBackColor = false;
+			this->cbNoSkillEffects->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbNoSkillEffects_CheckedChanged);
+			// 
+			// cbNoBreath
+			// 
+			this->cbNoBreath->AutoSize = true;
+			this->cbNoBreath->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
+			this->cbNoBreath->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->cbNoBreath->ForeColor = System::Drawing::Color::White;
+			this->cbNoBreath->Location = System::Drawing::Point(6, 65);
+			this->cbNoBreath->Name = L"cbNoBreath";
+			this->cbNoBreath->Size = System::Drawing::Size(71, 17);
+			this->cbNoBreath->TabIndex = 12;
+			this->cbNoBreath->Text = L"No Breath";
+			this->cbNoBreath->UseVisualStyleBackColor = false;
+			this->cbNoBreath->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbNoBreath_CheckedChanged);
+			// 
+			// cbNoPlayerDeath
+			// 
+			this->cbNoPlayerDeath->AutoSize = true;
+			this->cbNoPlayerDeath->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
+			this->cbNoPlayerDeath->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->cbNoPlayerDeath->ForeColor = System::Drawing::Color::White;
+			this->cbNoPlayerDeath->Location = System::Drawing::Point(6, 109);
+			this->cbNoPlayerDeath->Name = L"cbNoPlayerDeath";
+			this->cbNoPlayerDeath->Size = System::Drawing::Size(101, 17);
+			this->cbNoPlayerDeath->TabIndex = 9;
+			this->cbNoPlayerDeath->Text = L"No Player Death";
+			this->cbNoPlayerDeath->UseVisualStyleBackColor = false;
+			this->cbNoPlayerDeath->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbNoPlayerDeath_CheckedChanged);
+			// 
+			// cbSpeedAttack
+			// 
+			this->cbSpeedAttack->AutoSize = true;
+			this->cbSpeedAttack->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
+			this->cbSpeedAttack->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->cbSpeedAttack->ForeColor = System::Drawing::Color::White;
+			this->cbSpeedAttack->Location = System::Drawing::Point(115, 15);
+			this->cbSpeedAttack->Name = L"cbSpeedAttack";
+			this->cbSpeedAttack->Size = System::Drawing::Size(87, 17);
+			this->cbSpeedAttack->TabIndex = 11;
+			this->cbSpeedAttack->Text = L"Speed Attack";
+			this->cbSpeedAttack->UseVisualStyleBackColor = false;
+			this->cbSpeedAttack->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbSpeedAttack_CheckedChanged);
+			// 
+			// cbUnlimitedAttack
+			// 
+			this->cbUnlimitedAttack->AutoSize = true;
+			this->cbUnlimitedAttack->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
+			this->cbUnlimitedAttack->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->cbUnlimitedAttack->ForeColor = System::Drawing::Color::White;
+			this->cbUnlimitedAttack->Location = System::Drawing::Point(6, 80);
+			this->cbUnlimitedAttack->Name = L"cbUnlimitedAttack";
+			this->cbUnlimitedAttack->Size = System::Drawing::Size(100, 17);
+			this->cbUnlimitedAttack->TabIndex = 6;
+			this->cbUnlimitedAttack->Text = L"Unlimited Attack";
+			this->cbUnlimitedAttack->UseVisualStyleBackColor = false;
+			this->cbUnlimitedAttack->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbUnlimitedAttack_CheckedChanged);
+			// 
+			// cbFullAccuracy
+			// 
+			this->cbFullAccuracy->AutoSize = true;
+			this->cbFullAccuracy->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
+			this->cbFullAccuracy->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->cbFullAccuracy->ForeColor = System::Drawing::Color::White;
+			this->cbFullAccuracy->Location = System::Drawing::Point(115, 45);
+			this->cbFullAccuracy->Name = L"cbFullAccuracy";
+			this->cbFullAccuracy->Size = System::Drawing::Size(86, 17);
+			this->cbFullAccuracy->TabIndex = 10;
+			this->cbFullAccuracy->Text = L"Full Accuracy";
+			this->cbFullAccuracy->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
+			this->cbFullAccuracy->UseVisualStyleBackColor = false;
+			this->cbFullAccuracy->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbFullAccuracy_CheckedChanged);
 			// 
 			// tabPage20
 			// 
@@ -3668,7 +3959,7 @@ namespace Timelapse {
 			this->tabPage20->Location = System::Drawing::Point(4, 22);
 			this->tabPage20->Name = L"tabPage20";
 			this->tabPage20->Padding = System::Windows::Forms::Padding(3);
-			this->tabPage20->Size = System::Drawing::Size(390, 335);
+			this->tabPage20->Size = System::Drawing::Size(414, 396);
 			this->tabPage20->TabIndex = 7;
 			this->tabPage20->Text = L"Hacks II";
 			// 
@@ -4067,7 +4358,8 @@ namespace Timelapse {
 			// 
 			this->tabPage6->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(25)), static_cast<System::Int32>(static_cast<System::Byte>(25)),
 				static_cast<System::Int32>(static_cast<System::Byte>(25)));
-			this->tabPage6->Controls->Add(this->panel28);
+			this->tabPage6->Controls->Add(this->gbFullMapVacs);
+			this->tabPage6->Controls->Add(this->gbPartialMapVacs);
 			this->tabPage6->Controls->Add(this->panel17);
 			this->tabPage6->Controls->Add(this->panel16);
 			this->tabPage6->Controls->Add(this->panel15);
@@ -4075,34 +4367,133 @@ namespace Timelapse {
 			this->tabPage6->Controls->Add(this->panel14);
 			this->tabPage6->Location = System::Drawing::Point(4, 22);
 			this->tabPage6->Name = L"tabPage6";
-			this->tabPage6->Size = System::Drawing::Size(390, 335);
+			this->tabPage6->Size = System::Drawing::Size(414, 396);
 			this->tabPage6->TabIndex = 3;
 			this->tabPage6->Text = L"Vacs";
 			// 
-			// panel28
+			// gbFullMapVacs
 			// 
-			this->panel28->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
-			this->panel28->Controls->Add(this->cbZzVac);
-			this->panel28->Controls->Add(this->cbFullMapAttack);
-			this->panel28->Controls->Add(this->cbItemVac);
-			this->panel28->Location = System::Drawing::Point(6, 239);
-			this->panel28->Name = L"panel28";
-			this->panel28->Size = System::Drawing::Size(132, 81);
-			this->panel28->TabIndex = 31;
+			this->gbFullMapVacs->Controls->Add(this->cbVacJumpLeft);
+			this->gbFullMapVacs->Controls->Add(this->cbVacForceRight);
+			this->gbFullMapVacs->Controls->Add(this->cbVacJumpRight);
+			this->gbFullMapVacs->Controls->Add(this->checkBox5);
+			this->gbFullMapVacs->Controls->Add(this->cbVacLeft);
+			this->gbFullMapVacs->Controls->Add(this->cbVacRight);
+			this->gbFullMapVacs->Location = System::Drawing::Point(265, 175);
+			this->gbFullMapVacs->Name = L"gbFullMapVacs";
+			this->gbFullMapVacs->Size = System::Drawing::Size(120, 205);
+			this->gbFullMapVacs->TabIndex = 33;
+			this->gbFullMapVacs->TabStop = false;
+			this->gbFullMapVacs->Text = L"Full Map Vacs";
 			// 
-			// cbZzVac
+			// cbVacJumpLeft
 			// 
-			this->cbZzVac->AutoSize = true;
-			this->cbZzVac->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
-			this->cbZzVac->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->cbZzVac->ForeColor = System::Drawing::Color::White;
-			this->cbZzVac->Location = System::Drawing::Point(6, 53);
-			this->cbZzVac->Name = L"cbZzVac";
-			this->cbZzVac->Size = System::Drawing::Size(55, 17);
-			this->cbZzVac->TabIndex = 24;
-			this->cbZzVac->Text = L"ZZ Vac";
-			this->cbZzVac->UseVisualStyleBackColor = false;
-			this->cbZzVac->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbZzVac_CheckedChanged);
+			this->cbVacJumpLeft->AutoSize = true;
+			this->cbVacJumpLeft->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
+			this->cbVacJumpLeft->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->cbVacJumpLeft->ForeColor = System::Drawing::Color::White;
+			this->cbVacJumpLeft->Location = System::Drawing::Point(5, 75);
+			this->cbVacJumpLeft->Name = L"cbVacJumpLeft";
+			this->cbVacJumpLeft->Size = System::Drawing::Size(90, 17);
+			this->cbVacJumpLeft->TabIndex = 28;
+			this->cbVacJumpLeft->Text = L"Vac Jump Left";
+			this->cbVacJumpLeft->UseVisualStyleBackColor = false;
+			this->cbVacJumpLeft->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbVacJumpLeft_CheckedChanged);
+			// 
+			// cbVacForceRight
+			// 
+			this->cbVacForceRight->AutoSize = true;
+			this->cbVacForceRight->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
+			this->cbVacForceRight->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->cbVacForceRight->ForeColor = System::Drawing::Color::White;
+			this->cbVacForceRight->Location = System::Drawing::Point(5, 15);
+			this->cbVacForceRight->Name = L"cbVacForceRight";
+			this->cbVacForceRight->Size = System::Drawing::Size(98, 17);
+			this->cbVacForceRight->TabIndex = 29;
+			this->cbVacForceRight->Text = L"Vac Force Right";
+			this->cbVacForceRight->UseVisualStyleBackColor = false;
+			this->cbVacForceRight->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbVacForceRight_CheckedChanged);
+			// 
+			// cbVacJumpRight
+			// 
+			this->cbVacJumpRight->AutoSize = true;
+			this->cbVacJumpRight->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
+			this->cbVacJumpRight->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->cbVacJumpRight->ForeColor = System::Drawing::Color::White;
+			this->cbVacJumpRight->Location = System::Drawing::Point(5, 60);
+			this->cbVacJumpRight->Name = L"cbVacJumpRight";
+			this->cbVacJumpRight->Size = System::Drawing::Size(96, 17);
+			this->cbVacJumpRight->TabIndex = 27;
+			this->cbVacJumpRight->Text = L"Vac Jump Right";
+			this->cbVacJumpRight->UseVisualStyleBackColor = false;
+			this->cbVacJumpRight->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbVacJumpRight_CheckedChanged);
+			// 
+			// checkBox5
+			// 
+			this->checkBox5->AutoSize = true;
+			this->checkBox5->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
+			this->checkBox5->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->checkBox5->ForeColor = System::Drawing::Color::White;
+			this->checkBox5->Location = System::Drawing::Point(5, 225);
+			this->checkBox5->Name = L"checkBox5";
+			this->checkBox5->Size = System::Drawing::Size(110, 17);
+			this->checkBox5->TabIndex = 25;
+			this->checkBox5->Text = L"Attack Anim Delay";
+			this->checkBox5->UseVisualStyleBackColor = false;
+			// 
+			// cbVacLeft
+			// 
+			this->cbVacLeft->AutoSize = true;
+			this->cbVacLeft->Enabled = false;
+			this->cbVacLeft->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
+			this->cbVacLeft->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->cbVacLeft->ForeColor = System::Drawing::Color::White;
+			this->cbVacLeft->Location = System::Drawing::Point(5, 45);
+			this->cbVacLeft->Name = L"cbVacLeft";
+			this->cbVacLeft->Size = System::Drawing::Size(62, 17);
+			this->cbVacLeft->TabIndex = 26;
+			this->cbVacLeft->Text = L"Vac Left";
+			this->cbVacLeft->UseVisualStyleBackColor = false;
+			this->cbVacLeft->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbVacLeft_CheckedChanged);
+			// 
+			// cbVacRight
+			// 
+			this->cbVacRight->AutoSize = true;
+			this->cbVacRight->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
+			this->cbVacRight->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->cbVacRight->ForeColor = System::Drawing::Color::White;
+			this->cbVacRight->Location = System::Drawing::Point(5, 30);
+			this->cbVacRight->Name = L"cbVacRight";
+			this->cbVacRight->Size = System::Drawing::Size(68, 17);
+			this->cbVacRight->TabIndex = 25;
+			this->cbVacRight->Text = L"Vac Right";
+			this->cbVacRight->UseVisualStyleBackColor = false;
+			this->cbVacRight->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbVacRight_CheckedChanged);
+			// 
+			// gbPartialMapVacs
+			// 
+			this->gbPartialMapVacs->Controls->Add(this->checkBox4);
+			this->gbPartialMapVacs->Controls->Add(this->cbFullMapAttack);
+			this->gbPartialMapVacs->Controls->Add(this->cbZzVac);
+			this->gbPartialMapVacs->Location = System::Drawing::Point(140, 175);
+			this->gbPartialMapVacs->Name = L"gbPartialMapVacs";
+			this->gbPartialMapVacs->Size = System::Drawing::Size(120, 205);
+			this->gbPartialMapVacs->TabIndex = 32;
+			this->gbPartialMapVacs->TabStop = false;
+			this->gbPartialMapVacs->Text = L"Partial Map Vacs";
+			// 
+			// checkBox4
+			// 
+			this->checkBox4->AutoSize = true;
+			this->checkBox4->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
+			this->checkBox4->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->checkBox4->ForeColor = System::Drawing::Color::White;
+			this->checkBox4->Location = System::Drawing::Point(5, 225);
+			this->checkBox4->Name = L"checkBox4";
+			this->checkBox4->Size = System::Drawing::Size(110, 17);
+			this->checkBox4->TabIndex = 25;
+			this->checkBox4->Text = L"Attack Anim Delay";
+			this->checkBox4->UseVisualStyleBackColor = false;
 			// 
 			// cbFullMapAttack
 			// 
@@ -4110,7 +4501,7 @@ namespace Timelapse {
 			this->cbFullMapAttack->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
 			this->cbFullMapAttack->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->cbFullMapAttack->ForeColor = System::Drawing::Color::White;
-			this->cbFullMapAttack->Location = System::Drawing::Point(6, 7);
+			this->cbFullMapAttack->Location = System::Drawing::Point(5, 15);
 			this->cbFullMapAttack->Name = L"cbFullMapAttack";
 			this->cbFullMapAttack->Size = System::Drawing::Size(96, 17);
 			this->cbFullMapAttack->TabIndex = 23;
@@ -4118,19 +4509,19 @@ namespace Timelapse {
 			this->cbFullMapAttack->UseVisualStyleBackColor = false;
 			this->cbFullMapAttack->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbFullMapAttack_CheckedChanged);
 			// 
-			// cbItemVac
+			// cbZzVac
 			// 
-			this->cbItemVac->AutoSize = true;
-			this->cbItemVac->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
-			this->cbItemVac->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->cbItemVac->ForeColor = System::Drawing::Color::White;
-			this->cbItemVac->Location = System::Drawing::Point(6, 30);
-			this->cbItemVac->Name = L"cbItemVac";
-			this->cbItemVac->Size = System::Drawing::Size(65, 17);
-			this->cbItemVac->TabIndex = 13;
-			this->cbItemVac->Text = L"Item Vac";
-			this->cbItemVac->UseVisualStyleBackColor = false;
-			this->cbItemVac->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbItemVac_CheckedChanged);
+			this->cbZzVac->AutoSize = true;
+			this->cbZzVac->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
+			this->cbZzVac->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->cbZzVac->ForeColor = System::Drawing::Color::White;
+			this->cbZzVac->Location = System::Drawing::Point(5, 30);
+			this->cbZzVac->Name = L"cbZzVac";
+			this->cbZzVac->Size = System::Drawing::Size(55, 17);
+			this->cbZzVac->TabIndex = 24;
+			this->cbZzVac->Text = L"ZZ Vac";
+			this->cbZzVac->UseVisualStyleBackColor = false;
+			this->cbZzVac->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbZzVac_CheckedChanged);
 			// 
 			// panel17
 			// 
@@ -4736,7 +5127,7 @@ namespace Timelapse {
 			this->tabPage7->Controls->Add(this->panel20);
 			this->tabPage7->Location = System::Drawing::Point(4, 22);
 			this->tabPage7->Name = L"tabPage7";
-			this->tabPage7->Size = System::Drawing::Size(390, 335);
+			this->tabPage7->Size = System::Drawing::Size(414, 396);
 			this->tabPage7->TabIndex = 4;
 			this->tabPage7->Text = L"Filters";
 			// 
@@ -4756,9 +5147,9 @@ namespace Timelapse {
 			this->panel21->Controls->Add(this->label76);
 			this->panel21->Controls->Add(this->label77);
 			this->panel21->Controls->Add(this->bMobFilter);
-			this->panel21->Location = System::Drawing::Point(4, 168);
+			this->panel21->Location = System::Drawing::Point(5, 233);
 			this->panel21->Name = L"panel21";
-			this->panel21->Size = System::Drawing::Size(379, 160);
+			this->panel21->Size = System::Drawing::Size(406, 160);
 			this->panel21->TabIndex = 30;
 			// 
 			// lbMobSearchLog
@@ -4944,7 +5335,7 @@ namespace Timelapse {
 			this->panel20->Controls->Add(this->bItemFilter);
 			this->panel20->Location = System::Drawing::Point(5, 5);
 			this->panel20->Name = L"panel20";
-			this->panel20->Size = System::Drawing::Size(379, 160);
+			this->panel20->Size = System::Drawing::Size(406, 222);
 			this->panel20->TabIndex = 1;
 			// 
 			// lbItemSearchLog
@@ -4956,7 +5347,7 @@ namespace Timelapse {
 			this->lbItemSearchLog->FormattingEnabled = true;
 			this->lbItemSearchLog->Location = System::Drawing::Point(194, 48);
 			this->lbItemSearchLog->Name = L"lbItemSearchLog";
-			this->lbItemSearchLog->Size = System::Drawing::Size(179, 80);
+			this->lbItemSearchLog->Size = System::Drawing::Size(179, 145);
 			this->lbItemSearchLog->TabIndex = 52;
 			this->lbItemSearchLog->MouseDoubleClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::lbItemSearchLog_MouseDoubleClick);
 			// 
@@ -4969,7 +5360,7 @@ namespace Timelapse {
 			this->lbItemFilter->FormattingEnabled = true;
 			this->lbItemFilter->Location = System::Drawing::Point(6, 8);
 			this->lbItemFilter->Name = L"lbItemFilter";
-			this->lbItemFilter->Size = System::Drawing::Size(180, 119);
+			this->lbItemFilter->Size = System::Drawing::Size(180, 184);
 			this->lbItemFilter->TabIndex = 31;
 			this->lbItemFilter->MouseDoubleClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::lbItemFilter_MouseDoubleClick);
 			// 
@@ -4993,7 +5384,7 @@ namespace Timelapse {
 			this->bItemSearchLogClear->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->bItemSearchLogClear->Font = (gcnew System::Drawing::Font(L"Tahoma", 6, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->bItemSearchLogClear->Location = System::Drawing::Point(337, 134);
+			this->bItemSearchLogClear->Location = System::Drawing::Point(337, 196);
 			this->bItemSearchLogClear->Name = L"bItemSearchLogClear";
 			this->bItemSearchLogClear->Size = System::Drawing::Size(36, 20);
 			this->bItemSearchLogClear->TabIndex = 29;
@@ -5007,7 +5398,7 @@ namespace Timelapse {
 				static_cast<System::Int32>(static_cast<System::Byte>(35)), static_cast<System::Int32>(static_cast<System::Byte>(35)));
 			this->tbItemFilterSearch->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 			this->tbItemFilterSearch->ForeColor = System::Drawing::Color::White;
-			this->tbItemFilterSearch->Location = System::Drawing::Point(233, 134);
+			this->tbItemFilterSearch->Location = System::Drawing::Point(233, 195);
 			this->tbItemFilterSearch->Name = L"tbItemFilterSearch";
 			this->tbItemFilterSearch->Size = System::Drawing::Size(98, 21);
 			this->tbItemFilterSearch->TabIndex = 27;
@@ -5017,7 +5408,7 @@ namespace Timelapse {
 			// label74
 			// 
 			this->label74->AutoSize = true;
-			this->label74->Location = System::Drawing::Point(191, 137);
+			this->label74->Location = System::Drawing::Point(191, 198);
 			this->label74->Name = L"label74";
 			this->label74->Size = System::Drawing::Size(44, 13);
 			this->label74->TabIndex = 28;
@@ -5029,7 +5420,7 @@ namespace Timelapse {
 			this->bItemFilterAdd->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->bItemFilterAdd->Font = (gcnew System::Drawing::Font(L"Tahoma", 6, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->bItemFilterAdd->Location = System::Drawing::Point(152, 135);
+			this->bItemFilterAdd->Location = System::Drawing::Point(152, 195);
 			this->bItemFilterAdd->Name = L"bItemFilterAdd";
 			this->bItemFilterAdd->Size = System::Drawing::Size(36, 20);
 			this->bItemFilterAdd->TabIndex = 26;
@@ -5043,7 +5434,7 @@ namespace Timelapse {
 				static_cast<System::Int32>(static_cast<System::Byte>(35)));
 			this->tbItemFilterID->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 			this->tbItemFilterID->ForeColor = System::Drawing::Color::White;
-			this->tbItemFilterID->Location = System::Drawing::Point(64, 135);
+			this->tbItemFilterID->Location = System::Drawing::Point(64, 195);
 			this->tbItemFilterID->Name = L"tbItemFilterID";
 			this->tbItemFilterID->Size = System::Drawing::Size(82, 21);
 			this->tbItemFilterID->TabIndex = 24;
@@ -5054,7 +5445,7 @@ namespace Timelapse {
 			// label73
 			// 
 			this->label73->AutoSize = true;
-			this->label73->Location = System::Drawing::Point(6, 138);
+			this->label73->Location = System::Drawing::Point(6, 198);
 			this->label73->Name = L"label73";
 			this->label73->Size = System::Drawing::Size(59, 13);
 			this->label73->TabIndex = 25;
@@ -5130,7 +5521,7 @@ namespace Timelapse {
 			this->tabPage8->Controls->Add(this->tabControl5);
 			this->tabPage8->Location = System::Drawing::Point(4, 22);
 			this->tabPage8->Name = L"tabPage8";
-			this->tabPage8->Size = System::Drawing::Size(390, 335);
+			this->tabPage8->Size = System::Drawing::Size(414, 396);
 			this->tabPage8->TabIndex = 5;
 			this->tabPage8->Text = L"Packets";
 			// 
@@ -5785,7 +6176,7 @@ namespace Timelapse {
 			this->tabPage9->Controls->Add(this->panel30);
 			this->tabPage9->Location = System::Drawing::Point(4, 22);
 			this->tabPage9->Name = L"tabPage9";
-			this->tabPage9->Size = System::Drawing::Size(390, 335);
+			this->tabPage9->Size = System::Drawing::Size(414, 396);
 			this->tabPage9->TabIndex = 6;
 			this->tabPage9->Text = L"Map Rusher";
 			// 
@@ -5828,7 +6219,7 @@ namespace Timelapse {
 			// 
 			this->lbMapRusherStatus->Anchor = System::Windows::Forms::AnchorStyles::Bottom;
 			this->lbMapRusherStatus->AutoSize = true;
-			this->lbMapRusherStatus->Location = System::Drawing::Point(3, 316);
+			this->lbMapRusherStatus->Location = System::Drawing::Point(6, 316);
 			this->lbMapRusherStatus->Name = L"lbMapRusherStatus";
 			this->lbMapRusherStatus->Size = System::Drawing::Size(381, 13);
 			this->lbMapRusherStatus->TabIndex = 37;
@@ -5937,56 +6328,13 @@ namespace Timelapse {
 			this->label78->TabIndex = 33;
 			this->label78->Text = L"Search:";
 			// 
-			// lbMapName
-			// 
-			this->lbMapName->AutoSize = true;
-			this->lbMapName->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
-			this->lbMapName->ForeColor = System::Drawing::Color::Silver;
-			this->lbMapName->Location = System::Drawing::Point(69, 429);
-			this->lbMapName->Name = L"lbMapName";
-			this->lbMapName->Size = System::Drawing::Size(55, 13);
-			this->lbMapName->TabIndex = 42;
-			this->lbMapName->Text = L"Waiting...";
-			this->lbMapName->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::pnlFull_MouseDown);
-			this->lbMapName->MouseMove += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::pnlFull_MouseMove);
-			this->lbMapName->MouseUp += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::pnlFull_MouseUp);
-			// 
-			// lbDateTime
-			// 
-			this->lbDateTime->AutoSize = true;
-			this->lbDateTime->BackColor = System::Drawing::Color::Transparent;
-			this->lbDateTime->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
-			this->lbDateTime->ForeColor = System::Drawing::Color::White;
-			this->lbDateTime->Location = System::Drawing::Point(406, 429);
-			this->lbDateTime->Name = L"lbDateTime";
-			this->lbDateTime->Size = System::Drawing::Size(128, 13);
-			this->lbDateTime->TabIndex = 41;
-			this->lbDateTime->Text = L"00/00/0000 00:00:00 AM";
-			this->lbDateTime->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::pnlFull_MouseDown);
-			this->lbDateTime->MouseMove += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::pnlFull_MouseMove);
-			this->lbDateTime->MouseUp += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::pnlFull_MouseUp);
-			// 
-			// label21
-			// 
-			this->label21->AutoSize = true;
-			this->label21->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
-			this->label21->ForeColor = System::Drawing::Color::Silver;
-			this->label21->Location = System::Drawing::Point(10, 429);
-			this->label21->Name = L"label21";
-			this->label21->Size = System::Drawing::Size(61, 13);
-			this->label21->TabIndex = 22;
-			this->label21->Text = L"Map Name:";
-			this->label21->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::pnlFull_MouseDown);
-			this->label21->MouseMove += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::pnlFull_MouseMove);
-			this->label21->MouseUp += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::pnlFull_MouseUp);
-			// 
 			// statusStrip1
 			// 
 			this->statusStrip1->BackColor = System::Drawing::Color::Transparent;
 			this->statusStrip1->ImageScalingSize = System::Drawing::Size(32, 32);
-			this->statusStrip1->Location = System::Drawing::Point(0, 426);
+			this->statusStrip1->Location = System::Drawing::Point(0, 500);
 			this->statusStrip1->Name = L"statusStrip1";
-			this->statusStrip1->Size = System::Drawing::Size(548, 22);
+			this->statusStrip1->Size = System::Drawing::Size(657, 22);
 			this->statusStrip1->TabIndex = 10;
 			this->statusStrip1->Text = L"statusStrip1";
 			this->statusStrip1->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::pnlFull_MouseDown);
@@ -6007,7 +6355,7 @@ namespace Timelapse {
 			this->btnClose->Font = (gcnew System::Drawing::Font(L"Lucida Console", 15.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->btnClose->ForeColor = System::Drawing::Color::Firebrick;
-			this->btnClose->Location = System::Drawing::Point(520, -1);
+			this->btnClose->Location = System::Drawing::Point(617, -2);
 			this->btnClose->Name = L"btnClose";
 			this->btnClose->Size = System::Drawing::Size(29, 29);
 			this->btnClose->TabIndex = 8;
@@ -6027,7 +6375,7 @@ namespace Timelapse {
 			this->btnMinimize->Font = (gcnew System::Drawing::Font(L"Lucida Console", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->btnMinimize->ForeColor = System::Drawing::Color::Silver;
-			this->btnMinimize->Location = System::Drawing::Point(494, -1);
+			this->btnMinimize->Location = System::Drawing::Point(595, -3);
 			this->btnMinimize->Name = L"btnMinimize";
 			this->btnMinimize->Size = System::Drawing::Size(29, 29);
 			this->btnMinimize->TabIndex = 9;
@@ -6047,13 +6395,27 @@ namespace Timelapse {
 			this->AutoCCCSTimer->Interval = 250;
 			this->AutoCCCSTimer->Tick += gcnew System::EventHandler(this, &MainForm::AutoCCCSTimer_Tick);
 			// 
+			// cbNoWalkFricSlide
+			// 
+			this->cbNoWalkFricSlide->AutoSize = true;
+			this->cbNoWalkFricSlide->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
+			this->cbNoWalkFricSlide->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->cbNoWalkFricSlide->ForeColor = System::Drawing::Color::White;
+			this->cbNoWalkFricSlide->Location = System::Drawing::Point(6, 120);
+			this->cbNoWalkFricSlide->Name = L"cbNoWalkFricSlide";
+			this->cbNoWalkFricSlide->Size = System::Drawing::Size(143, 17);
+			this->cbNoWalkFricSlide->TabIndex = 11;
+			this->cbNoWalkFricSlide->Text = L"No Walk Frictionless Slide";
+			this->cbNoWalkFricSlide->UseVisualStyleBackColor = false;
+			this->cbNoWalkFricSlide->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbNoWalkFricSlide_CheckedChanged);
+			// 
 			// MainForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(16)), static_cast<System::Int32>(static_cast<System::Byte>(16)),
 				static_cast<System::Int32>(static_cast<System::Byte>(16)));
-			this->ClientSize = System::Drawing::Size(550, 450);
+			this->ClientSize = System::Drawing::Size(659, 526);
 			this->ControlBox = false;
 			this->Controls->Add(this->lbTitle);
 			this->Controls->Add(this->pictureBox2);
@@ -6076,6 +6438,9 @@ namespace Timelapse {
 			this->pnlFull->PerformLayout();
 			this->pnlMiddle->ResumeLayout(false);
 			this->pnlMiddle->PerformLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->EXPForeground))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->MPForeground))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->HPForeground))->EndInit();
 			this->tabControl1->ResumeLayout(false);
 			this->tabPage1->ResumeLayout(false);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->EndInit();
@@ -6108,19 +6473,16 @@ namespace Timelapse {
 			this->panel2->ResumeLayout(false);
 			this->panel2->PerformLayout();
 			this->tabPage5->ResumeLayout(false);
-			this->tabPage5->PerformLayout();
-			this->panel12->ResumeLayout(false);
-			this->panel12->PerformLayout();
-			this->panel25->ResumeLayout(false);
-			this->panel25->PerformLayout();
-			this->panel24->ResumeLayout(false);
-			this->panel24->PerformLayout();
-			this->panel23->ResumeLayout(false);
-			this->panel23->PerformLayout();
-			this->panel11->ResumeLayout(false);
-			this->panel11->PerformLayout();
-			this->panel10->ResumeLayout(false);
-			this->panel10->PerformLayout();
+			this->gbOtherHacks->ResumeLayout(false);
+			this->gbOtherHacks->PerformLayout();
+			this->gbLootHacks->ResumeLayout(false);
+			this->gbLootHacks->PerformLayout();
+			this->gbMapHacks->ResumeLayout(false);
+			this->gbMapHacks->PerformLayout();
+			this->gbMobHacks->ResumeLayout(false);
+			this->gbMobHacks->PerformLayout();
+			this->gbCharacterHacks->ResumeLayout(false);
+			this->gbCharacterHacks->PerformLayout();
 			this->tabPage20->ResumeLayout(false);
 			this->tabPage20->PerformLayout();
 			this->panel27->ResumeLayout(false);
@@ -6132,8 +6494,10 @@ namespace Timelapse {
 			this->panel18->ResumeLayout(false);
 			this->panel18->PerformLayout();
 			this->tabPage6->ResumeLayout(false);
-			this->panel28->ResumeLayout(false);
-			this->panel28->PerformLayout();
+			this->gbFullMapVacs->ResumeLayout(false);
+			this->gbFullMapVacs->PerformLayout();
+			this->gbPartialMapVacs->ResumeLayout(false);
+			this->gbPartialMapVacs->PerformLayout();
 			this->panel17->ResumeLayout(false);
 			this->panel17->PerformLayout();
 			this->panel16->ResumeLayout(false);
@@ -6180,6 +6544,7 @@ namespace Timelapse {
 	private: System::Void pnlFull_MouseUp(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e);
 	private: System::Void pnlFull_MouseMove(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e);
 	private: System::Void GUITimer_Tick(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void RedrawStatBars();
 	private: System::Void closeMapleStoryToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void loadSettingsToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void saveSettingsToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e);
@@ -6299,8 +6664,14 @@ namespace Timelapse {
 	private: System::Void cbNoMapFadeEffect_CheckedChanged(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void cbMapSpeedUp_CheckedChanged(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void cbNoBlueBoxes_CheckedChanged(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void cbNoWalkFricSlide_CheckedChanged(Object ^ sender, EventArgs ^ e);
 	private: System::Void cbFullMapAttack_CheckedChanged(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void cbZzVac_CheckedChanged(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void cbVacForceRight_CheckedChanged(Object ^ sender, EventArgs ^ e);
+	private: System::Void cbVacRight_CheckedChanged(Object^ sender, EventArgs^ e);
+	private: System::Void cbVacLeft_CheckedChanged(Object^ sender, EventArgs^ e);
+	private: System::Void cbVacJumpRight_CheckedChanged(Object ^ sender, EventArgs ^ e);
+	private: System::Void cbVacJumpLeft_CheckedChanged(Object ^ sender, EventArgs ^ e);
 	private: System::Void bSpawnControlGetCurrentLocation_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void bSpawnControlAdd_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void bSpawnControlDelete_Click(System::Object^  sender, System::EventArgs^  e);
