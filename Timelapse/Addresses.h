@@ -16,7 +16,6 @@ ULONG fullGodmodeAddr = 0x009581D5;
 ULONG missGodmodeAddr = 0x009582E9;
 ULONG blinkGodmodeAddr = 0x00932501;
 ULONG swimInAirAddr = 0x00704704;
-ULONG speedAttackAddr = 0x0045478F; //Instant speed attack?
 ULONG unlimitedAttackAddr = 0x009536E0; 
 ULONG fullAccuracyAddr = 0x00AFE7F8; //Client sided only version?? This is incomplete acc hack.
 ULONG noBreathAddr = 0x00452316; //Fake/imperfect no breath?
@@ -26,10 +25,10 @@ ULONG jumpDownAnywhereAddr = 0x0094C6EE;
 ULONG noSkillEffectAddr = 0x00933990;
 ULONG noAttackDelayAddr = 0x0092EDB2;
 ULONG noPlayerNameTagAddr = 0x00942DCC;
-ULONG attackAnimFrameDelayAddr = 0x00454795;
+ULONG attackDelayAddr = 0x00454795;
 ULONG instantDropItemsAddr = 0x00AF0E1C;
 ULONG instantLootItemsAddr = 0x004417E3;
-ULONG fastLootItemsAddr = 0x00485C01;
+ULONG tubiAddr = 0x00485C01;
 ULONG noMobReactionAddr = 0x0066B05E;
 ULONG noMobDeathEffectAddr = 0x00663995;
 ULONG noMobKnockbackAddr = 0x00668C9E;
@@ -44,21 +43,20 @@ ULONG removeSpamFilterAddr2 = 0x00490651;
 ULONG infiniteChatboxAddr1 = 0x004CAA09;
 ULONG infiniteChatboxAddr2 = 0x004CAA84;
 ULONG noBlueBoxesAddr = 0x009929DD;
-ULONG frictionlessSlideAddr = 0x009B4365; // je -> jne
+ULONG walkingFrictionAddr = 0x009B4365; // je -> jne
 
 // VAC TAB REGION
 ULONG fullMapAttackAddr = 0x006785CA;
 ULONG zzVacAddr1 = 0x009B17A0; 
 ULONG zzVacAddr2 = 0x009B17B0;
-ULONG vacForceRightAddr = 0x009B2C1E; //jae -> jna
-ULONG vacLeftAddr = 0x009B4819;  //jae -> je
-ULONG vacRightAddr = 0x009B4896; //jbe -> je
-ULONG vacJumpRightAddr = 0x009B46A1; //jna -> je
-ULONG vacJumpLeftAddr = 0x009B4698; // ?? -> ??
-ULONG vacJumpUpAddr = 0x009B4732; // jae -> je
-ULONG fangorVacAddr1 = 0x009B2B98; // fld(0) -> fld(1) //vac into left wall
-ULONG fangorVacAddr2 = 0x009B43BE; // fld(0) -> fld(1) //vac into top left corner
-
+ULONG vacForceRightAddr = 0x009B2C1E; //jae -> jna		
+ULONG vacLeftAddr = 0x009B4819;  //jae -> je		
+ULONG vacRightAddr = 0x009B4896; //jbe -> je		
+ULONG vacJumpRightAddr = 0x009B46A1; //jna -> je		
+ULONG vacJumpLeftAddr = 0x009B4698; // ?? -> ??		
+ULONG vacJumpUpAddr = 0x009B4732; // jae -> je		
+ULONG fangorVacAddr1 = 0x009B2B98; // fld(0) -> fld(1) //vac into left wall		
+ULONG fangorVacAddr2 = 0x009B43BE; // fld(0) -> fld(1) //vac into top left corner		
 ULONG pVacAddr = 0x009B1E43; //codecave
 
 // NOT YET IMPLEMENTED?
@@ -84,13 +82,13 @@ ULONG attackUnrandommizerAddr = 0x0076609C; // codecave
 ULONG etcExplosionAddr = 0x00505806; // 6x nop
 ULONG useRechargableItemsAfterDepletionAddr1 = 0x009516BA; // 6x nop
 ULONG useRechargableItemsAfterDepletionAddr2 = 0x009516C2; // je -> jns
-
-ULONG chargeSkillsNoChargingAddr1 = 0x009B2154; //jne -> jmp
-// ULONG chargeSkillsNoChargingAddr2 = ??????????
-ULONG noJumpingMobAndPlayerAddr = 0x009B44D4; //je -> jmp
-ULONG vacLeftAddr2 = 0x009B2441; //??
-ULONG jmpRelatedstub = 0x009B2BF7; //??
+ULONG chargeSkillsNoChargingAddr1 = 0x009B2154; //jne -> jmp		
+// ULONG chargeSkillsNoChargingAddr2 = ??????????		
+ULONG noJumpingMobAndPlayerAddr = 0x009B44D4; //je -> jmp		
+ULONG vacLeftAddr2 = 0x009B2441; //??		
+ULONG jmpRelatedstub = 0x009B2BF7; //??		
 ULONG gravityrelated = 0x009B2BF5; //jae -> jmp for monster fly up on jump
+
 // OLDSKOOL STUFF
 // pin typer v0.62 004A0A6B: //83 FA 6F 0F 86 ?? ?? ?? ?? 83 FA 7B 
 // jbe -> je
@@ -246,6 +244,7 @@ ULONG OFS_MouseLocation = 0x978;
 ULONG OFS_MouseX = 0x8C;
 ULONG OFS_MouseY = OFS_MouseX + 4;
 
+//TODO: Get valid names according to struct
 ULONG MobPoolBase = 0xBEBFA4; // CMobPool
 ULONG OFS_Mob1 = 0x28;
 ULONG OFS_Mob2 = 0x4;

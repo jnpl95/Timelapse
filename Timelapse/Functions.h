@@ -153,6 +153,32 @@ static bool WritePointer(ULONG ulBase, int iOffset, int iValue) {
 	__except (EXCEPTION_EXECUTE_HANDLER) { return false; }
 }
 
+#pragma unmanaged
+static bool WriteMultiPointerSigned(LONG_PTR ulBase, int value, int level, ...) {
+	va_list vaarg;
+	va_start(vaarg, level);
+
+	if (!IsBadReadPtr((PVOID)ulBase, sizeof(LONG_PTR))) {
+		ulBase = *(LONG_PTR*)ulBase;
+		for (int i = 0; i < level; i++) {
+			const int offset = va_arg(vaarg, int);
+
+			if (i == level - 1)
+				WritePointer(ulBase, offset, value);
+
+			if (IsBadReadPtr((PVOID)(ulBase + offset), sizeof(LONG_PTR))) {
+				va_end(vaarg);
+				return false;
+			}
+			ulBase = *(LONG_PTR*)(ulBase + offset);
+		}
+	}
+
+	va_end(vaarg);
+	return true;
+}
+
+#pragma managed
 //Convert String^ to std::string
 static std::string ConvertSystemToStdStr(System::String^ str1) {
 	return msclr::interop::marshal_as<std::string>(str1);
@@ -855,12 +881,12 @@ namespace PointerFuncs {
 	}
 
 	//Retrieve Char Animation
-	static System::String^ getCharAnimID() {
+	static System::String^ getCharAnimation() {
 		return ReadPointerSigned(UserLocalBase, OFS_CharAnimation).ToString();
 	}
 
 	//Retrieve Char Foothold
-	static System::String^ getCharFootholdID() {
+	static System::String^ getCharFoothold() {
 		return ReadPointerSigned(UserLocalBase, OFS_Foothold).ToString();
 	}
 
@@ -902,6 +928,36 @@ namespace PointerFuncs {
 	//Retrieve NPC Count
 	static System::String^ getNPCCount() {
 		return ReadPointer(NPCPoolBase, OFS_NPCCount).ToString();
+	}
+}
+
+namespace HelperFuncs {
+	bool IsInGame() {
+		int mapID = System::Convert::ToInt32(PointerFuncs::getMapID());
+
+		if (!mapID == 0) //&& !PointerFuncs::getCharName()->Equals("CharName")
+			return true;
+
+		return false;
+	}
+
+	bool ValidToAttack() {
+		int attackCount = System::Convert::ToInt32(PointerFuncs::getAttackCount());
+
+		if (attackCount <= 99 && IsInGame()) // check for weapon and ammo
+			return true;
+
+		return false;
+	}
+
+	bool ValidToLoot() {
+		int peopleCount = System::Convert::ToInt32(PointerFuncs::getPeopleCount());
+
+		//Why check people count to loot? Should be able to loot via PostMessage even if people are in the map
+		if (peopleCount == 0 && IsInGame()) 
+			return true;
+
+		return false;
 	}
 }
 

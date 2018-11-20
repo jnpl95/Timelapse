@@ -117,14 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="menuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+  <metadata name="MenuStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="pictureBox2.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        vAAADrwBlbxySQAABVZJREFUWEe1l9tvlEUUwHfrQ4kW21opSBOjPlETrQgkBR+oSRETE7UFU9Ooaaia
+        wgAADsIBFShKgAAABVZJREFUWEe1l9tvlEUUwHfrQ4kW21opSBOjPlETrQgkBR+oSRETE7UFU9Ooaaia
         tGm3t+1N2/QJjUETwb6oeAmaeEEwEcXbmz6ogOA/IBoQTbwrJt6tv9/XGdjdbusiOslvv29nzpxz5syZ
         y5cqVgYGBlKDg4Opvr6+VH9/f3poaKia5zr+j8Be+JD/x+GngO+HYA8M0762t7e3ivf08PBwStARtJdQ
         FB4fH0/jyIUouRkehFfhIHwK38DP8FfAd+tsOwDKPkz/dnQtm5iYKBsZGQnaFyiOOFCBgjUwAm/A1zCT
@@ -508,9 +508,6 @@
 - Tutorial coming soon
 - Leave feedback!</value>
   </data>
-  <metadata name="statusStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>132, 17</value>
-  </metadata>
   <metadata name="GUITimer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>248, 17</value>
   </metadata>
