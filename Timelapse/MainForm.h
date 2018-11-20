@@ -29,7 +29,9 @@ namespace Timelapse {
 				delete components;
 			}
 		}
-	private: System::Windows::Forms::MenuStrip^  menuStrip1;
+	private: System::Windows::Forms::MenuStrip^  MenuStrip;
+	protected:
+
 	private: System::Windows::Forms::ToolStripMenuItem^  fileToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^  closeMapleStoryToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^  mapleStoryToolStripMenuItem;
@@ -41,7 +43,8 @@ namespace Timelapse {
 	private: System::Windows::Forms::Label^  lbTitle;
 	private: System::Windows::Forms::PictureBox^  pictureBox2;
 	private: System::Windows::Forms::Panel^  pnlFull;
-	private: System::Windows::Forms::StatusStrip^  statusStrip1;
+
+
 	private: System::Windows::Forms::Button^  btnClose;
 	private: System::Windows::Forms::Button^  btnMinimize;
 	private: System::Windows::Forms::Panel^  pnlMiddle;
@@ -68,7 +71,7 @@ namespace Timelapse {
 	private: System::Windows::Forms::Label^  label23;
 	private: System::Windows::Forms::Label^  label22;
 	private: System::Windows::Forms::Label^  label20;
-	private: System::Windows::Forms::Label^  lbDateTime;
+
 	private: System::Windows::Forms::Label^  lbActive;
 	private: System::Windows::Forms::Label^  lbThreadID;
 	private: System::Windows::Forms::Label^  lbNPCCount;
@@ -109,16 +112,23 @@ namespace Timelapse {
 	private: System::Windows::Forms::TabPage^  tabPage8;
 	private: System::Windows::Forms::TabPage^  tabPage9;
 	private: System::Windows::Forms::Label^  lbInactive;
-	private: System::Windows::Forms::CheckBox^  cbMissGodmode;
-	private: System::Windows::Forms::CheckBox^  cbBlinkGodmode;
+
+
+
+
+	private: System::Windows::Forms::CheckBox^  cbItemVac;
 	private: System::Windows::Forms::CheckBox^  cbNoBreath;
-	private: System::Windows::Forms::CheckBox^  cbSpeedAttack;
+
+
+
 	private: System::Windows::Forms::CheckBox^  cbFullAccuracy;
 	private: System::Windows::Forms::CheckBox^  cbNoPlayerDeath;
 	private: System::Windows::Forms::CheckBox^  cbInfiniteChat;
 	private: System::Windows::Forms::CheckBox^  cbUnlimitedAttack;
-	private: System::Windows::Forms::CheckBox^  cbFastLootItems;
+private: System::Windows::Forms::CheckBox^  cbTubi;
+
 	private: System::Windows::Forms::CheckBox^  cbInstantDropItems;
+
 	private: System::Windows::Forms::CheckBox^  cbMouseFly;
 	private: System::Windows::Forms::Label^  label49;
 	private: System::Windows::Forms::Label^  label50;
@@ -134,12 +144,13 @@ namespace Timelapse {
 	private: System::Windows::Forms::Button^  bDupeXResetLocation;
 	private: System::Windows::Forms::CheckBox^  cbDupeX;
 	private: System::Windows::Forms::Panel^  panel15;
-	private: System::Windows::Forms::Button^  bGetCurrentLocation;
-	private: System::Windows::Forms::TextBox^  tbWallVacRangeX;
+private: System::Windows::Forms::Button^  bWallVacGetCurrentLocation;
+
+	public: System::Windows::Forms::TextBox^  tbWallVacRangeX;
 	private: System::Windows::Forms::Label^  label59;
-	private: System::Windows::Forms::TextBox^  tbWallVacY;
+	public: System::Windows::Forms::TextBox^  tbWallVacY;
 	private: System::Windows::Forms::Label^  label51;
-	private: System::Windows::Forms::TextBox^  tbWallVacX;
+	public: System::Windows::Forms::TextBox^  tbWallVacX;
 	private: System::Windows::Forms::Label^  label52;
 	private: System::Windows::Forms::CheckBox^  cbWallVac;
 	private: System::Windows::Forms::Panel^  panel13;
@@ -167,7 +178,7 @@ namespace Timelapse {
 	private: System::Windows::Forms::CheckBox^  cbMMC;
 	private: System::Windows::Forms::Label^  label62;
 	private: System::Windows::Forms::Label^  label67;
-	private: System::Windows::Forms::TextBox^  tbWallVacRangeY;
+	public: System::Windows::Forms::TextBox^  tbWallVacRangeY;
 	private: System::Windows::Forms::Label^  label61;
 	private: System::Windows::Forms::ToolStripMenuItem^  openSettingsToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^  saveSettingsToolStripMenuItem;
@@ -182,7 +193,7 @@ namespace Timelapse {
 	private: System::Windows::Forms::Button^  bMobFilterAdd;
 	private: System::Windows::Forms::TextBox^  tbMobFilterID;
 	private: System::Windows::Forms::Label^  label76;
-	private: System::Windows::Forms::Label^  label77;
+
 	private: System::Windows::Forms::Button^  bMobFilter;
 
 
@@ -287,6 +298,7 @@ namespace Timelapse {
 	private: System::Windows::Forms::CheckBox^  cbNoMobReaction;
 	private: System::Windows::Forms::CheckBox^  cbNoPlayerKnockback;
 	private: System::Windows::Forms::CheckBox^  cbNoMobKnockback;
+
 	private: System::Windows::Forms::CheckBox^  cbNoMobDeathEffect;
 	public: System::Windows::Forms::CheckBox^  cbNoMapFadeEffect;
 	public: System::Windows::Forms::CheckBox^  cbNoMapBackground;
@@ -364,7 +376,7 @@ namespace Timelapse {
 	private: System::Windows::Forms::CheckBox^  cbCCCSTime;
 	public: System::Windows::Forms::RadioButton^  rbFunction;
 	public: System::Windows::Forms::RadioButton^  rbPacket;
-	private: System::Windows::Forms::TabPage^  tabPage10;
+
 	private: System::Windows::Forms::Panel^  panel4;
 	public: System::Windows::Forms::TextBox^  tbLootItem;
 	private: System::Windows::Forms::TextBox^  tbLootInterval;
@@ -401,18 +413,22 @@ namespace Timelapse {
 	private: System::Windows::Forms::ColumnHeader^  columnHeader4;
 	private: System::Windows::Forms::ColumnHeader^  columnHeader5;
 	private: System::Windows::Forms::TextBox^  tbSpawnControlMapID;
-	public: System::Windows::Forms::TextBox^  textBox4;
+public: System::Windows::Forms::TextBox^  tbUEMIy;
+private:
+
 	private: System::Windows::Forms::Label^  label72;
-	public: System::Windows::Forms::TextBox^  textBox5;
+public: System::Windows::Forms::TextBox^  tbUEMIx;
+private:
+
 	private: System::Windows::Forms::Label^  label87;
 	private: System::Windows::Forms::CheckBox^  cbUEMI;
-	private: System::Windows::Forms::ColumnHeader^  columnHeader6;
 
+	private: System::Windows::Forms::Panel^  panel28;
 	private: System::Windows::Forms::Panel^  panel17;
-	private: System::Windows::Forms::CheckBox^  checkBox3;
+
 	private: System::Windows::Forms::Button^  bSendMount;
 	private: System::Windows::Forms::Button^  bSendSuicide;
-	private: System::Windows::Forms::Panel^  panel29;
+
 	private: System::Windows::Forms::Button^  bSendDrop50000;
 	private: System::Windows::Forms::Button^  bSendDrop10000;
 	private: System::Windows::Forms::Button^  bSendDrop10;
@@ -449,49 +465,64 @@ namespace Timelapse {
 
 	private: System::Windows::Forms::Label^  label66;
 	private: System::Windows::Forms::CheckBox^  cbZzVac;
-	public: System::Windows::Forms::TextBox^  tbAttackAnimDelay;
+
 	private:
-	private: System::Windows::Forms::CheckBox^  cbAttackAnimDelay;
-private: System::Windows::Forms::PictureBox^  MPForeground;
 
-private: System::Windows::Forms::PictureBox^  HPForeground;
-private: System::Windows::Forms::PictureBox^  EXPForeground;
-
-private: System::Windows::Forms::GroupBox^  gbMobHacks;
-private: System::Windows::Forms::GroupBox^  gbCharacterHacks;
-private: System::Windows::Forms::GroupBox^  gbOtherHacks;
-
-private: System::Windows::Forms::GroupBox^  gbLootHacks;
-private: System::Windows::Forms::GroupBox^  gbMapHacks;
-private: System::Windows::Forms::CheckBox^  cbItemVac;
-private: System::Windows::Forms::CheckBox^  cbVacLeft;
-private: System::Windows::Forms::CheckBox^  cbVacRight;
-private: System::Windows::Forms::GroupBox^  gbFullMapVacs;
-private: System::Windows::Forms::CheckBox^  cbVacJumpLeft;
-private: System::Windows::Forms::CheckBox^  cbVacForceRight;
-private: System::Windows::Forms::CheckBox^  cbVacJumpRight;
-private: System::Windows::Forms::CheckBox^  checkBox5;
-private: System::Windows::Forms::GroupBox^  gbPartialMapVacs;
-private: System::Windows::Forms::CheckBox^  checkBox4;
-private: System::Windows::Forms::Label^  lbLeftWallPos;
-private: System::Windows::Forms::Label^  lbMapLeftWall;
-private: System::Windows::Forms::Label^  lbBottomWall;
-
-private: System::Windows::Forms::Label^  lbTopWall;
-
-
-private: System::Windows::Forms::Label^  lbMapRightWall;
-private: System::Windows::Forms::Label^  lbBottomWallPos;
-private: System::Windows::Forms::Label^  lbTopWallPos;
-private: System::Windows::Forms::Label^  lbRightWallPos;
-private: System::Windows::Forms::Label^  lbCharFootholdID;
-
-private: System::Windows::Forms::Label^  lbCharAnimID;
-
+private: System::Windows::Forms::Label^  label77;
+private: System::Windows::Forms::GroupBox^  groupBox2;
+private: System::Windows::Forms::GroupBox^  groupBox1;
+private: System::Windows::Forms::GroupBox^  groupBox5;
+private: System::Windows::Forms::GroupBox^  groupBox4;
+private: System::Windows::Forms::GroupBox^  groupBox3;
+private: System::Windows::Forms::Label^  label90;
+public: System::Windows::Forms::TextBox^  tbAttackDelay;
+private:
+private: System::Windows::Forms::Label^  label89;
+public:
+private: System::Windows::Forms::Label^  label88;
+public: System::Windows::Forms::TextBox^  tbBlinkGodmodeBlinks;
+private:
+public: System::Windows::Forms::TextBox^  tbMissGodmodeMisses;
+private: System::Windows::Forms::CheckBox^  cbMissGodmode;
+public:
+private: System::Windows::Forms::CheckBox^  cbAttackDelay;
+private: System::Windows::Forms::CheckBox^  cbBlinkGodmode;
+private: System::Windows::Forms::GroupBox^  groupBox6;
 private: System::Windows::Forms::Label^  lbCharFoothold;
-private: System::Windows::Forms::Label^  lbCharAnim;
-private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
+private: System::Windows::Forms::Label^  label96;
+private: System::Windows::Forms::Label^  lbCharAnimation;
+private: System::Windows::Forms::Label^  label94;
+private: System::Windows::Forms::Label^  lbWalls;
+private: System::Windows::Forms::Label^  label92;
+private: System::Windows::Forms::CheckBox^  cbNoWalkingFriction;
+private: System::Windows::Forms::CheckBox^  cbVacJumpLeft;
 
+private: System::Windows::Forms::CheckBox^  cbVacJumpRight;
+
+private: System::Windows::Forms::CheckBox^  cbVacLeft;
+
+private: System::Windows::Forms::CheckBox^  cbVacRight;
+
+private: System::Windows::Forms::CheckBox^  cbVacForceRight;
+
+private: System::Windows::Forms::CheckBox^  checkBox8;
+private: System::Windows::Forms::CheckBox^  checkBox9;
+
+private: System::Windows::Forms::CheckBox^  checkBox10;
+private: System::Windows::Forms::Button^  bUEMIGetCurrentLocation;
+
+
+
+private:
+
+
+
+private:
+public:
+
+private:
+
+public:
 	public:
 
 
@@ -517,7 +548,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 		{
 			this->components = (gcnew System::ComponentModel::Container());
 			System::ComponentModel::ComponentResourceManager^  resources = (gcnew System::ComponentModel::ComponentResourceManager(MainForm::typeid));
-			this->menuStrip1 = (gcnew System::Windows::Forms::MenuStrip());
+			this->MenuStrip = (gcnew System::Windows::Forms::MenuStrip());
 			this->fileToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->openSettingsToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->saveSettingsToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
@@ -531,30 +562,20 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->lbTitle = (gcnew System::Windows::Forms::Label());
 			this->pictureBox2 = (gcnew System::Windows::Forms::PictureBox());
 			this->pnlFull = (gcnew System::Windows::Forms::Panel());
-			this->pnlMiddle = (gcnew System::Windows::Forms::Panel());
-			this->lbCharFootholdID = (gcnew System::Windows::Forms::Label());
-			this->lbCharAnimID = (gcnew System::Windows::Forms::Label());
-			this->lbCharFoothold = (gcnew System::Windows::Forms::Label());
-			this->lbCharAnim = (gcnew System::Windows::Forms::Label());
-			this->lbBottomWallPos = (gcnew System::Windows::Forms::Label());
-			this->lbTopWallPos = (gcnew System::Windows::Forms::Label());
-			this->lbRightWallPos = (gcnew System::Windows::Forms::Label());
-			this->lbBottomWall = (gcnew System::Windows::Forms::Label());
-			this->lbTopWall = (gcnew System::Windows::Forms::Label());
-			this->lbMapRightWall = (gcnew System::Windows::Forms::Label());
-			this->lbLeftWallPos = (gcnew System::Windows::Forms::Label());
-			this->lbMapLeftWall = (gcnew System::Windows::Forms::Label());
-			this->EXPForeground = (gcnew System::Windows::Forms::PictureBox());
 			this->lbMapName = (gcnew System::Windows::Forms::Label());
-			this->MPForeground = (gcnew System::Windows::Forms::PictureBox());
 			this->label21 = (gcnew System::Windows::Forms::Label());
-			this->label22 = (gcnew System::Windows::Forms::Label());
-			this->lbThreadID = (gcnew System::Windows::Forms::Label());
-			this->lbDateTime = (gcnew System::Windows::Forms::Label());
-			this->HPForeground = (gcnew System::Windows::Forms::PictureBox());
+			this->btnMinimize = (gcnew System::Windows::Forms::Button());
+			this->pnlMiddle = (gcnew System::Windows::Forms::Panel());
+			this->lbCharFoothold = (gcnew System::Windows::Forms::Label());
+			this->label96 = (gcnew System::Windows::Forms::Label());
+			this->lbCharAnimation = (gcnew System::Windows::Forms::Label());
+			this->label94 = (gcnew System::Windows::Forms::Label());
+			this->lbWalls = (gcnew System::Windows::Forms::Label());
+			this->label92 = (gcnew System::Windows::Forms::Label());
 			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->lbInactive = (gcnew System::Windows::Forms::Label());
 			this->lbActive = (gcnew System::Windows::Forms::Label());
+			this->lbThreadID = (gcnew System::Windows::Forms::Label());
 			this->lbNPCCount = (gcnew System::Windows::Forms::Label());
 			this->lbPortalCount = (gcnew System::Windows::Forms::Label());
 			this->lbItemCount = (gcnew System::Windows::Forms::Label());
@@ -578,6 +599,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->label25 = (gcnew System::Windows::Forms::Label());
 			this->label24 = (gcnew System::Windows::Forms::Label());
 			this->label23 = (gcnew System::Windows::Forms::Label());
+			this->label22 = (gcnew System::Windows::Forms::Label());
 			this->label20 = (gcnew System::Windows::Forms::Label());
 			this->label19 = (gcnew System::Windows::Forms::Label());
 			this->label18 = (gcnew System::Windows::Forms::Label());
@@ -666,7 +688,6 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->cbCCCSTime = (gcnew System::Windows::Forms::CheckBox());
 			this->rbFunction = (gcnew System::Windows::Forms::RadioButton());
 			this->rbPacket = (gcnew System::Windows::Forms::RadioButton());
-			this->tabPage10 = (gcnew System::Windows::Forms::TabPage());
 			this->panel4 = (gcnew System::Windows::Forms::Panel());
 			this->tbLootItem = (gcnew System::Windows::Forms::TextBox());
 			this->tbLootInterval = (gcnew System::Windows::Forms::TextBox());
@@ -691,53 +712,58 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->cbHP = (gcnew System::Windows::Forms::CheckBox());
 			this->cbMP = (gcnew System::Windows::Forms::CheckBox());
 			this->tabPage5 = (gcnew System::Windows::Forms::TabPage());
-			this->gbOtherHacks = (gcnew System::Windows::Forms::GroupBox());
-			this->label49 = (gcnew System::Windows::Forms::Label());
-			this->tbMouseTeleport = (gcnew System::Windows::Forms::TextBox());
-			this->cbSwimInAir = (gcnew System::Windows::Forms::CheckBox());
-			this->cbMouseFly = (gcnew System::Windows::Forms::CheckBox());
-			this->label50 = (gcnew System::Windows::Forms::Label());
-			this->tbClickTeleport = (gcnew System::Windows::Forms::TextBox());
-			this->cbClickTeleport = (gcnew System::Windows::Forms::CheckBox());
-			this->cbMouseTeleport = (gcnew System::Windows::Forms::CheckBox());
-			this->cbJumpDownAnyTile = (gcnew System::Windows::Forms::CheckBox());
-			this->cbNoPlayerKnockback = (gcnew System::Windows::Forms::CheckBox());
-			this->gbLootHacks = (gcnew System::Windows::Forms::GroupBox());
-			this->cbItemVac = (gcnew System::Windows::Forms::CheckBox());
-			this->cbFastLootItems = (gcnew System::Windows::Forms::CheckBox());
-			this->cbInstantDropItems = (gcnew System::Windows::Forms::CheckBox());
-			this->cbInstantLootItems = (gcnew System::Windows::Forms::CheckBox());
-			this->gbMapHacks = (gcnew System::Windows::Forms::GroupBox());
-			this->cbNoMapBackground = (gcnew System::Windows::Forms::CheckBox());
+			this->groupBox6 = (gcnew System::Windows::Forms::GroupBox());
+			this->cbNoWalkingFriction = (gcnew System::Windows::Forms::CheckBox());
+			this->groupBox5 = (gcnew System::Windows::Forms::GroupBox());
 			this->cbNoBlueBoxes = (gcnew System::Windows::Forms::CheckBox());
+			this->cbNoMapBackground = (gcnew System::Windows::Forms::CheckBox());
+			this->cbNoMapTiles = (gcnew System::Windows::Forms::CheckBox());
 			this->cbInfiniteChat = (gcnew System::Windows::Forms::CheckBox());
 			this->cbMapSpeedUp = (gcnew System::Windows::Forms::CheckBox());
-			this->cbNoMapTiles = (gcnew System::Windows::Forms::CheckBox());
 			this->cbNoMapFadeEffect = (gcnew System::Windows::Forms::CheckBox());
 			this->cbNoMapObjects = (gcnew System::Windows::Forms::CheckBox());
-			this->gbMobHacks = (gcnew System::Windows::Forms::GroupBox());
+			this->groupBox4 = (gcnew System::Windows::Forms::GroupBox());
+			this->cbMouseFly = (gcnew System::Windows::Forms::CheckBox());
+			this->cbClickTeleport = (gcnew System::Windows::Forms::CheckBox());
+			this->label49 = (gcnew System::Windows::Forms::Label());
+			this->cbMouseTeleport = (gcnew System::Windows::Forms::CheckBox());
+			this->label50 = (gcnew System::Windows::Forms::Label());
+			this->cbSwimInAir = (gcnew System::Windows::Forms::CheckBox());
+			this->tbMouseTeleport = (gcnew System::Windows::Forms::TextBox());
+			this->tbClickTeleport = (gcnew System::Windows::Forms::TextBox());
+			this->groupBox3 = (gcnew System::Windows::Forms::GroupBox());
 			this->cbMobAutoAggro = (gcnew System::Windows::Forms::CheckBox());
 			this->cbNoMobReaction = (gcnew System::Windows::Forms::CheckBox());
 			this->cbMobDisarm = (gcnew System::Windows::Forms::CheckBox());
 			this->cbMobFreeze = (gcnew System::Windows::Forms::CheckBox());
 			this->cbNoMobDeathEffect = (gcnew System::Windows::Forms::CheckBox());
 			this->cbNoMobKnockback = (gcnew System::Windows::Forms::CheckBox());
-			this->gbCharacterHacks = (gcnew System::Windows::Forms::GroupBox());
-			this->cbAttackAnimDelay = (gcnew System::Windows::Forms::CheckBox());
-			this->tbAttackAnimDelay = (gcnew System::Windows::Forms::TextBox());
-			this->cbFullGodmode = (gcnew System::Windows::Forms::CheckBox());
-			this->cbNoPlayerNameTag = (gcnew System::Windows::Forms::CheckBox());
+			this->groupBox2 = (gcnew System::Windows::Forms::GroupBox());
+			this->cbTubi = (gcnew System::Windows::Forms::CheckBox());
+			this->cbInstantDropItems = (gcnew System::Windows::Forms::CheckBox());
+			this->cbItemVac = (gcnew System::Windows::Forms::CheckBox());
+			this->cbInstantLootItems = (gcnew System::Windows::Forms::CheckBox());
+			this->groupBox1 = (gcnew System::Windows::Forms::GroupBox());
+			this->label90 = (gcnew System::Windows::Forms::Label());
+			this->tbAttackDelay = (gcnew System::Windows::Forms::TextBox());
+			this->label89 = (gcnew System::Windows::Forms::Label());
+			this->label88 = (gcnew System::Windows::Forms::Label());
+			this->tbBlinkGodmodeBlinks = (gcnew System::Windows::Forms::TextBox());
+			this->tbMissGodmodeMisses = (gcnew System::Windows::Forms::TextBox());
+			this->cbMissGodmode = (gcnew System::Windows::Forms::CheckBox());
+			this->cbAttackDelay = (gcnew System::Windows::Forms::CheckBox());
 			this->cbBlinkGodmode = (gcnew System::Windows::Forms::CheckBox());
 			this->cbNoAttackDelay = (gcnew System::Windows::Forms::CheckBox());
-			this->cbMissGodmode = (gcnew System::Windows::Forms::CheckBox());
+			this->cbNoPlayerNameTag = (gcnew System::Windows::Forms::CheckBox());
+			this->cbFullGodmode = (gcnew System::Windows::Forms::CheckBox());
+			this->cbJumpDownAnyTile = (gcnew System::Windows::Forms::CheckBox());
 			this->cbNoSkillEffects = (gcnew System::Windows::Forms::CheckBox());
 			this->cbNoBreath = (gcnew System::Windows::Forms::CheckBox());
-			this->cbNoPlayerDeath = (gcnew System::Windows::Forms::CheckBox());
-			this->cbSpeedAttack = (gcnew System::Windows::Forms::CheckBox());
-			this->cbUnlimitedAttack = (gcnew System::Windows::Forms::CheckBox());
+			this->cbNoPlayerKnockback = (gcnew System::Windows::Forms::CheckBox());
 			this->cbFullAccuracy = (gcnew System::Windows::Forms::CheckBox());
+			this->cbNoPlayerDeath = (gcnew System::Windows::Forms::CheckBox());
+			this->cbUnlimitedAttack = (gcnew System::Windows::Forms::CheckBox());
 			this->tabPage20 = (gcnew System::Windows::Forms::TabPage());
-			this->label42 = (gcnew System::Windows::Forms::Label());
 			this->panel27 = (gcnew System::Windows::Forms::Panel());
 			this->bSpawnControl = (gcnew System::Windows::Forms::Button());
 			this->panel1 = (gcnew System::Windows::Forms::Panel());
@@ -756,6 +782,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->columnHeader5 = (gcnew System::Windows::Forms::ColumnHeader());
 			this->bSpawnControlDelete = (gcnew System::Windows::Forms::Button());
 			this->panel26 = (gcnew System::Windows::Forms::Panel());
+			this->label42 = (gcnew System::Windows::Forms::Label());
 			this->tbTeleportLoopDelay = (gcnew System::Windows::Forms::TextBox());
 			this->label86 = (gcnew System::Windows::Forms::Label());
 			this->bTeleportLoop = (gcnew System::Windows::Forms::Button());
@@ -772,24 +799,23 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->label63 = (gcnew System::Windows::Forms::Label());
 			this->tbTeleportY = (gcnew System::Windows::Forms::TextBox());
 			this->tabPage6 = (gcnew System::Windows::Forms::TabPage());
-			this->gbFullMapVacs = (gcnew System::Windows::Forms::GroupBox());
+			this->panel28 = (gcnew System::Windows::Forms::Panel());
+			this->checkBox10 = (gcnew System::Windows::Forms::CheckBox());
+			this->checkBox9 = (gcnew System::Windows::Forms::CheckBox());
+			this->checkBox8 = (gcnew System::Windows::Forms::CheckBox());
 			this->cbVacJumpLeft = (gcnew System::Windows::Forms::CheckBox());
-			this->cbVacForceRight = (gcnew System::Windows::Forms::CheckBox());
 			this->cbVacJumpRight = (gcnew System::Windows::Forms::CheckBox());
-			this->checkBox5 = (gcnew System::Windows::Forms::CheckBox());
 			this->cbVacLeft = (gcnew System::Windows::Forms::CheckBox());
-			this->cbVacRight = (gcnew System::Windows::Forms::CheckBox());
-			this->gbPartialMapVacs = (gcnew System::Windows::Forms::GroupBox());
-			this->checkBox4 = (gcnew System::Windows::Forms::CheckBox());
-			this->cbFullMapAttack = (gcnew System::Windows::Forms::CheckBox());
 			this->cbZzVac = (gcnew System::Windows::Forms::CheckBox());
+			this->cbFullMapAttack = (gcnew System::Windows::Forms::CheckBox());
+			this->cbVacRight = (gcnew System::Windows::Forms::CheckBox());
+			this->cbVacForceRight = (gcnew System::Windows::Forms::CheckBox());
 			this->panel17 = (gcnew System::Windows::Forms::Panel());
-			this->checkBox3 = (gcnew System::Windows::Forms::CheckBox());
 			this->cbUEMI = (gcnew System::Windows::Forms::CheckBox());
-			this->textBox4 = (gcnew System::Windows::Forms::TextBox());
+			this->tbUEMIy = (gcnew System::Windows::Forms::TextBox());
 			this->label72 = (gcnew System::Windows::Forms::Label());
 			this->label87 = (gcnew System::Windows::Forms::Label());
-			this->textBox5 = (gcnew System::Windows::Forms::TextBox());
+			this->tbUEMIx = (gcnew System::Windows::Forms::TextBox());
 			this->panel16 = (gcnew System::Windows::Forms::Panel());
 			this->panel19 = (gcnew System::Windows::Forms::Panel());
 			this->tbMMCX = (gcnew System::Windows::Forms::TextBox());
@@ -807,7 +833,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->panel15 = (gcnew System::Windows::Forms::Panel());
 			this->tbWallVacRangeY = (gcnew System::Windows::Forms::TextBox());
 			this->label61 = (gcnew System::Windows::Forms::Label());
-			this->bGetCurrentLocation = (gcnew System::Windows::Forms::Button());
+			this->bWallVacGetCurrentLocation = (gcnew System::Windows::Forms::Button());
 			this->tbWallVacRangeX = (gcnew System::Windows::Forms::TextBox());
 			this->label59 = (gcnew System::Windows::Forms::Label());
 			this->tbWallVacY = (gcnew System::Windows::Forms::TextBox());
@@ -875,7 +901,6 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->bSendClear = (gcnew System::Windows::Forms::Button());
 			this->bSendPacket = (gcnew System::Windows::Forms::Button());
 			this->lvSend = (gcnew System::Windows::Forms::ListView());
-			this->columnHeader6 = (gcnew System::Windows::Forms::ColumnHeader());
 			this->tabPage15 = (gcnew System::Windows::Forms::TabPage());
 			this->bRecvRemove = (gcnew System::Windows::Forms::Button());
 			this->lvRecvBlock = (gcnew System::Windows::Forms::ListView());
@@ -887,15 +912,8 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->lvRecv = (gcnew System::Windows::Forms::ListView());
 			this->tabPage18 = (gcnew System::Windows::Forms::TabPage());
 			this->tabPage19 = (gcnew System::Windows::Forms::TabPage());
-			this->panel29 = (gcnew System::Windows::Forms::Panel());
 			this->bSendRevive = (gcnew System::Windows::Forms::Button());
 			this->bSendRestore127Health = (gcnew System::Windows::Forms::Button());
-			this->bSendSuicide = (gcnew System::Windows::Forms::Button());
-			this->bSendDrop50000 = (gcnew System::Windows::Forms::Button());
-			this->bSendMount = (gcnew System::Windows::Forms::Button());
-			this->bSendDrop10000 = (gcnew System::Windows::Forms::Button());
-			this->bSendDrop10 = (gcnew System::Windows::Forms::Button());
-			this->bSendDrop1000 = (gcnew System::Windows::Forms::Button());
 			this->panel6 = (gcnew System::Windows::Forms::Panel());
 			this->label39 = (gcnew System::Windows::Forms::Label());
 			this->tbAPDEX = (gcnew System::Windows::Forms::TextBox());
@@ -913,6 +931,12 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->label32 = (gcnew System::Windows::Forms::Label());
 			this->tbAPLevel = (gcnew System::Windows::Forms::TextBox());
 			this->cbAP = (gcnew System::Windows::Forms::CheckBox());
+			this->bSendSuicide = (gcnew System::Windows::Forms::Button());
+			this->bSendDrop50000 = (gcnew System::Windows::Forms::Button());
+			this->bSendDrop1000 = (gcnew System::Windows::Forms::Button());
+			this->bSendMount = (gcnew System::Windows::Forms::Button());
+			this->bSendDrop10 = (gcnew System::Windows::Forms::Button());
+			this->bSendDrop10000 = (gcnew System::Windows::Forms::Button());
 			this->tabPage9 = (gcnew System::Windows::Forms::TabPage());
 			this->label66 = (gcnew System::Windows::Forms::Label());
 			this->tbMapRusherDelay = (gcnew System::Windows::Forms::TextBox());
@@ -927,19 +951,14 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->columnHeader8 = (gcnew System::Windows::Forms::ColumnHeader());
 			this->tbMapRusherSearch = (gcnew System::Windows::Forms::TextBox());
 			this->label78 = (gcnew System::Windows::Forms::Label());
-			this->statusStrip1 = (gcnew System::Windows::Forms::StatusStrip());
 			this->btnClose = (gcnew System::Windows::Forms::Button());
-			this->btnMinimize = (gcnew System::Windows::Forms::Button());
 			this->GUITimer = (gcnew System::Windows::Forms::Timer(this->components));
 			this->AutoCCCSTimer = (gcnew System::Windows::Forms::Timer(this->components));
-			this->cbNoWalkFricSlide = (gcnew System::Windows::Forms::CheckBox());
-			this->menuStrip1->SuspendLayout();
+			this->bUEMIGetCurrentLocation = (gcnew System::Windows::Forms::Button());
+			this->MenuStrip->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->BeginInit();
 			this->pnlFull->SuspendLayout();
 			this->pnlMiddle->SuspendLayout();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->EXPForeground))->BeginInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->MPForeground))->BeginInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->HPForeground))->BeginInit();
 			this->tabControl1->SuspendLayout();
 			this->tabPage1->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
@@ -961,19 +980,19 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->panel3->SuspendLayout();
 			this->panel2->SuspendLayout();
 			this->tabPage5->SuspendLayout();
-			this->gbOtherHacks->SuspendLayout();
-			this->gbLootHacks->SuspendLayout();
-			this->gbMapHacks->SuspendLayout();
-			this->gbMobHacks->SuspendLayout();
-			this->gbCharacterHacks->SuspendLayout();
+			this->groupBox6->SuspendLayout();
+			this->groupBox5->SuspendLayout();
+			this->groupBox4->SuspendLayout();
+			this->groupBox3->SuspendLayout();
+			this->groupBox2->SuspendLayout();
+			this->groupBox1->SuspendLayout();
 			this->tabPage20->SuspendLayout();
 			this->panel27->SuspendLayout();
 			this->panel1->SuspendLayout();
 			this->panel26->SuspendLayout();
 			this->panel18->SuspendLayout();
 			this->tabPage6->SuspendLayout();
-			this->gbFullMapVacs->SuspendLayout();
-			this->gbPartialMapVacs->SuspendLayout();
+			this->panel28->SuspendLayout();
 			this->panel17->SuspendLayout();
 			this->panel16->SuspendLayout();
 			this->panel19->SuspendLayout();
@@ -988,27 +1007,26 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->tabPage16->SuspendLayout();
 			this->tabPage15->SuspendLayout();
 			this->tabPage19->SuspendLayout();
-			this->panel29->SuspendLayout();
 			this->panel6->SuspendLayout();
 			this->tabPage9->SuspendLayout();
 			this->panel30->SuspendLayout();
 			this->SuspendLayout();
 			// 
-			// menuStrip1
+			// MenuStrip
 			// 
-			this->menuStrip1->BackColor = System::Drawing::Color::Transparent;
-			this->menuStrip1->Dock = System::Windows::Forms::DockStyle::None;
-			this->menuStrip1->ForeColor = System::Drawing::Color::White;
-			this->menuStrip1->ImageScalingSize = System::Drawing::Size(32, 32);
-			this->menuStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(3) {
+			this->MenuStrip->BackColor = System::Drawing::Color::Transparent;
+			this->MenuStrip->Dock = System::Windows::Forms::DockStyle::None;
+			this->MenuStrip->ForeColor = System::Drawing::Color::White;
+			this->MenuStrip->ImageScalingSize = System::Drawing::Size(32, 32);
+			this->MenuStrip->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(3) {
 				this->fileToolStripMenuItem,
 					this->mapleStoryToolStripMenuItem, this->helpToolStripMenuItem
 			});
-			this->menuStrip1->Location = System::Drawing::Point(0, 2);
-			this->menuStrip1->Name = L"menuStrip1";
-			this->menuStrip1->Size = System::Drawing::Size(156, 24);
-			this->menuStrip1->TabIndex = 1;
-			this->menuStrip1->Text = L"menuStrip1";
+			this->MenuStrip->Location = System::Drawing::Point(0, 2);
+			this->MenuStrip->Name = L"MenuStrip";
+			this->MenuStrip->Size = System::Drawing::Size(168, 24);
+			this->MenuStrip->TabIndex = 1;
+			this->MenuStrip->Text = L"menuStrip1";
 			// 
 			// fileToolStripMenuItem
 			// 
@@ -1019,7 +1037,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 					this->saveSettingsToolStripMenuItem, this->closeMapleStoryToolStripMenuItem
 			});
 			this->fileToolStripMenuItem->Name = L"fileToolStripMenuItem";
-			this->fileToolStripMenuItem->Size = System::Drawing::Size(35, 20);
+			this->fileToolStripMenuItem->Size = System::Drawing::Size(37, 20);
 			this->fileToolStripMenuItem->Text = L"File";
 			// 
 			// openSettingsToolStripMenuItem
@@ -1028,7 +1046,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 				static_cast<System::Int32>(static_cast<System::Byte>(19)), static_cast<System::Int32>(static_cast<System::Byte>(19)));
 			this->openSettingsToolStripMenuItem->ForeColor = System::Drawing::Color::White;
 			this->openSettingsToolStripMenuItem->Name = L"openSettingsToolStripMenuItem";
-			this->openSettingsToolStripMenuItem->Size = System::Drawing::Size(157, 22);
+			this->openSettingsToolStripMenuItem->Size = System::Drawing::Size(166, 22);
 			this->openSettingsToolStripMenuItem->Text = L"Open Settings";
 			this->openSettingsToolStripMenuItem->Click += gcnew System::EventHandler(this, &MainForm::loadSettingsToolStripMenuItem_Click);
 			// 
@@ -1038,7 +1056,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 				static_cast<System::Int32>(static_cast<System::Byte>(19)), static_cast<System::Int32>(static_cast<System::Byte>(19)));
 			this->saveSettingsToolStripMenuItem->ForeColor = System::Drawing::Color::White;
 			this->saveSettingsToolStripMenuItem->Name = L"saveSettingsToolStripMenuItem";
-			this->saveSettingsToolStripMenuItem->Size = System::Drawing::Size(157, 22);
+			this->saveSettingsToolStripMenuItem->Size = System::Drawing::Size(166, 22);
 			this->saveSettingsToolStripMenuItem->Text = L"Save Settings";
 			this->saveSettingsToolStripMenuItem->Click += gcnew System::EventHandler(this, &MainForm::saveSettingsToolStripMenuItem_Click);
 			// 
@@ -1048,7 +1066,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 				static_cast<System::Int32>(static_cast<System::Byte>(19)), static_cast<System::Int32>(static_cast<System::Byte>(19)));
 			this->closeMapleStoryToolStripMenuItem->ForeColor = System::Drawing::Color::White;
 			this->closeMapleStoryToolStripMenuItem->Name = L"closeMapleStoryToolStripMenuItem";
-			this->closeMapleStoryToolStripMenuItem->Size = System::Drawing::Size(157, 22);
+			this->closeMapleStoryToolStripMenuItem->Size = System::Drawing::Size(166, 22);
 			this->closeMapleStoryToolStripMenuItem->Text = L"&Close MapleStory";
 			this->closeMapleStoryToolStripMenuItem->Click += gcnew System::EventHandler(this, &MainForm::closeMapleStoryToolStripMenuItem_Click);
 			// 
@@ -1061,7 +1079,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 					this->injectDllToolStripMenuItem
 			});
 			this->mapleStoryToolStripMenuItem->Name = L"mapleStoryToolStripMenuItem";
-			this->mapleStoryToolStripMenuItem->Size = System::Drawing::Size(73, 20);
+			this->mapleStoryToolStripMenuItem->Size = System::Drawing::Size(79, 20);
 			this->mapleStoryToolStripMenuItem->Text = L"MapleStory";
 			// 
 			// hideMSWindowToolStripMenuItem
@@ -1070,7 +1088,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 				static_cast<System::Int32>(static_cast<System::Byte>(19)), static_cast<System::Int32>(static_cast<System::Byte>(19)));
 			this->hideMSWindowToolStripMenuItem->ForeColor = System::Drawing::Color::White;
 			this->hideMSWindowToolStripMenuItem->Name = L"hideMSWindowToolStripMenuItem";
-			this->hideMSWindowToolStripMenuItem->Size = System::Drawing::Size(153, 22);
+			this->hideMSWindowToolStripMenuItem->Size = System::Drawing::Size(166, 22);
 			this->hideMSWindowToolStripMenuItem->Text = L"Hide MS Window";
 			// 
 			// injectDllToolStripMenuItem
@@ -1079,14 +1097,14 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 				static_cast<System::Int32>(static_cast<System::Byte>(19)), static_cast<System::Int32>(static_cast<System::Byte>(19)));
 			this->injectDllToolStripMenuItem->ForeColor = System::Drawing::Color::White;
 			this->injectDllToolStripMenuItem->Name = L"injectDllToolStripMenuItem";
-			this->injectDllToolStripMenuItem->Size = System::Drawing::Size(153, 22);
+			this->injectDllToolStripMenuItem->Size = System::Drawing::Size(166, 22);
 			this->injectDllToolStripMenuItem->Text = L"Inject Dll";
 			// 
 			// helpToolStripMenuItem
 			// 
 			this->helpToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(1) { this->aboutToolStripMenuItem });
 			this->helpToolStripMenuItem->Name = L"helpToolStripMenuItem";
-			this->helpToolStripMenuItem->Size = System::Drawing::Size(40, 20);
+			this->helpToolStripMenuItem->Size = System::Drawing::Size(44, 20);
 			this->helpToolStripMenuItem->Text = L"Help";
 			// 
 			// aboutToolStripMenuItem
@@ -1095,7 +1113,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 				static_cast<System::Int32>(static_cast<System::Byte>(19)), static_cast<System::Int32>(static_cast<System::Byte>(19)));
 			this->aboutToolStripMenuItem->ForeColor = System::Drawing::Color::White;
 			this->aboutToolStripMenuItem->Name = L"aboutToolStripMenuItem";
-			this->aboutToolStripMenuItem->Size = System::Drawing::Size(103, 22);
+			this->aboutToolStripMenuItem->Size = System::Drawing::Size(107, 22);
 			this->aboutToolStripMenuItem->Text = L"&About";
 			// 
 			// label1
@@ -1105,7 +1123,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 				static_cast<System::Int32>(static_cast<System::Byte>(16)));
 			this->label1->Font = (gcnew System::Drawing::Font(L"Tahoma", 6.75F));
 			this->label1->ForeColor = System::Drawing::Color::Gray;
-			this->label1->Location = System::Drawing::Point(575, 5);
+			this->label1->Location = System::Drawing::Point(484, 2);
 			this->label1->Name = L"label1";
 			this->label1->Size = System::Drawing::Size(70, 22);
 			this->label1->TabIndex = 3;
@@ -1146,48 +1164,89 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			// 
 			this->pnlFull->BackColor = System::Drawing::Color::Transparent;
 			this->pnlFull->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
-			this->pnlFull->Controls->Add(this->pnlMiddle);
-			this->pnlFull->Controls->Add(this->statusStrip1);
-			this->pnlFull->Controls->Add(this->btnClose);
+			this->pnlFull->Controls->Add(this->lbMapName);
+			this->pnlFull->Controls->Add(this->label21);
 			this->pnlFull->Controls->Add(this->btnMinimize);
+			this->pnlFull->Controls->Add(this->pnlMiddle);
+			this->pnlFull->Controls->Add(this->btnClose);
+			this->pnlFull->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->pnlFull->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
 			this->pnlFull->ForeColor = System::Drawing::Color::White;
 			this->pnlFull->Location = System::Drawing::Point(0, 0);
 			this->pnlFull->Name = L"pnlFull";
-			this->pnlFull->Size = System::Drawing::Size(659, 524);
+			this->pnlFull->Size = System::Drawing::Size(560, 500);
 			this->pnlFull->TabIndex = 13;
 			this->pnlFull->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::pnlFull_MouseDown);
 			this->pnlFull->MouseMove += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::pnlFull_MouseMove);
 			this->pnlFull->MouseUp += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::pnlFull_MouseUp);
+			// 
+			// lbMapName
+			// 
+			this->lbMapName->AutoSize = true;
+			this->lbMapName->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(19)), static_cast<System::Int32>(static_cast<System::Byte>(19)),
+				static_cast<System::Int32>(static_cast<System::Byte>(19)));
+			this->lbMapName->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
+			this->lbMapName->ForeColor = System::Drawing::Color::Silver;
+			this->lbMapName->Location = System::Drawing::Point(65, 479);
+			this->lbMapName->Name = L"lbMapName";
+			this->lbMapName->Size = System::Drawing::Size(55, 13);
+			this->lbMapName->TabIndex = 42;
+			this->lbMapName->Text = L"Waiting...";
+			this->lbMapName->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::pnlFull_MouseDown);
+			this->lbMapName->MouseMove += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::pnlFull_MouseMove);
+			this->lbMapName->MouseUp += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::pnlFull_MouseUp);
+			// 
+			// label21
+			// 
+			this->label21->AutoSize = true;
+			this->label21->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(19)), static_cast<System::Int32>(static_cast<System::Byte>(19)),
+				static_cast<System::Int32>(static_cast<System::Byte>(19)));
+			this->label21->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
+			this->label21->ForeColor = System::Drawing::Color::Silver;
+			this->label21->Location = System::Drawing::Point(5, 479);
+			this->label21->Name = L"label21";
+			this->label21->Size = System::Drawing::Size(61, 13);
+			this->label21->TabIndex = 22;
+			this->label21->Text = L"Map Name:";
+			this->label21->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::pnlFull_MouseDown);
+			this->label21->MouseMove += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::pnlFull_MouseMove);
+			this->label21->MouseUp += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::pnlFull_MouseUp);
+			// 
+			// btnMinimize
+			// 
+			this->btnMinimize->FlatAppearance->BorderColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)),
+				static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
+			this->btnMinimize->FlatAppearance->BorderSize = 0;
+			this->btnMinimize->FlatAppearance->MouseDownBackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(31)),
+				static_cast<System::Int32>(static_cast<System::Byte>(31)), static_cast<System::Int32>(static_cast<System::Byte>(31)));
+			this->btnMinimize->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
+			this->btnMinimize->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->btnMinimize->Font = (gcnew System::Drawing::Font(L"Lucida Console", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->btnMinimize->ForeColor = System::Drawing::Color::Silver;
+			this->btnMinimize->Location = System::Drawing::Point(494, -1);
+			this->btnMinimize->Name = L"btnMinimize";
+			this->btnMinimize->Size = System::Drawing::Size(29, 29);
+			this->btnMinimize->TabIndex = 9;
+			this->btnMinimize->Text = L"_";
+			this->btnMinimize->UseVisualStyleBackColor = false;
+			this->btnMinimize->Click += gcnew System::EventHandler(this, &MainForm::btnMinimize_Click);
 			// 
 			// pnlMiddle
 			// 
 			this->pnlMiddle->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(19)), static_cast<System::Int32>(static_cast<System::Byte>(19)),
 				static_cast<System::Int32>(static_cast<System::Byte>(19)));
 			this->pnlMiddle->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
-			this->pnlMiddle->Controls->Add(this->lbCharFootholdID);
-			this->pnlMiddle->Controls->Add(this->lbCharAnimID);
 			this->pnlMiddle->Controls->Add(this->lbCharFoothold);
-			this->pnlMiddle->Controls->Add(this->lbCharAnim);
-			this->pnlMiddle->Controls->Add(this->lbBottomWallPos);
-			this->pnlMiddle->Controls->Add(this->lbTopWallPos);
-			this->pnlMiddle->Controls->Add(this->lbRightWallPos);
-			this->pnlMiddle->Controls->Add(this->lbBottomWall);
-			this->pnlMiddle->Controls->Add(this->lbTopWall);
-			this->pnlMiddle->Controls->Add(this->lbMapRightWall);
-			this->pnlMiddle->Controls->Add(this->lbLeftWallPos);
-			this->pnlMiddle->Controls->Add(this->lbMapLeftWall);
-			this->pnlMiddle->Controls->Add(this->EXPForeground);
-			this->pnlMiddle->Controls->Add(this->lbMapName);
-			this->pnlMiddle->Controls->Add(this->MPForeground);
-			this->pnlMiddle->Controls->Add(this->label21);
-			this->pnlMiddle->Controls->Add(this->label22);
-			this->pnlMiddle->Controls->Add(this->lbThreadID);
-			this->pnlMiddle->Controls->Add(this->lbDateTime);
-			this->pnlMiddle->Controls->Add(this->HPForeground);
+			this->pnlMiddle->Controls->Add(this->label96);
+			this->pnlMiddle->Controls->Add(this->lbCharAnimation);
+			this->pnlMiddle->Controls->Add(this->label94);
+			this->pnlMiddle->Controls->Add(this->lbWalls);
+			this->pnlMiddle->Controls->Add(this->label92);
 			this->pnlMiddle->Controls->Add(this->button1);
 			this->pnlMiddle->Controls->Add(this->lbInactive);
 			this->pnlMiddle->Controls->Add(this->lbActive);
+			this->pnlMiddle->Controls->Add(this->lbThreadID);
 			this->pnlMiddle->Controls->Add(this->lbNPCCount);
 			this->pnlMiddle->Controls->Add(this->lbPortalCount);
 			this->pnlMiddle->Controls->Add(this->lbItemCount);
@@ -1211,6 +1270,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->pnlMiddle->Controls->Add(this->label25);
 			this->pnlMiddle->Controls->Add(this->label24);
 			this->pnlMiddle->Controls->Add(this->label23);
+			this->pnlMiddle->Controls->Add(this->label22);
 			this->pnlMiddle->Controls->Add(this->label20);
 			this->pnlMiddle->Controls->Add(this->label19);
 			this->pnlMiddle->Controls->Add(this->label18);
@@ -1230,251 +1290,84 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->pnlMiddle->Controls->Add(this->label4);
 			this->pnlMiddle->Controls->Add(this->label3);
 			this->pnlMiddle->Controls->Add(this->label1);
-			this->pnlMiddle->Controls->Add(this->menuStrip1);
+			this->pnlMiddle->Controls->Add(this->MenuStrip);
 			this->pnlMiddle->Controls->Add(this->tabControl1);
 			this->pnlMiddle->Location = System::Drawing::Point(0, 28);
 			this->pnlMiddle->Name = L"pnlMiddle";
-			this->pnlMiddle->Size = System::Drawing::Size(658, 452);
+			this->pnlMiddle->Size = System::Drawing::Size(560, 445);
 			this->pnlMiddle->TabIndex = 3;
 			this->pnlMiddle->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::pnlFull_MouseDown);
 			this->pnlMiddle->MouseMove += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::pnlFull_MouseMove);
 			this->pnlMiddle->MouseUp += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::pnlFull_MouseUp);
 			// 
-			// lbCharFootholdID
-			// 
-			this->lbCharFootholdID->AutoSize = true;
-			this->lbCharFootholdID->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
-			this->lbCharFootholdID->ForeColor = System::Drawing::Color::LightPink;
-			this->lbCharFootholdID->Location = System::Drawing::Point(510, 195);
-			this->lbCharFootholdID->Name = L"lbCharFootholdID";
-			this->lbCharFootholdID->Size = System::Drawing::Size(19, 13);
-			this->lbCharFootholdID->TabIndex = 66;
-			this->lbCharFootholdID->Text = L"00";
-			// 
-			// lbCharAnimID
-			// 
-			this->lbCharAnimID->AutoSize = true;
-			this->lbCharAnimID->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
-			this->lbCharAnimID->ForeColor = System::Drawing::Color::LightPink;
-			this->lbCharAnimID->Location = System::Drawing::Point(515, 180);
-			this->lbCharAnimID->Name = L"lbCharAnimID";
-			this->lbCharAnimID->Size = System::Drawing::Size(19, 13);
-			this->lbCharAnimID->TabIndex = 65;
-			this->lbCharAnimID->Text = L"00";
-			// 
 			// lbCharFoothold
 			// 
 			this->lbCharFoothold->AutoSize = true;
 			this->lbCharFoothold->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
-			this->lbCharFoothold->Location = System::Drawing::Point(430, 195);
+			this->lbCharFoothold->ForeColor = System::Drawing::Color::SkyBlue;
+			this->lbCharFoothold->Location = System::Drawing::Point(487, 237);
 			this->lbCharFoothold->Name = L"lbCharFoothold";
-			this->lbCharFoothold->Size = System::Drawing::Size(79, 13);
-			this->lbCharFoothold->TabIndex = 64;
-			this->lbCharFoothold->Text = L"Char Foothold:";
+			this->lbCharFoothold->Size = System::Drawing::Size(25, 13);
+			this->lbCharFoothold->TabIndex = 59;
+			this->lbCharFoothold->Text = L"000";
 			// 
-			// lbCharAnim
+			// label96
 			// 
-			this->lbCharAnim->AutoSize = true;
-			this->lbCharAnim->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
-			this->lbCharAnim->Location = System::Drawing::Point(430, 180);
-			this->lbCharAnim->Name = L"lbCharAnim";
-			this->lbCharAnim->Size = System::Drawing::Size(84, 13);
-			this->lbCharAnim->TabIndex = 63;
-			this->lbCharAnim->Text = L"Char Animation:";
+			this->label96->AutoSize = true;
+			this->label96->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
+			this->label96->Location = System::Drawing::Point(405, 238);
+			this->label96->Name = L"label96";
+			this->label96->Size = System::Drawing::Size(79, 13);
+			this->label96->TabIndex = 58;
+			this->label96->Text = L"Char Foothold:";
 			// 
-			// lbBottomWallPos
+			// lbCharAnimation
 			// 
-			this->lbBottomWallPos->AutoSize = true;
-			this->lbBottomWallPos->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
-			this->lbBottomWallPos->ForeColor = System::Drawing::Color::MediumPurple;
-			this->lbBottomWallPos->Location = System::Drawing::Point(517, 313);
-			this->lbBottomWallPos->Name = L"lbBottomWallPos";
-			this->lbBottomWallPos->Size = System::Drawing::Size(31, 13);
-			this->lbBottomWallPos->TabIndex = 62;
-			this->lbBottomWallPos->Text = L"0000";
+			this->lbCharAnimation->AutoSize = true;
+			this->lbCharAnimation->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
+			this->lbCharAnimation->ForeColor = System::Drawing::Color::Chartreuse;
+			this->lbCharAnimation->Location = System::Drawing::Point(491, 253);
+			this->lbCharAnimation->Name = L"lbCharAnimation";
+			this->lbCharAnimation->Size = System::Drawing::Size(25, 13);
+			this->lbCharAnimation->TabIndex = 57;
+			this->lbCharAnimation->Text = L"000";
 			// 
-			// lbTopWallPos
+			// label94
 			// 
-			this->lbTopWallPos->AutoSize = true;
-			this->lbTopWallPos->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
-			this->lbTopWallPos->ForeColor = System::Drawing::Color::MediumPurple;
-			this->lbTopWallPos->Location = System::Drawing::Point(500, 298);
-			this->lbTopWallPos->Name = L"lbTopWallPos";
-			this->lbTopWallPos->Size = System::Drawing::Size(31, 13);
-			this->lbTopWallPos->TabIndex = 61;
-			this->lbTopWallPos->Text = L"0000";
+			this->label94->AutoSize = true;
+			this->label94->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
+			this->label94->Location = System::Drawing::Point(405, 253);
+			this->label94->Name = L"label94";
+			this->label94->Size = System::Drawing::Size(84, 13);
+			this->label94->TabIndex = 56;
+			this->label94->Text = L"Char Animation:";
 			// 
-			// lbRightWallPos
+			// lbWalls
 			// 
-			this->lbRightWallPos->AutoSize = true;
-			this->lbRightWallPos->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
-			this->lbRightWallPos->ForeColor = System::Drawing::Color::MediumPurple;
-			this->lbRightWallPos->Location = System::Drawing::Point(508, 283);
-			this->lbRightWallPos->Name = L"lbRightWallPos";
-			this->lbRightWallPos->Size = System::Drawing::Size(31, 13);
-			this->lbRightWallPos->TabIndex = 60;
-			this->lbRightWallPos->Text = L"0000";
+			this->lbWalls->AutoSize = true;
+			this->lbWalls->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
+			this->lbWalls->ForeColor = System::Drawing::Color::MediumOrchid;
+			this->lbWalls->Location = System::Drawing::Point(436, 218);
+			this->lbWalls->Name = L"lbWalls";
+			this->lbWalls->Size = System::Drawing::Size(120, 13);
+			this->lbWalls->TabIndex = 55;
+			this->lbWalls->Text = L"-0000 0000 -0000 0000";
 			// 
-			// lbBottomWall
+			// label92
 			// 
-			this->lbBottomWall->AutoSize = true;
-			this->lbBottomWall->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
-			this->lbBottomWall->ForeColor = System::Drawing::Color::White;
-			this->lbBottomWall->Location = System::Drawing::Point(430, 313);
-			this->lbBottomWall->Name = L"lbBottomWall";
-			this->lbBottomWall->Size = System::Drawing::Size(88, 13);
-			this->lbBottomWall->TabIndex = 59;
-			this->lbBottomWall->Text = L"Map BottomWall:";
-			// 
-			// lbTopWall
-			// 
-			this->lbTopWall->AutoSize = true;
-			this->lbTopWall->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
-			this->lbTopWall->ForeColor = System::Drawing::Color::White;
-			this->lbTopWall->Location = System::Drawing::Point(430, 298);
-			this->lbTopWall->Name = L"lbTopWall";
-			this->lbTopWall->Size = System::Drawing::Size(72, 13);
-			this->lbTopWall->TabIndex = 58;
-			this->lbTopWall->Text = L"Map TopWall:";
-			// 
-			// lbMapRightWall
-			// 
-			this->lbMapRightWall->AutoSize = true;
-			this->lbMapRightWall->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
-			this->lbMapRightWall->ForeColor = System::Drawing::Color::White;
-			this->lbMapRightWall->Location = System::Drawing::Point(430, 283);
-			this->lbMapRightWall->Name = L"lbMapRightWall";
-			this->lbMapRightWall->Size = System::Drawing::Size(79, 13);
-			this->lbMapRightWall->TabIndex = 57;
-			this->lbMapRightWall->Text = L"Map RightWall:";
-			// 
-			// lbLeftWallPos
-			// 
-			this->lbLeftWallPos->AutoSize = true;
-			this->lbLeftWallPos->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
-			this->lbLeftWallPos->ForeColor = System::Drawing::Color::MediumPurple;
-			this->lbLeftWallPos->Location = System::Drawing::Point(500, 268);
-			this->lbLeftWallPos->Name = L"lbLeftWallPos";
-			this->lbLeftWallPos->Size = System::Drawing::Size(31, 13);
-			this->lbLeftWallPos->TabIndex = 56;
-			this->lbLeftWallPos->Text = L"0000";
-			// 
-			// lbMapLeftWall
-			// 
-			this->lbMapLeftWall->AutoSize = true;
-			this->lbMapLeftWall->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
-			this->lbMapLeftWall->ForeColor = System::Drawing::Color::White;
-			this->lbMapLeftWall->Location = System::Drawing::Point(430, 268);
-			this->lbMapLeftWall->Name = L"lbMapLeftWall";
-			this->lbMapLeftWall->Size = System::Drawing::Size(73, 13);
-			this->lbMapLeftWall->TabIndex = 55;
-			this->lbMapLeftWall->Text = L"Map LeftWall:";
-			// 
-			// EXPForeground
-			// 
-			this->EXPForeground->BackColor = System::Drawing::Color::GreenYellow;
-			this->EXPForeground->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
-			this->EXPForeground->Location = System::Drawing::Point(455, 115);
-			this->EXPForeground->Name = L"EXPForeground";
-			this->EXPForeground->Size = System::Drawing::Size(150, 13);
-			this->EXPForeground->TabIndex = 54;
-			this->EXPForeground->TabStop = false;
-			// 
-			// lbMapName
-			// 
-			this->lbMapName->AutoSize = true;
-			this->lbMapName->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
-			this->lbMapName->ForeColor = System::Drawing::Color::White;
-			this->lbMapName->Location = System::Drawing::Point(490, 253);
-			this->lbMapName->Name = L"lbMapName";
-			this->lbMapName->Size = System::Drawing::Size(55, 13);
-			this->lbMapName->TabIndex = 42;
-			this->lbMapName->Text = L"Waiting...";
-			this->lbMapName->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::pnlFull_MouseDown);
-			this->lbMapName->MouseMove += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::pnlFull_MouseMove);
-			this->lbMapName->MouseUp += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::pnlFull_MouseUp);
-			// 
-			// MPForeground
-			// 
-			this->MPForeground->BackColor = System::Drawing::Color::DodgerBlue;
-			this->MPForeground->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
-			this->MPForeground->Location = System::Drawing::Point(455, 100);
-			this->MPForeground->Name = L"MPForeground";
-			this->MPForeground->Size = System::Drawing::Size(150, 13);
-			this->MPForeground->TabIndex = 53;
-			this->MPForeground->TabStop = false;
-			// 
-			// label21
-			// 
-			this->label21->AutoSize = true;
-			this->label21->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
-			this->label21->ForeColor = System::Drawing::Color::White;
-			this->label21->Location = System::Drawing::Point(430, 253);
-			this->label21->Name = L"label21";
-			this->label21->Size = System::Drawing::Size(61, 13);
-			this->label21->TabIndex = 22;
-			this->label21->Text = L"Map Name:";
-			this->label21->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::pnlFull_MouseDown);
-			this->label21->MouseMove += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::pnlFull_MouseMove);
-			this->label21->MouseUp += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::pnlFull_MouseUp);
-			// 
-			// label22
-			// 
-			this->label22->AutoSize = true;
-			this->label22->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
-			this->label22->Location = System::Drawing::Point(543, 436);
-			this->label22->Name = L"label22";
-			this->label22->Size = System::Drawing::Size(62, 13);
-			this->label22->TabIndex = 23;
-			this->label22->Text = L"Thread ID: ";
-			this->label22->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::pnlFull_MouseDown);
-			this->label22->MouseMove += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::pnlFull_MouseMove);
-			this->label22->MouseUp += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::pnlFull_MouseUp);
-			// 
-			// lbThreadID
-			// 
-			this->lbThreadID->AutoSize = true;
-			this->lbThreadID->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
-			this->lbThreadID->ForeColor = System::Drawing::Color::SpringGreen;
-			this->lbThreadID->Location = System::Drawing::Point(602, 436);
-			this->lbThreadID->Name = L"lbThreadID";
-			this->lbThreadID->Size = System::Drawing::Size(43, 13);
-			this->lbThreadID->TabIndex = 48;
-			this->lbThreadID->Text = L"0x0000";
-			this->lbThreadID->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::pnlFull_MouseDown);
-			this->lbThreadID->MouseMove += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::pnlFull_MouseMove);
-			this->lbThreadID->MouseUp += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::pnlFull_MouseUp);
-			// 
-			// lbDateTime
-			// 
-			this->lbDateTime->AutoSize = true;
-			this->lbDateTime->BackColor = System::Drawing::Color::Transparent;
-			this->lbDateTime->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
-			this->lbDateTime->ForeColor = System::Drawing::Color::White;
-			this->lbDateTime->Location = System::Drawing::Point(525, 45);
-			this->lbDateTime->Name = L"lbDateTime";
-			this->lbDateTime->Size = System::Drawing::Size(128, 13);
-			this->lbDateTime->TabIndex = 41;
-			this->lbDateTime->Text = L"00/00/0000 00:00:00 AM";
-			this->lbDateTime->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::pnlFull_MouseDown);
-			this->lbDateTime->MouseMove += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::pnlFull_MouseMove);
-			this->lbDateTime->MouseUp += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::pnlFull_MouseUp);
-			// 
-			// HPForeground
-			// 
-			this->HPForeground->BackColor = System::Drawing::Color::DarkRed;
-			this->HPForeground->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
-			this->HPForeground->Location = System::Drawing::Point(455, 84);
-			this->HPForeground->Name = L"HPForeground";
-			this->HPForeground->Size = System::Drawing::Size(150, 13);
-			this->HPForeground->TabIndex = 52;
-			this->HPForeground->TabStop = false;
+			this->label92->AutoSize = true;
+			this->label92->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
+			this->label92->Location = System::Drawing::Point(405, 218);
+			this->label92->Name = L"label92";
+			this->label92->Size = System::Drawing::Size(36, 13);
+			this->label92->TabIndex = 54;
+			this->label92->Text = L"Walls:";
 			// 
 			// button1
 			// 
 			this->button1->FlatAppearance->BorderColor = System::Drawing::Color::Gray;
 			this->button1->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->button1->Location = System::Drawing::Point(430, 5);
+			this->button1->Location = System::Drawing::Point(408, 3);
 			this->button1->Name = L"button1";
 			this->button1->Size = System::Drawing::Size(56, 24);
 			this->button1->TabIndex = 51;
@@ -1487,7 +1380,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->lbInactive->AutoSize = true;
 			this->lbInactive->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
 			this->lbInactive->ForeColor = System::Drawing::Color::Red;
-			this->lbInactive->Location = System::Drawing::Point(510, 10);
+			this->lbInactive->Location = System::Drawing::Point(508, 24);
 			this->lbInactive->Name = L"lbInactive";
 			this->lbInactive->RightToLeft = System::Windows::Forms::RightToLeft::No;
 			this->lbInactive->Size = System::Drawing::Size(46, 13);
@@ -1504,7 +1397,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->lbActive->AutoSize = true;
 			this->lbActive->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
 			this->lbActive->ForeColor = System::Drawing::Color::Green;
-			this->lbActive->Location = System::Drawing::Point(510, 10);
+			this->lbActive->Location = System::Drawing::Point(517, 24);
 			this->lbActive->Name = L"lbActive";
 			this->lbActive->RightToLeft = System::Windows::Forms::RightToLeft::No;
 			this->lbActive->Size = System::Drawing::Size(37, 13);
@@ -1516,12 +1409,26 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->lbActive->MouseMove += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::pnlFull_MouseMove);
 			this->lbActive->MouseUp += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::pnlFull_MouseUp);
 			// 
+			// lbThreadID
+			// 
+			this->lbThreadID->AutoSize = true;
+			this->lbThreadID->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
+			this->lbThreadID->ForeColor = System::Drawing::Color::SpringGreen;
+			this->lbThreadID->Location = System::Drawing::Point(468, 427);
+			this->lbThreadID->Name = L"lbThreadID";
+			this->lbThreadID->Size = System::Drawing::Size(43, 13);
+			this->lbThreadID->TabIndex = 48;
+			this->lbThreadID->Text = L"0x0000";
+			this->lbThreadID->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::pnlFull_MouseDown);
+			this->lbThreadID->MouseMove += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::pnlFull_MouseMove);
+			this->lbThreadID->MouseUp += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::pnlFull_MouseUp);
+			// 
 			// lbNPCCount
 			// 
 			this->lbNPCCount->AutoSize = true;
 			this->lbNPCCount->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
 			this->lbNPCCount->ForeColor = System::Drawing::Color::PaleTurquoise;
-			this->lbNPCCount->Location = System::Drawing::Point(510, 436);
+			this->lbNPCCount->Location = System::Drawing::Point(485, 408);
 			this->lbNPCCount->Name = L"lbNPCCount";
 			this->lbNPCCount->Size = System::Drawing::Size(25, 13);
 			this->lbNPCCount->TabIndex = 47;
@@ -1535,7 +1442,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->lbPortalCount->AutoSize = true;
 			this->lbPortalCount->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
 			this->lbPortalCount->ForeColor = System::Drawing::Color::PaleTurquoise;
-			this->lbPortalCount->Location = System::Drawing::Point(510, 421);
+			this->lbPortalCount->Location = System::Drawing::Point(485, 393);
 			this->lbPortalCount->Name = L"lbPortalCount";
 			this->lbPortalCount->Size = System::Drawing::Size(25, 13);
 			this->lbPortalCount->TabIndex = 46;
@@ -1549,7 +1456,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->lbItemCount->AutoSize = true;
 			this->lbItemCount->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
 			this->lbItemCount->ForeColor = System::Drawing::Color::PaleTurquoise;
-			this->lbItemCount->Location = System::Drawing::Point(510, 406);
+			this->lbItemCount->Location = System::Drawing::Point(485, 378);
 			this->lbItemCount->Name = L"lbItemCount";
 			this->lbItemCount->Size = System::Drawing::Size(25, 13);
 			this->lbItemCount->TabIndex = 45;
@@ -1563,7 +1470,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->lbMobCount->AutoSize = true;
 			this->lbMobCount->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
 			this->lbMobCount->ForeColor = System::Drawing::Color::PaleTurquoise;
-			this->lbMobCount->Location = System::Drawing::Point(510, 391);
+			this->lbMobCount->Location = System::Drawing::Point(485, 363);
 			this->lbMobCount->Name = L"lbMobCount";
 			this->lbMobCount->Size = System::Drawing::Size(25, 13);
 			this->lbMobCount->TabIndex = 44;
@@ -1577,7 +1484,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->lbPeopleCount->AutoSize = true;
 			this->lbPeopleCount->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
 			this->lbPeopleCount->ForeColor = System::Drawing::Color::PaleTurquoise;
-			this->lbPeopleCount->Location = System::Drawing::Point(510, 376);
+			this->lbPeopleCount->Location = System::Drawing::Point(485, 348);
 			this->lbPeopleCount->Name = L"lbPeopleCount";
 			this->lbPeopleCount->Size = System::Drawing::Size(25, 13);
 			this->lbPeopleCount->TabIndex = 43;
@@ -1591,7 +1498,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->lbBreathCount->AutoSize = true;
 			this->lbBreathCount->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
 			this->lbBreathCount->ForeColor = System::Drawing::Color::PaleTurquoise;
-			this->lbBreathCount->Location = System::Drawing::Point(510, 361);
+			this->lbBreathCount->Location = System::Drawing::Point(485, 333);
 			this->lbBreathCount->Name = L"lbBreathCount";
 			this->lbBreathCount->Size = System::Drawing::Size(25, 13);
 			this->lbBreathCount->TabIndex = 42;
@@ -1605,7 +1512,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->lbBuffCount->AutoSize = true;
 			this->lbBuffCount->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
 			this->lbBuffCount->ForeColor = System::Drawing::Color::PaleTurquoise;
-			this->lbBuffCount->Location = System::Drawing::Point(510, 346);
+			this->lbBuffCount->Location = System::Drawing::Point(485, 318);
 			this->lbBuffCount->Name = L"lbBuffCount";
 			this->lbBuffCount->Size = System::Drawing::Size(25, 13);
 			this->lbBuffCount->TabIndex = 41;
@@ -1619,7 +1526,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->lbAttackCount->AutoSize = true;
 			this->lbAttackCount->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
 			this->lbAttackCount->ForeColor = System::Drawing::Color::PaleTurquoise;
-			this->lbAttackCount->Location = System::Drawing::Point(510, 331);
+			this->lbAttackCount->Location = System::Drawing::Point(485, 303);
 			this->lbAttackCount->Name = L"lbAttackCount";
 			this->lbAttackCount->Size = System::Drawing::Size(25, 13);
 			this->lbAttackCount->TabIndex = 40;
@@ -1633,7 +1540,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->lbMousePos->AutoSize = true;
 			this->lbMousePos->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
 			this->lbMousePos->ForeColor = System::Drawing::Color::LightGreen;
-			this->lbMousePos->Location = System::Drawing::Point(495, 165);
+			this->lbMousePos->Location = System::Drawing::Point(470, 283);
 			this->lbMousePos->Name = L"lbMousePos";
 			this->lbMousePos->Size = System::Drawing::Size(70, 13);
 			this->lbMousePos->TabIndex = 39;
@@ -1647,7 +1554,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->lbCharPos->AutoSize = true;
 			this->lbCharPos->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
 			this->lbCharPos->ForeColor = System::Drawing::Color::Khaki;
-			this->lbCharPos->Location = System::Drawing::Point(485, 150);
+			this->lbCharPos->Location = System::Drawing::Point(459, 268);
 			this->lbCharPos->Name = L"lbCharPos";
 			this->lbCharPos->Size = System::Drawing::Size(70, 13);
 			this->lbCharPos->TabIndex = 38;
@@ -1661,7 +1568,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->lbMapID->AutoSize = true;
 			this->lbMapID->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
 			this->lbMapID->ForeColor = System::Drawing::Color::MediumPurple;
-			this->lbMapID->Location = System::Drawing::Point(475, 238);
+			this->lbMapID->Location = System::Drawing::Point(452, 203);
 			this->lbMapID->Name = L"lbMapID";
 			this->lbMapID->Size = System::Drawing::Size(61, 13);
 			this->lbMapID->TabIndex = 37;
@@ -1675,7 +1582,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->lbChannel->AutoSize = true;
 			this->lbChannel->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
 			this->lbChannel->ForeColor = System::Drawing::Color::LightPink;
-			this->lbChannel->Location = System::Drawing::Point(574, 223);
+			this->lbChannel->Location = System::Drawing::Point(457, 188);
 			this->lbChannel->Name = L"lbChannel";
 			this->lbChannel->Size = System::Drawing::Size(19, 13);
 			this->lbChannel->TabIndex = 35;
@@ -1689,7 +1596,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->lbWorld->AutoSize = true;
 			this->lbWorld->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
 			this->lbWorld->ForeColor = System::Drawing::Color::LightCoral;
-			this->lbWorld->Location = System::Drawing::Point(467, 223);
+			this->lbWorld->Location = System::Drawing::Point(443, 173);
 			this->lbWorld->Name = L"lbWorld";
 			this->lbWorld->Size = System::Drawing::Size(24, 13);
 			this->lbWorld->TabIndex = 34;
@@ -1704,7 +1611,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->lbMesos->AutoSize = true;
 			this->lbMesos->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
 			this->lbMesos->ForeColor = System::Drawing::Color::Yellow;
-			this->lbMesos->Location = System::Drawing::Point(530, 130);
+			this->lbMesos->Location = System::Drawing::Point(447, 153);
 			this->lbMesos->Name = L"lbMesos";
 			this->lbMesos->Size = System::Drawing::Size(13, 13);
 			this->lbMesos->TabIndex = 33;
@@ -1717,8 +1624,8 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			// 
 			this->lbEXP->AutoSize = true;
 			this->lbEXP->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
-			this->lbEXP->ForeColor = System::Drawing::Color::GreenYellow;
-			this->lbEXP->Location = System::Drawing::Point(609, 115);
+			this->lbEXP->ForeColor = System::Drawing::Color::Lime;
+			this->lbEXP->Location = System::Drawing::Point(433, 138);
 			this->lbEXP->Name = L"lbEXP";
 			this->lbEXP->Size = System::Drawing::Size(40, 13);
 			this->lbEXP->TabIndex = 32;
@@ -1732,8 +1639,8 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			// 
 			this->lbMP->AutoSize = true;
 			this->lbMP->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
-			this->lbMP->ForeColor = System::Drawing::Color::DodgerBlue;
-			this->lbMP->Location = System::Drawing::Point(609, 100);
+			this->lbMP->ForeColor = System::Drawing::Color::Aqua;
+			this->lbMP->Location = System::Drawing::Point(433, 123);
 			this->lbMP->Name = L"lbMP";
 			this->lbMP->Size = System::Drawing::Size(40, 13);
 			this->lbMP->TabIndex = 31;
@@ -1748,7 +1655,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->lbHP->AutoSize = true;
 			this->lbHP->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
 			this->lbHP->ForeColor = System::Drawing::Color::Red;
-			this->lbHP->Location = System::Drawing::Point(609, 85);
+			this->lbHP->Location = System::Drawing::Point(432, 108);
 			this->lbHP->Name = L"lbHP";
 			this->lbHP->Size = System::Drawing::Size(40, 13);
 			this->lbHP->TabIndex = 30;
@@ -1762,8 +1669,8 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			// 
 			this->lbJob->AutoSize = true;
 			this->lbJob->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
-			this->lbJob->ForeColor = System::Drawing::Color::SpringGreen;
-			this->lbJob->Location = System::Drawing::Point(580, 65);
+			this->lbJob->ForeColor = System::Drawing::Color::DodgerBlue;
+			this->lbJob->Location = System::Drawing::Point(432, 93);
 			this->lbJob->Name = L"lbJob";
 			this->lbJob->Size = System::Drawing::Size(24, 13);
 			this->lbJob->TabIndex = 29;
@@ -1778,7 +1685,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->lbLevel->AutoSize = true;
 			this->lbLevel->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
 			this->lbLevel->ForeColor = System::Drawing::Color::Orange;
-			this->lbLevel->Location = System::Drawing::Point(465, 130);
+			this->lbLevel->Location = System::Drawing::Point(440, 78);
 			this->lbLevel->Name = L"lbLevel";
 			this->lbLevel->Size = System::Drawing::Size(13, 13);
 			this->lbLevel->TabIndex = 28;
@@ -1792,7 +1699,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->lbCharName->AutoSize = true;
 			this->lbCharName->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
 			this->lbCharName->ForeColor = System::Drawing::Color::Gold;
-			this->lbCharName->Location = System::Drawing::Point(450, 65);
+			this->lbCharName->Location = System::Drawing::Point(423, 63);
 			this->lbCharName->Name = L"lbCharName";
 			this->lbCharName->Size = System::Drawing::Size(57, 13);
 			this->lbCharName->TabIndex = 27;
@@ -1805,7 +1712,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			// 
 			this->label25->AutoSize = true;
 			this->label25->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
-			this->label25->Location = System::Drawing::Point(430, 346);
+			this->label25->Location = System::Drawing::Point(405, 318);
 			this->label25->Name = L"label25";
 			this->label25->Size = System::Drawing::Size(63, 13);
 			this->label25->TabIndex = 26;
@@ -1818,7 +1725,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			// 
 			this->label24->AutoSize = true;
 			this->label24->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
-			this->label24->Location = System::Drawing::Point(430, 436);
+			this->label24->Location = System::Drawing::Point(405, 408);
 			this->label24->Name = L"label24";
 			this->label24->Size = System::Drawing::Size(59, 13);
 			this->label24->TabIndex = 25;
@@ -1831,7 +1738,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			// 
 			this->label23->AutoSize = true;
 			this->label23->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
-			this->label23->Location = System::Drawing::Point(430, 165);
+			this->label23->Location = System::Drawing::Point(405, 283);
 			this->label23->Name = L"label23";
 			this->label23->Size = System::Drawing::Size(62, 13);
 			this->label23->TabIndex = 24;
@@ -1840,11 +1747,24 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->label23->MouseMove += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::pnlFull_MouseMove);
 			this->label23->MouseUp += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::pnlFull_MouseUp);
 			// 
+			// label22
+			// 
+			this->label22->AutoSize = true;
+			this->label22->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
+			this->label22->Location = System::Drawing::Point(405, 428);
+			this->label22->Name = L"label22";
+			this->label22->Size = System::Drawing::Size(62, 13);
+			this->label22->TabIndex = 23;
+			this->label22->Text = L"Thread ID: ";
+			this->label22->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::pnlFull_MouseDown);
+			this->label22->MouseMove += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::pnlFull_MouseMove);
+			this->label22->MouseUp += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::pnlFull_MouseUp);
+			// 
 			// label20
 			// 
 			this->label20->AutoSize = true;
 			this->label20->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
-			this->label20->Location = System::Drawing::Point(430, 361);
+			this->label20->Location = System::Drawing::Point(405, 333);
 			this->label20->Name = L"label20";
 			this->label20->Size = System::Drawing::Size(75, 13);
 			this->label20->TabIndex = 21;
@@ -1857,7 +1777,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			// 
 			this->label19->AutoSize = true;
 			this->label19->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
-			this->label19->Location = System::Drawing::Point(490, 130);
+			this->label19->Location = System::Drawing::Point(405, 153);
 			this->label19->Name = L"label19";
 			this->label19->Size = System::Drawing::Size(41, 13);
 			this->label19->TabIndex = 20;
@@ -1870,7 +1790,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			// 
 			this->label18->AutoSize = true;
 			this->label18->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
-			this->label18->Location = System::Drawing::Point(550, 65);
+			this->label18->Location = System::Drawing::Point(405, 93);
 			this->label18->Name = L"label18";
 			this->label18->Size = System::Drawing::Size(28, 13);
 			this->label18->TabIndex = 19;
@@ -1883,7 +1803,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			// 
 			this->label17->AutoSize = true;
 			this->label17->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
-			this->label17->Location = System::Drawing::Point(430, 421);
+			this->label17->Location = System::Drawing::Point(405, 393);
 			this->label17->Name = L"label17";
 			this->label17->Size = System::Drawing::Size(67, 13);
 			this->label17->TabIndex = 18;
@@ -1896,7 +1816,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			// 
 			this->label16->AutoSize = true;
 			this->label16->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
-			this->label16->Location = System::Drawing::Point(430, 406);
+			this->label16->Location = System::Drawing::Point(405, 378);
 			this->label16->Name = L"label16";
 			this->label16->Size = System::Drawing::Size(65, 13);
 			this->label16->TabIndex = 17;
@@ -1909,7 +1829,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			// 
 			this->label15->AutoSize = true;
 			this->label15->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
-			this->label15->Location = System::Drawing::Point(430, 391);
+			this->label15->Location = System::Drawing::Point(405, 363);
 			this->label15->Name = L"label15";
 			this->label15->Size = System::Drawing::Size(66, 13);
 			this->label15->TabIndex = 16;
@@ -1922,7 +1842,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			// 
 			this->label14->AutoSize = true;
 			this->label14->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
-			this->label14->Location = System::Drawing::Point(430, 376);
+			this->label14->Location = System::Drawing::Point(405, 348);
 			this->label14->Name = L"label14";
 			this->label14->Size = System::Drawing::Size(75, 13);
 			this->label14->TabIndex = 15;
@@ -1935,7 +1855,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			// 
 			this->label13->AutoSize = true;
 			this->label13->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
-			this->label13->Location = System::Drawing::Point(430, 331);
+			this->label13->Location = System::Drawing::Point(405, 303);
 			this->label13->Name = L"label13";
 			this->label13->Size = System::Drawing::Size(74, 13);
 			this->label13->TabIndex = 14;
@@ -1948,7 +1868,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			// 
 			this->label12->AutoSize = true;
 			this->label12->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
-			this->label12->Location = System::Drawing::Point(430, 150);
+			this->label12->Location = System::Drawing::Point(405, 268);
 			this->label12->Name = L"label12";
 			this->label12->Size = System::Drawing::Size(54, 13);
 			this->label12->TabIndex = 13;
@@ -1961,7 +1881,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			// 
 			this->label11->AutoSize = true;
 			this->label11->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
-			this->label11->Location = System::Drawing::Point(430, 238);
+			this->label11->Location = System::Drawing::Point(405, 203);
 			this->label11->Name = L"label11";
 			this->label11->Size = System::Drawing::Size(48, 13);
 			this->label11->TabIndex = 12;
@@ -1974,7 +1894,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			// 
 			this->label10->AutoSize = true;
 			this->label10->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
-			this->label10->Location = System::Drawing::Point(525, 223);
+			this->label10->Location = System::Drawing::Point(405, 188);
 			this->label10->Name = L"label10";
 			this->label10->Size = System::Drawing::Size(50, 13);
 			this->label10->TabIndex = 11;
@@ -1987,7 +1907,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			// 
 			this->label9->AutoSize = true;
 			this->label9->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
-			this->label9->Location = System::Drawing::Point(430, 223);
+			this->label9->Location = System::Drawing::Point(405, 173);
 			this->label9->Name = L"label9";
 			this->label9->Size = System::Drawing::Size(39, 13);
 			this->label9->TabIndex = 10;
@@ -2000,7 +1920,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			// 
 			this->label8->AutoSize = true;
 			this->label8->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
-			this->label8->Location = System::Drawing::Point(430, 113);
+			this->label8->Location = System::Drawing::Point(405, 138);
 			this->label8->Name = L"label8";
 			this->label8->Size = System::Drawing::Size(29, 13);
 			this->label8->TabIndex = 9;
@@ -2013,7 +1933,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			// 
 			this->label7->AutoSize = true;
 			this->label7->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
-			this->label7->Location = System::Drawing::Point(430, 98);
+			this->label7->Location = System::Drawing::Point(405, 123);
 			this->label7->Name = L"label7";
 			this->label7->Size = System::Drawing::Size(25, 13);
 			this->label7->TabIndex = 8;
@@ -2026,7 +1946,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			// 
 			this->label6->AutoSize = true;
 			this->label6->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
-			this->label6->Location = System::Drawing::Point(430, 83);
+			this->label6->Location = System::Drawing::Point(405, 108);
 			this->label6->Name = L"label6";
 			this->label6->Size = System::Drawing::Size(24, 13);
 			this->label6->TabIndex = 7;
@@ -2039,7 +1959,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			// 
 			this->label5->AutoSize = true;
 			this->label5->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
-			this->label5->Location = System::Drawing::Point(430, 130);
+			this->label5->Location = System::Drawing::Point(405, 78);
 			this->label5->Name = L"label5";
 			this->label5->Size = System::Drawing::Size(39, 13);
 			this->label5->TabIndex = 6;
@@ -2052,7 +1972,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			// 
 			this->label4->AutoSize = true;
 			this->label4->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
-			this->label4->Location = System::Drawing::Point(430, 65);
+			this->label4->Location = System::Drawing::Point(405, 63);
 			this->label4->Name = L"label4";
 			this->label4->Size = System::Drawing::Size(22, 13);
 			this->label4->TabIndex = 5;
@@ -2064,10 +1984,11 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			// label3
 			// 
 			this->label3->AutoSize = true;
-			this->label3->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 15.75F));
-			this->label3->Location = System::Drawing::Point(425, 39);
+			this->label3->Font = (gcnew System::Drawing::Font(L"Algerian", 15.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->label3->Location = System::Drawing::Point(401, 39);
 			this->label3->Name = L"label3";
-			this->label3->Size = System::Drawing::Size(53, 25);
+			this->label3->Size = System::Drawing::Size(60, 24);
 			this->label3->TabIndex = 4;
 			this->label3->Text = L"Info:";
 			this->label3->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::pnlFull_MouseDown);
@@ -2088,7 +2009,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->tabControl1->Location = System::Drawing::Point(2, 29);
 			this->tabControl1->Name = L"tabControl1";
 			this->tabControl1->SelectedIndex = 0;
-			this->tabControl1->Size = System::Drawing::Size(422, 422);
+			this->tabControl1->Size = System::Drawing::Size(398, 411);
 			this->tabControl1->TabIndex = 2;
 			// 
 			// tabPage1
@@ -2101,7 +2022,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->tabPage1->Location = System::Drawing::Point(4, 22);
 			this->tabPage1->Name = L"tabPage1";
 			this->tabPage1->Padding = System::Windows::Forms::Padding(3);
-			this->tabPage1->Size = System::Drawing::Size(414, 396);
+			this->tabPage1->Size = System::Drawing::Size(390, 385);
 			this->tabPage1->TabIndex = 0;
 			this->tabPage1->Text = L"Main";
 			// 
@@ -2111,7 +2032,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->pictureBox1->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox1.Image")));
 			this->pictureBox1->Location = System::Drawing::Point(6, 6);
 			this->pictureBox1->Name = L"pictureBox1";
-			this->pictureBox1->Size = System::Drawing::Size(370, 86);
+			this->pictureBox1->Size = System::Drawing::Size(379, 89);
 			this->pictureBox1->TabIndex = 0;
 			this->pictureBox1->TabStop = false;
 			this->pictureBox1->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::pnlFull_MouseDown);
@@ -2126,7 +2047,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->tabControl2->Location = System::Drawing::Point(15, 101);
 			this->tabControl2->Name = L"tabControl2";
 			this->tabControl2->SelectedIndex = 0;
-			this->tabControl2->Size = System::Drawing::Size(361, 217);
+			this->tabControl2->Size = System::Drawing::Size(361, 265);
 			this->tabControl2->TabIndex = 0;
 			// 
 			// tabPage3
@@ -2137,7 +2058,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->tabPage3->Location = System::Drawing::Point(4, 22);
 			this->tabPage3->Name = L"tabPage3";
 			this->tabPage3->Padding = System::Windows::Forms::Padding(3);
-			this->tabPage3->Size = System::Drawing::Size(353, 191);
+			this->tabPage3->Size = System::Drawing::Size(353, 239);
 			this->tabPage3->TabIndex = 0;
 			this->tabPage3->Text = L"Home";
 			// 
@@ -2152,7 +2073,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->rtbHome->Name = L"rtbHome";
 			this->rtbHome->ReadOnly = true;
 			this->rtbHome->ScrollBars = System::Windows::Forms::RichTextBoxScrollBars::None;
-			this->rtbHome->Size = System::Drawing::Size(318, 153);
+			this->rtbHome->Size = System::Drawing::Size(318, 198);
 			this->rtbHome->TabIndex = 0;
 			this->rtbHome->Text = resources->GetString(L"rtbHome.Text");
 			// 
@@ -2165,7 +2086,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->tabPage17->Controls->Add(this->checkBox1);
 			this->tabPage17->Location = System::Drawing::Point(4, 22);
 			this->tabPage17->Name = L"tabPage17";
-			this->tabPage17->Size = System::Drawing::Size(353, 191);
+			this->tabPage17->Size = System::Drawing::Size(353, 239);
 			this->tabPage17->TabIndex = 2;
 			this->tabPage17->Text = L"Auto Login";
 			// 
@@ -2357,7 +2278,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->tabPage4->Location = System::Drawing::Point(4, 22);
 			this->tabPage4->Name = L"tabPage4";
 			this->tabPage4->Padding = System::Windows::Forms::Padding(3);
-			this->tabPage4->Size = System::Drawing::Size(353, 191);
+			this->tabPage4->Size = System::Drawing::Size(353, 239);
 			this->tabPage4->TabIndex = 1;
 			this->tabPage4->Text = L"Options";
 			// 
@@ -2380,7 +2301,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->transparencyTrackBar->Maximum = 100;
 			this->transparencyTrackBar->Minimum = 50;
 			this->transparencyTrackBar->Name = L"transparencyTrackBar";
-			this->transparencyTrackBar->Size = System::Drawing::Size(257, 42);
+			this->transparencyTrackBar->Size = System::Drawing::Size(257, 45);
 			this->transparencyTrackBar->TabIndex = 1;
 			this->transparencyTrackBar->TickStyle = System::Windows::Forms::TickStyle::None;
 			this->transparencyTrackBar->Value = 100;
@@ -2407,7 +2328,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->tabPage2->Location = System::Drawing::Point(4, 22);
 			this->tabPage2->Name = L"tabPage2";
 			this->tabPage2->Padding = System::Windows::Forms::Padding(3);
-			this->tabPage2->Size = System::Drawing::Size(414, 396);
+			this->tabPage2->Size = System::Drawing::Size(390, 385);
 			this->tabPage2->TabIndex = 1;
 			this->tabPage2->Text = L"Bots";
 			// 
@@ -2415,11 +2336,10 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			// 
 			this->tabControl3->Controls->Add(this->tabPage11);
 			this->tabControl3->Controls->Add(this->tabPage12);
-			this->tabControl3->Controls->Add(this->tabPage10);
 			this->tabControl3->Location = System::Drawing::Point(-6, 151);
 			this->tabControl3->Name = L"tabControl3";
 			this->tabControl3->SelectedIndex = 0;
-			this->tabControl3->Size = System::Drawing::Size(402, 188);
+			this->tabControl3->Size = System::Drawing::Size(402, 238);
 			this->tabControl3->TabIndex = 10;
 			// 
 			// tabPage11
@@ -2435,7 +2355,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->tabPage11->Location = System::Drawing::Point(4, 22);
 			this->tabPage11->Name = L"tabPage11";
 			this->tabPage11->Padding = System::Windows::Forms::Padding(3);
-			this->tabPage11->Size = System::Drawing::Size(394, 162);
+			this->tabPage11->Size = System::Drawing::Size(394, 212);
 			this->tabPage11->TabIndex = 1;
 			this->tabPage11->Text = L"Auto Buff";
 			// 
@@ -2443,7 +2363,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			// 
 			this->bBuffEnableAll->FlatAppearance->BorderColor = System::Drawing::Color::Gray;
 			this->bBuffEnableAll->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->bBuffEnableAll->Location = System::Drawing::Point(265, 109);
+			this->bBuffEnableAll->Location = System::Drawing::Point(265, 158);
 			this->bBuffEnableAll->Name = L"bBuffEnableAll";
 			this->bBuffEnableAll->Size = System::Drawing::Size(124, 24);
 			this->bBuffEnableAll->TabIndex = 15;
@@ -2455,9 +2375,9 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			// 
 			this->bBuffDisableAll->FlatAppearance->BorderColor = System::Drawing::Color::Gray;
 			this->bBuffDisableAll->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->bBuffDisableAll->Location = System::Drawing::Point(265, 136);
+			this->bBuffDisableAll->Location = System::Drawing::Point(265, 185);
 			this->bBuffDisableAll->Name = L"bBuffDisableAll";
-			this->bBuffDisableAll->Size = System::Drawing::Size(124, 23);
+			this->bBuffDisableAll->Size = System::Drawing::Size(124, 24);
 			this->bBuffDisableAll->TabIndex = 14;
 			this->bBuffDisableAll->Text = L"Disable All";
 			this->bBuffDisableAll->UseVisualStyleBackColor = true;
@@ -2467,7 +2387,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			// 
 			this->bBuffRemove->FlatAppearance->BorderColor = System::Drawing::Color::Gray;
 			this->bBuffRemove->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->bBuffRemove->Location = System::Drawing::Point(138, 135);
+			this->bBuffRemove->Location = System::Drawing::Point(138, 184);
 			this->bBuffRemove->Name = L"bBuffRemove";
 			this->bBuffRemove->Size = System::Drawing::Size(125, 25);
 			this->bBuffRemove->TabIndex = 13;
@@ -2479,7 +2399,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			// 
 			this->bBuffClear->FlatAppearance->BorderColor = System::Drawing::Color::Gray;
 			this->bBuffClear->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->bBuffClear->Location = System::Drawing::Point(5, 135);
+			this->bBuffClear->Location = System::Drawing::Point(5, 184);
 			this->bBuffClear->Name = L"bBuffClear";
 			this->bBuffClear->Size = System::Drawing::Size(131, 25);
 			this->bBuffClear->TabIndex = 12;
@@ -2498,7 +2418,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->panel5->Controls->Add(this->comboBuffKey);
 			this->panel5->Location = System::Drawing::Point(265, 4);
 			this->panel5->Name = L"panel5";
-			this->panel5->Size = System::Drawing::Size(124, 102);
+			this->panel5->Size = System::Drawing::Size(124, 118);
 			this->panel5->TabIndex = 5;
 			// 
 			// tbBuffName
@@ -2507,7 +2427,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 				static_cast<System::Int32>(static_cast<System::Byte>(35)));
 			this->tbBuffName->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 			this->tbBuffName->ForeColor = System::Drawing::Color::White;
-			this->tbBuffName->Location = System::Drawing::Point(40, 3);
+			this->tbBuffName->Location = System::Drawing::Point(40, 6);
 			this->tbBuffName->Name = L"tbBuffName";
 			this->tbBuffName->Size = System::Drawing::Size(78, 21);
 			this->tbBuffName->TabIndex = 12;
@@ -2518,7 +2438,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			// 
 			this->bBuffAdd->FlatAppearance->BorderColor = System::Drawing::Color::Gray;
 			this->bBuffAdd->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->bBuffAdd->Location = System::Drawing::Point(5, 76);
+			this->bBuffAdd->Location = System::Drawing::Point(5, 89);
 			this->bBuffAdd->Name = L"bBuffAdd";
 			this->bBuffAdd->Size = System::Drawing::Size(113, 21);
 			this->bBuffAdd->TabIndex = 11;
@@ -2532,7 +2452,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 				static_cast<System::Int32>(static_cast<System::Byte>(35)));
 			this->tbBuffInterval->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 			this->tbBuffInterval->ForeColor = System::Drawing::Color::White;
-			this->tbBuffInterval->Location = System::Drawing::Point(82, 27);
+			this->tbBuffInterval->Location = System::Drawing::Point(82, 33);
 			this->tbBuffInterval->Name = L"tbBuffInterval";
 			this->tbBuffInterval->Size = System::Drawing::Size(36, 21);
 			this->tbBuffInterval->TabIndex = 3;
@@ -2543,7 +2463,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			// label40
 			// 
 			this->label40->AutoSize = true;
-			this->label40->Location = System::Drawing::Point(2, 6);
+			this->label40->Location = System::Drawing::Point(2, 9);
 			this->label40->Name = L"label40";
 			this->label40->Size = System::Drawing::Size(38, 13);
 			this->label40->TabIndex = 10;
@@ -2553,7 +2473,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			// 
 			this->label41->AutoSize = true;
 			this->label41->BackColor = System::Drawing::Color::Transparent;
-			this->label41->Location = System::Drawing::Point(9, 30);
+			this->label41->Location = System::Drawing::Point(3, 36);
 			this->label41->Name = L"label41";
 			this->label41->Size = System::Drawing::Size(73, 13);
 			this->label41->TabIndex = 7;
@@ -2572,7 +2492,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 					L" I", L" J", L" K", L" L", L" M", L" N", L" O", L" P", L" Q", L" R", L" S", L" T", L" U", L" V", L" W", L" X", L" Y", L" Z",
 					L" 0", L" 1", L" 2", L" 3", L" 4", L" 5", L" 6", L" 7", L" 8", L" 9"
 			});
-			this->comboBuffKey->Location = System::Drawing::Point(5, 51);
+			this->comboBuffKey->Location = System::Drawing::Point(5, 61);
 			this->comboBuffKey->Name = L"comboBuffKey";
 			this->comboBuffKey->RightToLeft = System::Windows::Forms::RightToLeft::No;
 			this->comboBuffKey->Size = System::Drawing::Size(113, 21);
@@ -2594,7 +2514,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->lvBuff->HeaderStyle = System::Windows::Forms::ColumnHeaderStyle::Nonclickable;
 			this->lvBuff->Location = System::Drawing::Point(6, 4);
 			this->lvBuff->Name = L"lvBuff";
-			this->lvBuff->Size = System::Drawing::Size(257, 130);
+			this->lvBuff->Size = System::Drawing::Size(257, 178);
 			this->lvBuff->TabIndex = 0;
 			this->lvBuff->UseCompatibleStateImageBehavior = false;
 			this->lvBuff->View = System::Windows::Forms::View::Details;
@@ -2626,7 +2546,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->tabPage12->Location = System::Drawing::Point(4, 22);
 			this->tabPage12->Name = L"tabPage12";
 			this->tabPage12->Padding = System::Windows::Forms::Padding(3);
-			this->tabPage12->Size = System::Drawing::Size(394, 162);
+			this->tabPage12->Size = System::Drawing::Size(394, 212);
 			this->tabPage12->TabIndex = 2;
 			this->tabPage12->Text = L"Auto CC/CS";
 			// 
@@ -2638,9 +2558,9 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->panel8->Controls->Add(this->bCS);
 			this->panel8->Controls->Add(this->bRandomCC);
 			this->panel8->Controls->Add(this->panel9);
-			this->panel8->Location = System::Drawing::Point(213, 4);
+			this->panel8->Location = System::Drawing::Point(213, 0);
 			this->panel8->Name = L"panel8";
-			this->panel8->Size = System::Drawing::Size(175, 152);
+			this->panel8->Size = System::Drawing::Size(183, 216);
 			this->panel8->TabIndex = 17;
 			// 
 			// tbCSDelay
@@ -2649,7 +2569,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 				static_cast<System::Int32>(static_cast<System::Byte>(35)));
 			this->tbCSDelay->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 			this->tbCSDelay->ForeColor = System::Drawing::Color::White;
-			this->tbCSDelay->Location = System::Drawing::Point(92, 124);
+			this->tbCSDelay->Location = System::Drawing::Point(100, 162);
 			this->tbCSDelay->Name = L"tbCSDelay";
 			this->tbCSDelay->Size = System::Drawing::Size(67, 21);
 			this->tbCSDelay->TabIndex = 19;
@@ -2661,7 +2581,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			// 
 			this->label48->AutoSize = true;
 			this->label48->ForeColor = System::Drawing::Color::Silver;
-			this->label48->Location = System::Drawing::Point(14, 121);
+			this->label48->Location = System::Drawing::Point(14, 158);
 			this->label48->Name = L"label48";
 			this->label48->Size = System::Drawing::Size(82, 26);
 			this->label48->TabIndex = 18;
@@ -2671,7 +2591,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			// 
 			this->bCS->FlatAppearance->BorderColor = System::Drawing::Color::Gray;
 			this->bCS->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->bCS->Location = System::Drawing::Point(13, 94);
+			this->bCS->Location = System::Drawing::Point(17, 129);
 			this->bCS->Name = L"bCS";
 			this->bCS->Size = System::Drawing::Size(146, 23);
 			this->bCS->TabIndex = 17;
@@ -2683,7 +2603,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			// 
 			this->bRandomCC->FlatAppearance->BorderColor = System::Drawing::Color::Gray;
 			this->bRandomCC->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->bRandomCC->Location = System::Drawing::Point(13, 66);
+			this->bRandomCC->Location = System::Drawing::Point(17, 97);
 			this->bRandomCC->Name = L"bRandomCC";
 			this->bRandomCC->Size = System::Drawing::Size(146, 23);
 			this->bRandomCC->TabIndex = 16;
@@ -2697,16 +2617,16 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->panel9->Controls->Add(this->bCC);
 			this->panel9->Controls->Add(this->comboChannelKey);
 			this->panel9->Controls->Add(this->label47);
-			this->panel9->Location = System::Drawing::Point(7, 4);
+			this->panel9->Location = System::Drawing::Point(11, 20);
 			this->panel9->Name = L"panel9";
-			this->panel9->Size = System::Drawing::Size(159, 57);
+			this->panel9->Size = System::Drawing::Size(159, 63);
 			this->panel9->TabIndex = 15;
 			// 
 			// bCC
 			// 
 			this->bCC->FlatAppearance->BorderColor = System::Drawing::Color::Gray;
 			this->bCC->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->bCC->Location = System::Drawing::Point(5, 28);
+			this->bCC->Location = System::Drawing::Point(5, 32);
 			this->bCC->Name = L"bCC";
 			this->bCC->Size = System::Drawing::Size(146, 23);
 			this->bCC->TabIndex = 14;
@@ -2725,17 +2645,17 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 				L" 1", L" 2", L" 3", L" 4", L" 5", L" 6",
 					L" 7", L" 8", L" 9", L" 10", L" 11", L" 12", L" 13", L" 14", L" 15", L" 16", L" 17", L" 18", L" 19", L" 20"
 			});
-			this->comboChannelKey->Location = System::Drawing::Point(74, 3);
+			this->comboChannelKey->Location = System::Drawing::Point(65, 3);
 			this->comboChannelKey->Name = L"comboChannelKey";
 			this->comboChannelKey->RightToLeft = System::Windows::Forms::RightToLeft::No;
-			this->comboChannelKey->Size = System::Drawing::Size(77, 21);
+			this->comboChannelKey->Size = System::Drawing::Size(86, 21);
 			this->comboChannelKey->TabIndex = 6;
 			this->comboChannelKey->Text = L" 1";
 			// 
 			// label47
 			// 
 			this->label47->AutoSize = true;
-			this->label47->Location = System::Drawing::Point(9, 6);
+			this->label47->Location = System::Drawing::Point(9, 7);
 			this->label47->Name = L"label47";
 			this->label47->Size = System::Drawing::Size(50, 13);
 			this->label47->TabIndex = 7;
@@ -2758,9 +2678,9 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->panel7->Controls->Add(this->cbCCCSPeople);
 			this->panel7->Controls->Add(this->rbCC);
 			this->panel7->Controls->Add(this->cbCCCSTime);
-			this->panel7->Location = System::Drawing::Point(10, 27);
+			this->panel7->Location = System::Drawing::Point(10, 35);
 			this->panel7->Name = L"panel7";
-			this->panel7->Size = System::Drawing::Size(197, 129);
+			this->panel7->Size = System::Drawing::Size(197, 164);
 			this->panel7->TabIndex = 2;
 			// 
 			// tbCCCSMob
@@ -2769,7 +2689,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 				static_cast<System::Int32>(static_cast<System::Byte>(35)));
 			this->tbCCCSMob->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 			this->tbCCCSMob->ForeColor = System::Drawing::Color::White;
-			this->tbCCCSMob->Location = System::Drawing::Point(111, 101);
+			this->tbCCCSMob->Location = System::Drawing::Point(111, 132);
 			this->tbCCCSMob->Name = L"tbCCCSMob";
 			this->tbCCCSMob->Size = System::Drawing::Size(78, 21);
 			this->tbCCCSMob->TabIndex = 16;
@@ -2783,7 +2703,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 				static_cast<System::Int32>(static_cast<System::Byte>(35)));
 			this->tbCCCSAttack->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 			this->tbCCCSAttack->ForeColor = System::Drawing::Color::White;
-			this->tbCCCSAttack->Location = System::Drawing::Point(111, 78);
+			this->tbCCCSAttack->Location = System::Drawing::Point(111, 102);
 			this->tbCCCSAttack->Name = L"tbCCCSAttack";
 			this->tbCCCSAttack->Size = System::Drawing::Size(78, 21);
 			this->tbCCCSAttack->TabIndex = 15;
@@ -2797,7 +2717,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 				static_cast<System::Int32>(static_cast<System::Byte>(35)));
 			this->tbCCCSPeople->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 			this->tbCCCSPeople->ForeColor = System::Drawing::Color::White;
-			this->tbCCCSPeople->Location = System::Drawing::Point(111, 55);
+			this->tbCCCSPeople->Location = System::Drawing::Point(111, 72);
 			this->tbCCCSPeople->Name = L"tbCCCSPeople";
 			this->tbCCCSPeople->Size = System::Drawing::Size(78, 21);
 			this->tbCCCSPeople->TabIndex = 14;
@@ -2811,7 +2731,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 				static_cast<System::Int32>(static_cast<System::Byte>(35)));
 			this->tbCCCSTime->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 			this->tbCCCSTime->ForeColor = System::Drawing::Color::White;
-			this->tbCCCSTime->Location = System::Drawing::Point(111, 32);
+			this->tbCCCSTime->Location = System::Drawing::Point(111, 42);
 			this->tbCCCSTime->Name = L"tbCCCSTime";
 			this->tbCCCSTime->Size = System::Drawing::Size(78, 21);
 			this->tbCCCSTime->TabIndex = 13;
@@ -2822,7 +2742,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			// label46
 			// 
 			this->label46->AutoSize = true;
-			this->label46->Location = System::Drawing::Point(92, 103);
+			this->label46->Location = System::Drawing::Point(92, 134);
 			this->label46->Name = L"label46";
 			this->label46->Size = System::Drawing::Size(15, 13);
 			this->label46->TabIndex = 10;
@@ -2831,7 +2751,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			// label45
 			// 
 			this->label45->AutoSize = true;
-			this->label45->Location = System::Drawing::Point(92, 80);
+			this->label45->Location = System::Drawing::Point(92, 104);
 			this->label45->Name = L"label45";
 			this->label45->Size = System::Drawing::Size(15, 13);
 			this->label45->TabIndex = 9;
@@ -2840,7 +2760,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			// label44
 			// 
 			this->label44->AutoSize = true;
-			this->label44->Location = System::Drawing::Point(92, 57);
+			this->label44->Location = System::Drawing::Point(92, 74);
 			this->label44->Name = L"label44";
 			this->label44->Size = System::Drawing::Size(15, 13);
 			this->label44->TabIndex = 8;
@@ -2849,7 +2769,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			// label43
 			// 
 			this->label43->AutoSize = true;
-			this->label43->Location = System::Drawing::Point(92, 35);
+			this->label43->Location = System::Drawing::Point(92, 45);
 			this->label43->Name = L"label43";
 			this->label43->Size = System::Drawing::Size(15, 13);
 			this->label43->TabIndex = 7;
@@ -2861,7 +2781,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->cbCCCSMob->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
 			this->cbCCCSMob->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->cbCCCSMob->ForeColor = System::Drawing::Color::White;
-			this->cbCCCSMob->Location = System::Drawing::Point(15, 101);
+			this->cbCCCSMob->Location = System::Drawing::Point(10, 132);
 			this->cbCCCSMob->Name = L"cbCCCSMob";
 			this->cbCCCSMob->Size = System::Drawing::Size(48, 17);
 			this->cbCCCSMob->TabIndex = 5;
@@ -2885,7 +2805,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->cbCCCSAttack->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
 			this->cbCCCSAttack->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->cbCCCSAttack->ForeColor = System::Drawing::Color::White;
-			this->cbCCCSAttack->Location = System::Drawing::Point(15, 78);
+			this->cbCCCSAttack->Location = System::Drawing::Point(10, 102);
 			this->cbCCCSAttack->Name = L"cbCCCSAttack";
 			this->cbCCCSAttack->Size = System::Drawing::Size(59, 17);
 			this->cbCCCSAttack->TabIndex = 4;
@@ -2898,7 +2818,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->cbCCCSPeople->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
 			this->cbCCCSPeople->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->cbCCCSPeople->ForeColor = System::Drawing::Color::White;
-			this->cbCCCSPeople->Location = System::Drawing::Point(15, 55);
+			this->cbCCCSPeople->Location = System::Drawing::Point(10, 72);
 			this->cbCCCSPeople->Name = L"cbCCCSPeople";
 			this->cbCCCSPeople->Size = System::Drawing::Size(55, 17);
 			this->cbCCCSPeople->TabIndex = 3;
@@ -2925,7 +2845,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->cbCCCSTime->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
 			this->cbCCCSTime->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->cbCCCSTime->ForeColor = System::Drawing::Color::White;
-			this->cbCCCSTime->Location = System::Drawing::Point(15, 32);
+			this->cbCCCSTime->Location = System::Drawing::Point(10, 42);
 			this->cbCCCSTime->Name = L"cbCCCSTime";
 			this->cbCCCSTime->Size = System::Drawing::Size(77, 17);
 			this->cbCCCSTime->TabIndex = 2;
@@ -2956,17 +2876,6 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->rbPacket->TabStop = true;
 			this->rbPacket->Text = L"Packet";
 			this->rbPacket->UseVisualStyleBackColor = false;
-			// 
-			// tabPage10
-			// 
-			this->tabPage10->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(25)), static_cast<System::Int32>(static_cast<System::Byte>(25)),
-				static_cast<System::Int32>(static_cast<System::Byte>(25)));
-			this->tabPage10->Location = System::Drawing::Point(4, 22);
-			this->tabPage10->Name = L"tabPage10";
-			this->tabPage10->Padding = System::Windows::Forms::Padding(3);
-			this->tabPage10->Size = System::Drawing::Size(394, 162);
-			this->tabPage10->TabIndex = 3;
-			this->tabPage10->Text = L"Advanced Botting";
 			// 
 			// panel4
 			// 
@@ -3013,7 +2922,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			// label29
 			// 
 			this->label29->AutoSize = true;
-			this->label29->Location = System::Drawing::Point(24, 54);
+			this->label29->Location = System::Drawing::Point(21, 54);
 			this->label29->Name = L"label29";
 			this->label29->Size = System::Drawing::Size(76, 13);
 			this->label29->TabIndex = 10;
@@ -3023,7 +2932,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			// 
 			this->label31->AutoSize = true;
 			this->label31->BackColor = System::Drawing::Color::Transparent;
-			this->label31->Location = System::Drawing::Point(23, 30);
+			this->label31->Location = System::Drawing::Point(22, 30);
 			this->label31->Name = L"label31";
 			this->label31->Size = System::Drawing::Size(73, 13);
 			this->label31->TabIndex = 7;
@@ -3109,7 +3018,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			// label30
 			// 
 			this->label30->AutoSize = true;
-			this->label30->Location = System::Drawing::Point(25, 54);
+			this->label30->Location = System::Drawing::Point(23, 54);
 			this->label30->Name = L"label30";
 			this->label30->Size = System::Drawing::Size(74, 13);
 			this->label30->TabIndex = 10;
@@ -3295,256 +3204,74 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			// 
 			this->tabPage5->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(25)), static_cast<System::Int32>(static_cast<System::Byte>(25)),
 				static_cast<System::Int32>(static_cast<System::Byte>(25)));
-			this->tabPage5->Controls->Add(this->gbOtherHacks);
-			this->tabPage5->Controls->Add(this->gbLootHacks);
-			this->tabPage5->Controls->Add(this->gbMapHacks);
-			this->tabPage5->Controls->Add(this->gbMobHacks);
-			this->tabPage5->Controls->Add(this->gbCharacterHacks);
+			this->tabPage5->Controls->Add(this->groupBox6);
+			this->tabPage5->Controls->Add(this->groupBox5);
+			this->tabPage5->Controls->Add(this->groupBox4);
+			this->tabPage5->Controls->Add(this->groupBox3);
+			this->tabPage5->Controls->Add(this->groupBox2);
+			this->tabPage5->Controls->Add(this->groupBox1);
 			this->tabPage5->Location = System::Drawing::Point(4, 22);
 			this->tabPage5->Name = L"tabPage5";
 			this->tabPage5->Padding = System::Windows::Forms::Padding(3);
-			this->tabPage5->Size = System::Drawing::Size(414, 396);
+			this->tabPage5->Size = System::Drawing::Size(390, 385);
 			this->tabPage5->TabIndex = 2;
 			this->tabPage5->Text = L"Hacks I";
 			// 
-			// gbOtherHacks
+			// groupBox6
 			// 
-			this->gbOtherHacks->Controls->Add(this->label49);
-			this->gbOtherHacks->Controls->Add(this->tbMouseTeleport);
-			this->gbOtherHacks->Controls->Add(this->cbSwimInAir);
-			this->gbOtherHacks->Controls->Add(this->cbMouseFly);
-			this->gbOtherHacks->Controls->Add(this->label50);
-			this->gbOtherHacks->Controls->Add(this->tbClickTeleport);
-			this->gbOtherHacks->Controls->Add(this->cbClickTeleport);
-			this->gbOtherHacks->Controls->Add(this->cbMouseTeleport);
-			this->gbOtherHacks->Controls->Add(this->cbJumpDownAnyTile);
-			this->gbOtherHacks->Controls->Add(this->cbNoPlayerKnockback);
-			this->gbOtherHacks->Location = System::Drawing::Point(5, 280);
-			this->gbOtherHacks->Name = L"gbOtherHacks";
-			this->gbOtherHacks->Size = System::Drawing::Size(400, 110);
-			this->gbOtherHacks->TabIndex = 0;
-			this->gbOtherHacks->TabStop = false;
-			this->gbOtherHacks->Text = L"Other Hacks";
+			this->groupBox6->Controls->Add(this->cbNoWalkingFriction);
+			this->groupBox6->ForeColor = System::Drawing::Color::WhiteSmoke;
+			this->groupBox6->Location = System::Drawing::Point(249, 175);
+			this->groupBox6->Name = L"groupBox6";
+			this->groupBox6->Size = System::Drawing::Size(135, 133);
+			this->groupBox6->TabIndex = 28;
+			this->groupBox6->TabStop = false;
+			this->groupBox6->Text = L"Physics Hacks";
 			// 
-			// label49
+			// cbNoWalkingFriction
 			// 
-			this->label49->AutoSize = true;
-			this->label49->Location = System::Drawing::Point(110, 40);
-			this->label49->Name = L"label49";
-			this->label49->Size = System::Drawing::Size(73, 13);
-			this->label49->TabIndex = 8;
-			this->label49->Text = L"Interval [ms]:";
+			this->cbNoWalkingFriction->AutoSize = true;
+			this->cbNoWalkingFriction->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
+			this->cbNoWalkingFriction->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->cbNoWalkingFriction->ForeColor = System::Drawing::Color::White;
+			this->cbNoWalkingFriction->Location = System::Drawing::Point(10, 16);
+			this->cbNoWalkingFriction->Name = L"cbNoWalkingFriction";
+			this->cbNoWalkingFriction->Size = System::Drawing::Size(114, 17);
+			this->cbNoWalkingFriction->TabIndex = 11;
+			this->cbNoWalkingFriction->Text = L"No Walking Friction";
+			this->cbNoWalkingFriction->UseVisualStyleBackColor = false;
+			this->cbNoWalkingFriction->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbNoWalkingFriction_CheckedChanged);
 			// 
-			// tbMouseTeleport
+			// groupBox5
 			// 
-			this->tbMouseTeleport->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(35)), static_cast<System::Int32>(static_cast<System::Byte>(35)),
-				static_cast<System::Int32>(static_cast<System::Byte>(35)));
-			this->tbMouseTeleport->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
-			this->tbMouseTeleport->ForeColor = System::Drawing::Color::White;
-			this->tbMouseTeleport->Location = System::Drawing::Point(190, 40);
-			this->tbMouseTeleport->Name = L"tbMouseTeleport";
-			this->tbMouseTeleport->Size = System::Drawing::Size(49, 21);
-			this->tbMouseTeleport->TabIndex = 4;
-			this->tbMouseTeleport->Text = L"100";
-			this->tbMouseTeleport->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
-			this->tbMouseTeleport->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &MainForm::tbMouseTeleport_KeyPress);
+			this->groupBox5->Controls->Add(this->cbNoBlueBoxes);
+			this->groupBox5->Controls->Add(this->cbNoMapBackground);
+			this->groupBox5->Controls->Add(this->cbNoMapTiles);
+			this->groupBox5->Controls->Add(this->cbInfiniteChat);
+			this->groupBox5->Controls->Add(this->cbMapSpeedUp);
+			this->groupBox5->Controls->Add(this->cbNoMapFadeEffect);
+			this->groupBox5->Controls->Add(this->cbNoMapObjects);
+			this->groupBox5->ForeColor = System::Drawing::Color::WhiteSmoke;
+			this->groupBox5->Location = System::Drawing::Point(247, 4);
+			this->groupBox5->Name = L"groupBox5";
+			this->groupBox5->Size = System::Drawing::Size(137, 169);
+			this->groupBox5->TabIndex = 27;
+			this->groupBox5->TabStop = false;
+			this->groupBox5->Text = L"Map Hacks";
 			// 
-			// cbSwimInAir
+			// cbNoBlueBoxes
 			// 
-			this->cbSwimInAir->AutoSize = true;
-			this->cbSwimInAir->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
-			this->cbSwimInAir->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->cbSwimInAir->ForeColor = System::Drawing::Color::White;
-			this->cbSwimInAir->Location = System::Drawing::Point(6, 80);
-			this->cbSwimInAir->Name = L"cbSwimInAir";
-			this->cbSwimInAir->Size = System::Drawing::Size(76, 17);
-			this->cbSwimInAir->TabIndex = 7;
-			this->cbSwimInAir->Text = L"Swim In Air";
-			this->cbSwimInAir->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
-			this->cbSwimInAir->UseVisualStyleBackColor = false;
-			this->cbSwimInAir->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbSwimInAir_CheckedChanged);
-			// 
-			// cbMouseFly
-			// 
-			this->cbMouseFly->AutoSize = true;
-			this->cbMouseFly->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
-			this->cbMouseFly->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->cbMouseFly->ForeColor = System::Drawing::Color::White;
-			this->cbMouseFly->Location = System::Drawing::Point(6, 60);
-			this->cbMouseFly->Name = L"cbMouseFly";
-			this->cbMouseFly->Size = System::Drawing::Size(71, 17);
-			this->cbMouseFly->TabIndex = 9;
-			this->cbMouseFly->Text = L"Mouse Fly";
-			this->cbMouseFly->UseVisualStyleBackColor = false;
-			this->cbMouseFly->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbMouseFly_CheckedChanged);
-			// 
-			// label50
-			// 
-			this->label50->AutoSize = true;
-			this->label50->Location = System::Drawing::Point(110, 20);
-			this->label50->Name = L"label50";
-			this->label50->Size = System::Drawing::Size(73, 13);
-			this->label50->TabIndex = 7;
-			this->label50->Text = L"Interval [ms]:";
-			// 
-			// tbClickTeleport
-			// 
-			this->tbClickTeleport->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(35)), static_cast<System::Int32>(static_cast<System::Byte>(35)),
-				static_cast<System::Int32>(static_cast<System::Byte>(35)));
-			this->tbClickTeleport->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
-			this->tbClickTeleport->ForeColor = System::Drawing::Color::White;
-			this->tbClickTeleport->Location = System::Drawing::Point(190, 15);
-			this->tbClickTeleport->Name = L"tbClickTeleport";
-			this->tbClickTeleport->Size = System::Drawing::Size(49, 21);
-			this->tbClickTeleport->TabIndex = 3;
-			this->tbClickTeleport->Text = L"100";
-			this->tbClickTeleport->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
-			this->tbClickTeleport->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &MainForm::tbClickTeleport_KeyPress);
-			// 
-			// cbClickTeleport
-			// 
-			this->cbClickTeleport->AutoSize = true;
-			this->cbClickTeleport->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
-			this->cbClickTeleport->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->cbClickTeleport->ForeColor = System::Drawing::Color::White;
-			this->cbClickTeleport->Location = System::Drawing::Point(6, 20);
-			this->cbClickTeleport->Name = L"cbClickTeleport";
-			this->cbClickTeleport->Size = System::Drawing::Size(87, 17);
-			this->cbClickTeleport->TabIndex = 1;
-			this->cbClickTeleport->Text = L"Click Teleport";
-			this->cbClickTeleport->UseVisualStyleBackColor = false;
-			this->cbClickTeleport->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbClickTeleport_CheckedChanged);
-			// 
-			// cbMouseTeleport
-			// 
-			this->cbMouseTeleport->AutoSize = true;
-			this->cbMouseTeleport->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
-			this->cbMouseTeleport->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->cbMouseTeleport->ForeColor = System::Drawing::Color::White;
-			this->cbMouseTeleport->Location = System::Drawing::Point(6, 40);
-			this->cbMouseTeleport->Name = L"cbMouseTeleport";
-			this->cbMouseTeleport->Size = System::Drawing::Size(97, 17);
-			this->cbMouseTeleport->TabIndex = 2;
-			this->cbMouseTeleport->Text = L"Mouse Teleport";
-			this->cbMouseTeleport->UseVisualStyleBackColor = false;
-			this->cbMouseTeleport->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbMouseTeleport_CheckedChanged);
-			// 
-			// cbJumpDownAnyTile
-			// 
-			this->cbJumpDownAnyTile->AutoSize = true;
-			this->cbJumpDownAnyTile->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
-			this->cbJumpDownAnyTile->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->cbJumpDownAnyTile->ForeColor = System::Drawing::Color::White;
-			this->cbJumpDownAnyTile->Location = System::Drawing::Point(88, 80);
-			this->cbJumpDownAnyTile->Name = L"cbJumpDownAnyTile";
-			this->cbJumpDownAnyTile->Size = System::Drawing::Size(119, 17);
-			this->cbJumpDownAnyTile->TabIndex = 4;
-			this->cbJumpDownAnyTile->Text = L"Jump Down Any Tile";
-			this->cbJumpDownAnyTile->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
-			this->cbJumpDownAnyTile->UseVisualStyleBackColor = false;
-			this->cbJumpDownAnyTile->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbJumpDownAnyTile_CheckedChanged);
-			// 
-			// cbNoPlayerKnockback
-			// 
-			this->cbNoPlayerKnockback->AutoSize = true;
-			this->cbNoPlayerKnockback->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
-			this->cbNoPlayerKnockback->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->cbNoPlayerKnockback->ForeColor = System::Drawing::Color::White;
-			this->cbNoPlayerKnockback->Location = System::Drawing::Point(230, 80);
-			this->cbNoPlayerKnockback->Name = L"cbNoPlayerKnockback";
-			this->cbNoPlayerKnockback->Size = System::Drawing::Size(122, 17);
-			this->cbNoPlayerKnockback->TabIndex = 5;
-			this->cbNoPlayerKnockback->Text = L"No Player Knockback";
-			this->cbNoPlayerKnockback->UseVisualStyleBackColor = false;
-			this->cbNoPlayerKnockback->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbNoPlayerKnockback_CheckedChanged);
-			// 
-			// gbLootHacks
-			// 
-			this->gbLootHacks->Controls->Add(this->cbItemVac);
-			this->gbLootHacks->Controls->Add(this->cbFastLootItems);
-			this->gbLootHacks->Controls->Add(this->cbInstantDropItems);
-			this->gbLootHacks->Controls->Add(this->cbInstantLootItems);
-			this->gbLootHacks->ImeMode = System::Windows::Forms::ImeMode::NoControl;
-			this->gbLootHacks->Location = System::Drawing::Point(5, 205);
-			this->gbLootHacks->Name = L"gbLootHacks";
-			this->gbLootHacks->Size = System::Drawing::Size(225, 70);
-			this->gbLootHacks->TabIndex = 10;
-			this->gbLootHacks->TabStop = false;
-			this->gbLootHacks->Text = L"Loot Hacks";
-			// 
-			// cbItemVac
-			// 
-			this->cbItemVac->AutoSize = true;
-			this->cbItemVac->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
-			this->cbItemVac->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->cbItemVac->ForeColor = System::Drawing::Color::White;
-			this->cbItemVac->Location = System::Drawing::Point(135, 15);
-			this->cbItemVac->Name = L"cbItemVac";
-			this->cbItemVac->Size = System::Drawing::Size(65, 17);
-			this->cbItemVac->TabIndex = 14;
-			this->cbItemVac->Text = L"Item Vac";
-			this->cbItemVac->UseVisualStyleBackColor = false;
-			this->cbItemVac->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbItemVac_CheckedChanged);
-			// 
-			// cbFastLootItems
-			// 
-			this->cbFastLootItems->AutoSize = true;
-			this->cbFastLootItems->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
-			this->cbFastLootItems->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->cbFastLootItems->ForeColor = System::Drawing::Color::White;
-			this->cbFastLootItems->Location = System::Drawing::Point(6, 45);
-			this->cbFastLootItems->Name = L"cbFastLootItems";
-			this->cbFastLootItems->Size = System::Drawing::Size(98, 17);
-			this->cbFastLootItems->TabIndex = 5;
-			this->cbFastLootItems->Text = L"Fast Loot Items";
-			this->cbFastLootItems->UseVisualStyleBackColor = false;
-			this->cbFastLootItems->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbFastLootItems_CheckedChanged);
-			// 
-			// cbInstantDropItems
-			// 
-			this->cbInstantDropItems->AutoSize = true;
-			this->cbInstantDropItems->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
-			this->cbInstantDropItems->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->cbInstantDropItems->ForeColor = System::Drawing::Color::White;
-			this->cbInstantDropItems->Location = System::Drawing::Point(6, 15);
-			this->cbInstantDropItems->Name = L"cbInstantDropItems";
-			this->cbInstantDropItems->Size = System::Drawing::Size(114, 17);
-			this->cbInstantDropItems->TabIndex = 4;
-			this->cbInstantDropItems->Text = L"Instant Drop Items";
-			this->cbInstantDropItems->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
-			this->cbInstantDropItems->UseVisualStyleBackColor = false;
-			this->cbInstantDropItems->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbInstantDropItems_CheckedChanged);
-			// 
-			// cbInstantLootItems
-			// 
-			this->cbInstantLootItems->AutoSize = true;
-			this->cbInstantLootItems->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
-			this->cbInstantLootItems->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->cbInstantLootItems->ForeColor = System::Drawing::Color::White;
-			this->cbInstantLootItems->Location = System::Drawing::Point(6, 30);
-			this->cbInstantLootItems->Name = L"cbInstantLootItems";
-			this->cbInstantLootItems->Size = System::Drawing::Size(112, 17);
-			this->cbInstantLootItems->TabIndex = 6;
-			this->cbInstantLootItems->Text = L"Instant Loot Items";
-			this->cbInstantLootItems->UseVisualStyleBackColor = false;
-			this->cbInstantLootItems->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbInstantLootItems_CheckedChanged);
-			// 
-			// gbMapHacks
-			// 
-			this->gbMapHacks->Controls->Add(this->cbNoWalkFricSlide);
-			this->gbMapHacks->Controls->Add(this->cbNoMapBackground);
-			this->gbMapHacks->Controls->Add(this->cbNoBlueBoxes);
-			this->gbMapHacks->Controls->Add(this->cbInfiniteChat);
-			this->gbMapHacks->Controls->Add(this->cbMapSpeedUp);
-			this->gbMapHacks->Controls->Add(this->cbNoMapTiles);
-			this->gbMapHacks->Controls->Add(this->cbNoMapFadeEffect);
-			this->gbMapHacks->Controls->Add(this->cbNoMapObjects);
-			this->gbMapHacks->Location = System::Drawing::Point(235, 120);
-			this->gbMapHacks->Name = L"gbMapHacks";
-			this->gbMapHacks->Size = System::Drawing::Size(170, 155);
-			this->gbMapHacks->TabIndex = 27;
-			this->gbMapHacks->TabStop = false;
-			this->gbMapHacks->Text = L"Map Hacks";
+			this->cbNoBlueBoxes->AutoSize = true;
+			this->cbNoBlueBoxes->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
+			this->cbNoBlueBoxes->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->cbNoBlueBoxes->ForeColor = System::Drawing::Color::White;
+			this->cbNoBlueBoxes->Location = System::Drawing::Point(10, 124);
+			this->cbNoBlueBoxes->Name = L"cbNoBlueBoxes";
+			this->cbNoBlueBoxes->Size = System::Drawing::Size(91, 17);
+			this->cbNoBlueBoxes->TabIndex = 10;
+			this->cbNoBlueBoxes->Text = L"No Blue Boxes";
+			this->cbNoBlueBoxes->UseVisualStyleBackColor = false;
+			this->cbNoBlueBoxes->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbNoBlueBoxes_CheckedChanged);
 			// 
 			// cbNoMapBackground
 			// 
@@ -3552,7 +3279,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->cbNoMapBackground->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
 			this->cbNoMapBackground->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->cbNoMapBackground->ForeColor = System::Drawing::Color::White;
-			this->cbNoMapBackground->Location = System::Drawing::Point(6, 15);
+			this->cbNoMapBackground->Location = System::Drawing::Point(10, 16);
 			this->cbNoMapBackground->Name = L"cbNoMapBackground";
 			this->cbNoMapBackground->Size = System::Drawing::Size(118, 17);
 			this->cbNoMapBackground->TabIndex = 4;
@@ -3561,19 +3288,19 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->cbNoMapBackground->UseVisualStyleBackColor = false;
 			this->cbNoMapBackground->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbNoMapBackground_CheckedChanged);
 			// 
-			// cbNoBlueBoxes
+			// cbNoMapTiles
 			// 
-			this->cbNoBlueBoxes->AutoSize = true;
-			this->cbNoBlueBoxes->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
-			this->cbNoBlueBoxes->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->cbNoBlueBoxes->ForeColor = System::Drawing::Color::White;
-			this->cbNoBlueBoxes->Location = System::Drawing::Point(6, 105);
-			this->cbNoBlueBoxes->Name = L"cbNoBlueBoxes";
-			this->cbNoBlueBoxes->Size = System::Drawing::Size(91, 17);
-			this->cbNoBlueBoxes->TabIndex = 10;
-			this->cbNoBlueBoxes->Text = L"No Blue Boxes";
-			this->cbNoBlueBoxes->UseVisualStyleBackColor = false;
-			this->cbNoBlueBoxes->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbNoBlueBoxes_CheckedChanged);
+			this->cbNoMapTiles->AutoSize = true;
+			this->cbNoMapTiles->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
+			this->cbNoMapTiles->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->cbNoMapTiles->ForeColor = System::Drawing::Color::White;
+			this->cbNoMapTiles->Location = System::Drawing::Point(10, 52);
+			this->cbNoMapTiles->Name = L"cbNoMapTiles";
+			this->cbNoMapTiles->Size = System::Drawing::Size(83, 17);
+			this->cbNoMapTiles->TabIndex = 9;
+			this->cbNoMapTiles->Text = L"No Map Tiles";
+			this->cbNoMapTiles->UseVisualStyleBackColor = false;
+			this->cbNoMapTiles->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbNoMapTiles_CheckedChanged);
 			// 
 			// cbInfiniteChat
 			// 
@@ -3581,7 +3308,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->cbInfiniteChat->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
 			this->cbInfiniteChat->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->cbInfiniteChat->ForeColor = System::Drawing::Color::White;
-			this->cbInfiniteChat->Location = System::Drawing::Point(6, 90);
+			this->cbInfiniteChat->Location = System::Drawing::Point(10, 106);
 			this->cbInfiniteChat->Name = L"cbInfiniteChat";
 			this->cbInfiniteChat->Size = System::Drawing::Size(83, 17);
 			this->cbInfiniteChat->TabIndex = 8;
@@ -3595,7 +3322,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->cbMapSpeedUp->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
 			this->cbMapSpeedUp->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->cbMapSpeedUp->ForeColor = System::Drawing::Color::White;
-			this->cbMapSpeedUp->Location = System::Drawing::Point(6, 75);
+			this->cbMapSpeedUp->Location = System::Drawing::Point(10, 88);
 			this->cbMapSpeedUp->Name = L"cbMapSpeedUp";
 			this->cbMapSpeedUp->Size = System::Drawing::Size(92, 17);
 			this->cbMapSpeedUp->TabIndex = 8;
@@ -3603,27 +3330,13 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->cbMapSpeedUp->UseVisualStyleBackColor = false;
 			this->cbMapSpeedUp->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbMapSpeedUp_CheckedChanged);
 			// 
-			// cbNoMapTiles
-			// 
-			this->cbNoMapTiles->AutoSize = true;
-			this->cbNoMapTiles->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
-			this->cbNoMapTiles->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->cbNoMapTiles->ForeColor = System::Drawing::Color::White;
-			this->cbNoMapTiles->Location = System::Drawing::Point(6, 45);
-			this->cbNoMapTiles->Name = L"cbNoMapTiles";
-			this->cbNoMapTiles->Size = System::Drawing::Size(83, 17);
-			this->cbNoMapTiles->TabIndex = 9;
-			this->cbNoMapTiles->Text = L"No Map Tiles";
-			this->cbNoMapTiles->UseVisualStyleBackColor = false;
-			this->cbNoMapTiles->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbNoMapTiles_CheckedChanged);
-			// 
 			// cbNoMapFadeEffect
 			// 
 			this->cbNoMapFadeEffect->AutoSize = true;
 			this->cbNoMapFadeEffect->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
 			this->cbNoMapFadeEffect->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->cbNoMapFadeEffect->ForeColor = System::Drawing::Color::White;
-			this->cbNoMapFadeEffect->Location = System::Drawing::Point(6, 60);
+			this->cbNoMapFadeEffect->Location = System::Drawing::Point(10, 70);
 			this->cbNoMapFadeEffect->Name = L"cbNoMapFadeEffect";
 			this->cbNoMapFadeEffect->Size = System::Drawing::Size(118, 17);
 			this->cbNoMapFadeEffect->TabIndex = 5;
@@ -3637,7 +3350,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->cbNoMapObjects->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
 			this->cbNoMapObjects->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->cbNoMapObjects->ForeColor = System::Drawing::Color::White;
-			this->cbNoMapObjects->Location = System::Drawing::Point(6, 30);
+			this->cbNoMapObjects->Location = System::Drawing::Point(10, 34);
 			this->cbNoMapObjects->Name = L"cbNoMapObjects";
 			this->cbNoMapObjects->Size = System::Drawing::Size(99, 17);
 			this->cbNoMapObjects->TabIndex = 7;
@@ -3645,20 +3358,142 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->cbNoMapObjects->UseVisualStyleBackColor = false;
 			this->cbNoMapObjects->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbNoMapObjects_CheckedChanged);
 			// 
-			// gbMobHacks
+			// groupBox4
 			// 
-			this->gbMobHacks->Controls->Add(this->cbMobAutoAggro);
-			this->gbMobHacks->Controls->Add(this->cbNoMobReaction);
-			this->gbMobHacks->Controls->Add(this->cbMobDisarm);
-			this->gbMobHacks->Controls->Add(this->cbMobFreeze);
-			this->gbMobHacks->Controls->Add(this->cbNoMobDeathEffect);
-			this->gbMobHacks->Controls->Add(this->cbNoMobKnockback);
-			this->gbMobHacks->Location = System::Drawing::Point(235, 5);
-			this->gbMobHacks->Name = L"gbMobHacks";
-			this->gbMobHacks->Size = System::Drawing::Size(170, 110);
-			this->gbMobHacks->TabIndex = 26;
-			this->gbMobHacks->TabStop = false;
-			this->gbMobHacks->Text = L"Mob Hacks";
+			this->groupBox4->Controls->Add(this->cbMouseFly);
+			this->groupBox4->Controls->Add(this->cbClickTeleport);
+			this->groupBox4->Controls->Add(this->label49);
+			this->groupBox4->Controls->Add(this->cbMouseTeleport);
+			this->groupBox4->Controls->Add(this->label50);
+			this->groupBox4->Controls->Add(this->cbSwimInAir);
+			this->groupBox4->Controls->Add(this->tbMouseTeleport);
+			this->groupBox4->Controls->Add(this->tbClickTeleport);
+			this->groupBox4->ForeColor = System::Drawing::Color::WhiteSmoke;
+			this->groupBox4->Location = System::Drawing::Point(6, 313);
+			this->groupBox4->Name = L"groupBox4";
+			this->groupBox4->Size = System::Drawing::Size(378, 66);
+			this->groupBox4->TabIndex = 26;
+			this->groupBox4->TabStop = false;
+			this->groupBox4->Text = L"Movement Hacks";
+			// 
+			// cbMouseFly
+			// 
+			this->cbMouseFly->AutoSize = true;
+			this->cbMouseFly->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
+			this->cbMouseFly->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->cbMouseFly->ForeColor = System::Drawing::Color::White;
+			this->cbMouseFly->Location = System::Drawing::Point(251, 16);
+			this->cbMouseFly->Name = L"cbMouseFly";
+			this->cbMouseFly->Size = System::Drawing::Size(95, 17);
+			this->cbMouseFly->TabIndex = 9;
+			this->cbMouseFly->Text = L"Mouse Fly [CS]";
+			this->cbMouseFly->UseVisualStyleBackColor = false;
+			this->cbMouseFly->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbMouseFly_CheckedChanged);
+			// 
+			// cbClickTeleport
+			// 
+			this->cbClickTeleport->AutoSize = true;
+			this->cbClickTeleport->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
+			this->cbClickTeleport->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->cbClickTeleport->ForeColor = System::Drawing::Color::White;
+			this->cbClickTeleport->Location = System::Drawing::Point(10, 16);
+			this->cbClickTeleport->Name = L"cbClickTeleport";
+			this->cbClickTeleport->Size = System::Drawing::Size(87, 17);
+			this->cbClickTeleport->TabIndex = 1;
+			this->cbClickTeleport->Text = L"Click Teleport";
+			this->cbClickTeleport->UseVisualStyleBackColor = false;
+			this->cbClickTeleport->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbClickTeleport_CheckedChanged);
+			// 
+			// label49
+			// 
+			this->label49->AutoSize = true;
+			this->label49->Location = System::Drawing::Point(113, 41);
+			this->label49->Name = L"label49";
+			this->label49->Size = System::Drawing::Size(73, 13);
+			this->label49->TabIndex = 8;
+			this->label49->Text = L"Interval [ms]:";
+			// 
+			// cbMouseTeleport
+			// 
+			this->cbMouseTeleport->AutoSize = true;
+			this->cbMouseTeleport->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
+			this->cbMouseTeleport->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->cbMouseTeleport->ForeColor = System::Drawing::Color::White;
+			this->cbMouseTeleport->Location = System::Drawing::Point(10, 38);
+			this->cbMouseTeleport->Name = L"cbMouseTeleport";
+			this->cbMouseTeleport->Size = System::Drawing::Size(97, 17);
+			this->cbMouseTeleport->TabIndex = 2;
+			this->cbMouseTeleport->Text = L"Mouse Teleport";
+			this->cbMouseTeleport->UseVisualStyleBackColor = false;
+			this->cbMouseTeleport->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbMouseTeleport_CheckedChanged);
+			// 
+			// label50
+			// 
+			this->label50->AutoSize = true;
+			this->label50->Location = System::Drawing::Point(113, 17);
+			this->label50->Name = L"label50";
+			this->label50->Size = System::Drawing::Size(73, 13);
+			this->label50->TabIndex = 7;
+			this->label50->Text = L"Interval [ms]:";
+			// 
+			// cbSwimInAir
+			// 
+			this->cbSwimInAir->AutoSize = true;
+			this->cbSwimInAir->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
+			this->cbSwimInAir->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->cbSwimInAir->ForeColor = System::Drawing::Color::White;
+			this->cbSwimInAir->Location = System::Drawing::Point(251, 38);
+			this->cbSwimInAir->Name = L"cbSwimInAir";
+			this->cbSwimInAir->Size = System::Drawing::Size(76, 17);
+			this->cbSwimInAir->TabIndex = 7;
+			this->cbSwimInAir->Text = L"Swim In Air";
+			this->cbSwimInAir->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
+			this->cbSwimInAir->UseVisualStyleBackColor = false;
+			this->cbSwimInAir->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbSwimInAir_CheckedChanged);
+			// 
+			// tbMouseTeleport
+			// 
+			this->tbMouseTeleport->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(35)), static_cast<System::Int32>(static_cast<System::Byte>(35)),
+				static_cast<System::Int32>(static_cast<System::Byte>(35)));
+			this->tbMouseTeleport->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->tbMouseTeleport->ForeColor = System::Drawing::Color::White;
+			this->tbMouseTeleport->Location = System::Drawing::Point(187, 39);
+			this->tbMouseTeleport->Name = L"tbMouseTeleport";
+			this->tbMouseTeleport->Size = System::Drawing::Size(49, 21);
+			this->tbMouseTeleport->TabIndex = 4;
+			this->tbMouseTeleport->Text = L"100";
+			this->tbMouseTeleport->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			this->tbMouseTeleport->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &MainForm::tbMouseTeleport_KeyPress);
+			// 
+			// tbClickTeleport
+			// 
+			this->tbClickTeleport->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(35)), static_cast<System::Int32>(static_cast<System::Byte>(35)),
+				static_cast<System::Int32>(static_cast<System::Byte>(35)));
+			this->tbClickTeleport->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->tbClickTeleport->ForeColor = System::Drawing::Color::White;
+			this->tbClickTeleport->Location = System::Drawing::Point(187, 15);
+			this->tbClickTeleport->Name = L"tbClickTeleport";
+			this->tbClickTeleport->Size = System::Drawing::Size(49, 21);
+			this->tbClickTeleport->TabIndex = 3;
+			this->tbClickTeleport->Text = L"100";
+			this->tbClickTeleport->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			this->tbClickTeleport->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &MainForm::tbClickTeleport_KeyPress);
+			// 
+			// groupBox3
+			// 
+			this->groupBox3->Controls->Add(this->cbMobAutoAggro);
+			this->groupBox3->Controls->Add(this->cbNoMobReaction);
+			this->groupBox3->Controls->Add(this->cbMobDisarm);
+			this->groupBox3->Controls->Add(this->cbMobFreeze);
+			this->groupBox3->Controls->Add(this->cbNoMobDeathEffect);
+			this->groupBox3->Controls->Add(this->cbNoMobKnockback);
+			this->groupBox3->ForeColor = System::Drawing::Color::WhiteSmoke;
+			this->groupBox3->Location = System::Drawing::Point(6, 175);
+			this->groupBox3->Name = L"groupBox3";
+			this->groupBox3->Size = System::Drawing::Size(236, 75);
+			this->groupBox3->TabIndex = 25;
+			this->groupBox3->TabStop = false;
+			this->groupBox3->Text = L"Mob Hacks";
 			// 
 			// cbMobAutoAggro
 			// 
@@ -3666,7 +3501,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->cbMobAutoAggro->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
 			this->cbMobAutoAggro->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->cbMobAutoAggro->ForeColor = System::Drawing::Color::White;
-			this->cbMobAutoAggro->Location = System::Drawing::Point(6, 89);
+			this->cbMobAutoAggro->Location = System::Drawing::Point(133, 52);
 			this->cbMobAutoAggro->Name = L"cbMobAutoAggro";
 			this->cbMobAutoAggro->Size = System::Drawing::Size(101, 17);
 			this->cbMobAutoAggro->TabIndex = 23;
@@ -3680,7 +3515,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->cbNoMobReaction->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
 			this->cbNoMobReaction->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->cbNoMobReaction->ForeColor = System::Drawing::Color::White;
-			this->cbNoMobReaction->Location = System::Drawing::Point(6, 15);
+			this->cbNoMobReaction->Location = System::Drawing::Point(10, 16);
 			this->cbNoMobReaction->Name = L"cbNoMobReaction";
 			this->cbNoMobReaction->Size = System::Drawing::Size(104, 17);
 			this->cbNoMobReaction->TabIndex = 6;
@@ -3694,7 +3529,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->cbMobDisarm->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
 			this->cbMobDisarm->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->cbMobDisarm->ForeColor = System::Drawing::Color::White;
-			this->cbMobDisarm->Location = System::Drawing::Point(6, 75);
+			this->cbMobDisarm->Location = System::Drawing::Point(133, 34);
 			this->cbMobDisarm->Name = L"cbMobDisarm";
 			this->cbMobDisarm->Size = System::Drawing::Size(78, 17);
 			this->cbMobDisarm->TabIndex = 7;
@@ -3708,7 +3543,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->cbMobFreeze->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
 			this->cbMobFreeze->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->cbMobFreeze->ForeColor = System::Drawing::Color::White;
-			this->cbMobFreeze->Location = System::Drawing::Point(6, 60);
+			this->cbMobFreeze->Location = System::Drawing::Point(133, 16);
 			this->cbMobFreeze->Name = L"cbMobFreeze";
 			this->cbMobFreeze->Size = System::Drawing::Size(79, 17);
 			this->cbMobFreeze->TabIndex = 9;
@@ -3722,7 +3557,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->cbNoMobDeathEffect->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
 			this->cbNoMobDeathEffect->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->cbNoMobDeathEffect->ForeColor = System::Drawing::Color::White;
-			this->cbNoMobDeathEffect->Location = System::Drawing::Point(6, 30);
+			this->cbNoMobDeathEffect->Location = System::Drawing::Point(10, 34);
 			this->cbNoMobDeathEffect->Name = L"cbNoMobDeathEffect";
 			this->cbNoMobDeathEffect->Size = System::Drawing::Size(123, 17);
 			this->cbNoMobDeathEffect->TabIndex = 8;
@@ -3736,7 +3571,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->cbNoMobKnockback->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
 			this->cbNoMobKnockback->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->cbNoMobKnockback->ForeColor = System::Drawing::Color::White;
-			this->cbNoMobKnockback->Location = System::Drawing::Point(6, 45);
+			this->cbNoMobKnockback->Location = System::Drawing::Point(10, 52);
 			this->cbNoMobKnockback->Name = L"cbNoMobKnockback";
 			this->cbNoMobKnockback->Size = System::Drawing::Size(112, 17);
 			this->cbNoMobKnockback->TabIndex = 4;
@@ -3745,110 +3580,184 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->cbNoMobKnockback->UseVisualStyleBackColor = false;
 			this->cbNoMobKnockback->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbNoMobKnockback_CheckedChanged);
 			// 
-			// gbCharacterHacks
+			// groupBox2
 			// 
-			this->gbCharacterHacks->Controls->Add(this->cbAttackAnimDelay);
-			this->gbCharacterHacks->Controls->Add(this->tbAttackAnimDelay);
-			this->gbCharacterHacks->Controls->Add(this->cbFullGodmode);
-			this->gbCharacterHacks->Controls->Add(this->cbNoPlayerNameTag);
-			this->gbCharacterHacks->Controls->Add(this->cbBlinkGodmode);
-			this->gbCharacterHacks->Controls->Add(this->cbNoAttackDelay);
-			this->gbCharacterHacks->Controls->Add(this->cbMissGodmode);
-			this->gbCharacterHacks->Controls->Add(this->cbNoSkillEffects);
-			this->gbCharacterHacks->Controls->Add(this->cbNoBreath);
-			this->gbCharacterHacks->Controls->Add(this->cbNoPlayerDeath);
-			this->gbCharacterHacks->Controls->Add(this->cbSpeedAttack);
-			this->gbCharacterHacks->Controls->Add(this->cbUnlimitedAttack);
-			this->gbCharacterHacks->Controls->Add(this->cbFullAccuracy);
-			this->gbCharacterHacks->Location = System::Drawing::Point(6, 5);
-			this->gbCharacterHacks->Name = L"gbCharacterHacks";
-			this->gbCharacterHacks->Size = System::Drawing::Size(225, 195);
-			this->gbCharacterHacks->TabIndex = 8;
-			this->gbCharacterHacks->TabStop = false;
-			this->gbCharacterHacks->Text = L"Character Hacks";
+			this->groupBox2->Controls->Add(this->cbTubi);
+			this->groupBox2->Controls->Add(this->cbInstantDropItems);
+			this->groupBox2->Controls->Add(this->cbItemVac);
+			this->groupBox2->Controls->Add(this->cbInstantLootItems);
+			this->groupBox2->ForeColor = System::Drawing::Color::WhiteSmoke;
+			this->groupBox2->Location = System::Drawing::Point(6, 253);
+			this->groupBox2->Name = L"groupBox2";
+			this->groupBox2->Size = System::Drawing::Size(236, 55);
+			this->groupBox2->TabIndex = 24;
+			this->groupBox2->TabStop = false;
+			this->groupBox2->Text = L"Item Hacks";
 			// 
-			// cbAttackAnimDelay
+			// cbTubi
 			// 
-			this->cbAttackAnimDelay->AutoSize = true;
-			this->cbAttackAnimDelay->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
-			this->cbAttackAnimDelay->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->cbAttackAnimDelay->ForeColor = System::Drawing::Color::White;
-			this->cbAttackAnimDelay->Location = System::Drawing::Point(6, 150);
-			this->cbAttackAnimDelay->Name = L"cbAttackAnimDelay";
-			this->cbAttackAnimDelay->Size = System::Drawing::Size(110, 17);
-			this->cbAttackAnimDelay->TabIndex = 25;
-			this->cbAttackAnimDelay->Text = L"Attack Anim Delay";
-			this->cbAttackAnimDelay->UseVisualStyleBackColor = false;
+			this->cbTubi->AutoSize = true;
+			this->cbTubi->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
+			this->cbTubi->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->cbTubi->ForeColor = System::Drawing::Color::White;
+			this->cbTubi->Location = System::Drawing::Point(133, 16);
+			this->cbTubi->Name = L"cbTubi";
+			this->cbTubi->Size = System::Drawing::Size(43, 17);
+			this->cbTubi->TabIndex = 5;
+			this->cbTubi->Text = L"Tubi";
+			this->cbTubi->UseVisualStyleBackColor = false;
+			this->cbTubi->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbTubi_CheckedChanged);
 			// 
-			// tbAttackAnimDelay
+			// cbInstantDropItems
 			// 
-			this->tbAttackAnimDelay->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(35)),
+			this->cbInstantDropItems->AutoSize = true;
+			this->cbInstantDropItems->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
+			this->cbInstantDropItems->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->cbInstantDropItems->ForeColor = System::Drawing::Color::White;
+			this->cbInstantDropItems->Location = System::Drawing::Point(10, 16);
+			this->cbInstantDropItems->Name = L"cbInstantDropItems";
+			this->cbInstantDropItems->Size = System::Drawing::Size(114, 17);
+			this->cbInstantDropItems->TabIndex = 4;
+			this->cbInstantDropItems->Text = L"Instant Drop Items";
+			this->cbInstantDropItems->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
+			this->cbInstantDropItems->UseVisualStyleBackColor = false;
+			this->cbInstantDropItems->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbInstantDropItems_CheckedChanged);
+			// 
+			// cbItemVac
+			// 
+			this->cbItemVac->AutoSize = true;
+			this->cbItemVac->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
+			this->cbItemVac->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->cbItemVac->ForeColor = System::Drawing::Color::White;
+			this->cbItemVac->Location = System::Drawing::Point(133, 34);
+			this->cbItemVac->Name = L"cbItemVac";
+			this->cbItemVac->Size = System::Drawing::Size(65, 17);
+			this->cbItemVac->TabIndex = 13;
+			this->cbItemVac->Text = L"Item Vac";
+			this->cbItemVac->UseVisualStyleBackColor = false;
+			this->cbItemVac->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbItemVac_CheckedChanged);
+			// 
+			// cbInstantLootItems
+			// 
+			this->cbInstantLootItems->AutoSize = true;
+			this->cbInstantLootItems->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
+			this->cbInstantLootItems->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->cbInstantLootItems->ForeColor = System::Drawing::Color::White;
+			this->cbInstantLootItems->Location = System::Drawing::Point(10, 34);
+			this->cbInstantLootItems->Name = L"cbInstantLootItems";
+			this->cbInstantLootItems->Size = System::Drawing::Size(112, 17);
+			this->cbInstantLootItems->TabIndex = 6;
+			this->cbInstantLootItems->Text = L"Instant Loot Items";
+			this->cbInstantLootItems->UseVisualStyleBackColor = false;
+			this->cbInstantLootItems->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbInstantLootItems_CheckedChanged);
+			// 
+			// groupBox1
+			// 
+			this->groupBox1->Controls->Add(this->label90);
+			this->groupBox1->Controls->Add(this->tbAttackDelay);
+			this->groupBox1->Controls->Add(this->label89);
+			this->groupBox1->Controls->Add(this->label88);
+			this->groupBox1->Controls->Add(this->tbBlinkGodmodeBlinks);
+			this->groupBox1->Controls->Add(this->tbMissGodmodeMisses);
+			this->groupBox1->Controls->Add(this->cbMissGodmode);
+			this->groupBox1->Controls->Add(this->cbAttackDelay);
+			this->groupBox1->Controls->Add(this->cbBlinkGodmode);
+			this->groupBox1->Controls->Add(this->cbNoAttackDelay);
+			this->groupBox1->Controls->Add(this->cbNoPlayerNameTag);
+			this->groupBox1->Controls->Add(this->cbFullGodmode);
+			this->groupBox1->Controls->Add(this->cbJumpDownAnyTile);
+			this->groupBox1->Controls->Add(this->cbNoSkillEffects);
+			this->groupBox1->Controls->Add(this->cbNoBreath);
+			this->groupBox1->Controls->Add(this->cbNoPlayerKnockback);
+			this->groupBox1->Controls->Add(this->cbFullAccuracy);
+			this->groupBox1->Controls->Add(this->cbNoPlayerDeath);
+			this->groupBox1->Controls->Add(this->cbUnlimitedAttack);
+			this->groupBox1->ForeColor = System::Drawing::Color::WhiteSmoke;
+			this->groupBox1->Location = System::Drawing::Point(6, 4);
+			this->groupBox1->Name = L"groupBox1";
+			this->groupBox1->Size = System::Drawing::Size(236, 169);
+			this->groupBox1->TabIndex = 23;
+			this->groupBox1->TabStop = false;
+			this->groupBox1->Text = L"Character Hacks";
+			// 
+			// label90
+			// 
+			this->label90->AutoSize = true;
+			this->label90->Enabled = false;
+			this->label90->Location = System::Drawing::Point(124, 145);
+			this->label90->Name = L"label90";
+			this->label90->Size = System::Drawing::Size(38, 13);
+			this->label90->TabIndex = 48;
+			this->label90->Text = L"Delay:";
+			// 
+			// tbAttackDelay
+			// 
+			this->tbAttackDelay->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(35)), static_cast<System::Int32>(static_cast<System::Byte>(35)),
+				static_cast<System::Int32>(static_cast<System::Byte>(35)));
+			this->tbAttackDelay->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->tbAttackDelay->Enabled = false;
+			this->tbAttackDelay->Font = (gcnew System::Drawing::Font(L"Tahoma", 6, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->tbAttackDelay->ForeColor = System::Drawing::Color::White;
+			this->tbAttackDelay->Location = System::Drawing::Point(166, 144);
+			this->tbAttackDelay->Name = L"tbAttackDelay";
+			this->tbAttackDelay->Size = System::Drawing::Size(64, 17);
+			this->tbAttackDelay->TabIndex = 47;
+			this->tbAttackDelay->Text = L"-";
+			this->tbAttackDelay->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			// 
+			// label89
+			// 
+			this->label89->AutoSize = true;
+			this->label89->Enabled = false;
+			this->label89->Location = System::Drawing::Point(124, 127);
+			this->label89->Name = L"label89";
+			this->label89->Size = System::Drawing::Size(37, 13);
+			this->label89->TabIndex = 46;
+			this->label89->Text = L"Blinks:";
+			// 
+			// label88
+			// 
+			this->label88->AutoSize = true;
+			this->label88->Enabled = false;
+			this->label88->Location = System::Drawing::Point(119, 108);
+			this->label88->Name = L"label88";
+			this->label88->Size = System::Drawing::Size(42, 13);
+			this->label88->TabIndex = 45;
+			this->label88->Text = L"Misses:";
+			// 
+			// tbBlinkGodmodeBlinks
+			// 
+			this->tbBlinkGodmodeBlinks->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(35)),
 				static_cast<System::Int32>(static_cast<System::Byte>(35)), static_cast<System::Int32>(static_cast<System::Byte>(35)));
-			this->tbAttackAnimDelay->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
-			this->tbAttackAnimDelay->ForeColor = System::Drawing::Color::White;
-			this->tbAttackAnimDelay->Location = System::Drawing::Point(125, 150);
-			this->tbAttackAnimDelay->Name = L"tbAttackAnimDelay";
-			this->tbAttackAnimDelay->Size = System::Drawing::Size(49, 21);
-			this->tbAttackAnimDelay->TabIndex = 23;
-			this->tbAttackAnimDelay->Text = L"10";
-			this->tbAttackAnimDelay->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			this->tbBlinkGodmodeBlinks->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->tbBlinkGodmodeBlinks->Enabled = false;
+			this->tbBlinkGodmodeBlinks->Font = (gcnew System::Drawing::Font(L"Tahoma", 6, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->tbBlinkGodmodeBlinks->ForeColor = System::Drawing::Color::White;
+			this->tbBlinkGodmodeBlinks->Location = System::Drawing::Point(166, 125);
+			this->tbBlinkGodmodeBlinks->Name = L"tbBlinkGodmodeBlinks";
+			this->tbBlinkGodmodeBlinks->Size = System::Drawing::Size(64, 17);
+			this->tbBlinkGodmodeBlinks->TabIndex = 44;
+			this->tbBlinkGodmodeBlinks->Text = L"-";
+			this->tbBlinkGodmodeBlinks->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
 			// 
-			// cbFullGodmode
+			// tbMissGodmodeMisses
 			// 
-			this->cbFullGodmode->AutoSize = true;
-			this->cbFullGodmode->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
-			this->cbFullGodmode->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->cbFullGodmode->ForeColor = System::Drawing::Color::White;
-			this->cbFullGodmode->Location = System::Drawing::Point(6, 15);
-			this->cbFullGodmode->Name = L"cbFullGodmode";
-			this->cbFullGodmode->Size = System::Drawing::Size(87, 17);
-			this->cbFullGodmode->TabIndex = 6;
-			this->cbFullGodmode->Text = L"Full Godmode";
-			this->cbFullGodmode->UseVisualStyleBackColor = false;
-			this->cbFullGodmode->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbFullGodmode_CheckedChanged);
-			// 
-			// cbNoPlayerNameTag
-			// 
-			this->cbNoPlayerNameTag->AutoSize = true;
-			this->cbNoPlayerNameTag->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
-			this->cbNoPlayerNameTag->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->cbNoPlayerNameTag->ForeColor = System::Drawing::Color::White;
-			this->cbNoPlayerNameTag->Location = System::Drawing::Point(6, 125);
-			this->cbNoPlayerNameTag->Name = L"cbNoPlayerNameTag";
-			this->cbNoPlayerNameTag->Size = System::Drawing::Size(120, 17);
-			this->cbNoPlayerNameTag->TabIndex = 24;
-			this->cbNoPlayerNameTag->Text = L"No Player Name Tag";
-			this->cbNoPlayerNameTag->UseVisualStyleBackColor = false;
-			this->cbNoPlayerNameTag->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbNoPlayerNameTag_CheckedChanged);
-			// 
-			// cbBlinkGodmode
-			// 
-			this->cbBlinkGodmode->AutoSize = true;
-			this->cbBlinkGodmode->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
-			this->cbBlinkGodmode->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->cbBlinkGodmode->ForeColor = System::Drawing::Color::White;
-			this->cbBlinkGodmode->Location = System::Drawing::Point(6, 45);
-			this->cbBlinkGodmode->Name = L"cbBlinkGodmode";
-			this->cbBlinkGodmode->Size = System::Drawing::Size(92, 17);
-			this->cbBlinkGodmode->TabIndex = 4;
-			this->cbBlinkGodmode->Text = L"Blink Godmode";
-			this->cbBlinkGodmode->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
-			this->cbBlinkGodmode->UseVisualStyleBackColor = false;
-			this->cbBlinkGodmode->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbBlinkGodmode_CheckedChanged);
-			// 
-			// cbNoAttackDelay
-			// 
-			this->cbNoAttackDelay->AutoSize = true;
-			this->cbNoAttackDelay->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
-			this->cbNoAttackDelay->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->cbNoAttackDelay->ForeColor = System::Drawing::Color::White;
-			this->cbNoAttackDelay->Location = System::Drawing::Point(115, 30);
-			this->cbNoAttackDelay->Name = L"cbNoAttackDelay";
-			this->cbNoAttackDelay->Size = System::Drawing::Size(100, 17);
-			this->cbNoAttackDelay->TabIndex = 23;
-			this->cbNoAttackDelay->Text = L"No Attack Delay";
-			this->cbNoAttackDelay->UseVisualStyleBackColor = false;
-			this->cbNoAttackDelay->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbNoAttackDelay_CheckedChanged);
+			this->tbMissGodmodeMisses->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(35)),
+				static_cast<System::Int32>(static_cast<System::Byte>(35)), static_cast<System::Int32>(static_cast<System::Byte>(35)));
+			this->tbMissGodmodeMisses->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->tbMissGodmodeMisses->Cursor = System::Windows::Forms::Cursors::IBeam;
+			this->tbMissGodmodeMisses->Enabled = false;
+			this->tbMissGodmodeMisses->Font = (gcnew System::Drawing::Font(L"Tahoma", 6, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->tbMissGodmodeMisses->ForeColor = System::Drawing::Color::White;
+			this->tbMissGodmodeMisses->Location = System::Drawing::Point(166, 106);
+			this->tbMissGodmodeMisses->Name = L"tbMissGodmodeMisses";
+			this->tbMissGodmodeMisses->Size = System::Drawing::Size(64, 17);
+			this->tbMissGodmodeMisses->TabIndex = 43;
+			this->tbMissGodmodeMisses->Text = L"-";
+			this->tbMissGodmodeMisses->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
 			// 
 			// cbMissGodmode
 			// 
@@ -3856,13 +3765,96 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->cbMissGodmode->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
 			this->cbMissGodmode->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->cbMissGodmode->ForeColor = System::Drawing::Color::White;
-			this->cbMissGodmode->Location = System::Drawing::Point(6, 30);
+			this->cbMissGodmode->Location = System::Drawing::Point(10, 106);
 			this->cbMissGodmode->Name = L"cbMissGodmode";
 			this->cbMissGodmode->Size = System::Drawing::Size(91, 17);
-			this->cbMissGodmode->TabIndex = 5;
+			this->cbMissGodmode->TabIndex = 41;
 			this->cbMissGodmode->Text = L"Miss Godmode";
 			this->cbMissGodmode->UseVisualStyleBackColor = false;
-			this->cbMissGodmode->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbMissGodmode_CheckedChanged);
+			// 
+			// cbAttackDelay
+			// 
+			this->cbAttackDelay->AutoSize = true;
+			this->cbAttackDelay->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
+			this->cbAttackDelay->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->cbAttackDelay->ForeColor = System::Drawing::Color::White;
+			this->cbAttackDelay->Location = System::Drawing::Point(10, 142);
+			this->cbAttackDelay->Name = L"cbAttackDelay";
+			this->cbAttackDelay->Size = System::Drawing::Size(84, 17);
+			this->cbAttackDelay->TabIndex = 42;
+			this->cbAttackDelay->Text = L"Attack Delay";
+			this->cbAttackDelay->UseVisualStyleBackColor = false;
+			// 
+			// cbBlinkGodmode
+			// 
+			this->cbBlinkGodmode->AutoSize = true;
+			this->cbBlinkGodmode->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
+			this->cbBlinkGodmode->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->cbBlinkGodmode->ForeColor = System::Drawing::Color::White;
+			this->cbBlinkGodmode->Location = System::Drawing::Point(10, 124);
+			this->cbBlinkGodmode->Name = L"cbBlinkGodmode";
+			this->cbBlinkGodmode->Size = System::Drawing::Size(92, 17);
+			this->cbBlinkGodmode->TabIndex = 40;
+			this->cbBlinkGodmode->Text = L"Blink Godmode";
+			this->cbBlinkGodmode->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
+			this->cbBlinkGodmode->UseVisualStyleBackColor = false;
+			// 
+			// cbNoAttackDelay
+			// 
+			this->cbNoAttackDelay->AutoSize = true;
+			this->cbNoAttackDelay->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
+			this->cbNoAttackDelay->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->cbNoAttackDelay->ForeColor = System::Drawing::Color::White;
+			this->cbNoAttackDelay->Location = System::Drawing::Point(133, 88);
+			this->cbNoAttackDelay->Name = L"cbNoAttackDelay";
+			this->cbNoAttackDelay->Size = System::Drawing::Size(100, 17);
+			this->cbNoAttackDelay->TabIndex = 23;
+			this->cbNoAttackDelay->Text = L"No Attack Delay";
+			this->cbNoAttackDelay->UseVisualStyleBackColor = false;
+			this->cbNoAttackDelay->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbNoAttackDelay_CheckedChanged);
+			// 
+			// cbNoPlayerNameTag
+			// 
+			this->cbNoPlayerNameTag->AutoSize = true;
+			this->cbNoPlayerNameTag->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
+			this->cbNoPlayerNameTag->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->cbNoPlayerNameTag->ForeColor = System::Drawing::Color::White;
+			this->cbNoPlayerNameTag->Location = System::Drawing::Point(10, 88);
+			this->cbNoPlayerNameTag->Name = L"cbNoPlayerNameTag";
+			this->cbNoPlayerNameTag->Size = System::Drawing::Size(120, 17);
+			this->cbNoPlayerNameTag->TabIndex = 24;
+			this->cbNoPlayerNameTag->Text = L"No Player Name Tag";
+			this->cbNoPlayerNameTag->UseVisualStyleBackColor = false;
+			this->cbNoPlayerNameTag->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbNoPlayerNameTag_CheckedChanged);
+			// 
+			// cbFullGodmode
+			// 
+			this->cbFullGodmode->AutoSize = true;
+			this->cbFullGodmode->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
+			this->cbFullGodmode->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->cbFullGodmode->ForeColor = System::Drawing::Color::White;
+			this->cbFullGodmode->Location = System::Drawing::Point(10, 16);
+			this->cbFullGodmode->Name = L"cbFullGodmode";
+			this->cbFullGodmode->Size = System::Drawing::Size(87, 17);
+			this->cbFullGodmode->TabIndex = 6;
+			this->cbFullGodmode->Text = L"Full Godmode";
+			this->cbFullGodmode->UseVisualStyleBackColor = false;
+			this->cbFullGodmode->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbFullGodmode_CheckedChanged);
+			// 
+			// cbJumpDownAnyTile
+			// 
+			this->cbJumpDownAnyTile->AutoSize = true;
+			this->cbJumpDownAnyTile->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
+			this->cbJumpDownAnyTile->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->cbJumpDownAnyTile->ForeColor = System::Drawing::Color::White;
+			this->cbJumpDownAnyTile->Location = System::Drawing::Point(10, 52);
+			this->cbJumpDownAnyTile->Name = L"cbJumpDownAnyTile";
+			this->cbJumpDownAnyTile->Size = System::Drawing::Size(119, 17);
+			this->cbJumpDownAnyTile->TabIndex = 4;
+			this->cbJumpDownAnyTile->Text = L"Jump Down Any Tile";
+			this->cbJumpDownAnyTile->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
+			this->cbJumpDownAnyTile->UseVisualStyleBackColor = false;
+			this->cbJumpDownAnyTile->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbJumpDownAnyTile_CheckedChanged);
 			// 
 			// cbNoSkillEffects
 			// 
@@ -3870,7 +3862,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->cbNoSkillEffects->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
 			this->cbNoSkillEffects->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->cbNoSkillEffects->ForeColor = System::Drawing::Color::White;
-			this->cbNoSkillEffects->Location = System::Drawing::Point(6, 94);
+			this->cbNoSkillEffects->Location = System::Drawing::Point(133, 70);
 			this->cbNoSkillEffects->Name = L"cbNoSkillEffects";
 			this->cbNoSkillEffects->Size = System::Drawing::Size(93, 17);
 			this->cbNoSkillEffects->TabIndex = 8;
@@ -3884,7 +3876,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->cbNoBreath->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
 			this->cbNoBreath->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->cbNoBreath->ForeColor = System::Drawing::Color::White;
-			this->cbNoBreath->Location = System::Drawing::Point(6, 65);
+			this->cbNoBreath->Location = System::Drawing::Point(133, 16);
 			this->cbNoBreath->Name = L"cbNoBreath";
 			this->cbNoBreath->Size = System::Drawing::Size(71, 17);
 			this->cbNoBreath->TabIndex = 12;
@@ -3892,47 +3884,19 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->cbNoBreath->UseVisualStyleBackColor = false;
 			this->cbNoBreath->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbNoBreath_CheckedChanged);
 			// 
-			// cbNoPlayerDeath
+			// cbNoPlayerKnockback
 			// 
-			this->cbNoPlayerDeath->AutoSize = true;
-			this->cbNoPlayerDeath->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
-			this->cbNoPlayerDeath->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->cbNoPlayerDeath->ForeColor = System::Drawing::Color::White;
-			this->cbNoPlayerDeath->Location = System::Drawing::Point(6, 109);
-			this->cbNoPlayerDeath->Name = L"cbNoPlayerDeath";
-			this->cbNoPlayerDeath->Size = System::Drawing::Size(101, 17);
-			this->cbNoPlayerDeath->TabIndex = 9;
-			this->cbNoPlayerDeath->Text = L"No Player Death";
-			this->cbNoPlayerDeath->UseVisualStyleBackColor = false;
-			this->cbNoPlayerDeath->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbNoPlayerDeath_CheckedChanged);
-			// 
-			// cbSpeedAttack
-			// 
-			this->cbSpeedAttack->AutoSize = true;
-			this->cbSpeedAttack->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
-			this->cbSpeedAttack->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->cbSpeedAttack->ForeColor = System::Drawing::Color::White;
-			this->cbSpeedAttack->Location = System::Drawing::Point(115, 15);
-			this->cbSpeedAttack->Name = L"cbSpeedAttack";
-			this->cbSpeedAttack->Size = System::Drawing::Size(87, 17);
-			this->cbSpeedAttack->TabIndex = 11;
-			this->cbSpeedAttack->Text = L"Speed Attack";
-			this->cbSpeedAttack->UseVisualStyleBackColor = false;
-			this->cbSpeedAttack->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbSpeedAttack_CheckedChanged);
-			// 
-			// cbUnlimitedAttack
-			// 
-			this->cbUnlimitedAttack->AutoSize = true;
-			this->cbUnlimitedAttack->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
-			this->cbUnlimitedAttack->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->cbUnlimitedAttack->ForeColor = System::Drawing::Color::White;
-			this->cbUnlimitedAttack->Location = System::Drawing::Point(6, 80);
-			this->cbUnlimitedAttack->Name = L"cbUnlimitedAttack";
-			this->cbUnlimitedAttack->Size = System::Drawing::Size(100, 17);
-			this->cbUnlimitedAttack->TabIndex = 6;
-			this->cbUnlimitedAttack->Text = L"Unlimited Attack";
-			this->cbUnlimitedAttack->UseVisualStyleBackColor = false;
-			this->cbUnlimitedAttack->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbUnlimitedAttack_CheckedChanged);
+			this->cbNoPlayerKnockback->AutoSize = true;
+			this->cbNoPlayerKnockback->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
+			this->cbNoPlayerKnockback->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->cbNoPlayerKnockback->ForeColor = System::Drawing::Color::White;
+			this->cbNoPlayerKnockback->Location = System::Drawing::Point(10, 70);
+			this->cbNoPlayerKnockback->Name = L"cbNoPlayerKnockback";
+			this->cbNoPlayerKnockback->Size = System::Drawing::Size(122, 17);
+			this->cbNoPlayerKnockback->TabIndex = 5;
+			this->cbNoPlayerKnockback->Text = L"No Player Knockback";
+			this->cbNoPlayerKnockback->UseVisualStyleBackColor = false;
+			this->cbNoPlayerKnockback->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbNoPlayerKnockback_CheckedChanged);
 			// 
 			// cbFullAccuracy
 			// 
@@ -3940,7 +3904,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->cbFullAccuracy->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
 			this->cbFullAccuracy->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->cbFullAccuracy->ForeColor = System::Drawing::Color::White;
-			this->cbFullAccuracy->Location = System::Drawing::Point(115, 45);
+			this->cbFullAccuracy->Location = System::Drawing::Point(133, 34);
 			this->cbFullAccuracy->Name = L"cbFullAccuracy";
 			this->cbFullAccuracy->Size = System::Drawing::Size(86, 17);
 			this->cbFullAccuracy->TabIndex = 10;
@@ -3949,29 +3913,46 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->cbFullAccuracy->UseVisualStyleBackColor = false;
 			this->cbFullAccuracy->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbFullAccuracy_CheckedChanged);
 			// 
+			// cbNoPlayerDeath
+			// 
+			this->cbNoPlayerDeath->AutoSize = true;
+			this->cbNoPlayerDeath->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
+			this->cbNoPlayerDeath->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->cbNoPlayerDeath->ForeColor = System::Drawing::Color::White;
+			this->cbNoPlayerDeath->Location = System::Drawing::Point(133, 52);
+			this->cbNoPlayerDeath->Name = L"cbNoPlayerDeath";
+			this->cbNoPlayerDeath->Size = System::Drawing::Size(101, 17);
+			this->cbNoPlayerDeath->TabIndex = 9;
+			this->cbNoPlayerDeath->Text = L"No Player Death";
+			this->cbNoPlayerDeath->UseVisualStyleBackColor = false;
+			this->cbNoPlayerDeath->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbNoPlayerDeath_CheckedChanged);
+			// 
+			// cbUnlimitedAttack
+			// 
+			this->cbUnlimitedAttack->AutoSize = true;
+			this->cbUnlimitedAttack->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
+			this->cbUnlimitedAttack->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->cbUnlimitedAttack->ForeColor = System::Drawing::Color::White;
+			this->cbUnlimitedAttack->Location = System::Drawing::Point(10, 34);
+			this->cbUnlimitedAttack->Name = L"cbUnlimitedAttack";
+			this->cbUnlimitedAttack->Size = System::Drawing::Size(100, 17);
+			this->cbUnlimitedAttack->TabIndex = 6;
+			this->cbUnlimitedAttack->Text = L"Unlimited Attack";
+			this->cbUnlimitedAttack->UseVisualStyleBackColor = false;
+			this->cbUnlimitedAttack->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbUnlimitedAttack_CheckedChanged);
+			// 
 			// tabPage20
 			// 
 			this->tabPage20->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(25)), static_cast<System::Int32>(static_cast<System::Byte>(25)),
 				static_cast<System::Int32>(static_cast<System::Byte>(25)));
-			this->tabPage20->Controls->Add(this->label42);
 			this->tabPage20->Controls->Add(this->panel27);
 			this->tabPage20->Controls->Add(this->panel26);
 			this->tabPage20->Location = System::Drawing::Point(4, 22);
 			this->tabPage20->Name = L"tabPage20";
 			this->tabPage20->Padding = System::Windows::Forms::Padding(3);
-			this->tabPage20->Size = System::Drawing::Size(414, 396);
+			this->tabPage20->Size = System::Drawing::Size(390, 385);
 			this->tabPage20->TabIndex = 7;
 			this->tabPage20->Text = L"Hacks II";
-			// 
-			// label42
-			// 
-			this->label42->AutoSize = true;
-			this->label42->BackColor = System::Drawing::Color::Transparent;
-			this->label42->Location = System::Drawing::Point(9, 9);
-			this->label42->Name = L"label42";
-			this->label42->Size = System::Drawing::Size(87, 13);
-			this->label42->TabIndex = 24;
-			this->label42->Text = L"Teleport to (x,y)";
 			// 
 			// panel27
 			// 
@@ -3981,18 +3962,18 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->panel27->Controls->Add(this->label65);
 			this->panel27->Controls->Add(this->lvSpawnControl);
 			this->panel27->Controls->Add(this->bSpawnControlDelete);
-			this->panel27->Location = System::Drawing::Point(4, 173);
+			this->panel27->Location = System::Drawing::Point(4, 195);
 			this->panel27->Name = L"panel27";
-			this->panel27->Size = System::Drawing::Size(383, 158);
+			this->panel27->Size = System::Drawing::Size(383, 185);
 			this->panel27->TabIndex = 23;
 			// 
 			// bSpawnControl
 			// 
 			this->bSpawnControl->FlatAppearance->BorderColor = System::Drawing::Color::Gray;
 			this->bSpawnControl->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->bSpawnControl->Location = System::Drawing::Point(208, 128);
+			this->bSpawnControl->Location = System::Drawing::Point(204, 154);
 			this->bSpawnControl->Name = L"bSpawnControl";
-			this->bSpawnControl->Size = System::Drawing::Size(165, 25);
+			this->bSpawnControl->Size = System::Drawing::Size(173, 25);
 			this->bSpawnControl->TabIndex = 41;
 			this->bSpawnControl->Text = L"Enable Spawn Control";
 			this->bSpawnControl->UseVisualStyleBackColor = true;
@@ -4009,9 +3990,9 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->panel1->Controls->Add(this->label69);
 			this->panel1->Controls->Add(this->bSpawnControlGetCurrentLocation);
 			this->panel1->Controls->Add(this->label68);
-			this->panel1->Location = System::Drawing::Point(208, 20);
+			this->panel1->Location = System::Drawing::Point(204, 19);
 			this->panel1->Name = L"panel1";
-			this->panel1->Size = System::Drawing::Size(165, 103);
+			this->panel1->Size = System::Drawing::Size(173, 131);
 			this->panel1->TabIndex = 40;
 			// 
 			// tbSpawnControlMapID
@@ -4020,7 +4001,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 				static_cast<System::Int32>(static_cast<System::Byte>(35)), static_cast<System::Int32>(static_cast<System::Byte>(35)));
 			this->tbSpawnControlMapID->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 			this->tbSpawnControlMapID->ForeColor = System::Drawing::Color::White;
-			this->tbSpawnControlMapID->Location = System::Drawing::Point(98, 3);
+			this->tbSpawnControlMapID->Location = System::Drawing::Point(103, 7);
 			this->tbSpawnControlMapID->Name = L"tbSpawnControlMapID";
 			this->tbSpawnControlMapID->Size = System::Drawing::Size(60, 21);
 			this->tbSpawnControlMapID->TabIndex = 51;
@@ -4032,7 +4013,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			// 
 			this->label71->AutoSize = true;
 			this->label71->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
-			this->label71->Location = System::Drawing::Point(55, 7);
+			this->label71->Location = System::Drawing::Point(60, 11);
 			this->label71->Name = L"label71";
 			this->label71->Size = System::Drawing::Size(48, 13);
 			this->label71->TabIndex = 38;
@@ -4044,7 +4025,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 				static_cast<System::Int32>(static_cast<System::Byte>(35)));
 			this->tbSpawnControlY->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 			this->tbSpawnControlY->ForeColor = System::Drawing::Color::White;
-			this->tbSpawnControlY->Location = System::Drawing::Point(98, 27);
+			this->tbSpawnControlY->Location = System::Drawing::Point(103, 36);
 			this->tbSpawnControlY->Name = L"tbSpawnControlY";
 			this->tbSpawnControlY->Size = System::Drawing::Size(60, 21);
 			this->tbSpawnControlY->TabIndex = 30;
@@ -4056,9 +4037,9 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			// 
 			this->bSpawnControlAdd->FlatAppearance->BorderColor = System::Drawing::Color::Gray;
 			this->bSpawnControlAdd->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->bSpawnControlAdd->Location = System::Drawing::Point(5, 77);
+			this->bSpawnControlAdd->Location = System::Drawing::Point(10, 97);
 			this->bSpawnControlAdd->Name = L"bSpawnControlAdd";
-			this->bSpawnControlAdd->Size = System::Drawing::Size(153, 21);
+			this->bSpawnControlAdd->Size = System::Drawing::Size(153, 25);
 			this->bSpawnControlAdd->TabIndex = 26;
 			this->bSpawnControlAdd->Text = L"Add";
 			this->bSpawnControlAdd->UseVisualStyleBackColor = true;
@@ -4070,7 +4051,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 				static_cast<System::Int32>(static_cast<System::Byte>(35)));
 			this->tbSpawnControlX->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 			this->tbSpawnControlX->ForeColor = System::Drawing::Color::White;
-			this->tbSpawnControlX->Location = System::Drawing::Point(17, 27);
+			this->tbSpawnControlX->Location = System::Drawing::Point(22, 36);
 			this->tbSpawnControlX->Name = L"tbSpawnControlX";
 			this->tbSpawnControlX->Size = System::Drawing::Size(60, 21);
 			this->tbSpawnControlX->TabIndex = 28;
@@ -4082,7 +4063,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			// 
 			this->label69->AutoSize = true;
 			this->label69->BackColor = System::Drawing::Color::Transparent;
-			this->label69->Location = System::Drawing::Point(2, 31);
+			this->label69->Location = System::Drawing::Point(7, 40);
 			this->label69->Name = L"label69";
 			this->label69->Size = System::Drawing::Size(17, 13);
 			this->label69->TabIndex = 29;
@@ -4092,9 +4073,9 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			// 
 			this->bSpawnControlGetCurrentLocation->FlatAppearance->BorderColor = System::Drawing::Color::Gray;
 			this->bSpawnControlGetCurrentLocation->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->bSpawnControlGetCurrentLocation->Location = System::Drawing::Point(5, 51);
+			this->bSpawnControlGetCurrentLocation->Location = System::Drawing::Point(10, 66);
 			this->bSpawnControlGetCurrentLocation->Name = L"bSpawnControlGetCurrentLocation";
-			this->bSpawnControlGetCurrentLocation->Size = System::Drawing::Size(153, 23);
+			this->bSpawnControlGetCurrentLocation->Size = System::Drawing::Size(153, 25);
 			this->bSpawnControlGetCurrentLocation->TabIndex = 31;
 			this->bSpawnControlGetCurrentLocation->Text = L"Get Current Location";
 			this->bSpawnControlGetCurrentLocation->UseVisualStyleBackColor = true;
@@ -4104,7 +4085,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			// 
 			this->label68->AutoSize = true;
 			this->label68->BackColor = System::Drawing::Color::Transparent;
-			this->label68->Location = System::Drawing::Point(83, 31);
+			this->label68->Location = System::Drawing::Point(88, 40);
 			this->label68->Name = L"label68";
 			this->label68->Size = System::Drawing::Size(17, 13);
 			this->label68->TabIndex = 32;
@@ -4132,9 +4113,9 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->lvSpawnControl->ForeColor = System::Drawing::Color::White;
 			this->lvSpawnControl->FullRowSelect = true;
 			this->lvSpawnControl->HeaderStyle = System::Windows::Forms::ColumnHeaderStyle::Nonclickable;
-			this->lvSpawnControl->Location = System::Drawing::Point(4, 20);
+			this->lvSpawnControl->Location = System::Drawing::Point(4, 19);
 			this->lvSpawnControl->Name = L"lvSpawnControl";
-			this->lvSpawnControl->Size = System::Drawing::Size(197, 103);
+			this->lvSpawnControl->Size = System::Drawing::Size(197, 131);
 			this->lvSpawnControl->TabIndex = 25;
 			this->lvSpawnControl->UseCompatibleStateImageBehavior = false;
 			this->lvSpawnControl->View = System::Windows::Forms::View::Details;
@@ -4158,7 +4139,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			// 
 			this->bSpawnControlDelete->FlatAppearance->BorderColor = System::Drawing::Color::Gray;
 			this->bSpawnControlDelete->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->bSpawnControlDelete->Location = System::Drawing::Point(4, 128);
+			this->bSpawnControlDelete->Location = System::Drawing::Point(4, 154);
 			this->bSpawnControlDelete->Name = L"bSpawnControlDelete";
 			this->bSpawnControlDelete->Size = System::Drawing::Size(197, 25);
 			this->bSpawnControlDelete->TabIndex = 27;
@@ -4169,6 +4150,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			// panel26
 			// 
 			this->panel26->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->panel26->Controls->Add(this->label42);
 			this->panel26->Controls->Add(this->tbTeleportLoopDelay);
 			this->panel26->Controls->Add(this->label86);
 			this->panel26->Controls->Add(this->bTeleportLoop);
@@ -4176,10 +4158,20 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->panel26->Controls->Add(this->bTeleport);
 			this->panel26->Controls->Add(this->lvTeleport);
 			this->panel26->Controls->Add(this->panel18);
-			this->panel26->Location = System::Drawing::Point(4, 5);
+			this->panel26->Location = System::Drawing::Point(4, 6);
 			this->panel26->Name = L"panel26";
-			this->panel26->Size = System::Drawing::Size(383, 165);
+			this->panel26->Size = System::Drawing::Size(383, 185);
 			this->panel26->TabIndex = 22;
+			// 
+			// label42
+			// 
+			this->label42->AutoSize = true;
+			this->label42->BackColor = System::Drawing::Color::Transparent;
+			this->label42->Location = System::Drawing::Point(3, 2);
+			this->label42->Name = L"label42";
+			this->label42->Size = System::Drawing::Size(87, 13);
+			this->label42->TabIndex = 24;
+			this->label42->Text = L"Teleport to (x,y)";
 			// 
 			// tbTeleportLoopDelay
 			// 
@@ -4187,7 +4179,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 				static_cast<System::Int32>(static_cast<System::Byte>(35)), static_cast<System::Int32>(static_cast<System::Byte>(35)));
 			this->tbTeleportLoopDelay->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 			this->tbTeleportLoopDelay->ForeColor = System::Drawing::Color::White;
-			this->tbTeleportLoopDelay->Location = System::Drawing::Point(318, 138);
+			this->tbTeleportLoopDelay->Location = System::Drawing::Point(318, 157);
 			this->tbTeleportLoopDelay->Name = L"tbTeleportLoopDelay";
 			this->tbTeleportLoopDelay->Size = System::Drawing::Size(57, 21);
 			this->tbTeleportLoopDelay->TabIndex = 33;
@@ -4199,7 +4191,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			// 
 			this->label86->AutoSize = true;
 			this->label86->BackColor = System::Drawing::Color::Transparent;
-			this->label86->Location = System::Drawing::Point(278, 140);
+			this->label86->Location = System::Drawing::Point(278, 159);
 			this->label86->Name = L"label86";
 			this->label86->Size = System::Drawing::Size(38, 13);
 			this->label86->TabIndex = 34;
@@ -4209,7 +4201,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			// 
 			this->bTeleportLoop->FlatAppearance->BorderColor = System::Drawing::Color::Gray;
 			this->bTeleportLoop->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->bTeleportLoop->Location = System::Drawing::Point(204, 135);
+			this->bTeleportLoop->Location = System::Drawing::Point(204, 154);
 			this->bTeleportLoop->Name = L"bTeleportLoop";
 			this->bTeleportLoop->Size = System::Drawing::Size(68, 25);
 			this->bTeleportLoop->TabIndex = 32;
@@ -4221,7 +4213,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			// 
 			this->bTeleportDelete->FlatAppearance->BorderColor = System::Drawing::Color::Gray;
 			this->bTeleportDelete->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->bTeleportDelete->Location = System::Drawing::Point(3, 135);
+			this->bTeleportDelete->Location = System::Drawing::Point(4, 154);
 			this->bTeleportDelete->Name = L"bTeleportDelete";
 			this->bTeleportDelete->Size = System::Drawing::Size(97, 25);
 			this->bTeleportDelete->TabIndex = 31;
@@ -4233,7 +4225,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			// 
 			this->bTeleport->FlatAppearance->BorderColor = System::Drawing::Color::Gray;
 			this->bTeleport->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->bTeleport->Location = System::Drawing::Point(103, 135);
+			this->bTeleport->Location = System::Drawing::Point(104, 154);
 			this->bTeleport->Name = L"bTeleport";
 			this->bTeleport->Size = System::Drawing::Size(97, 25);
 			this->bTeleport->TabIndex = 30;
@@ -4250,9 +4242,9 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->lvTeleport->ForeColor = System::Drawing::Color::White;
 			this->lvTeleport->FullRowSelect = true;
 			this->lvTeleport->HeaderStyle = System::Windows::Forms::ColumnHeaderStyle::Nonclickable;
-			this->lvTeleport->Location = System::Drawing::Point(3, 19);
+			this->lvTeleport->Location = System::Drawing::Point(4, 19);
 			this->lvTeleport->Name = L"lvTeleport";
-			this->lvTeleport->Size = System::Drawing::Size(197, 113);
+			this->lvTeleport->Size = System::Drawing::Size(197, 131);
 			this->lvTeleport->TabIndex = 29;
 			this->lvTeleport->UseCompatibleStateImageBehavior = false;
 			this->lvTeleport->View = System::Windows::Forms::View::Details;
@@ -4279,7 +4271,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->panel18->Controls->Add(this->tbTeleportY);
 			this->panel18->Location = System::Drawing::Point(204, 19);
 			this->panel18->Name = L"panel18";
-			this->panel18->Size = System::Drawing::Size(173, 113);
+			this->panel18->Size = System::Drawing::Size(173, 131);
 			this->panel18->TabIndex = 35;
 			// 
 			// bTeleportGetCurrentLocation
@@ -4358,8 +4350,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			// 
 			this->tabPage6->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(25)), static_cast<System::Int32>(static_cast<System::Byte>(25)),
 				static_cast<System::Int32>(static_cast<System::Byte>(25)));
-			this->tabPage6->Controls->Add(this->gbFullMapVacs);
-			this->tabPage6->Controls->Add(this->gbPartialMapVacs);
+			this->tabPage6->Controls->Add(this->panel28);
 			this->tabPage6->Controls->Add(this->panel17);
 			this->tabPage6->Controls->Add(this->panel16);
 			this->tabPage6->Controls->Add(this->panel15);
@@ -4367,24 +4358,69 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->tabPage6->Controls->Add(this->panel14);
 			this->tabPage6->Location = System::Drawing::Point(4, 22);
 			this->tabPage6->Name = L"tabPage6";
-			this->tabPage6->Size = System::Drawing::Size(414, 396);
+			this->tabPage6->Size = System::Drawing::Size(390, 385);
 			this->tabPage6->TabIndex = 3;
 			this->tabPage6->Text = L"Vacs";
 			// 
-			// gbFullMapVacs
+			// panel28
 			// 
-			this->gbFullMapVacs->Controls->Add(this->cbVacJumpLeft);
-			this->gbFullMapVacs->Controls->Add(this->cbVacForceRight);
-			this->gbFullMapVacs->Controls->Add(this->cbVacJumpRight);
-			this->gbFullMapVacs->Controls->Add(this->checkBox5);
-			this->gbFullMapVacs->Controls->Add(this->cbVacLeft);
-			this->gbFullMapVacs->Controls->Add(this->cbVacRight);
-			this->gbFullMapVacs->Location = System::Drawing::Point(265, 175);
-			this->gbFullMapVacs->Name = L"gbFullMapVacs";
-			this->gbFullMapVacs->Size = System::Drawing::Size(120, 205);
-			this->gbFullMapVacs->TabIndex = 33;
-			this->gbFullMapVacs->TabStop = false;
-			this->gbFullMapVacs->Text = L"Full Map Vacs";
+			this->panel28->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->panel28->Controls->Add(this->checkBox10);
+			this->panel28->Controls->Add(this->checkBox9);
+			this->panel28->Controls->Add(this->checkBox8);
+			this->panel28->Controls->Add(this->cbVacJumpLeft);
+			this->panel28->Controls->Add(this->cbVacJumpRight);
+			this->panel28->Controls->Add(this->cbVacLeft);
+			this->panel28->Controls->Add(this->cbZzVac);
+			this->panel28->Controls->Add(this->cbFullMapAttack);
+			this->panel28->Controls->Add(this->cbVacRight);
+			this->panel28->Controls->Add(this->cbVacForceRight);
+			this->panel28->Location = System::Drawing::Point(142, 178);
+			this->panel28->Name = L"panel28";
+			this->panel28->Size = System::Drawing::Size(245, 113);
+			this->panel28->TabIndex = 31;
+			// 
+			// checkBox10
+			// 
+			this->checkBox10->AutoSize = true;
+			this->checkBox10->Enabled = false;
+			this->checkBox10->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
+			this->checkBox10->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->checkBox10->ForeColor = System::Drawing::Color::White;
+			this->checkBox10->Location = System::Drawing::Point(6, 87);
+			this->checkBox10->Name = L"checkBox10";
+			this->checkBox10->Size = System::Drawing::Size(75, 17);
+			this->checkBox10->TabIndex = 32;
+			this->checkBox10->Text = L"CSEAX Vac";
+			this->checkBox10->UseVisualStyleBackColor = false;
+			// 
+			// checkBox9
+			// 
+			this->checkBox9->AutoSize = true;
+			this->checkBox9->Enabled = false;
+			this->checkBox9->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
+			this->checkBox9->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->checkBox9->ForeColor = System::Drawing::Color::White;
+			this->checkBox9->Location = System::Drawing::Point(6, 67);
+			this->checkBox9->Name = L"checkBox9";
+			this->checkBox9->Size = System::Drawing::Size(46, 17);
+			this->checkBox9->TabIndex = 31;
+			this->checkBox9->Text = L"pVac";
+			this->checkBox9->UseVisualStyleBackColor = false;
+			// 
+			// checkBox8
+			// 
+			this->checkBox8->AutoSize = true;
+			this->checkBox8->Enabled = false;
+			this->checkBox8->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
+			this->checkBox8->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->checkBox8->ForeColor = System::Drawing::Color::White;
+			this->checkBox8->Location = System::Drawing::Point(6, 47);
+			this->checkBox8->Name = L"checkBox8";
+			this->checkBox8->Size = System::Drawing::Size(77, 17);
+			this->checkBox8->TabIndex = 30;
+			this->checkBox8->Text = L"Fangor Vac";
+			this->checkBox8->UseVisualStyleBackColor = false;
 			// 
 			// cbVacJumpLeft
 			// 
@@ -4392,27 +4428,13 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->cbVacJumpLeft->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
 			this->cbVacJumpLeft->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->cbVacJumpLeft->ForeColor = System::Drawing::Color::White;
-			this->cbVacJumpLeft->Location = System::Drawing::Point(5, 75);
+			this->cbVacJumpLeft->Location = System::Drawing::Point(130, 87);
 			this->cbVacJumpLeft->Name = L"cbVacJumpLeft";
 			this->cbVacJumpLeft->Size = System::Drawing::Size(90, 17);
-			this->cbVacJumpLeft->TabIndex = 28;
+			this->cbVacJumpLeft->TabIndex = 29;
 			this->cbVacJumpLeft->Text = L"Vac Jump Left";
 			this->cbVacJumpLeft->UseVisualStyleBackColor = false;
 			this->cbVacJumpLeft->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbVacJumpLeft_CheckedChanged);
-			// 
-			// cbVacForceRight
-			// 
-			this->cbVacForceRight->AutoSize = true;
-			this->cbVacForceRight->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
-			this->cbVacForceRight->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->cbVacForceRight->ForeColor = System::Drawing::Color::White;
-			this->cbVacForceRight->Location = System::Drawing::Point(5, 15);
-			this->cbVacForceRight->Name = L"cbVacForceRight";
-			this->cbVacForceRight->Size = System::Drawing::Size(98, 17);
-			this->cbVacForceRight->TabIndex = 29;
-			this->cbVacForceRight->Text = L"Vac Force Right";
-			this->cbVacForceRight->UseVisualStyleBackColor = false;
-			this->cbVacForceRight->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbVacForceRight_CheckedChanged);
 			// 
 			// cbVacJumpRight
 			// 
@@ -4420,94 +4442,27 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->cbVacJumpRight->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
 			this->cbVacJumpRight->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->cbVacJumpRight->ForeColor = System::Drawing::Color::White;
-			this->cbVacJumpRight->Location = System::Drawing::Point(5, 60);
+			this->cbVacJumpRight->Location = System::Drawing::Point(130, 67);
 			this->cbVacJumpRight->Name = L"cbVacJumpRight";
 			this->cbVacJumpRight->Size = System::Drawing::Size(96, 17);
-			this->cbVacJumpRight->TabIndex = 27;
+			this->cbVacJumpRight->TabIndex = 28;
 			this->cbVacJumpRight->Text = L"Vac Jump Right";
 			this->cbVacJumpRight->UseVisualStyleBackColor = false;
 			this->cbVacJumpRight->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbVacJumpRight_CheckedChanged);
 			// 
-			// checkBox5
-			// 
-			this->checkBox5->AutoSize = true;
-			this->checkBox5->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
-			this->checkBox5->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->checkBox5->ForeColor = System::Drawing::Color::White;
-			this->checkBox5->Location = System::Drawing::Point(5, 225);
-			this->checkBox5->Name = L"checkBox5";
-			this->checkBox5->Size = System::Drawing::Size(110, 17);
-			this->checkBox5->TabIndex = 25;
-			this->checkBox5->Text = L"Attack Anim Delay";
-			this->checkBox5->UseVisualStyleBackColor = false;
-			// 
 			// cbVacLeft
 			// 
 			this->cbVacLeft->AutoSize = true;
-			this->cbVacLeft->Enabled = false;
 			this->cbVacLeft->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
 			this->cbVacLeft->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->cbVacLeft->ForeColor = System::Drawing::Color::White;
-			this->cbVacLeft->Location = System::Drawing::Point(5, 45);
+			this->cbVacLeft->Location = System::Drawing::Point(130, 47);
 			this->cbVacLeft->Name = L"cbVacLeft";
 			this->cbVacLeft->Size = System::Drawing::Size(62, 17);
-			this->cbVacLeft->TabIndex = 26;
+			this->cbVacLeft->TabIndex = 27;
 			this->cbVacLeft->Text = L"Vac Left";
 			this->cbVacLeft->UseVisualStyleBackColor = false;
 			this->cbVacLeft->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbVacLeft_CheckedChanged);
-			// 
-			// cbVacRight
-			// 
-			this->cbVacRight->AutoSize = true;
-			this->cbVacRight->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
-			this->cbVacRight->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->cbVacRight->ForeColor = System::Drawing::Color::White;
-			this->cbVacRight->Location = System::Drawing::Point(5, 30);
-			this->cbVacRight->Name = L"cbVacRight";
-			this->cbVacRight->Size = System::Drawing::Size(68, 17);
-			this->cbVacRight->TabIndex = 25;
-			this->cbVacRight->Text = L"Vac Right";
-			this->cbVacRight->UseVisualStyleBackColor = false;
-			this->cbVacRight->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbVacRight_CheckedChanged);
-			// 
-			// gbPartialMapVacs
-			// 
-			this->gbPartialMapVacs->Controls->Add(this->checkBox4);
-			this->gbPartialMapVacs->Controls->Add(this->cbFullMapAttack);
-			this->gbPartialMapVacs->Controls->Add(this->cbZzVac);
-			this->gbPartialMapVacs->Location = System::Drawing::Point(140, 175);
-			this->gbPartialMapVacs->Name = L"gbPartialMapVacs";
-			this->gbPartialMapVacs->Size = System::Drawing::Size(120, 205);
-			this->gbPartialMapVacs->TabIndex = 32;
-			this->gbPartialMapVacs->TabStop = false;
-			this->gbPartialMapVacs->Text = L"Partial Map Vacs";
-			// 
-			// checkBox4
-			// 
-			this->checkBox4->AutoSize = true;
-			this->checkBox4->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
-			this->checkBox4->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->checkBox4->ForeColor = System::Drawing::Color::White;
-			this->checkBox4->Location = System::Drawing::Point(5, 225);
-			this->checkBox4->Name = L"checkBox4";
-			this->checkBox4->Size = System::Drawing::Size(110, 17);
-			this->checkBox4->TabIndex = 25;
-			this->checkBox4->Text = L"Attack Anim Delay";
-			this->checkBox4->UseVisualStyleBackColor = false;
-			// 
-			// cbFullMapAttack
-			// 
-			this->cbFullMapAttack->AutoSize = true;
-			this->cbFullMapAttack->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
-			this->cbFullMapAttack->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->cbFullMapAttack->ForeColor = System::Drawing::Color::White;
-			this->cbFullMapAttack->Location = System::Drawing::Point(5, 15);
-			this->cbFullMapAttack->Name = L"cbFullMapAttack";
-			this->cbFullMapAttack->Size = System::Drawing::Size(96, 17);
-			this->cbFullMapAttack->TabIndex = 23;
-			this->cbFullMapAttack->Text = L"Full Map Attack";
-			this->cbFullMapAttack->UseVisualStyleBackColor = false;
-			this->cbFullMapAttack->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbFullMapAttack_CheckedChanged);
 			// 
 			// cbZzVac
 			// 
@@ -4515,7 +4470,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->cbZzVac->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
 			this->cbZzVac->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->cbZzVac->ForeColor = System::Drawing::Color::White;
-			this->cbZzVac->Location = System::Drawing::Point(5, 30);
+			this->cbZzVac->Location = System::Drawing::Point(6, 27);
 			this->cbZzVac->Name = L"cbZzVac";
 			this->cbZzVac->Size = System::Drawing::Size(55, 17);
 			this->cbZzVac->TabIndex = 24;
@@ -4523,32 +4478,61 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->cbZzVac->UseVisualStyleBackColor = false;
 			this->cbZzVac->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbZzVac_CheckedChanged);
 			// 
+			// cbFullMapAttack
+			// 
+			this->cbFullMapAttack->AutoSize = true;
+			this->cbFullMapAttack->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
+			this->cbFullMapAttack->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->cbFullMapAttack->ForeColor = System::Drawing::Color::White;
+			this->cbFullMapAttack->Location = System::Drawing::Point(6, 7);
+			this->cbFullMapAttack->Name = L"cbFullMapAttack";
+			this->cbFullMapAttack->Size = System::Drawing::Size(96, 17);
+			this->cbFullMapAttack->TabIndex = 23;
+			this->cbFullMapAttack->Text = L"Full Map Attack";
+			this->cbFullMapAttack->UseVisualStyleBackColor = false;
+			this->cbFullMapAttack->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbFullMapAttack_CheckedChanged);
+			// 
+			// cbVacRight
+			// 
+			this->cbVacRight->AutoSize = true;
+			this->cbVacRight->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
+			this->cbVacRight->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->cbVacRight->ForeColor = System::Drawing::Color::White;
+			this->cbVacRight->Location = System::Drawing::Point(130, 27);
+			this->cbVacRight->Name = L"cbVacRight";
+			this->cbVacRight->Size = System::Drawing::Size(68, 17);
+			this->cbVacRight->TabIndex = 26;
+			this->cbVacRight->Text = L"Vac Right";
+			this->cbVacRight->UseVisualStyleBackColor = false;
+			this->cbVacRight->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbVacRight_CheckedChanged);
+			// 
+			// cbVacForceRight
+			// 
+			this->cbVacForceRight->AutoSize = true;
+			this->cbVacForceRight->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
+			this->cbVacForceRight->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->cbVacForceRight->ForeColor = System::Drawing::Color::White;
+			this->cbVacForceRight->Location = System::Drawing::Point(130, 7);
+			this->cbVacForceRight->Name = L"cbVacForceRight";
+			this->cbVacForceRight->Size = System::Drawing::Size(98, 17);
+			this->cbVacForceRight->TabIndex = 25;
+			this->cbVacForceRight->Text = L"Vac Force Right";
+			this->cbVacForceRight->UseVisualStyleBackColor = false;
+			this->cbVacForceRight->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbVacForceRight_CheckedChanged);
+			// 
 			// panel17
 			// 
 			this->panel17->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
-			this->panel17->Controls->Add(this->checkBox3);
+			this->panel17->Controls->Add(this->bUEMIGetCurrentLocation);
 			this->panel17->Controls->Add(this->cbUEMI);
-			this->panel17->Controls->Add(this->textBox4);
+			this->panel17->Controls->Add(this->tbUEMIy);
 			this->panel17->Controls->Add(this->label72);
 			this->panel17->Controls->Add(this->label87);
-			this->panel17->Controls->Add(this->textBox5);
+			this->panel17->Controls->Add(this->tbUEMIx);
 			this->panel17->Location = System::Drawing::Point(6, 178);
 			this->panel17->Name = L"panel17";
-			this->panel17->Size = System::Drawing::Size(132, 57);
+			this->panel17->Size = System::Drawing::Size(132, 87);
 			this->panel17->TabIndex = 30;
-			// 
-			// checkBox3
-			// 
-			this->checkBox3->AutoSize = true;
-			this->checkBox3->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
-			this->checkBox3->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->checkBox3->ForeColor = System::Drawing::Color::White;
-			this->checkBox3->Location = System::Drawing::Point(5, 31);
-			this->checkBox3->Name = L"checkBox3";
-			this->checkBox3->Size = System::Drawing::Size(47, 17);
-			this->checkBox3->TabIndex = 32;
-			this->checkBox3->Text = L"dEMI";
-			this->checkBox3->UseVisualStyleBackColor = false;
 			// 
 			// cbUEMI
 			// 
@@ -4556,31 +4540,32 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->cbUEMI->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
 			this->cbUEMI->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->cbUEMI->ForeColor = System::Drawing::Color::White;
-			this->cbUEMI->Location = System::Drawing::Point(5, 5);
+			this->cbUEMI->Location = System::Drawing::Point(6, 3);
 			this->cbUEMI->Name = L"cbUEMI";
 			this->cbUEMI->Size = System::Drawing::Size(47, 17);
 			this->cbUEMI->TabIndex = 24;
 			this->cbUEMI->Text = L"uEMI";
 			this->cbUEMI->UseVisualStyleBackColor = false;
+			this->cbUEMI->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbUEMI_CheckedChanged);
 			// 
-			// textBox4
+			// tbUEMIy
 			// 
-			this->textBox4->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(35)), static_cast<System::Int32>(static_cast<System::Byte>(35)),
+			this->tbUEMIy->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(35)), static_cast<System::Int32>(static_cast<System::Byte>(35)),
 				static_cast<System::Int32>(static_cast<System::Byte>(35)));
-			this->textBox4->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
-			this->textBox4->ForeColor = System::Drawing::Color::White;
-			this->textBox4->Location = System::Drawing::Point(87, 29);
-			this->textBox4->Name = L"textBox4";
-			this->textBox4->Size = System::Drawing::Size(40, 21);
-			this->textBox4->TabIndex = 28;
-			this->textBox4->Text = L"0";
-			this->textBox4->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			this->tbUEMIy->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->tbUEMIy->ForeColor = System::Drawing::Color::White;
+			this->tbUEMIy->Location = System::Drawing::Point(87, 24);
+			this->tbUEMIy->Name = L"tbUEMIy";
+			this->tbUEMIy->Size = System::Drawing::Size(40, 21);
+			this->tbUEMIy->TabIndex = 28;
+			this->tbUEMIy->Text = L"0";
+			this->tbUEMIy->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
 			// 
 			// label72
 			// 
 			this->label72->AutoSize = true;
 			this->label72->BackColor = System::Drawing::Color::Transparent;
-			this->label72->Location = System::Drawing::Point(70, 32);
+			this->label72->Location = System::Drawing::Point(70, 27);
 			this->label72->Name = L"label72";
 			this->label72->Size = System::Drawing::Size(17, 13);
 			this->label72->TabIndex = 29;
@@ -4590,24 +4575,24 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			// 
 			this->label87->AutoSize = true;
 			this->label87->BackColor = System::Drawing::Color::Transparent;
-			this->label87->Location = System::Drawing::Point(70, 7);
+			this->label87->Location = System::Drawing::Point(7, 28);
 			this->label87->Name = L"label87";
 			this->label87->Size = System::Drawing::Size(17, 13);
 			this->label87->TabIndex = 27;
 			this->label87->Text = L"X:";
 			// 
-			// textBox5
+			// tbUEMIx
 			// 
-			this->textBox5->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(35)), static_cast<System::Int32>(static_cast<System::Byte>(35)),
+			this->tbUEMIx->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(35)), static_cast<System::Int32>(static_cast<System::Byte>(35)),
 				static_cast<System::Int32>(static_cast<System::Byte>(35)));
-			this->textBox5->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
-			this->textBox5->ForeColor = System::Drawing::Color::White;
-			this->textBox5->Location = System::Drawing::Point(87, 4);
-			this->textBox5->Name = L"textBox5";
-			this->textBox5->Size = System::Drawing::Size(40, 21);
-			this->textBox5->TabIndex = 26;
-			this->textBox5->Text = L"30";
-			this->textBox5->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			this->tbUEMIx->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->tbUEMIx->ForeColor = System::Drawing::Color::White;
+			this->tbUEMIx->Location = System::Drawing::Point(24, 25);
+			this->tbUEMIx->Name = L"tbUEMIx";
+			this->tbUEMIx->Size = System::Drawing::Size(40, 21);
+			this->tbUEMIx->TabIndex = 26;
+			this->tbUEMIx->Text = L"30";
+			this->tbUEMIx->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
 			// 
 			// panel16
 			// 
@@ -4786,7 +4771,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->panel15->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 			this->panel15->Controls->Add(this->tbWallVacRangeY);
 			this->panel15->Controls->Add(this->label61);
-			this->panel15->Controls->Add(this->bGetCurrentLocation);
+			this->panel15->Controls->Add(this->bWallVacGetCurrentLocation);
 			this->panel15->Controls->Add(this->tbWallVacRangeX);
 			this->panel15->Controls->Add(this->label59);
 			this->panel15->Controls->Add(this->tbWallVacY);
@@ -4823,16 +4808,17 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->label61->TabIndex = 18;
 			this->label61->Text = L"Range Y:";
 			// 
-			// bGetCurrentLocation
+			// bWallVacGetCurrentLocation
 			// 
-			this->bGetCurrentLocation->FlatAppearance->BorderColor = System::Drawing::Color::Gray;
-			this->bGetCurrentLocation->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->bGetCurrentLocation->Location = System::Drawing::Point(7, 65);
-			this->bGetCurrentLocation->Name = L"bGetCurrentLocation";
-			this->bGetCurrentLocation->Size = System::Drawing::Size(232, 25);
-			this->bGetCurrentLocation->TabIndex = 14;
-			this->bGetCurrentLocation->Text = L"Get Current Location";
-			this->bGetCurrentLocation->UseVisualStyleBackColor = true;
+			this->bWallVacGetCurrentLocation->FlatAppearance->BorderColor = System::Drawing::Color::Gray;
+			this->bWallVacGetCurrentLocation->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->bWallVacGetCurrentLocation->Location = System::Drawing::Point(7, 65);
+			this->bWallVacGetCurrentLocation->Name = L"bWallVacGetCurrentLocation";
+			this->bWallVacGetCurrentLocation->Size = System::Drawing::Size(232, 25);
+			this->bWallVacGetCurrentLocation->TabIndex = 14;
+			this->bWallVacGetCurrentLocation->Text = L"Get Current Location";
+			this->bWallVacGetCurrentLocation->UseVisualStyleBackColor = true;
+			this->bWallVacGetCurrentLocation->Click += gcnew System::EventHandler(this, &MainForm::bWallVacGetCurrentLocation_Click);
 			// 
 			// tbWallVacRangeX
 			// 
@@ -4918,6 +4904,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->cbWallVac->TabIndex = 1;
 			this->cbWallVac->Text = L"Wall Vac";
 			this->cbWallVac->UseVisualStyleBackColor = false;
+			this->cbWallVac->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbWallVac_CheckedChanged);
 			// 
 			// panel13
 			// 
@@ -4985,7 +4972,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->cbKamiLoot->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
 			this->cbKamiLoot->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->cbKamiLoot->ForeColor = System::Drawing::Color::White;
-			this->cbKamiLoot->Location = System::Drawing::Point(6, 1);
+			this->cbKamiLoot->Location = System::Drawing::Point(6, 3);
 			this->cbKamiLoot->Name = L"cbKamiLoot";
 			this->cbKamiLoot->Size = System::Drawing::Size(69, 17);
 			this->cbKamiLoot->TabIndex = 1;
@@ -5127,7 +5114,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->tabPage7->Controls->Add(this->panel20);
 			this->tabPage7->Location = System::Drawing::Point(4, 22);
 			this->tabPage7->Name = L"tabPage7";
-			this->tabPage7->Size = System::Drawing::Size(414, 396);
+			this->tabPage7->Size = System::Drawing::Size(390, 385);
 			this->tabPage7->TabIndex = 4;
 			this->tabPage7->Text = L"Filters";
 			// 
@@ -5147,9 +5134,9 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->panel21->Controls->Add(this->label76);
 			this->panel21->Controls->Add(this->label77);
 			this->panel21->Controls->Add(this->bMobFilter);
-			this->panel21->Location = System::Drawing::Point(5, 233);
+			this->panel21->Location = System::Drawing::Point(5, 195);
 			this->panel21->Name = L"panel21";
-			this->panel21->Size = System::Drawing::Size(406, 160);
+			this->panel21->Size = System::Drawing::Size(381, 186);
 			this->panel21->TabIndex = 30;
 			// 
 			// lbMobSearchLog
@@ -5159,7 +5146,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->lbMobSearchLog->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 			this->lbMobSearchLog->ForeColor = System::Drawing::Color::White;
 			this->lbMobSearchLog->FormattingEnabled = true;
-			this->lbMobSearchLog->Location = System::Drawing::Point(195, 49);
+			this->lbMobSearchLog->Location = System::Drawing::Point(194, 44);
 			this->lbMobSearchLog->Name = L"lbMobSearchLog";
 			this->lbMobSearchLog->Size = System::Drawing::Size(179, 80);
 			this->lbMobSearchLog->TabIndex = 53;
@@ -5172,9 +5159,9 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->lbMobFilter->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 			this->lbMobFilter->ForeColor = System::Drawing::Color::White;
 			this->lbMobFilter->FormattingEnabled = true;
-			this->lbMobFilter->Location = System::Drawing::Point(7, 10);
+			this->lbMobFilter->Location = System::Drawing::Point(7, 8);
 			this->lbMobFilter->Name = L"lbMobFilter";
-			this->lbMobFilter->Size = System::Drawing::Size(180, 119);
+			this->lbMobFilter->Size = System::Drawing::Size(180, 145);
 			this->lbMobFilter->TabIndex = 34;
 			this->lbMobFilter->MouseDoubleClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::lbMobFilter_MouseDoubleClick);
 			// 
@@ -5184,11 +5171,11 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->cbMobFilterLog->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
 			this->cbMobFilterLog->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->cbMobFilterLog->ForeColor = System::Drawing::Color::White;
-			this->cbMobFilterLog->Location = System::Drawing::Point(333, 30);
+			this->cbMobFilterLog->Location = System::Drawing::Point(194, 5);
 			this->cbMobFilterLog->Name = L"cbMobFilterLog";
-			this->cbMobFilterLog->Size = System::Drawing::Size(40, 17);
+			this->cbMobFilterLog->Size = System::Drawing::Size(68, 17);
 			this->cbMobFilterLog->TabIndex = 33;
-			this->cbMobFilterLog->Text = L"Log";
+			this->cbMobFilterLog->Text = L"Log Mobs";
 			this->cbMobFilterLog->UseVisualStyleBackColor = false;
 			this->cbMobFilterLog->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbMobFilterLog_CheckedChanged);
 			// 
@@ -5196,11 +5183,11 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			// 
 			this->bMobSearchLogClear->FlatAppearance->BorderColor = System::Drawing::Color::Gray;
 			this->bMobSearchLogClear->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->bMobSearchLogClear->Font = (gcnew System::Drawing::Font(L"Tahoma", 6, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->bMobSearchLogClear->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->bMobSearchLogClear->Location = System::Drawing::Point(337, 134);
+			this->bMobSearchLogClear->Location = System::Drawing::Point(326, 129);
 			this->bMobSearchLogClear->Name = L"bMobSearchLogClear";
-			this->bMobSearchLogClear->Size = System::Drawing::Size(36, 20);
+			this->bMobSearchLogClear->Size = System::Drawing::Size(47, 23);
 			this->bMobSearchLogClear->TabIndex = 29;
 			this->bMobSearchLogClear->Text = L"Clear";
 			this->bMobSearchLogClear->UseVisualStyleBackColor = true;
@@ -5211,7 +5198,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->rbMobFilterWhiteList->AutoSize = true;
 			this->rbMobFilterWhiteList->Checked = true;
 			this->rbMobFilterWhiteList->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->rbMobFilterWhiteList->Location = System::Drawing::Point(196, 30);
+			this->rbMobFilterWhiteList->Location = System::Drawing::Point(208, 26);
 			this->rbMobFilterWhiteList->Name = L"rbMobFilterWhiteList";
 			this->rbMobFilterWhiteList->Size = System::Drawing::Size(68, 17);
 			this->rbMobFilterWhiteList->TabIndex = 32;
@@ -5226,9 +5213,9 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 				static_cast<System::Int32>(static_cast<System::Byte>(35)), static_cast<System::Int32>(static_cast<System::Byte>(35)));
 			this->tbMobFilterSearch->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 			this->tbMobFilterSearch->ForeColor = System::Drawing::Color::White;
-			this->tbMobFilterSearch->Location = System::Drawing::Point(233, 134);
+			this->tbMobFilterSearch->Location = System::Drawing::Point(233, 130);
 			this->tbMobFilterSearch->Name = L"tbMobFilterSearch";
-			this->tbMobFilterSearch->Size = System::Drawing::Size(98, 21);
+			this->tbMobFilterSearch->Size = System::Drawing::Size(87, 21);
 			this->tbMobFilterSearch->TabIndex = 27;
 			this->tbMobFilterSearch->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
 			this->tbMobFilterSearch->TextChanged += gcnew System::EventHandler(this, &MainForm::tbMobFilterSearch_TextChanged);
@@ -5237,7 +5224,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			// 
 			this->rbMobFilterBlackList->AutoSize = true;
 			this->rbMobFilterBlackList->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->rbMobFilterBlackList->Location = System::Drawing::Point(267, 30);
+			this->rbMobFilterBlackList->Location = System::Drawing::Point(301, 26);
 			this->rbMobFilterBlackList->Name = L"rbMobFilterBlackList";
 			this->rbMobFilterBlackList->Size = System::Drawing::Size(64, 17);
 			this->rbMobFilterBlackList->TabIndex = 31;
@@ -5247,7 +5234,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			// label75
 			// 
 			this->label75->AutoSize = true;
-			this->label75->Location = System::Drawing::Point(191, 137);
+			this->label75->Location = System::Drawing::Point(191, 134);
 			this->label75->Name = L"label75";
 			this->label75->Size = System::Drawing::Size(44, 13);
 			this->label75->TabIndex = 28;
@@ -5257,11 +5244,11 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			// 
 			this->bMobFilterAdd->FlatAppearance->BorderColor = System::Drawing::Color::Gray;
 			this->bMobFilterAdd->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->bMobFilterAdd->Font = (gcnew System::Drawing::Font(L"Tahoma", 6, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->bMobFilterAdd->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->bMobFilterAdd->Location = System::Drawing::Point(152, 135);
+			this->bMobFilterAdd->Location = System::Drawing::Point(151, 157);
 			this->bMobFilterAdd->Name = L"bMobFilterAdd";
-			this->bMobFilterAdd->Size = System::Drawing::Size(36, 20);
+			this->bMobFilterAdd->Size = System::Drawing::Size(36, 23);
 			this->bMobFilterAdd->TabIndex = 26;
 			this->bMobFilterAdd->Text = L"Add";
 			this->bMobFilterAdd->UseVisualStyleBackColor = true;
@@ -5273,9 +5260,9 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 				static_cast<System::Int32>(static_cast<System::Byte>(35)));
 			this->tbMobFilterID->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 			this->tbMobFilterID->ForeColor = System::Drawing::Color::White;
-			this->tbMobFilterID->Location = System::Drawing::Point(64, 135);
+			this->tbMobFilterID->Location = System::Drawing::Point(65, 158);
 			this->tbMobFilterID->Name = L"tbMobFilterID";
-			this->tbMobFilterID->Size = System::Drawing::Size(82, 21);
+			this->tbMobFilterID->Size = System::Drawing::Size(81, 21);
 			this->tbMobFilterID->TabIndex = 24;
 			this->tbMobFilterID->Text = L"100101";
 			this->tbMobFilterID->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
@@ -5284,7 +5271,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			// label76
 			// 
 			this->label76->AutoSize = true;
-			this->label76->Location = System::Drawing::Point(6, 138);
+			this->label76->Location = System::Drawing::Point(6, 162);
 			this->label76->Name = L"label76";
 			this->label76->Size = System::Drawing::Size(59, 13);
 			this->label76->TabIndex = 25;
@@ -5293,24 +5280,25 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			// label77
 			// 
 			this->label77->AutoSize = true;
-			this->label77->Font = (gcnew System::Drawing::Font(L"Tahoma", 6.5F));
+			this->label77->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
 			this->label77->ForeColor = System::Drawing::Color::Lime;
-			this->label77->Location = System::Drawing::Point(282, 4);
+			this->label77->Location = System::Drawing::Point(262, 7);
 			this->label77->Name = L"label77";
-			this->label77->Size = System::Drawing::Size(87, 22);
+			this->label77->Size = System::Drawing::Size(114, 13);
 			this->label77->TabIndex = 23;
-			this->label77->Text = L"Mob Filtering occurs\r\nwhen Mobs spawn\r\n";
+			this->label77->Text = L"Filters Mobs on Spawn";
 			this->label77->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
 			// 
 			// bMobFilter
 			// 
 			this->bMobFilter->FlatAppearance->BorderColor = System::Drawing::Color::Gray;
 			this->bMobFilter->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->bMobFilter->Font = (gcnew System::Drawing::Font(L"Tahoma", 6, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->bMobFilter->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->bMobFilter->Location = System::Drawing::Point(194, 2);
+			this->bMobFilter->Location = System::Drawing::Point(194, 157);
 			this->bMobFilter->Name = L"bMobFilter";
-			this->bMobFilter->Size = System::Drawing::Size(84, 22);
+			this->bMobFilter->Size = System::Drawing::Size(180, 23);
 			this->bMobFilter->TabIndex = 19;
 			this->bMobFilter->Text = L"Enable Mob Filter";
 			this->bMobFilter->UseVisualStyleBackColor = true;
@@ -5335,7 +5323,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->panel20->Controls->Add(this->bItemFilter);
 			this->panel20->Location = System::Drawing::Point(5, 5);
 			this->panel20->Name = L"panel20";
-			this->panel20->Size = System::Drawing::Size(406, 222);
+			this->panel20->Size = System::Drawing::Size(381, 186);
 			this->panel20->TabIndex = 1;
 			// 
 			// lbItemSearchLog
@@ -5345,9 +5333,9 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->lbItemSearchLog->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 			this->lbItemSearchLog->ForeColor = System::Drawing::Color::White;
 			this->lbItemSearchLog->FormattingEnabled = true;
-			this->lbItemSearchLog->Location = System::Drawing::Point(194, 48);
+			this->lbItemSearchLog->Location = System::Drawing::Point(194, 44);
 			this->lbItemSearchLog->Name = L"lbItemSearchLog";
-			this->lbItemSearchLog->Size = System::Drawing::Size(179, 145);
+			this->lbItemSearchLog->Size = System::Drawing::Size(179, 80);
 			this->lbItemSearchLog->TabIndex = 52;
 			this->lbItemSearchLog->MouseDoubleClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::lbItemSearchLog_MouseDoubleClick);
 			// 
@@ -5358,9 +5346,9 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->lbItemFilter->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 			this->lbItemFilter->ForeColor = System::Drawing::Color::White;
 			this->lbItemFilter->FormattingEnabled = true;
-			this->lbItemFilter->Location = System::Drawing::Point(6, 8);
+			this->lbItemFilter->Location = System::Drawing::Point(7, 8);
 			this->lbItemFilter->Name = L"lbItemFilter";
-			this->lbItemFilter->Size = System::Drawing::Size(180, 184);
+			this->lbItemFilter->Size = System::Drawing::Size(180, 145);
 			this->lbItemFilter->TabIndex = 31;
 			this->lbItemFilter->MouseDoubleClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::lbItemFilter_MouseDoubleClick);
 			// 
@@ -5370,11 +5358,11 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->cbItemFilterLog->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
 			this->cbItemFilterLog->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->cbItemFilterLog->ForeColor = System::Drawing::Color::White;
-			this->cbItemFilterLog->Location = System::Drawing::Point(333, 29);
+			this->cbItemFilterLog->Location = System::Drawing::Point(194, 5);
 			this->cbItemFilterLog->Name = L"cbItemFilterLog";
-			this->cbItemFilterLog->Size = System::Drawing::Size(40, 17);
+			this->cbItemFilterLog->Size = System::Drawing::Size(70, 17);
 			this->cbItemFilterLog->TabIndex = 30;
-			this->cbItemFilterLog->Text = L"Log";
+			this->cbItemFilterLog->Text = L"Log Items";
 			this->cbItemFilterLog->UseVisualStyleBackColor = false;
 			this->cbItemFilterLog->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbItemFilterLog_CheckedChanged);
 			// 
@@ -5382,11 +5370,11 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			// 
 			this->bItemSearchLogClear->FlatAppearance->BorderColor = System::Drawing::Color::Gray;
 			this->bItemSearchLogClear->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->bItemSearchLogClear->Font = (gcnew System::Drawing::Font(L"Tahoma", 6, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->bItemSearchLogClear->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->bItemSearchLogClear->Location = System::Drawing::Point(337, 196);
+			this->bItemSearchLogClear->Location = System::Drawing::Point(326, 129);
 			this->bItemSearchLogClear->Name = L"bItemSearchLogClear";
-			this->bItemSearchLogClear->Size = System::Drawing::Size(36, 20);
+			this->bItemSearchLogClear->Size = System::Drawing::Size(47, 23);
 			this->bItemSearchLogClear->TabIndex = 29;
 			this->bItemSearchLogClear->Text = L"Clear";
 			this->bItemSearchLogClear->UseVisualStyleBackColor = true;
@@ -5398,9 +5386,9 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 				static_cast<System::Int32>(static_cast<System::Byte>(35)), static_cast<System::Int32>(static_cast<System::Byte>(35)));
 			this->tbItemFilterSearch->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 			this->tbItemFilterSearch->ForeColor = System::Drawing::Color::White;
-			this->tbItemFilterSearch->Location = System::Drawing::Point(233, 195);
+			this->tbItemFilterSearch->Location = System::Drawing::Point(233, 130);
 			this->tbItemFilterSearch->Name = L"tbItemFilterSearch";
-			this->tbItemFilterSearch->Size = System::Drawing::Size(98, 21);
+			this->tbItemFilterSearch->Size = System::Drawing::Size(87, 21);
 			this->tbItemFilterSearch->TabIndex = 27;
 			this->tbItemFilterSearch->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
 			this->tbItemFilterSearch->TextChanged += gcnew System::EventHandler(this, &MainForm::tbItemFilterSearch_TextChanged);
@@ -5408,7 +5396,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			// label74
 			// 
 			this->label74->AutoSize = true;
-			this->label74->Location = System::Drawing::Point(191, 198);
+			this->label74->Location = System::Drawing::Point(191, 134);
 			this->label74->Name = L"label74";
 			this->label74->Size = System::Drawing::Size(44, 13);
 			this->label74->TabIndex = 28;
@@ -5418,11 +5406,11 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			// 
 			this->bItemFilterAdd->FlatAppearance->BorderColor = System::Drawing::Color::Gray;
 			this->bItemFilterAdd->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->bItemFilterAdd->Font = (gcnew System::Drawing::Font(L"Tahoma", 6, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->bItemFilterAdd->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->bItemFilterAdd->Location = System::Drawing::Point(152, 195);
+			this->bItemFilterAdd->Location = System::Drawing::Point(151, 157);
 			this->bItemFilterAdd->Name = L"bItemFilterAdd";
-			this->bItemFilterAdd->Size = System::Drawing::Size(36, 20);
+			this->bItemFilterAdd->Size = System::Drawing::Size(37, 23);
 			this->bItemFilterAdd->TabIndex = 26;
 			this->bItemFilterAdd->Text = L"Add";
 			this->bItemFilterAdd->UseVisualStyleBackColor = true;
@@ -5434,9 +5422,9 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 				static_cast<System::Int32>(static_cast<System::Byte>(35)));
 			this->tbItemFilterID->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 			this->tbItemFilterID->ForeColor = System::Drawing::Color::White;
-			this->tbItemFilterID->Location = System::Drawing::Point(64, 195);
+			this->tbItemFilterID->Location = System::Drawing::Point(65, 158);
 			this->tbItemFilterID->Name = L"tbItemFilterID";
-			this->tbItemFilterID->Size = System::Drawing::Size(82, 21);
+			this->tbItemFilterID->Size = System::Drawing::Size(81, 21);
 			this->tbItemFilterID->TabIndex = 24;
 			this->tbItemFilterID->Text = L"5070000";
 			this->tbItemFilterID->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
@@ -5445,7 +5433,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			// label73
 			// 
 			this->label73->AutoSize = true;
-			this->label73->Location = System::Drawing::Point(6, 198);
+			this->label73->Location = System::Drawing::Point(6, 162);
 			this->label73->Name = L"label73";
 			this->label73->Size = System::Drawing::Size(59, 13);
 			this->label73->TabIndex = 25;
@@ -5457,7 +5445,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 				static_cast<System::Int32>(static_cast<System::Byte>(35)), static_cast<System::Int32>(static_cast<System::Byte>(35)));
 			this->tbItemFilterMesos->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 			this->tbItemFilterMesos->ForeColor = System::Drawing::Color::White;
-			this->tbItemFilterMesos->Location = System::Drawing::Point(334, 3);
+			this->tbItemFilterMesos->Location = System::Drawing::Point(334, 4);
 			this->tbItemFilterMesos->Name = L"tbItemFilterMesos";
 			this->tbItemFilterMesos->Size = System::Drawing::Size(39, 21);
 			this->tbItemFilterMesos->TabIndex = 22;
@@ -5469,7 +5457,8 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			// label70
 			// 
 			this->label70->AutoSize = true;
-			this->label70->Location = System::Drawing::Point(280, 6);
+			this->label70->ForeColor = System::Drawing::Color::Lime;
+			this->label70->Location = System::Drawing::Point(276, 7);
 			this->label70->Name = L"label70";
 			this->label70->Size = System::Drawing::Size(56, 13);
 			this->label70->TabIndex = 23;
@@ -5480,7 +5469,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->rbItemFilterWhiteList->AutoSize = true;
 			this->rbItemFilterWhiteList->Checked = true;
 			this->rbItemFilterWhiteList->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->rbItemFilterWhiteList->Location = System::Drawing::Point(196, 29);
+			this->rbItemFilterWhiteList->Location = System::Drawing::Point(208, 26);
 			this->rbItemFilterWhiteList->Name = L"rbItemFilterWhiteList";
 			this->rbItemFilterWhiteList->Size = System::Drawing::Size(68, 17);
 			this->rbItemFilterWhiteList->TabIndex = 21;
@@ -5493,7 +5482,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			// 
 			this->rbItemFilterBlackList->AutoSize = true;
 			this->rbItemFilterBlackList->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->rbItemFilterBlackList->Location = System::Drawing::Point(267, 29);
+			this->rbItemFilterBlackList->Location = System::Drawing::Point(301, 27);
 			this->rbItemFilterBlackList->Name = L"rbItemFilterBlackList";
 			this->rbItemFilterBlackList->Size = System::Drawing::Size(64, 17);
 			this->rbItemFilterBlackList->TabIndex = 20;
@@ -5504,11 +5493,11 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			// 
 			this->bItemFilter->FlatAppearance->BorderColor = System::Drawing::Color::Gray;
 			this->bItemFilter->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->bItemFilter->Font = (gcnew System::Drawing::Font(L"Tahoma", 6, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->bItemFilter->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->bItemFilter->Location = System::Drawing::Point(194, 2);
+			this->bItemFilter->Location = System::Drawing::Point(194, 157);
 			this->bItemFilter->Name = L"bItemFilter";
-			this->bItemFilter->Size = System::Drawing::Size(84, 22);
+			this->bItemFilter->Size = System::Drawing::Size(180, 23);
 			this->bItemFilter->TabIndex = 19;
 			this->bItemFilter->Text = L"Enable Item Filter";
 			this->bItemFilter->UseVisualStyleBackColor = true;
@@ -5521,7 +5510,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->tabPage8->Controls->Add(this->tabControl5);
 			this->tabPage8->Location = System::Drawing::Point(4, 22);
 			this->tabPage8->Name = L"tabPage8";
-			this->tabPage8->Size = System::Drawing::Size(414, 396);
+			this->tabPage8->Size = System::Drawing::Size(390, 385);
 			this->tabPage8->TabIndex = 5;
 			this->tabPage8->Text = L"Packets";
 			// 
@@ -5534,7 +5523,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->tabControl5->Location = System::Drawing::Point(-6, 0);
 			this->tabControl5->Name = L"tabControl5";
 			this->tabControl5->SelectedIndex = 0;
-			this->tabControl5->Size = System::Drawing::Size(402, 339);
+			this->tabControl5->Size = System::Drawing::Size(402, 389);
 			this->tabControl5->TabIndex = 3;
 			// 
 			// tabPage16
@@ -5555,14 +5544,14 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->tabPage16->Location = System::Drawing::Point(4, 22);
 			this->tabPage16->Name = L"tabPage16";
 			this->tabPage16->Padding = System::Windows::Forms::Padding(3);
-			this->tabPage16->Size = System::Drawing::Size(394, 313);
+			this->tabPage16->Size = System::Drawing::Size(394, 363);
 			this->tabPage16->TabIndex = 1;
 			this->tabPage16->Text = L"Send";
 			// 
 			// label81
 			// 
 			this->label81->AutoSize = true;
-			this->label81->Location = System::Drawing::Point(142, 253);
+			this->label81->Location = System::Drawing::Point(142, 299);
 			this->label81->Name = L"label81";
 			this->label81->Size = System::Drawing::Size(63, 26);
 			this->label81->TabIndex = 21;
@@ -5575,7 +5564,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 				static_cast<System::Int32>(static_cast<System::Byte>(35)));
 			this->tbSendSpamDelay->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 			this->tbSendSpamDelay->ForeColor = System::Drawing::Color::White;
-			this->tbSendSpamDelay->Location = System::Drawing::Point(210, 255);
+			this->tbSendSpamDelay->Location = System::Drawing::Point(210, 301);
 			this->tbSendSpamDelay->Name = L"tbSendSpamDelay";
 			this->tbSendSpamDelay->Size = System::Drawing::Size(43, 21);
 			this->tbSendSpamDelay->TabIndex = 20;
@@ -5589,7 +5578,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->cbSendSpam->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
 			this->cbSendSpam->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->cbSendSpam->ForeColor = System::Drawing::Color::White;
-			this->cbSendSpam->Location = System::Drawing::Point(12, 286);
+			this->cbSendSpam->Location = System::Drawing::Point(12, 335);
 			this->cbSendSpam->Name = L"cbSendSpam";
 			this->cbSendSpam->Size = System::Drawing::Size(49, 17);
 			this->cbSendSpam->TabIndex = 19;
@@ -5600,7 +5589,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			// 
 			this->bSendRemove->FlatAppearance->BorderColor = System::Drawing::Color::Gray;
 			this->bSendRemove->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->bSendRemove->Location = System::Drawing::Point(8, 253);
+			this->bSendRemove->Location = System::Drawing::Point(8, 299);
 			this->bSendRemove->Name = L"bSendRemove";
 			this->bSendRemove->Size = System::Drawing::Size(66, 25);
 			this->bSendRemove->TabIndex = 18;
@@ -5616,7 +5605,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->lvSendBlock->ForeColor = System::Drawing::Color::White;
 			this->lvSendBlock->Location = System::Drawing::Point(8, 6);
 			this->lvSendBlock->Name = L"lvSendBlock";
-			this->lvSendBlock->Size = System::Drawing::Size(66, 242);
+			this->lvSendBlock->Size = System::Drawing::Size(66, 288);
 			this->lvSendBlock->TabIndex = 17;
 			this->lvSendBlock->UseCompatibleStateImageBehavior = false;
 			this->lvSendBlock->View = System::Windows::Forms::View::Details;
@@ -5627,7 +5616,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 				static_cast<System::Int32>(static_cast<System::Byte>(35)));
 			this->tbSendPacket->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 			this->tbSendPacket->ForeColor = System::Drawing::Color::White;
-			this->tbSendPacket->Location = System::Drawing::Point(80, 284);
+			this->tbSendPacket->Location = System::Drawing::Point(80, 333);
 			this->tbSendPacket->Name = L"tbSendPacket";
 			this->tbSendPacket->Size = System::Drawing::Size(201, 21);
 			this->tbSendPacket->TabIndex = 16;
@@ -5637,7 +5626,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			// 
 			this->bSendBlock->FlatAppearance->BorderColor = System::Drawing::Color::Gray;
 			this->bSendBlock->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->bSendBlock->Location = System::Drawing::Point(80, 253);
+			this->bSendBlock->Location = System::Drawing::Point(80, 299);
 			this->bSendBlock->Name = L"bSendBlock";
 			this->bSendBlock->Size = System::Drawing::Size(46, 25);
 			this->bSendBlock->TabIndex = 15;
@@ -5648,7 +5637,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			// 
 			this->bSendLog->FlatAppearance->BorderColor = System::Drawing::Color::Gray;
 			this->bSendLog->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->bSendLog->Location = System::Drawing::Point(259, 253);
+			this->bSendLog->Location = System::Drawing::Point(259, 299);
 			this->bSendLog->Name = L"bSendLog";
 			this->bSendLog->Size = System::Drawing::Size(72, 25);
 			this->bSendLog->TabIndex = 14;
@@ -5660,7 +5649,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			// 
 			this->bSendClear->FlatAppearance->BorderColor = System::Drawing::Color::Gray;
 			this->bSendClear->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->bSendClear->Location = System::Drawing::Point(334, 253);
+			this->bSendClear->Location = System::Drawing::Point(334, 299);
 			this->bSendClear->Name = L"bSendClear";
 			this->bSendClear->Size = System::Drawing::Size(50, 25);
 			this->bSendClear->TabIndex = 13;
@@ -5671,7 +5660,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			// 
 			this->bSendPacket->FlatAppearance->BorderColor = System::Drawing::Color::Gray;
 			this->bSendPacket->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->bSendPacket->Location = System::Drawing::Point(287, 282);
+			this->bSendPacket->Location = System::Drawing::Point(287, 331);
 			this->bSendPacket->Name = L"bSendPacket";
 			this->bSendPacket->Size = System::Drawing::Size(97, 25);
 			this->bSendPacket->TabIndex = 12;
@@ -5685,19 +5674,13 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 				static_cast<System::Int32>(static_cast<System::Byte>(25)));
 			this->lvSend->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 			this->lvSend->CheckBoxes = true;
-			this->lvSend->Columns->AddRange(gcnew cli::array< System::Windows::Forms::ColumnHeader^  >(1) { this->columnHeader6 });
 			this->lvSend->ForeColor = System::Drawing::Color::White;
 			this->lvSend->Location = System::Drawing::Point(80, 6);
 			this->lvSend->Name = L"lvSend";
-			this->lvSend->Size = System::Drawing::Size(304, 242);
+			this->lvSend->Size = System::Drawing::Size(304, 288);
 			this->lvSend->TabIndex = 0;
 			this->lvSend->UseCompatibleStateImageBehavior = false;
 			this->lvSend->View = System::Windows::Forms::View::Details;
-			// 
-			// columnHeader6
-			// 
-			this->columnHeader6->Text = L"Packet";
-			this->columnHeader6->Width = 293;
 			// 
 			// tabPage15
 			// 
@@ -5714,7 +5697,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->tabPage15->Location = System::Drawing::Point(4, 22);
 			this->tabPage15->Name = L"tabPage15";
 			this->tabPage15->Padding = System::Windows::Forms::Padding(3);
-			this->tabPage15->Size = System::Drawing::Size(394, 313);
+			this->tabPage15->Size = System::Drawing::Size(394, 363);
 			this->tabPage15->TabIndex = 0;
 			this->tabPage15->Text = L"Recv";
 			// 
@@ -5722,7 +5705,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			// 
 			this->bRecvRemove->FlatAppearance->BorderColor = System::Drawing::Color::Gray;
 			this->bRecvRemove->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->bRecvRemove->Location = System::Drawing::Point(9, 253);
+			this->bRecvRemove->Location = System::Drawing::Point(8, 299);
 			this->bRecvRemove->Name = L"bRecvRemove";
 			this->bRecvRemove->Size = System::Drawing::Size(66, 25);
 			this->bRecvRemove->TabIndex = 26;
@@ -5736,9 +5719,9 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->lvRecvBlock->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 			this->lvRecvBlock->CheckBoxes = true;
 			this->lvRecvBlock->ForeColor = System::Drawing::Color::White;
-			this->lvRecvBlock->Location = System::Drawing::Point(9, 6);
+			this->lvRecvBlock->Location = System::Drawing::Point(8, 6);
 			this->lvRecvBlock->Name = L"lvRecvBlock";
-			this->lvRecvBlock->Size = System::Drawing::Size(66, 241);
+			this->lvRecvBlock->Size = System::Drawing::Size(66, 288);
 			this->lvRecvBlock->TabIndex = 25;
 			this->lvRecvBlock->UseCompatibleStateImageBehavior = false;
 			this->lvRecvBlock->View = System::Windows::Forms::View::Details;
@@ -5749,7 +5732,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 				static_cast<System::Int32>(static_cast<System::Byte>(35)));
 			this->tbRecvPacket->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 			this->tbRecvPacket->ForeColor = System::Drawing::Color::White;
-			this->tbRecvPacket->Location = System::Drawing::Point(11, 284);
+			this->tbRecvPacket->Location = System::Drawing::Point(11, 333);
 			this->tbRecvPacket->Name = L"tbRecvPacket";
 			this->tbRecvPacket->Size = System::Drawing::Size(271, 21);
 			this->tbRecvPacket->TabIndex = 24;
@@ -5759,7 +5742,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			// 
 			this->bRecvBlock->FlatAppearance->BorderColor = System::Drawing::Color::Gray;
 			this->bRecvBlock->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->bRecvBlock->Location = System::Drawing::Point(81, 253);
+			this->bRecvBlock->Location = System::Drawing::Point(80, 299);
 			this->bRecvBlock->Name = L"bRecvBlock";
 			this->bRecvBlock->Size = System::Drawing::Size(66, 25);
 			this->bRecvBlock->TabIndex = 23;
@@ -5770,7 +5753,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			// 
 			this->bRecvLog->FlatAppearance->BorderColor = System::Drawing::Color::Gray;
 			this->bRecvLog->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->bRecvLog->Location = System::Drawing::Point(220, 253);
+			this->bRecvLog->Location = System::Drawing::Point(219, 299);
 			this->bRecvLog->Name = L"bRecvLog";
 			this->bRecvLog->Size = System::Drawing::Size(86, 25);
 			this->bRecvLog->TabIndex = 22;
@@ -5781,7 +5764,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			// 
 			this->bRecvClear->FlatAppearance->BorderColor = System::Drawing::Color::Gray;
 			this->bRecvClear->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->bRecvClear->Location = System::Drawing::Point(312, 253);
+			this->bRecvClear->Location = System::Drawing::Point(311, 299);
 			this->bRecvClear->Name = L"bRecvClear";
 			this->bRecvClear->Size = System::Drawing::Size(73, 25);
 			this->bRecvClear->TabIndex = 21;
@@ -5792,7 +5775,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			// 
 			this->bRecvPacket->FlatAppearance->BorderColor = System::Drawing::Color::Gray;
 			this->bRecvPacket->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->bRecvPacket->Location = System::Drawing::Point(288, 282);
+			this->bRecvPacket->Location = System::Drawing::Point(287, 331);
 			this->bRecvPacket->Name = L"bRecvPacket";
 			this->bRecvPacket->Size = System::Drawing::Size(97, 25);
 			this->bRecvPacket->TabIndex = 20;
@@ -5807,9 +5790,9 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->lvRecv->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 			this->lvRecv->CheckBoxes = true;
 			this->lvRecv->ForeColor = System::Drawing::Color::White;
-			this->lvRecv->Location = System::Drawing::Point(81, 6);
+			this->lvRecv->Location = System::Drawing::Point(80, 6);
 			this->lvRecv->Name = L"lvRecv";
-			this->lvRecv->Size = System::Drawing::Size(304, 241);
+			this->lvRecv->Size = System::Drawing::Size(304, 288);
 			this->lvRecv->TabIndex = 19;
 			this->lvRecv->UseCompatibleStateImageBehavior = false;
 			this->lvRecv->View = System::Windows::Forms::View::Details;
@@ -5821,7 +5804,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->tabPage18->Location = System::Drawing::Point(4, 22);
 			this->tabPage18->Name = L"tabPage18";
 			this->tabPage18->Padding = System::Windows::Forms::Padding(3);
-			this->tabPage18->Size = System::Drawing::Size(394, 313);
+			this->tabPage18->Size = System::Drawing::Size(394, 363);
 			this->tabPage18->TabIndex = 2;
 			this->tabPage18->Text = L"Multi Packet";
 			// 
@@ -5829,36 +5812,27 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			// 
 			this->tabPage19->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(25)), static_cast<System::Int32>(static_cast<System::Byte>(25)),
 				static_cast<System::Int32>(static_cast<System::Byte>(25)));
-			this->tabPage19->Controls->Add(this->panel29);
+			this->tabPage19->Controls->Add(this->bSendRevive);
+			this->tabPage19->Controls->Add(this->bSendRestore127Health);
 			this->tabPage19->Controls->Add(this->panel6);
+			this->tabPage19->Controls->Add(this->bSendSuicide);
+			this->tabPage19->Controls->Add(this->bSendDrop50000);
+			this->tabPage19->Controls->Add(this->bSendDrop1000);
+			this->tabPage19->Controls->Add(this->bSendMount);
+			this->tabPage19->Controls->Add(this->bSendDrop10);
+			this->tabPage19->Controls->Add(this->bSendDrop10000);
 			this->tabPage19->Location = System::Drawing::Point(4, 22);
 			this->tabPage19->Name = L"tabPage19";
 			this->tabPage19->Padding = System::Windows::Forms::Padding(3);
-			this->tabPage19->Size = System::Drawing::Size(394, 313);
+			this->tabPage19->Size = System::Drawing::Size(394, 363);
 			this->tabPage19->TabIndex = 3;
 			this->tabPage19->Text = L"Defined Packets";
-			// 
-			// panel29
-			// 
-			this->panel29->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
-			this->panel29->Controls->Add(this->bSendRevive);
-			this->panel29->Controls->Add(this->bSendRestore127Health);
-			this->panel29->Controls->Add(this->bSendSuicide);
-			this->panel29->Controls->Add(this->bSendDrop50000);
-			this->panel29->Controls->Add(this->bSendMount);
-			this->panel29->Controls->Add(this->bSendDrop10000);
-			this->panel29->Controls->Add(this->bSendDrop10);
-			this->panel29->Controls->Add(this->bSendDrop1000);
-			this->panel29->Location = System::Drawing::Point(12, 10);
-			this->panel29->Name = L"panel29";
-			this->panel29->Size = System::Drawing::Size(132, 261);
-			this->panel29->TabIndex = 21;
 			// 
 			// bSendRevive
 			// 
 			this->bSendRevive->FlatAppearance->BorderColor = System::Drawing::Color::Gray;
 			this->bSendRevive->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->bSendRevive->Location = System::Drawing::Point(7, 39);
+			this->bSendRevive->Location = System::Drawing::Point(271, 39);
 			this->bSendRevive->Name = L"bSendRevive";
 			this->bSendRevive->Size = System::Drawing::Size(117, 25);
 			this->bSendRevive->TabIndex = 22;
@@ -5870,85 +5844,13 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			// 
 			this->bSendRestore127Health->FlatAppearance->BorderColor = System::Drawing::Color::Gray;
 			this->bSendRestore127Health->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->bSendRestore127Health->Location = System::Drawing::Point(7, 225);
+			this->bSendRestore127Health->Location = System::Drawing::Point(271, 225);
 			this->bSendRestore127Health->Name = L"bSendRestore127Health";
 			this->bSendRestore127Health->Size = System::Drawing::Size(117, 25);
 			this->bSendRestore127Health->TabIndex = 21;
 			this->bSendRestore127Health->Text = L"Restore 127 Health";
 			this->bSendRestore127Health->UseVisualStyleBackColor = true;
 			this->bSendRestore127Health->Click += gcnew System::EventHandler(this, &MainForm::bSendRestore127Health_Click);
-			// 
-			// bSendSuicide
-			// 
-			this->bSendSuicide->FlatAppearance->BorderColor = System::Drawing::Color::Gray;
-			this->bSendSuicide->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->bSendSuicide->Location = System::Drawing::Point(7, 8);
-			this->bSendSuicide->Name = L"bSendSuicide";
-			this->bSendSuicide->Size = System::Drawing::Size(117, 25);
-			this->bSendSuicide->TabIndex = 15;
-			this->bSendSuicide->Text = L"Suicide";
-			this->bSendSuicide->UseVisualStyleBackColor = true;
-			this->bSendSuicide->Click += gcnew System::EventHandler(this, &MainForm::bSendSuicide_Click);
-			// 
-			// bSendDrop50000
-			// 
-			this->bSendDrop50000->FlatAppearance->BorderColor = System::Drawing::Color::Gray;
-			this->bSendDrop50000->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->bSendDrop50000->Location = System::Drawing::Point(7, 194);
-			this->bSendDrop50000->Name = L"bSendDrop50000";
-			this->bSendDrop50000->Size = System::Drawing::Size(117, 25);
-			this->bSendDrop50000->TabIndex = 20;
-			this->bSendDrop50000->Text = L"Drop 50,000 Mesos";
-			this->bSendDrop50000->UseVisualStyleBackColor = true;
-			this->bSendDrop50000->Click += gcnew System::EventHandler(this, &MainForm::bSendDrop50000_Click);
-			// 
-			// bSendMount
-			// 
-			this->bSendMount->FlatAppearance->BorderColor = System::Drawing::Color::Gray;
-			this->bSendMount->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->bSendMount->Location = System::Drawing::Point(7, 70);
-			this->bSendMount->Name = L"bSendMount";
-			this->bSendMount->Size = System::Drawing::Size(117, 25);
-			this->bSendMount->TabIndex = 16;
-			this->bSendMount->Text = L"Get On Mount";
-			this->bSendMount->UseVisualStyleBackColor = true;
-			this->bSendMount->Click += gcnew System::EventHandler(this, &MainForm::bSendMount_Click);
-			// 
-			// bSendDrop10000
-			// 
-			this->bSendDrop10000->FlatAppearance->BorderColor = System::Drawing::Color::Gray;
-			this->bSendDrop10000->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->bSendDrop10000->Location = System::Drawing::Point(7, 163);
-			this->bSendDrop10000->Name = L"bSendDrop10000";
-			this->bSendDrop10000->Size = System::Drawing::Size(117, 25);
-			this->bSendDrop10000->TabIndex = 19;
-			this->bSendDrop10000->Text = L"Drop 10,000 Mesos";
-			this->bSendDrop10000->UseVisualStyleBackColor = true;
-			this->bSendDrop10000->Click += gcnew System::EventHandler(this, &MainForm::bSendDrop10000_Click);
-			// 
-			// bSendDrop10
-			// 
-			this->bSendDrop10->FlatAppearance->BorderColor = System::Drawing::Color::Gray;
-			this->bSendDrop10->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->bSendDrop10->Location = System::Drawing::Point(7, 101);
-			this->bSendDrop10->Name = L"bSendDrop10";
-			this->bSendDrop10->Size = System::Drawing::Size(117, 25);
-			this->bSendDrop10->TabIndex = 17;
-			this->bSendDrop10->Text = L"Drop 10 Mesos";
-			this->bSendDrop10->UseVisualStyleBackColor = true;
-			this->bSendDrop10->Click += gcnew System::EventHandler(this, &MainForm::bSendDrop10_Click);
-			// 
-			// bSendDrop1000
-			// 
-			this->bSendDrop1000->FlatAppearance->BorderColor = System::Drawing::Color::Gray;
-			this->bSendDrop1000->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->bSendDrop1000->Location = System::Drawing::Point(7, 132);
-			this->bSendDrop1000->Name = L"bSendDrop1000";
-			this->bSendDrop1000->Size = System::Drawing::Size(117, 25);
-			this->bSendDrop1000->TabIndex = 18;
-			this->bSendDrop1000->Text = L"Drop 1000 Mesos";
-			this->bSendDrop1000->UseVisualStyleBackColor = true;
-			this->bSendDrop1000->Click += gcnew System::EventHandler(this, &MainForm::bSendDrop1000_Click);
 			// 
 			// panel6
 			// 
@@ -5969,9 +5871,9 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->panel6->Controls->Add(this->label32);
 			this->panel6->Controls->Add(this->tbAPLevel);
 			this->panel6->Controls->Add(this->cbAP);
-			this->panel6->Location = System::Drawing::Point(150, 10);
+			this->panel6->Location = System::Drawing::Point(8, 6);
 			this->panel6->Name = L"panel6";
-			this->panel6->Size = System::Drawing::Size(109, 171);
+			this->panel6->Size = System::Drawing::Size(116, 182);
 			this->panel6->TabIndex = 8;
 			// 
 			// label39
@@ -5981,7 +5883,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->label39->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->label39->ForeColor = System::Drawing::Color::DarkGray;
-			this->label39->Location = System::Drawing::Point(0, 135);
+			this->label39->Location = System::Drawing::Point(3, 138);
 			this->label39->Name = L"label39";
 			this->label39->Size = System::Drawing::Size(107, 26);
 			this->label39->TabIndex = 22;
@@ -5993,7 +5895,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 				static_cast<System::Int32>(static_cast<System::Byte>(35)));
 			this->tbAPDEX->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 			this->tbAPDEX->ForeColor = System::Drawing::Color::White;
-			this->tbAPDEX->Location = System::Drawing::Point(78, 81);
+			this->tbAPDEX->Location = System::Drawing::Point(81, 84);
 			this->tbAPDEX->Name = L"tbAPDEX";
 			this->tbAPDEX->Size = System::Drawing::Size(26, 21);
 			this->tbAPDEX->TabIndex = 10;
@@ -6006,7 +5908,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 				static_cast<System::Int32>(static_cast<System::Byte>(35)));
 			this->tbAPLUK->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 			this->tbAPLUK->ForeColor = System::Drawing::Color::White;
-			this->tbAPLUK->Location = System::Drawing::Point(78, 105);
+			this->tbAPLUK->Location = System::Drawing::Point(81, 108);
 			this->tbAPLUK->Name = L"tbAPLUK";
 			this->tbAPLUK->Size = System::Drawing::Size(26, 21);
 			this->tbAPLUK->TabIndex = 14;
@@ -6019,7 +5921,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 				static_cast<System::Int32>(static_cast<System::Byte>(35)));
 			this->tbAPINT->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 			this->tbAPINT->ForeColor = System::Drawing::Color::White;
-			this->tbAPINT->Location = System::Drawing::Point(25, 105);
+			this->tbAPINT->Location = System::Drawing::Point(28, 108);
 			this->tbAPINT->Name = L"tbAPINT";
 			this->tbAPINT->Size = System::Drawing::Size(26, 21);
 			this->tbAPINT->TabIndex = 17;
@@ -6030,7 +5932,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			// 
 			this->label38->AutoSize = true;
 			this->label38->BackColor = System::Drawing::Color::Transparent;
-			this->label38->Location = System::Drawing::Point(54, 107);
+			this->label38->Location = System::Drawing::Point(57, 110);
 			this->label38->Name = L"label38";
 			this->label38->Size = System::Drawing::Size(25, 13);
 			this->label38->TabIndex = 21;
@@ -6040,7 +5942,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			// 
 			this->label37->AutoSize = true;
 			this->label37->BackColor = System::Drawing::Color::Transparent;
-			this->label37->Location = System::Drawing::Point(2, 107);
+			this->label37->Location = System::Drawing::Point(5, 110);
 			this->label37->Name = L"label37";
 			this->label37->Size = System::Drawing::Size(24, 13);
 			this->label37->TabIndex = 20;
@@ -6050,7 +5952,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			// 
 			this->label36->AutoSize = true;
 			this->label36->BackColor = System::Drawing::Color::Transparent;
-			this->label36->Location = System::Drawing::Point(54, 83);
+			this->label36->Location = System::Drawing::Point(57, 86);
 			this->label36->Name = L"label36";
 			this->label36->Size = System::Drawing::Size(26, 13);
 			this->label36->TabIndex = 19;
@@ -6062,7 +5964,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 				static_cast<System::Int32>(static_cast<System::Byte>(35)));
 			this->tbAPSTR->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 			this->tbAPSTR->ForeColor = System::Drawing::Color::White;
-			this->tbAPSTR->Location = System::Drawing::Point(25, 81);
+			this->tbAPSTR->Location = System::Drawing::Point(28, 84);
 			this->tbAPSTR->Name = L"tbAPSTR";
 			this->tbAPSTR->Size = System::Drawing::Size(26, 21);
 			this->tbAPSTR->TabIndex = 12;
@@ -6073,7 +5975,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			// 
 			this->label35->AutoSize = true;
 			this->label35->BackColor = System::Drawing::Color::Transparent;
-			this->label35->Location = System::Drawing::Point(1, 83);
+			this->label35->Location = System::Drawing::Point(4, 86);
 			this->label35->Name = L"label35";
 			this->label35->Size = System::Drawing::Size(26, 13);
 			this->label35->TabIndex = 18;
@@ -6085,7 +5987,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 				static_cast<System::Int32>(static_cast<System::Byte>(35)));
 			this->tbAPMP->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 			this->tbAPMP->ForeColor = System::Drawing::Color::White;
-			this->tbAPMP->Location = System::Drawing::Point(78, 57);
+			this->tbAPMP->Location = System::Drawing::Point(81, 60);
 			this->tbAPMP->Name = L"tbAPMP";
 			this->tbAPMP->Size = System::Drawing::Size(26, 21);
 			this->tbAPMP->TabIndex = 9;
@@ -6096,7 +5998,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			// 
 			this->label34->AutoSize = true;
 			this->label34->BackColor = System::Drawing::Color::Transparent;
-			this->label34->Location = System::Drawing::Point(59, 60);
+			this->label34->Location = System::Drawing::Point(62, 63);
 			this->label34->Name = L"label34";
 			this->label34->Size = System::Drawing::Size(21, 13);
 			this->label34->TabIndex = 16;
@@ -6108,7 +6010,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 				static_cast<System::Int32>(static_cast<System::Byte>(35)));
 			this->tbAPHP->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 			this->tbAPHP->ForeColor = System::Drawing::Color::White;
-			this->tbAPHP->Location = System::Drawing::Point(25, 57);
+			this->tbAPHP->Location = System::Drawing::Point(28, 60);
 			this->tbAPHP->Name = L"tbAPHP";
 			this->tbAPHP->Size = System::Drawing::Size(26, 21);
 			this->tbAPHP->TabIndex = 11;
@@ -6119,7 +6021,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			// 
 			this->label33->AutoSize = true;
 			this->label33->BackColor = System::Drawing::Color::Transparent;
-			this->label33->Location = System::Drawing::Point(7, 60);
+			this->label33->Location = System::Drawing::Point(10, 63);
 			this->label33->Name = L"label33";
 			this->label33->Size = System::Drawing::Size(20, 13);
 			this->label33->TabIndex = 15;
@@ -6129,7 +6031,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			// 
 			this->label32->AutoSize = true;
 			this->label32->BackColor = System::Drawing::Color::Transparent;
-			this->label32->Location = System::Drawing::Point(2, 32);
+			this->label32->Location = System::Drawing::Point(5, 35);
 			this->label32->Name = L"label32";
 			this->label32->Size = System::Drawing::Size(51, 13);
 			this->label32->TabIndex = 8;
@@ -6141,7 +6043,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 				static_cast<System::Int32>(static_cast<System::Byte>(35)));
 			this->tbAPLevel->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 			this->tbAPLevel->ForeColor = System::Drawing::Color::White;
-			this->tbAPLevel->Location = System::Drawing::Point(59, 28);
+			this->tbAPLevel->Location = System::Drawing::Point(62, 31);
 			this->tbAPLevel->Name = L"tbAPLevel";
 			this->tbAPLevel->Size = System::Drawing::Size(45, 21);
 			this->tbAPLevel->TabIndex = 6;
@@ -6155,12 +6057,84 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->cbAP->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
 			this->cbAP->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->cbAP->ForeColor = System::Drawing::Color::White;
-			this->cbAP->Location = System::Drawing::Point(5, 6);
+			this->cbAP->Location = System::Drawing::Point(8, 6);
 			this->cbAP->Name = L"cbAP";
 			this->cbAP->Size = System::Drawing::Size(62, 17);
 			this->cbAP->TabIndex = 1;
 			this->cbAP->Text = L"Auto AP";
 			this->cbAP->UseVisualStyleBackColor = false;
+			// 
+			// bSendSuicide
+			// 
+			this->bSendSuicide->FlatAppearance->BorderColor = System::Drawing::Color::Gray;
+			this->bSendSuicide->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->bSendSuicide->Location = System::Drawing::Point(271, 8);
+			this->bSendSuicide->Name = L"bSendSuicide";
+			this->bSendSuicide->Size = System::Drawing::Size(117, 25);
+			this->bSendSuicide->TabIndex = 15;
+			this->bSendSuicide->Text = L"Suicide";
+			this->bSendSuicide->UseVisualStyleBackColor = true;
+			this->bSendSuicide->Click += gcnew System::EventHandler(this, &MainForm::bSendSuicide_Click);
+			// 
+			// bSendDrop50000
+			// 
+			this->bSendDrop50000->FlatAppearance->BorderColor = System::Drawing::Color::Gray;
+			this->bSendDrop50000->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->bSendDrop50000->Location = System::Drawing::Point(271, 194);
+			this->bSendDrop50000->Name = L"bSendDrop50000";
+			this->bSendDrop50000->Size = System::Drawing::Size(117, 25);
+			this->bSendDrop50000->TabIndex = 20;
+			this->bSendDrop50000->Text = L"Drop 50,000 Mesos";
+			this->bSendDrop50000->UseVisualStyleBackColor = true;
+			this->bSendDrop50000->Click += gcnew System::EventHandler(this, &MainForm::bSendDrop50000_Click);
+			// 
+			// bSendDrop1000
+			// 
+			this->bSendDrop1000->FlatAppearance->BorderColor = System::Drawing::Color::Gray;
+			this->bSendDrop1000->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->bSendDrop1000->Location = System::Drawing::Point(271, 132);
+			this->bSendDrop1000->Name = L"bSendDrop1000";
+			this->bSendDrop1000->Size = System::Drawing::Size(117, 25);
+			this->bSendDrop1000->TabIndex = 18;
+			this->bSendDrop1000->Text = L"Drop 1000 Mesos";
+			this->bSendDrop1000->UseVisualStyleBackColor = true;
+			this->bSendDrop1000->Click += gcnew System::EventHandler(this, &MainForm::bSendDrop1000_Click);
+			// 
+			// bSendMount
+			// 
+			this->bSendMount->FlatAppearance->BorderColor = System::Drawing::Color::Gray;
+			this->bSendMount->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->bSendMount->Location = System::Drawing::Point(271, 70);
+			this->bSendMount->Name = L"bSendMount";
+			this->bSendMount->Size = System::Drawing::Size(117, 25);
+			this->bSendMount->TabIndex = 16;
+			this->bSendMount->Text = L"Get On Mount";
+			this->bSendMount->UseVisualStyleBackColor = true;
+			this->bSendMount->Click += gcnew System::EventHandler(this, &MainForm::bSendMount_Click);
+			// 
+			// bSendDrop10
+			// 
+			this->bSendDrop10->FlatAppearance->BorderColor = System::Drawing::Color::Gray;
+			this->bSendDrop10->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->bSendDrop10->Location = System::Drawing::Point(271, 101);
+			this->bSendDrop10->Name = L"bSendDrop10";
+			this->bSendDrop10->Size = System::Drawing::Size(117, 25);
+			this->bSendDrop10->TabIndex = 17;
+			this->bSendDrop10->Text = L"Drop 10 Mesos";
+			this->bSendDrop10->UseVisualStyleBackColor = true;
+			this->bSendDrop10->Click += gcnew System::EventHandler(this, &MainForm::bSendDrop10_Click);
+			// 
+			// bSendDrop10000
+			// 
+			this->bSendDrop10000->FlatAppearance->BorderColor = System::Drawing::Color::Gray;
+			this->bSendDrop10000->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->bSendDrop10000->Location = System::Drawing::Point(271, 163);
+			this->bSendDrop10000->Name = L"bSendDrop10000";
+			this->bSendDrop10000->Size = System::Drawing::Size(117, 25);
+			this->bSendDrop10000->TabIndex = 19;
+			this->bSendDrop10000->Text = L"Drop 10,000 Mesos";
+			this->bSendDrop10000->UseVisualStyleBackColor = true;
+			this->bSendDrop10000->Click += gcnew System::EventHandler(this, &MainForm::bSendDrop10000_Click);
 			// 
 			// tabPage9
 			// 
@@ -6176,7 +6150,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->tabPage9->Controls->Add(this->panel30);
 			this->tabPage9->Location = System::Drawing::Point(4, 22);
 			this->tabPage9->Name = L"tabPage9";
-			this->tabPage9->Size = System::Drawing::Size(414, 396);
+			this->tabPage9->Size = System::Drawing::Size(390, 385);
 			this->tabPage9->TabIndex = 6;
 			this->tabPage9->Text = L"Map Rusher";
 			// 
@@ -6184,7 +6158,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			// 
 			this->label66->AutoSize = true;
 			this->label66->BackColor = System::Drawing::Color::Transparent;
-			this->label66->Location = System::Drawing::Point(198, 293);
+			this->label66->Location = System::Drawing::Point(198, 345);
 			this->label66->Name = L"label66";
 			this->label66->Size = System::Drawing::Size(62, 13);
 			this->label66->TabIndex = 45;
@@ -6196,7 +6170,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 				static_cast<System::Int32>(static_cast<System::Byte>(35)));
 			this->tbMapRusherDelay->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 			this->tbMapRusherDelay->ForeColor = System::Drawing::Color::White;
-			this->tbMapRusherDelay->Location = System::Drawing::Point(260, 290);
+			this->tbMapRusherDelay->Location = System::Drawing::Point(260, 342);
 			this->tbMapRusherDelay->Name = L"tbMapRusherDelay";
 			this->tbMapRusherDelay->Size = System::Drawing::Size(35, 21);
 			this->tbMapRusherDelay->TabIndex = 44;
@@ -6211,7 +6185,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->tvMapRusherSearch->ForeColor = System::Drawing::Color::White;
 			this->tvMapRusherSearch->Location = System::Drawing::Point(4, 3);
 			this->tvMapRusherSearch->Name = L"tvMapRusherSearch";
-			this->tvMapRusherSearch->Size = System::Drawing::Size(188, 309);
+			this->tvMapRusherSearch->Size = System::Drawing::Size(188, 360);
 			this->tvMapRusherSearch->TabIndex = 42;
 			this->tvMapRusherSearch->MouseDoubleClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::tvMapRusherSearch_MouseDoubleClick);
 			// 
@@ -6219,7 +6193,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			// 
 			this->lbMapRusherStatus->Anchor = System::Windows::Forms::AnchorStyles::Bottom;
 			this->lbMapRusherStatus->AutoSize = true;
-			this->lbMapRusherStatus->Location = System::Drawing::Point(6, 316);
+			this->lbMapRusherStatus->Location = System::Drawing::Point(3, 366);
 			this->lbMapRusherStatus->Name = L"lbMapRusherStatus";
 			this->lbMapRusherStatus->Size = System::Drawing::Size(381, 13);
 			this->lbMapRusherStatus->TabIndex = 37;
@@ -6233,7 +6207,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 				static_cast<System::Int32>(static_cast<System::Byte>(35)), static_cast<System::Int32>(static_cast<System::Byte>(35)));
 			this->tbMapRusherDestination->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 			this->tbMapRusherDestination->ForeColor = System::Drawing::Color::White;
-			this->tbMapRusherDestination->Location = System::Drawing::Point(301, 262);
+			this->tbMapRusherDestination->Location = System::Drawing::Point(301, 314);
 			this->tbMapRusherDestination->Name = L"tbMapRusherDestination";
 			this->tbMapRusherDestination->Size = System::Drawing::Size(85, 21);
 			this->tbMapRusherDestination->TabIndex = 35;
@@ -6244,7 +6218,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			// 
 			this->label79->AutoSize = true;
 			this->label79->BackColor = System::Drawing::Color::Transparent;
-			this->label79->Location = System::Drawing::Point(200, 266);
+			this->label79->Location = System::Drawing::Point(200, 318);
 			this->label79->Name = L"label79";
 			this->label79->Size = System::Drawing::Size(102, 13);
 			this->label79->TabIndex = 36;
@@ -6256,7 +6230,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->bMapRush->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->bMapRush->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->bMapRush->Location = System::Drawing::Point(301, 288);
+			this->bMapRush->Location = System::Drawing::Point(301, 340);
 			this->bMapRush->Name = L"bMapRush";
 			this->bMapRush->Size = System::Drawing::Size(85, 24);
 			this->bMapRush->TabIndex = 34;
@@ -6272,7 +6246,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->panel30->Controls->Add(this->label78);
 			this->panel30->Location = System::Drawing::Point(196, 3);
 			this->panel30->Name = L"panel30";
-			this->panel30->Size = System::Drawing::Size(190, 255);
+			this->panel30->Size = System::Drawing::Size(190, 305);
 			this->panel30->TabIndex = 43;
 			// 
 			// lvMapRusherSearch
@@ -6290,7 +6264,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->lvMapRusherSearch->Location = System::Drawing::Point(-1, -1);
 			this->lvMapRusherSearch->MultiSelect = false;
 			this->lvMapRusherSearch->Name = L"lvMapRusherSearch";
-			this->lvMapRusherSearch->Size = System::Drawing::Size(190, 223);
+			this->lvMapRusherSearch->Size = System::Drawing::Size(190, 269);
 			this->lvMapRusherSearch->TabIndex = 34;
 			this->lvMapRusherSearch->UseCompatibleStateImageBehavior = false;
 			this->lvMapRusherSearch->View = System::Windows::Forms::View::Details;
@@ -6312,7 +6286,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 				static_cast<System::Int32>(static_cast<System::Byte>(35)), static_cast<System::Int32>(static_cast<System::Byte>(35)));
 			this->tbMapRusherSearch->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 			this->tbMapRusherSearch->ForeColor = System::Drawing::Color::White;
-			this->tbMapRusherSearch->Location = System::Drawing::Point(48, 227);
+			this->tbMapRusherSearch->Location = System::Drawing::Point(48, 275);
 			this->tbMapRusherSearch->Name = L"tbMapRusherSearch";
 			this->tbMapRusherSearch->Size = System::Drawing::Size(134, 21);
 			this->tbMapRusherSearch->TabIndex = 32;
@@ -6322,29 +6296,15 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			// label78
 			// 
 			this->label78->AutoSize = true;
-			this->label78->Location = System::Drawing::Point(4, 231);
+			this->label78->Location = System::Drawing::Point(4, 279);
 			this->label78->Name = L"label78";
 			this->label78->Size = System::Drawing::Size(44, 13);
 			this->label78->TabIndex = 33;
 			this->label78->Text = L"Search:";
 			// 
-			// statusStrip1
-			// 
-			this->statusStrip1->BackColor = System::Drawing::Color::Transparent;
-			this->statusStrip1->ImageScalingSize = System::Drawing::Size(32, 32);
-			this->statusStrip1->Location = System::Drawing::Point(0, 500);
-			this->statusStrip1->Name = L"statusStrip1";
-			this->statusStrip1->Size = System::Drawing::Size(657, 22);
-			this->statusStrip1->TabIndex = 10;
-			this->statusStrip1->Text = L"statusStrip1";
-			this->statusStrip1->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::pnlFull_MouseDown);
-			this->statusStrip1->MouseMove += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::pnlFull_MouseMove);
-			this->statusStrip1->MouseUp += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::pnlFull_MouseUp);
-			// 
 			// btnClose
 			// 
-			this->btnClose->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(20)), static_cast<System::Int32>(static_cast<System::Byte>(16)),
-				static_cast<System::Int32>(static_cast<System::Byte>(16)));
+			this->btnClose->BackColor = System::Drawing::Color::Transparent;
 			this->btnClose->FlatAppearance->BorderColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)),
 				static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
 			this->btnClose->FlatAppearance->BorderSize = 0;
@@ -6355,33 +6315,13 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->btnClose->Font = (gcnew System::Drawing::Font(L"Lucida Console", 15.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->btnClose->ForeColor = System::Drawing::Color::Firebrick;
-			this->btnClose->Location = System::Drawing::Point(617, -2);
+			this->btnClose->Location = System::Drawing::Point(520, -1);
 			this->btnClose->Name = L"btnClose";
-			this->btnClose->Size = System::Drawing::Size(29, 29);
+			this->btnClose->Size = System::Drawing::Size(29, 30);
 			this->btnClose->TabIndex = 8;
 			this->btnClose->Text = L"x";
 			this->btnClose->UseVisualStyleBackColor = false;
 			this->btnClose->Click += gcnew System::EventHandler(this, &MainForm::btnClose_Click);
-			// 
-			// btnMinimize
-			// 
-			this->btnMinimize->FlatAppearance->BorderColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)),
-				static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
-			this->btnMinimize->FlatAppearance->BorderSize = 0;
-			this->btnMinimize->FlatAppearance->MouseDownBackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(31)),
-				static_cast<System::Int32>(static_cast<System::Byte>(31)), static_cast<System::Int32>(static_cast<System::Byte>(31)));
-			this->btnMinimize->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
-			this->btnMinimize->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->btnMinimize->Font = (gcnew System::Drawing::Font(L"Lucida Console", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->btnMinimize->ForeColor = System::Drawing::Color::Silver;
-			this->btnMinimize->Location = System::Drawing::Point(595, -3);
-			this->btnMinimize->Name = L"btnMinimize";
-			this->btnMinimize->Size = System::Drawing::Size(29, 29);
-			this->btnMinimize->TabIndex = 9;
-			this->btnMinimize->Text = L"_";
-			this->btnMinimize->UseVisualStyleBackColor = false;
-			this->btnMinimize->Click += gcnew System::EventHandler(this, &MainForm::btnMinimize_Click);
 			// 
 			// GUITimer
 			// 
@@ -6395,19 +6335,17 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->AutoCCCSTimer->Interval = 250;
 			this->AutoCCCSTimer->Tick += gcnew System::EventHandler(this, &MainForm::AutoCCCSTimer_Tick);
 			// 
-			// cbNoWalkFricSlide
+			// bUEMIGetCurrentLocation
 			// 
-			this->cbNoWalkFricSlide->AutoSize = true;
-			this->cbNoWalkFricSlide->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
-			this->cbNoWalkFricSlide->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->cbNoWalkFricSlide->ForeColor = System::Drawing::Color::White;
-			this->cbNoWalkFricSlide->Location = System::Drawing::Point(6, 120);
-			this->cbNoWalkFricSlide->Name = L"cbNoWalkFricSlide";
-			this->cbNoWalkFricSlide->Size = System::Drawing::Size(143, 17);
-			this->cbNoWalkFricSlide->TabIndex = 11;
-			this->cbNoWalkFricSlide->Text = L"No Walk Frictionless Slide";
-			this->cbNoWalkFricSlide->UseVisualStyleBackColor = false;
-			this->cbNoWalkFricSlide->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbNoWalkFricSlide_CheckedChanged);
+			this->bUEMIGetCurrentLocation->FlatAppearance->BorderColor = System::Drawing::Color::Gray;
+			this->bUEMIGetCurrentLocation->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->bUEMIGetCurrentLocation->Location = System::Drawing::Point(3, 53);
+			this->bUEMIGetCurrentLocation->Name = L"bUEMIGetCurrentLocation";
+			this->bUEMIGetCurrentLocation->Size = System::Drawing::Size(124, 25);
+			this->bUEMIGetCurrentLocation->TabIndex = 30;
+			this->bUEMIGetCurrentLocation->Text = L"Get Current Location";
+			this->bUEMIGetCurrentLocation->UseVisualStyleBackColor = true;
+			this->bUEMIGetCurrentLocation->Click += gcnew System::EventHandler(this, &MainForm::bUEMIGetCurrentLocation_Click);
 			// 
 			// MainForm
 			// 
@@ -6415,7 +6353,7 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(16)), static_cast<System::Int32>(static_cast<System::Byte>(16)),
 				static_cast<System::Int32>(static_cast<System::Byte>(16)));
-			this->ClientSize = System::Drawing::Size(659, 526);
+			this->ClientSize = System::Drawing::Size(560, 500);
 			this->ControlBox = false;
 			this->Controls->Add(this->lbTitle);
 			this->Controls->Add(this->pictureBox2);
@@ -6431,16 +6369,13 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->FormClosing += gcnew System::Windows::Forms::FormClosingEventHandler(this, &MainForm::MainForm_FormClosing);
 			this->Load += gcnew System::EventHandler(this, &MainForm::MainForm_Load);
 			this->Shown += gcnew System::EventHandler(this, &MainForm::MainForm_Shown);
-			this->menuStrip1->ResumeLayout(false);
-			this->menuStrip1->PerformLayout();
+			this->MenuStrip->ResumeLayout(false);
+			this->MenuStrip->PerformLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->EndInit();
 			this->pnlFull->ResumeLayout(false);
 			this->pnlFull->PerformLayout();
 			this->pnlMiddle->ResumeLayout(false);
 			this->pnlMiddle->PerformLayout();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->EXPForeground))->EndInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->MPForeground))->EndInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->HPForeground))->EndInit();
 			this->tabControl1->ResumeLayout(false);
 			this->tabPage1->ResumeLayout(false);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->EndInit();
@@ -6473,18 +6408,19 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->panel2->ResumeLayout(false);
 			this->panel2->PerformLayout();
 			this->tabPage5->ResumeLayout(false);
-			this->gbOtherHacks->ResumeLayout(false);
-			this->gbOtherHacks->PerformLayout();
-			this->gbLootHacks->ResumeLayout(false);
-			this->gbLootHacks->PerformLayout();
-			this->gbMapHacks->ResumeLayout(false);
-			this->gbMapHacks->PerformLayout();
-			this->gbMobHacks->ResumeLayout(false);
-			this->gbMobHacks->PerformLayout();
-			this->gbCharacterHacks->ResumeLayout(false);
-			this->gbCharacterHacks->PerformLayout();
+			this->groupBox6->ResumeLayout(false);
+			this->groupBox6->PerformLayout();
+			this->groupBox5->ResumeLayout(false);
+			this->groupBox5->PerformLayout();
+			this->groupBox4->ResumeLayout(false);
+			this->groupBox4->PerformLayout();
+			this->groupBox3->ResumeLayout(false);
+			this->groupBox3->PerformLayout();
+			this->groupBox2->ResumeLayout(false);
+			this->groupBox2->PerformLayout();
+			this->groupBox1->ResumeLayout(false);
+			this->groupBox1->PerformLayout();
 			this->tabPage20->ResumeLayout(false);
-			this->tabPage20->PerformLayout();
 			this->panel27->ResumeLayout(false);
 			this->panel27->PerformLayout();
 			this->panel1->ResumeLayout(false);
@@ -6494,10 +6430,8 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->panel18->ResumeLayout(false);
 			this->panel18->PerformLayout();
 			this->tabPage6->ResumeLayout(false);
-			this->gbFullMapVacs->ResumeLayout(false);
-			this->gbFullMapVacs->PerformLayout();
-			this->gbPartialMapVacs->ResumeLayout(false);
-			this->gbPartialMapVacs->PerformLayout();
+			this->panel28->ResumeLayout(false);
+			this->panel28->PerformLayout();
 			this->panel17->ResumeLayout(false);
 			this->panel17->PerformLayout();
 			this->panel16->ResumeLayout(false);
@@ -6522,7 +6456,6 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 			this->tabPage15->ResumeLayout(false);
 			this->tabPage15->PerformLayout();
 			this->tabPage19->ResumeLayout(false);
-			this->panel29->ResumeLayout(false);
 			this->panel6->ResumeLayout(false);
 			this->panel6->PerformLayout();
 			this->tabPage9->ResumeLayout(false);
@@ -6544,7 +6477,6 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 	private: System::Void pnlFull_MouseUp(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e);
 	private: System::Void pnlFull_MouseMove(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e);
 	private: System::Void GUITimer_Tick(System::Object^  sender, System::EventArgs^  e);
-	private: System::Void RedrawStatBars();
 	private: System::Void closeMapleStoryToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void loadSettingsToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void saveSettingsToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e);
@@ -6627,13 +6559,13 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 	private: System::Void cbMissGodmode_CheckedChanged(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void cbInstantDropItems_CheckedChanged(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void cbInstantLootItems_CheckedChanged(System::Object^  sender, System::EventArgs^  e);
-	private: System::Void cbFastLootItems_CheckedChanged(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void cbTubi_CheckedChanged(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void cbItemVac_CheckedChanged(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void cbUnlimitedAttack_CheckedChanged(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void cbInfiniteChat_CheckedChanged(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void cbNoPlayerDeath_CheckedChanged(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void cbFullAccuracy_CheckedChanged(System::Object^  sender, System::EventArgs^  e);
-	private: System::Void cbSpeedAttack_CheckedChanged(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void cbAttackDelay_CheckedChanged(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void cbNoBreath_CheckedChanged(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void cbMouseFly_CheckedChanged(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void cbSwimInAir_CheckedChanged(System::Object^  sender, System::EventArgs^  e);
@@ -6656,7 +6588,6 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 	private: System::Void cbNoSkillEffects_CheckedChanged(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void cbNoAttackDelay_CheckedChanged(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void cbNoPlayerNameTag_CheckedChanged(System::Object^  sender, System::EventArgs^  e);
-	private: System::Void cbAttackAnimDelay_CheckedChanged(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void cbMobAutoAggro_CheckedChanged(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void cbNoMapBackground_CheckedChanged(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void cbNoMapObjects_CheckedChanged(System::Object^  sender, System::EventArgs^  e);
@@ -6664,14 +6595,8 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 	private: System::Void cbNoMapFadeEffect_CheckedChanged(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void cbMapSpeedUp_CheckedChanged(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void cbNoBlueBoxes_CheckedChanged(System::Object^  sender, System::EventArgs^  e);
-	private: System::Void cbNoWalkFricSlide_CheckedChanged(Object ^ sender, EventArgs ^ e);
 	private: System::Void cbFullMapAttack_CheckedChanged(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void cbZzVac_CheckedChanged(System::Object^  sender, System::EventArgs^  e);
-	private: System::Void cbVacForceRight_CheckedChanged(Object ^ sender, EventArgs ^ e);
-	private: System::Void cbVacRight_CheckedChanged(Object^ sender, EventArgs^ e);
-	private: System::Void cbVacLeft_CheckedChanged(Object^ sender, EventArgs^ e);
-	private: System::Void cbVacJumpRight_CheckedChanged(Object ^ sender, EventArgs ^ e);
-	private: System::Void cbVacJumpLeft_CheckedChanged(Object ^ sender, EventArgs ^ e);
 	private: System::Void bSpawnControlGetCurrentLocation_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void bSpawnControlAdd_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void bSpawnControlDelete_Click(System::Object^  sender, System::EventArgs^  e);
@@ -6711,6 +6636,15 @@ private: System::Windows::Forms::CheckBox^  cbNoWalkFricSlide;
 	private: System::Void tbMapRusherSearch_TextChanged(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void bMapRush_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void lbMapRusherStatus_TextChanged(System::Object^  sender, System::EventArgs^  e);
-	
-	};
+	private: System::Void cbNoWalkingFriction_CheckedChanged(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void cbVacForceRight_CheckedChanged(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void cbVacJumpRight_CheckedChanged(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void cbVacLeft_CheckedChanged(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void cbVacRight_CheckedChanged(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void cbVacJumpLeft_CheckedChanged(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void cbWallVac_CheckedChanged(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void bWallVacGetCurrentLocation_Click(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void cbUEMI_CheckedChanged(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void bUEMIGetCurrentLocation_Click(System::Object^  sender, System::EventArgs^  e);
+};
 }

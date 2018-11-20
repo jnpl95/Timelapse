@@ -10,7 +10,6 @@
 #include "resource.h"
 #include "Settings.h"
 #include "Log.h"
-#include "HelperFunctions.h"
 
 using namespace Timelapse;
 
@@ -24,6 +23,7 @@ ref struct GlobalRefs {
 	static Macro ^macroHP, ^macroMP, ^macroAttack, ^macroLoot;
 	static bool isChangingField = false, isMapRushing = false;
 	static bool bClickTeleport = false, bMouseTeleport = false, bTeleport = false, bKami = false, bKamiLoot = false;
+	static bool bWallVac = false, bDupeX = false, bMMC = false, bUEMI = false;
 	static UINT cccsTimerTickCount = 0;
 	static bool isDragging = false;
 	static Point dragOffset;
@@ -93,14 +93,17 @@ void MainForm::MainForm_FormClosing(Object^  sender, Windows::Forms::FormClosing
 	//Turn off all loops
 	GlobalRefs::isChangingField = false, GlobalRefs::isMapRushing = false;
 	GlobalRefs::bClickTeleport = false, GlobalRefs::bMouseTeleport = false, GlobalRefs::bTeleport = false;
+	GlobalRefs::bWallVac = false, GlobalRefs::bDupeX = false, GlobalRefs::bMMC = false, GlobalRefs::bUEMI = false;
 	GlobalRefs::bKami = false, GlobalRefs::bKamiLoot = false;
 	GlobalRefs::isDragging = false;
 	PriorityQueue::closeMacroQueue = true;
+
 	for (double i = this->Opacity; i > 0;) {
 		i -= 0.1;
 		this->Opacity = i;
 		this->Refresh();
 	}
+
 	Sleep(200);
 	Log::WriteLine("Deinitialized Timelapse trainer!");
 }
@@ -144,21 +147,16 @@ void MainForm::pnlFull_MouseMove(Object^  sender, Windows::Forms::MouseEventArgs
 	}
 }
 #pragma endregion
-#pragma endregion
 
 #pragma region ToolStrip
 void MainForm::closeMapleStoryToolStripMenuItem_Click(Object^  sender, EventArgs^  e) {
 	TerminateProcess(GetCurrentProcess(), 0);
 }
-#pragma endregion
 
-#pragma region LoadSettings
 void MainForm::loadSettingsToolStripMenuItem_Click(Object^  sender, EventArgs^  e) {
 	Settings::Deserialize(this, Settings::GetSettingsPath());
 }
-#pragma endregion
 
-#pragma region SaveSettings
 void MainForm::saveSettingsToolStripMenuItem_Click(Object^  sender, EventArgs^  e) {
 	Settings::Serialize(this, Settings::GetSettingsPath());
 }
@@ -207,9 +205,8 @@ void MainForm::lbWorld_MouseHover(Object^  sender, EventArgs^  e) {
 
 //Timer that ticks every 200ms and updates every label
 void MainForm::GUITimer_Tick(Object^  sender, EventArgs^  e) {
-	lbDateTime->Text = DateTime::Now.ToString();
 	lbThreadID->Text = "0x" + GetMSThreadID().ToString("X");
-
+	
 	if (GetMSThreadID()) {;
 		lbActive->Visible = true;
 		lbInactive->Visible = false;
@@ -219,32 +216,26 @@ void MainForm::GUITimer_Tick(Object^  sender, EventArgs^  e) {
 		lbInactive->Visible = true;
 	}
 
-	if (IsInGame()) {
-		lbHP->Text = PointerFuncs::getCharHP();
-		lbMP->Text = PointerFuncs::getCharMP();
-		lbEXP->Text = PointerFuncs::getCharEXP();
-
-		RedrawStatBars();
+	if (HelperFuncs::IsInGame()) {
+		lbMapName->Text = PointerFuncs::getMapName();
 
 		lbCharName->Text = PointerFuncs::getCharName();
 		lbLevel->Text = PointerFuncs::getCharLevel();
 		lbJob->Text = PointerFuncs::getCharJob();
+		lbHP->Text = PointerFuncs::getCharHP();
+		lbMP->Text = PointerFuncs::getCharMP();
+		lbEXP->Text = PointerFuncs::getCharEXP();
 		lbMesos->Text = PointerFuncs::getCharMesos().ToString("N0");
-
-		lbCharPos->Text = PointerFuncs::getCharPos();
-		lbMousePos->Text = PointerFuncs::getMousePos();
-		lbCharAnimID->Text = PointerFuncs::getCharAnimID();
-		lbCharFootholdID->Text = PointerFuncs::getCharFootholdID();
 
 		lbWorld->Text = PointerFuncs::getWorld();
 		lbChannel->Text = PointerFuncs::getChannel();
 		lbMapID->Text = PointerFuncs::getMapID();
-		lbMapName->Text = PointerFuncs::getMapName();
-
-		lbLeftWallPos->Text = PointerFuncs::getMapLeftWall();
-		lbRightWallPos->Text = PointerFuncs::getMapRightWall();
-		lbTopWallPos->Text = PointerFuncs::getMapTopWall();
-		lbBottomWallPos->Text = PointerFuncs::getMapBottomWall();
+		lbWalls->Text = PointerFuncs::getMapLeftWall() + " " + PointerFuncs::getMapRightWall() + " " + PointerFuncs::getMapTopWall() + " " + PointerFuncs::getMapBottomWall();
+		
+		lbCharFoothold->Text = PointerFuncs::getCharFoothold();
+		lbCharAnimation->Text = PointerFuncs::getCharAnimation();
+		lbCharPos->Text = PointerFuncs::getCharPos();
+		lbMousePos->Text = PointerFuncs::getMousePos();
 
 		lbAttackCount->Text = PointerFuncs::getAttackCount();
 		lbBuffCount->Text = PointerFuncs::getBuffCount();
@@ -253,19 +244,7 @@ void MainForm::GUITimer_Tick(Object^  sender, EventArgs^  e) {
 		lbMobCount->Text = PointerFuncs::getMobCount();
 		lbItemCount->Text = PointerFuncs::getItemCount();
 		lbPortalCount->Text = PointerFuncs::getPortalCount();
-		lbNPCCount->Text = PointerFuncs::getNPCCount();	
-	}
-}
-
-void MainForm::RedrawStatBars() 
-{
-	if (CodeCaves::maxEXP > 0 && CodeCaves::maxHP > 0 && CodeCaves::maxMP > 0)
-	{
-		static int lengthOfBars = 150;
-
-		this->HPForeground->Width = (CodeCaves::hpPercent / 100) * lengthOfBars;
-		this->MPForeground->Width = (CodeCaves::mpPercent / 100) * lengthOfBars;
-		this->EXPForeground->Width = (CodeCaves::expPercent / 100) * lengthOfBars;
+		lbNPCCount->Text = PointerFuncs::getNPCCount();
 	}
 }
 #pragma endregion
@@ -663,6 +642,7 @@ void MainForm::cbFullGodmode_CheckedChanged(Object^  sender, EventArgs^  e) {
 		WriteMemory(fullGodmodeAddr, 2, 0x0F, 0x85); //jne 009596F7 [first 2 bytes]
 }
 
+//TODO: Add number of misses
 //Miss Godmode (CUserLocal::SetDamaged())
 void MainForm::cbMissGodmode_CheckedChanged(Object^  sender, EventArgs^  e) {
 	if (this->cbMissGodmode->Checked)
@@ -671,6 +651,7 @@ void MainForm::cbMissGodmode_CheckedChanged(Object^  sender, EventArgs^  e) {
 		WriteMemory(missGodmodeAddr, 8, 0x89, 0x06, 0x83, 0xC6, 0x04, 0xFF, 0x4D, 0xC4); //mov [esi],eax; add esi,04; dec [ebp-3C];
 }
 
+//TODO: Add number of blinks 
 //Blink Godmode (CUser::Update())
 void MainForm::cbBlinkGodmode_CheckedChanged(Object^  sender, EventArgs^  e) {
 	if (this->cbBlinkGodmode->Checked)
@@ -739,14 +720,6 @@ void MainForm::cbSwimInAir_CheckedChanged(Object^  sender, EventArgs^  e) {
 		WriteMemory(swimInAirAddr, 2, 0x74, 0x04); //je 0070470A
 	else
 		WriteMemory(swimInAirAddr, 2, 0x75, 0x04); //jne 0070470A
-}
-
-//Speed Attack (CAvatar::PrepareActionLayer())
-void MainForm::cbSpeedAttack_CheckedChanged(Object^  sender, EventArgs^  e) {
-	if (this->cbSpeedAttack->Checked)
-		WriteMemory(speedAttackAddr, 2, 0x0F, 0x8F); //jg 0045483D [first 2 bytes]
-	else
-		WriteMemory(speedAttackAddr, 2, 0x0F, 0x8E); //jng 0045483D [first 2 bytes]
 }
 
 //Unlimited Attack (CAntiRepeat::TryRepeat())
@@ -821,17 +794,14 @@ void MainForm::cbNoPlayerNameTag_CheckedChanged(Object^  sender, EventArgs^  e) 
 		WriteMemory(noPlayerNameTagAddr, 5, 0xB8, 0x14, 0xDA, 0xAD, 0x00); //mov eax,00ADDA14
 }
 
-//Attack animation delay
 //TODO: the value is a byte thus should be settable in range of -128_127
-void MainForm::cbAttackAnimDelay_CheckedChanged(Object^  sender, EventArgs^  e) {
-	if (this->cbAttackAnimDelay->Checked)
-	{
-		WriteMemory(attackAnimFrameDelayAddr, 3, 0x83, 0xC1, 0x05); //add ecx,05
-	}
+//Attack Delay (CAvatar::PrepareActionLayer())
+void MainForm::cbAttackDelay_CheckedChanged(Object^ sender, EventArgs^ e) {
+	//No Attack Delay Method 2 (skips animation, same function) Address: 0045478F Changed Memory: 0F8E->0F8F //jg 0045483D [first 2 bytes]
+	if (this->cbAttackDelay->Checked)
+		WriteMemory(attackDelayAddr, 3, 0x83, 0xC1, 0x05); //add ecx,05
 	else
-	{
-		WriteMemory(attackAnimFrameDelayAddr, 3, 0x83, 0xC0, 0x0A); //add eax,0a
-	}
+		WriteMemory(attackDelayAddr, 3, 0x83, 0xC0, 0x0A); //add eax,0a
 }
 
 //Instant Drop Items
@@ -850,15 +820,15 @@ void MainForm::cbInstantLootItems_CheckedChanged(Object^  sender, EventArgs^  e)
 		WriteMemory(instantLootItemsAddr, 6, 0x81, 0xFB, 0xBC, 0x02, 0x00, 0x00); //cmp ebx,000002BC
 }
 
-//Fast Loot Items (CWvsContext::CanSendExclRequest())
-void MainForm::cbFastLootItems_CheckedChanged(Object^  sender, EventArgs^  e) {
-	if (this->cbFastLootItems->Checked)
-		WriteMemory(fastLootItemsAddr, 2, 0x90, 0x90); //nop; nop;
+//Tubi (CWvsContext::CanSendExclRequest())
+void MainForm::cbTubi_CheckedChanged(Object^  sender, EventArgs^  e) {
+	if (this->cbTubi->Checked)
+		WriteMemory(tubiAddr, 2, 0x90, 0x90); //nop; nop;
 	else
-		WriteMemory(fastLootItemsAddr, 2, 0x75, 0x36); //jne 00485C39
+		WriteMemory(tubiAddr, 2, 0x75, 0x36); //jne 00485C39
 }
 
-//Item Vac
+//Item Vac (CDropPool::TryPickUpDrop())
 void MainForm::cbItemVac_CheckedChanged(Object^  sender, EventArgs^  e) {
 	if (this->cbItemVac->Checked)
 		Jump(itemVacAddr, CodeCaves::ItemVacHook, 2);
@@ -979,12 +949,12 @@ void MainForm::cbNoBlueBoxes_CheckedChanged(Object^  sender, EventArgs^  e) {
 		WriteMemory(noBlueBoxesAddr, 5, 0xB8, 0x92, 0x21, 0xAE, 0x00); //mov eax,00AE2192
 }
 
-//No Walk Frictionless Slide
-void MainForm::cbNoWalkFricSlide_CheckedChanged(Object^  sender, EventArgs^  e) {
-	if (this->cbNoWalkFricSlide->Checked)
-		WriteMemory(frictionlessSlideAddr, 2, 0x75, 0x05); //jne
+//No Walking Friction (TODO: find function this is in, its named sub_9B3FD1 in v83 idb)
+void MainForm::cbNoWalkingFriction_CheckedChanged(System::Object^  sender, System::EventArgs^  e) {
+	if (this->cbNoWalkingFriction->Checked)
+		WriteMemory(walkingFrictionAddr, 2, 0x75, 0x05); //jne 009B436C
 	else
-		WriteMemory(frictionlessSlideAddr, 2, 0x74, 0x05); //je
+		WriteMemory(walkingFrictionAddr, 2, 0x74, 0x05); //je 009B436C	
 }
 #pragma endregion
 
@@ -1149,6 +1119,7 @@ void MainForm::tbSpawnControlY_KeyPress(Object^  sender, Windows::Forms::KeyPres
 #pragma endregion
 
 #pragma region Vacs Tab
+//TODO: Every hack has a "get current location" to get x,y. Reuse that shit
 #pragma region Kami
 void KamiLoop() {
 	while (GlobalRefs::bKami || GlobalRefs::bKamiLoot) {
@@ -1254,6 +1225,54 @@ void MainForm::tbKamiLootItem_KeyPress(Object^  sender, Windows::Forms::KeyPress
 #pragma endregion
 
 #pragma region Wall Vac
+//TODO: Textbox error checking
+void WallVacLoop() {
+	int vacXPos = 0, vacYPos = 0, rangeX = 15, rangeY = 0;
+	vacXPos = Convert::ToInt32(MainForm::TheInstance->tbWallVacX->Text);
+	vacYPos =  Convert::ToInt32(MainForm::TheInstance->tbWallVacY->Text);
+	rangeX = Convert::ToInt32(MainForm::TheInstance->tbWallVacRangeX->Text);
+	rangeY = Convert::ToInt32(MainForm::TheInstance->tbWallVacRangeY->Text);
+
+	while (GlobalRefs::bWallVac) {
+		//Set X Walls
+		WritePointer(CWvsPhysicalSpace2DBase, OFS_LeftWall, vacXPos - rangeX);
+		Sleep(50);
+		WritePointer(CWvsPhysicalSpace2DBase, OFS_RightWall, vacXPos + rangeX);
+		Sleep(50);
+
+		//Set Y Walls
+		WritePointer(CWvsPhysicalSpace2DBase, OFS_TopWall, vacYPos - rangeY);
+		Sleep(50);
+		WritePointer(CWvsPhysicalSpace2DBase, OFS_BottomWall, vacYPos + rangeY);
+		Sleep(50);
+
+		Sleep(500); //Every half a second, re-write pointer to set wall values TODO: Allow users to enter a delay
+	}
+}
+
+void MainForm::cbWallVac_CheckedChanged(System::Object^  sender, System::EventArgs^  e) {
+	if(this->cbWallVac->Checked) {
+		tbWallVacX->Enabled = false;
+		tbWallVacY->Enabled = false;
+		tbWallVacRangeX->Enabled = false;
+		tbWallVacRangeY->Enabled = false;
+		GlobalRefs::bWallVac = true;
+		NewThread(WallVacLoop);
+	}
+	else {
+		tbWallVacX->Enabled = true;
+		tbWallVacY->Enabled = true;
+		tbWallVacRangeX->Enabled = true;
+		tbWallVacRangeY->Enabled = true;
+		GlobalRefs::bWallVac = false;
+	}
+}
+
+void MainForm::bWallVacGetCurrentLocation_Click(System::Object^  sender, System::EventArgs^  e) {
+	tbWallVacX->Text = PointerFuncs::getCharPosX();
+	tbWallVacY->Text = PointerFuncs::getCharPosY();
+}
+
 void MainForm::tbWallVacX_KeyPress(Object^  sender, Windows::Forms::KeyPressEventArgs^  e) {
 	if (!isKeyValid(sender, e, true)) e->Handled = true; //If key is not valid, do nothing and indicate that it has been handled
 }
@@ -1272,6 +1291,64 @@ void MainForm::tbWallVacRangeY_KeyPress(Object^  sender, Windows::Forms::KeyPres
 #pragma endregion
 
 #pragma region DupeX
+/* Old code from old trainer, need to refactor/make better
+
+DWORD dupeX = 0x009B495D; //89 BE 14 01 00 00 89 86 18 01 00 00 39 41 04 74
+DWORD dupeXRet = dupeX+6;
+DWORD dupeXPlat = 0;
+DWORD dupeXRunFlag = 0;
+
+void __declspec(naked) DupeXAsm() {
+	__asm {
+		pushfd
+		push eax
+		push ecx
+		mov eax,[0x00BEBF98] //CharBase
+		mov eax, [eax]
+		test eax,eax
+		je NullPlat
+		mov eax,[eax+0x000011A4] //pID Offset
+		lea ecx,[eax-0x0c] //account id offset?
+		test ecx,ecx
+		je NullPlat
+		mov eax,[ecx+0x00000114] //kb offset?
+		test eax,eax
+		je NullPlat
+		cmp dword ptr [dupeXRunFlag],0x01
+		je DoVac
+		mov dword ptr [dupeXPlat],eax
+		inc dword ptr [dupeXRunFlag]
+		jmp DoVac
+
+		DoVac:
+		cmp esi,ecx
+		je Normal
+		mov edi, [dupeXPlat]
+		jmp Normal
+
+		NullPlat:
+		mov dword ptr [dupeXPlat],0x00
+		mov dword ptr [dupeXRunFlag],0x00
+		jmp Normal
+
+		Normal:
+		pop ecx
+		pop eax
+		popfd
+		mov [esi+0x00000114],edi
+		jmp dword ptr[dupeXRet]
+	}
+}
+
+Jump(dupeX, DupeXAsm, 1);
+WriteMemory(0x009B495D, 6, 0x89, 0xBE, 0x14, 0x01, 0x00, 0x00);
+
+Reset Click Event: 
+dupeXRunFlag = 0;
+
+ */
+
+
 void MainForm::tbDupeXMob_KeyPress(Object^  sender, Windows::Forms::KeyPressEventArgs^  e) {
 	if (!isKeyValid(sender, e, false)) e->Handled = true; //If key is not valid, do nothing and indicate that it has been handled
 }
@@ -1287,6 +1364,43 @@ void MainForm::tbMMCY_KeyPress(Object^  sender, Windows::Forms::KeyPressEventArg
 }
 #pragma endregion
 
+#pragma region uEMI
+//TODO: Textbox error checking
+void UEMILoop() {
+	int uEMIXPos = 0, uEMIYPos = 0;
+	uEMIXPos = Convert::ToInt32(MainForm::TheInstance->tbUEMIx->Text);
+	uEMIYPos = Convert::ToInt32(MainForm::TheInstance->tbUEMIy->Text);
+
+	while (GlobalRefs::bUEMI) {
+		//TODO: Fix writemultipointersigned(), pretty sure that's the issue
+		WriteMultiPointerSigned(MobPoolBase, uEMIXPos, 3, 0x28, 0x4, 0x510);
+		Sleep(50);
+		WriteMultiPointerSigned(MobPoolBase, uEMIYPos, 3, 0x28, 0x4, 0x514);
+		Sleep(50); //TODO: Allow users to enter a delay
+	}
+}
+
+
+void MainForm::cbUEMI_CheckedChanged(System::Object^  sender, System::EventArgs^  e) {
+	if(this->cbUEMI->Checked) {
+		tbUEMIx->Enabled = false;
+		tbUEMIy->Enabled = false;
+		GlobalRefs::bUEMI = true;
+		NewThread(UEMILoop);
+	}
+	else {
+		tbUEMIx->Enabled = true;
+		tbUEMIy->Enabled = true;
+		GlobalRefs::bUEMI = false;
+	}
+}
+
+void MainForm::bUEMIGetCurrentLocation_Click(System::Object^  sender, System::EventArgs^  e) {
+	tbUEMIx->Text = PointerFuncs::getCharPosX();
+	tbUEMIy->Text = PointerFuncs::getCharPosY();
+}
+#pragma endregion
+
 //Full Map Attack (CMobPool::FindHitMobInRect())
 void MainForm::cbFullMapAttack_CheckedChanged(Object^  sender, EventArgs^  e) {
 	if (this->cbFullMapAttack->Checked)
@@ -1296,6 +1410,8 @@ void MainForm::cbFullMapAttack_CheckedChanged(Object^  sender, EventArgs^  e) {
 }
 
 //ZZ Vac
+//TODO: Is it possible to change the coordinates from (0,0) to custom coordinates?
+//TODO: Find func in idb using pdb
 void MainForm::cbZzVac_CheckedChanged(Object^  sender, EventArgs^  e) {
 	if (this->cbZzVac->Checked)
 	{
@@ -1309,42 +1425,42 @@ void MainForm::cbZzVac_CheckedChanged(Object^  sender, EventArgs^  e) {
 	}
 }
 
-//Vac Force Right
-void MainForm::cbVacForceRight_CheckedChanged(Object^  sender, EventArgs^  e) {
-	if (this->cbVacForceRight->Checked)	
-		WriteMemory(vacForceRightAddr, 2, 0x76, 0x18); //jna		
+//TODO: Find func in idb using pdb
+void MainForm::cbVacForceRight_CheckedChanged(System::Object^  sender, System::EventArgs^  e) {
+	if (this->cbVacForceRight->Checked)
+		WriteMemory(vacForceRightAddr, 2, 0x76, 0x18); //jna
 	else
 		WriteMemory(vacForceRightAddr, 2, 0x73, 0x18); //jae
 }
 
-//Vac Right
-void MainForm::cbVacRight_CheckedChanged(Object^  sender, EventArgs^  e) {
+//TODO: Find func in idb using pdb
+void MainForm::cbVacRight_CheckedChanged(System::Object^  sender, System::EventArgs^  e) {
 	if (this->cbVacRight->Checked)
-		WriteMemory(vacRightAddr, 2, 0x0F, 0x84); //je		
+		WriteMemory(vacRightAddr, 2, 0x0F, 0x84); //je	
 	else
 		WriteMemory(vacRightAddr, 2, 0x0F, 0x86); //jbe
 }
 
-//Vac Left
-void MainForm::cbVacLeft_CheckedChanged(Object^  sender, EventArgs^  e) {
+//TODO: Find func in idb using pdb
+void MainForm::cbVacLeft_CheckedChanged(System::Object^  sender, System::EventArgs^  e) {
 	if (this->cbVacLeft->Checked)
-		WriteMemory(vacLeftAddr, 2, 0x74, 0x66); //je		
+		WriteMemory(vacLeftAddr, 2, 0x74, 0x66); //je
 	else
 		WriteMemory(vacLeftAddr, 2, 0x73, 0x66); //jae
 }
 
-//Vac Jump Right
-void MainForm::cbVacJumpRight_CheckedChanged(Object^  sender, EventArgs^  e) {
+//TODO: Find func in idb using pdb
+void MainForm::cbVacJumpRight_CheckedChanged(System::Object^  sender, System::EventArgs^  e) {
 	if (this->cbVacJumpRight->Checked)
-		WriteMemory(vacJumpRightAddr, 2, 0x74, 0x72); //je		
+		WriteMemory(vacJumpRightAddr, 2, 0x74, 0x72); //je
 	else
 		WriteMemory(vacJumpRightAddr, 2, 0x76, 0x72); //jna
 }
 
-//Vac Jump Left
-void MainForm::cbVacJumpLeft_CheckedChanged(Object^  sender, EventArgs^  e) {
+//TODO: Find func in idb using pdb
+void MainForm::cbVacJumpLeft_CheckedChanged(System::Object^  sender, System::EventArgs^  e) {
 	if (this->cbVacJumpLeft->Checked)
-		WriteMemory(vacJumpLeftAddr, 2, 0x74, 0x66); //je		
+		WriteMemory(vacJumpLeftAddr, 2, 0x74, 0x66); //je
 	else
 		WriteMemory(vacJumpLeftAddr, 2, 0x73, 0x66); //jae
 }
@@ -1933,27 +2049,11 @@ PortalData^ findPortal(int toMapID) {
 
 //Classifies each island by the first 2 digits of the Map Ids within the island
 int getIsland(int mapID) {
+	//0=Maple, 10=Victoria, 11=Florina Beach, 13=Ereve, 14=Rien, 20=Orbis, 21=El Nath, 22=Ludus Lake, 23=Aquarium, 24=Minar Forest, 
+	//25=Mu Lung Garden, 26=Nihal Desert, 27=Temple of Time, 30=Elin, 54=Singapore, 55=Malaysia, 60=Masteria, 68=Amoria, 80=Zipangu
+
 	if (mapID < 100000000) return 0; //Maple
 	return mapID / 10000000; //Returns first 2 digits of mapID as the island
-	/*
-	if (mapID >= 130000000 && mapID < 140000000) return 13; //Ereve
-	if (mapID >= 140000000 && mapID < 150000000) return 14; //Rien
-	if (mapID >= 100000000 && mapID < 200000000) return 10; //Victoria
-	if (mapID >= 200000000 && mapID < 210000000) return 20; //Orbis
-	if (mapID >= 210000000 && mapID < 220000000) return 21; //El Nath 
-	if (mapID >= 220000000 && mapID < 230000000) return 22; //Ludus Lake
-	if (mapID >= 230000000 && mapID < 240000000) return 23; //Aquarium
-	if (mapID >= 240000000 && mapID < 250000000) return 24; //Minar Forest
-	if (mapID >= 250000000 && mapID < 260000000) return 25; //Mu Lung Garden
-	if (mapID >= 260000000 && mapID < 270000000) return 26; //Nihal Desert
-	if (mapID >= 270000000 && mapID < 280000000) return 27; //Temple of Time
-	if (mapID >= 300000000 && mapID < 310000000) return 30; //elin
-	if (mapID >= 540000000 && mapID < 550000000) return 54; //Singapore
-	if (mapID >= 550000000 && mapID < 560000000) return 55; //Malaysia
-	if (mapID >= 600000000 && mapID < 620000000) return 60; //Masteria
-	if (mapID >= 680000000 && mapID < 690000000) return 68; //Amoria
-	if (mapID >= 800000000 && mapID < 810000000) return 80; //Zipangu
-	return 100; //Island not found*/
 }
 
 void SendNPCPacket(int npcID, int xPos, int yPos) {
@@ -2011,6 +2111,14 @@ int rushNextIsland(int startMapID, int destMapID) {
 			SendKey(VK_RIGHT); Sleep(500); //Send Right Arrow to select yes
 			SendKey(VK_RETURN); Sleep(500); //Send Enter to press yes
 			return 104000000;
+		case 13:
+			if (startMapID != 101000400) mapRush(101000400);
+			Sleep(1000);
+			SendNPCPacket(1000000002, 97, 80); Sleep(500);
+			SendKey(VK_RETURN); Sleep(500); //Send Enter to press next
+			SendPacket("26 00 00 FF FF FF FF 04 00 68 64 30 30 7E FE 9C FE 00 00 00");
+			return 130000210;
+
 	}
 
 	return 0;
@@ -2130,7 +2238,13 @@ static void mapRush(int destMapID) {
 
 		//Construct Packet
 		String^ packet = "";
-		if(mapData->portal->portalType == 2) {
+		if (mapData->portal->portalType == 7) {
+			writeBytes(packet, gcnew array<BYTE>{0x64, 0x00}); //Change Map Special OpCode
+			writeByte(packet, 0); // 0 = Change Map through Regular Portals, 1 = Change Map From Dying
+			writeString(packet, mapData->portal->portalName); // Portal Name
+			writeShort(packet, (short)mapData->portal->xPos); //Portal x Position
+			writeShort(packet, (short)mapData->portal->yPos); //Portal y Position
+		} else {
 			writeBytes(packet, gcnew array<BYTE>{0x26, 0x00}); //Change Map OpCode
 			writeByte(packet, 0); // 0 = Change Map through Regular Portals, 1 = Change Map From Dying
 			writeInt(packet, -1); // Target Map ID, only not -1 when character is dead, a GM, or for certain maps like Aran Introduction, Intro Map, Adventurer Intro, etc.
@@ -2140,17 +2254,6 @@ static void mapRush(int destMapID) {
 			writeByte(packet, 0); //Unknown
 			writeShort(packet, 0); //Wheel of Destiny (item that revtestives char in same map)
 		}
-		else if(mapData->portal->portalType == 7) {
-			writeBytes(packet, gcnew array<BYTE>{0x64, 0x00}); //Change Map Special OpCode
-			writeByte(packet, 0); // 0 = Change Map through Regular Portals, 1 = Change Map From Dying
-			writeString(packet, mapData->portal->portalName); // Portal Name
-			writeShort(packet, (short)mapData->portal->xPos); //Portal x Position
-			writeShort(packet, (short)mapData->portal->yPos); //Portal y Position
-		}
-		else {
-			MessageBox::Show(Convert::ToString(mapData->portal->portalType));
-			break; //Only deal with visible portals for now
-		}
 
 		//Spawn in next map
 		SendPacket(packet);
@@ -2159,7 +2262,7 @@ static void mapRush(int destMapID) {
 		for(int i = 0; i < 50; i++) {
 			Sleep(25);
 			if (ReadPointer(UIMiniMapBase, OFS_MapID) != mapData->mapID) break;
-			if (i % 3 == 0) SendPacket(packet);
+			if (i % 5 == 0) SendPacket(packet);
 			if (i == 20) Teleport(mapData->portal->xPos, mapData->portal->yPos - 20);
 		}
 		
@@ -2192,19 +2295,19 @@ static void findMapNamesStartingWithStr(String^ str) {
 	}
 	MainForm::TheInstance->lvMapRusherSearch->EndUpdate();
 }
-#include <chrono>
+//#include <chrono>
 //Starts Map Rush when clicked
 void MainForm::bMapRush_Click(System::Object^  sender, System::EventArgs^  e) {
-	auto start = std::chrono::high_resolution_clock::now();
+	//auto start = std::chrono::high_resolution_clock::now();
 	if(!GlobalRefs::isMapRushing && !PointerFuncs::getMapID()->Equals("0")) {
 		int mapDestID = 0;
 		if (INT::TryParse(tbMapRusherDestination->Text, mapDestID))
 			if (mapDestID >= 0 && mapDestID <= 999999999)
 				mapRush(mapDestID);
 	}
-	auto finish = std::chrono::high_resolution_clock::now();
-	std::chrono::duration<double> elapsed = finish - start;
-	MessageBox::Show("Elapsed Time: " + Convert::ToString(elapsed.count()));
+	//auto finish = std::chrono::high_resolution_clock::now();
+	//std::chrono::duration<double> elapsed = finish - start;
+	//MessageBox::Show("Elapsed Time: " + Convert::ToString(elapsed.count()));
 }
 
 //Adds tree view selected map's mapID to tbMapRusherDestination textbox

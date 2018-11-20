@@ -1,50 +1,36 @@
 #include "Log.h"
 
-Void Log::WriteLine(String^ Message)
-{
+void Log::WriteLine(String^ Message) {
 	StreamWriter^ sw = {};
 
-	try
-	{
+	try {
 		sw = gcnew StreamWriter(GetLogPath(), true);
 
-		if (Message == String::Empty) 
+		if (Message == String::Empty)
 			sw->WriteLine();
-		else 
+		else
 			sw->WriteLine(DateTime::Now.ToString() + " : " + Message);
-	}
-
-	catch (Exception^)
-	{
-	}
-
-	finally
-	{
+	} 
+	catch (Exception^) {}
+	finally {
 		if (sw)
 			delete static_cast<IDisposable^>(sw);
 	}
 }
 
-Void Log::WriteLine()
-{
+void Log::WriteLine() {
 	WriteLine(String::Empty);
 }
 
-String^ Log::GetLogPath() 
-{
-
+String^ Log::GetLogPath() {
 	String^ AppDataFolder = Environment::GetFolderPath(Environment::SpecialFolder::ApplicationData);
 	String^ LogsFilePath = {};
 
-	try
-	{
+	try {
 		String^ TimelapseFolderPath = Path::Combine(AppDataFolder, "Timelapse");
 		LogsFilePath = Path::Combine(TimelapseFolderPath, "Log.txt");
-	}
-
-	catch (Exception^)
-	{
-	}
+	} 
+	catch (Exception^){}
 
 	return LogsFilePath;
 }

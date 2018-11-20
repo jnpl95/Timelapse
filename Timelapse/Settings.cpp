@@ -6,62 +6,49 @@ using namespace System;
 using namespace IO;
 using namespace Collections::Generic;
 
-Object^ Settings::Deserialize(String^ path, XmlSerializer^ serializer)
-{
-	if (File::Exists(path))
-	{
+Object^ Settings::Deserialize(String^ path, XmlSerializer^ serializer) {
+	if (File::Exists(path)) {
 		FileStream^ stream = {};
 
-		try
-		{
+		try {
 			stream = gcnew FileStream(path, FileMode::Open, FileAccess::Read, FileShare::Read);
 			return serializer->Deserialize(stream);
 		}
-
-		catch (Exception^ ex)
-		{
+		catch (Exception^ ex) {
 			Log::WriteLine("Exception occured while reading from " + path + " : " + ex->Message);
 		}
-
-		finally
-		{
-			if (stream) 
+		finally {
+			if (stream)
 				delete static_cast<IDisposable^>(stream);
-				Log::WriteLine("Loaded " + path);
+				
+			Log::WriteLine("Loaded " + path);
 		}
 	}
 
 	return nullptr;
 }
 
-Void Settings::Serialize(String^ path, XmlSerializer^ serializer, Object^ object)
-{
-	if (path != nullptr && serializer != nullptr && object != nullptr)
-	{
+void Settings::Serialize(String^ path, XmlSerializer^ serializer, Object^ object) {
+	if (path != nullptr && serializer != nullptr && object != nullptr) {
 		FileStream^ stream = {};
 
-		try
-		{
+		try {
 			stream = gcnew FileStream(path, FileMode::Create, FileAccess::Write, FileShare::None);
 			serializer->Serialize(stream, object);
 		}
-
-		catch (Exception^ ex)
-		{
+		catch (Exception^ ex) {
 			Log::WriteLine("Exception occured while writing to " + path + " : " + ex->Message);
 		}
-
-		finally
-		{
-			if (stream) 
+		finally {
+			if (stream)
 				delete static_cast<IDisposable^>(stream);
-				Log::WriteLine("Saved " + path);
+			
+			Log::WriteLine("Saved " + path);
 		}
 	}
 }
 
-Void Settings::Serialize(Control^ c, String^ XmlFileName)
-{
+void Settings::Serialize(Control^ c, String^ XmlFileName) {
 	XmlTextWriter^ xmlSerializedForm = gcnew XmlTextWriter(XmlFileName, System::Text::Encoding::Default);
 
 	xmlSerializedForm->Formatting = Formatting::Indented;
@@ -79,17 +66,14 @@ Void Settings::Serialize(Control^ c, String^ XmlFileName)
 	Log::WriteLine("Saved " + XmlFileName);
 }
 
-Void Settings::AddChildControls(XmlTextWriter^ xmlSerializedForm, Control^ c)
-{
-	for each(Control^ childCtrl in c->Controls)
-	{
+void Settings::AddChildControls(XmlTextWriter^ xmlSerializedForm, Control^ c) {
+	for each(Control^ childCtrl in c->Controls) {
 		auto ctrlType = childCtrl->GetType();
 		auto ctrlName = childCtrl->Name;
 
 		//TODO: save press state of buttons?
 
-		if (childCtrl->HasChildren || ctrlType == ComboBox::typeid || ctrlType == NumericUpDown::typeid || ctrlType == CheckBox::typeid || ctrlType == TextBox::typeid) // || name == "lbItemFilter"
-		{
+		if (childCtrl->HasChildren || ctrlType == ComboBox::typeid || ctrlType == NumericUpDown::typeid || ctrlType == CheckBox::typeid || ctrlType == TextBox::typeid) { // || name == "lbItemFilter"
 			// serialize this control
 			xmlSerializedForm->WriteStartElement("Control");
 			xmlSerializedForm->WriteAttributeString("Name", ctrlName);
@@ -116,31 +100,24 @@ Void Settings::AddChildControls(XmlTextWriter^ xmlSerializedForm, Control^ c)
 	}
 }
 
-Void Settings::Deserialize(Control^ c, String^ XmlFileName)
-{
-	if (File::Exists(XmlFileName))
-	{
-		try
-		{
+void Settings::Deserialize(Control^ c, String^ XmlFileName) {
+	if (File::Exists(XmlFileName)) {
+		try {
 			XmlDocument^ xmlSerializedForm = gcnew XmlDocument();
 			xmlSerializedForm->Load(XmlFileName);
 
 			XmlNode^ topLevel = xmlSerializedForm->ChildNodes[1];
-			for each(XmlNode^ n in topLevel->ChildNodes) 
+			for each(XmlNode^ n in topLevel->ChildNodes)
 				SetControlProperties(safe_cast<Control^>(c), n);
 		}
-
-		catch (Exception^ ex)
-		{
+		catch (Exception^ ex) {
 			Log::WriteLine("While deserializing \"" + c->Name + "\" the following exception occured: \"" + ex->Message + "\"");
 		}
 	}
 }
 
-Void Settings::SetControlProperties(Control^ currentCtrl, XmlNode^ n)
-{
-	try
-	{
+void Settings::SetControlProperties(Control^ currentCtrl, XmlNode^ n) {
+	try {
 		// get the control's name and type
 		String^ controlName = n->Attributes["Name"]->Value;
 
@@ -159,40 +136,32 @@ Void Settings::SetControlProperties(Control^ currentCtrl, XmlNode^ n)
 
 		// TODO: parse array of strings and add by one to ListBox
 		// else if (n->Attributes["ItemFilterList"])		
-	    // safe_cast<ListBox^>(ctrl[0])->Items->Add(Convert::ToString(n->Attributes["ItemFilterList"]->Value));
+		// safe_cast<ListBox^>(ctrl[0])->Items->Add(Convert::ToString(n->Attributes["ItemFilterList"]->Value));
 
 		// if n has any children that are controls, deserialize them as well
-		if (n->HasChildNodes && ctrl[0]->HasChildren)
-		{
+		if (n->HasChildNodes && ctrl[0]->HasChildren) {
 			XmlNodeList^ xnlControls = n->SelectNodes("Control");
-			for each(XmlNode^ n2 in xnlControls) 
+			for each(XmlNode^ n2 in xnlControls)
 				SetControlProperties(ctrl[0], n2);
 		}
 	}
-
-	catch (Exception^ ex)
-	{
+	catch (Exception^ ex) {
 		Log::WriteLine("While deserializing \"" + n->Attributes["Name"]->Value + "\" the following exception occured: \"" + ex->Message + "\"");
 	}
 }
 
 String^ Settings::GetSettingsPath() {
-
 	String^ AppDataFolder = Environment::GetFolderPath(Environment::SpecialFolder::ApplicationData);
 	String^ SettingsFilePath = {};
 
-	try
-	{
+	try {
 		String^ TimelapseFolderPath = Path::Combine(AppDataFolder, "Timelapse");
 		SettingsFilePath = Path::Combine(TimelapseFolderPath, "Settings.xml");
 	}
-
-	catch (Exception^ ex)
-	{
+	catch (Exception^ ex) {
 		Log::WriteLine("Exception occured while generating path to settings file" + ex->Message);
 	}
 
 	Log::WriteLine("Generated path to Timelapse settings file at" + ": " + SettingsFilePath);
-
 	return SettingsFilePath;
 }
