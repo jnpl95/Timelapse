@@ -1372,7 +1372,7 @@ void UEMILoop() {
 	uEMIYPos = Convert::ToInt32(MainForm::TheInstance->tbUEMIy->Text);
 
 	while (GlobalRefs::bUEMI) {
-		int *mobXPos = (int*)(*(ULONG*)((*(ULONG*)((*(ULONG*)(0xBEBFA4))d + 0x28)) + 0x4) + 0x510);
+		int *mobXPos = (int*)(*(ULONG*)((*(ULONG*)((*(ULONG*)(0xBEBFA4)) + 0x28)) + 0x4) + 0x510);
 		int *mobYPos = (int*)(*(ULONG*)((*(ULONG*)((*(ULONG*)(0xBEBFA4)) + 0x28)) + 0x4) + 0x514);
 
 		*mobXPos = uEMIXPos;
