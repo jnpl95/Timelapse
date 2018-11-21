@@ -1372,10 +1372,11 @@ void UEMILoop() {
 	uEMIYPos = Convert::ToInt32(MainForm::TheInstance->tbUEMIy->Text);
 
 	while (GlobalRefs::bUEMI) {
-		//TODO: Fix writemultipointersigned(), pretty sure that's the issue
-		WriteMultiPointerSigned(MobPoolBase, uEMIXPos, 3, 0x28, 0x4, 0x510);
-		Sleep(50);
-		WriteMultiPointerSigned(MobPoolBase, uEMIYPos, 3, 0x28, 0x4, 0x514);
+		int *mobXPos = (int*)(*(ULONG*)((*(ULONG*)((*(ULONG*)(0xBEBFA4)) + 0x28)) + 0x4) + 0x510);
+		int *mobYPos = (int*)(*(ULONG*)((*(ULONG*)((*(ULONG*)(0xBEBFA4)) + 0x28)) + 0x4) + 0x514);
+
+		*mobXPos = uEMIXPos;
+		*mobYPos = uEMIYPos;
 		Sleep(50); //TODO: Allow users to enter a delay
 	}
 }

@@ -153,32 +153,6 @@ static bool WritePointer(ULONG ulBase, int iOffset, int iValue) {
 	__except (EXCEPTION_EXECUTE_HANDLER) { return false; }
 }
 
-#pragma unmanaged
-static bool WriteMultiPointerSigned(LONG_PTR ulBase, int value, int level, ...) {
-	va_list vaarg;
-	va_start(vaarg, level);
-
-	if (!IsBadReadPtr((PVOID)ulBase, sizeof(LONG_PTR))) {
-		ulBase = *(LONG_PTR*)ulBase;
-		for (int i = 0; i < level; i++) {
-			const int offset = va_arg(vaarg, int);
-
-			if (i == level - 1)
-				WritePointer(ulBase, offset, value);
-
-			if (IsBadReadPtr((PVOID)(ulBase + offset), sizeof(LONG_PTR))) {
-				va_end(vaarg);
-				return false;
-			}
-			ulBase = *(LONG_PTR*)(ulBase + offset);
-		}
-	}
-
-	va_end(vaarg);
-	return true;
-}
-
-#pragma managed
 //Convert String^ to std::string
 static std::string ConvertSystemToStdStr(System::String^ str1) {
 	return msclr::interop::marshal_as<std::string>(str1);
