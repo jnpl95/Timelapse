@@ -49,15 +49,16 @@ ULONG walkingFrictionAddr = 0x009B4365; // je -> jne
 ULONG fullMapAttackAddr = 0x006785CA;
 ULONG zzVacAddr1 = 0x009B17A0; 
 ULONG zzVacAddr2 = 0x009B17B0;
-ULONG vacForceRightAddr = 0x009B2C1E; //jae -> jna		
-ULONG vacLeftAddr = 0x009B4819;  //jae -> je		
-ULONG vacRightAddr = 0x009B4896; //jbe -> je		
-ULONG vacJumpRightAddr = 0x009B46A1; //jna -> je		
-ULONG vacJumpLeftAddr = 0x009B4698; // ?? -> ??		
-ULONG vacJumpUpAddr = 0x009B4732; // jae -> je		
+ULONG vacForceRightAddr = 0x009B2C1E; // jae -> jna	
+ULONG vacRightNoForce = 0x009B2C32; // jae -> jna
+ULONG vacJumpLeftAddr = 0x009B4632; // jae -> je
+ULONG vacJumpRightAddr = 0x009B46A1; // jna -> je		
+ULONG vacJumpUpAddr = 0x009B4732; // jae -> je	
+ULONG vacLeftAddr = 0x009B4819;  // jae -> je	
+ULONG vacRightAddr= 0x009B4896; // jbe -> je	
 ULONG fangorVacAddr1 = 0x009B2B98; // fld(0) -> fld(1) //vac into left wall		
 ULONG fangorVacAddr2 = 0x009B43BE; // fld(0) -> fld(1) //vac into top left corner		
-ULONG pVacAddr = 0x009B1E43; //codecave
+ULONG pVacAddr = 0x009B1E43; // codecave
 
 // NOT YET IMPLEMENTED?
 ULONG multiClientAddr = 0x00949BC7; // jne -> jmp
@@ -88,6 +89,7 @@ ULONG noJumpingMobAndPlayerAddr = 0x009B44D4; //je -> jmp
 ULONG vacLeftAddr2 = 0x009B2441; //??		
 ULONG jmpRelatedstub = 0x009B2BF7; //??		
 ULONG gravityrelated = 0x009B2BF5; //jae -> jmp for monster fly up on jump
+ULONG mapGlideAddr = 0x009B2BE8; // jna 009B2C11 jna->jae monsters/players glide like in Elnath
 
 // OLDSKOOL STUFF
 // pin typer v0.62 004A0A6B: //83 FA 6F 0F 86 ?? ?? ?? ?? 83 FA 7B 
@@ -98,16 +100,6 @@ ULONG gravityrelated = 0x009B2BF5; //jae -> jmp for monster fly up on jump
 // fstp st(0) -> fstp st(6)
 // Unlimited summon v0.62 004D6D95: //74 2D 8B 7C 24 0C 8B 07 6A 05 50 E8 ?? ?? ?? ??
 // je -> jne
-// Suck Jump Monsters to left: v0.62 007F4055: //DF E0 9E 73 53 DD 45 EC 8B CE 51 51
-// jae -> je
-// Suck Jump Monsters to right: v0.62 007F40C4: //DF E0 9E 76 72 DD 45 EC 8B CE 51 51
-// jna -> ja
-// Suck Vac Monsters Left v0.62 007F423C: //D9 C1 DE D9 DF E0 9E 73 66 8B BF ?? ?? ?? ?? DD D8 2B 4F 0C
-// jae -> je
-// Suck Vac Monsters Right v0.62 007F42B9: //DE D9 DF E0 DD D8 9E 0F 86 ?? ?? ?? ?? 8B BF ?? ?? ?? ?? 2B 4F ??
-// jbe -> je
-// Glide v0.62 007F1EE2: //39 7D F0 74 7C 8B 8E ?? ?? ?? ?? 83 C1 ?? E8 ?? ?? ?? ?? 51 51 DD 1C 24
-// je -> ja
 #pragma endregion
 
 #pragma region CodeCave Addresses

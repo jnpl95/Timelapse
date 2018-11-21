@@ -72,8 +72,8 @@ void Settings::AddChildControls(XmlTextWriter^ xmlSerializedForm, Control^ c) {
 		auto ctrlName = childCtrl->Name;
 
 		//TODO: save press state of buttons?
-
-		if (childCtrl->HasChildren || ctrlType == ComboBox::typeid || ctrlType == NumericUpDown::typeid || ctrlType == CheckBox::typeid || ctrlType == TextBox::typeid) { // || name == "lbItemFilter"
+		if (childCtrl->HasChildren || ctrlType == ComboBox::typeid || ctrlType == NumericUpDown::typeid 
+			|| ctrlType == CheckBox::typeid || ctrlType == TextBox::typeid || ctrlType == ListBox::typeid) { 
 			// serialize this control
 			xmlSerializedForm->WriteStartElement("Control");
 			xmlSerializedForm->WriteAttributeString("Name", ctrlName);
@@ -86,10 +86,18 @@ void Settings::AddChildControls(XmlTextWriter^ xmlSerializedForm, Control^ c) {
 				xmlSerializedForm->WriteAttributeString("Checked", safe_cast<CheckBox^>(childCtrl)->Checked.ToString());
 			else if (ctrlType == TextBox::typeid)
 				xmlSerializedForm->WriteAttributeString("Text", safe_cast<TextBox^>(childCtrl)->Text->ToString());
+			else if (ctrlType == ListBox::typeid) {
+				ListBox^ listBox = safe_cast<ListBox^>(childCtrl);
+				int listBoxItemCnt = listBox->Items->Count;
 
-			// TODO: save itemFilter as array of strings
-			// else if (name == "lbItemFilter")				
-			// xmlSerializedForm->WriteAttributeString("ItemFilterList", safe_cast<ListBox^>(childCtrl)->Items->ToString());
+				xmlSerializedForm->WriteAttributeString("ItemCnt", listBoxItemCnt.ToString());
+
+				for (int i = 0; i < listBoxItemCnt; i++) {
+					String^ listBoxItemStr = listBox->Items[i]->ToString();
+					String^ listBoxItemNmbStr = ctrlName + "Item" + i.ToString();
+					xmlSerializedForm->WriteAttributeString(listBoxItemNmbStr, listBoxItemStr);
+				}
+			}
 
 			// see if this control has any children, and if so, serialize them
 			if (childCtrl->HasChildren && ctrlType != NumericUpDown::typeid)
@@ -119,10 +127,9 @@ void Settings::Deserialize(Control^ c, String^ XmlFileName) {
 void Settings::SetControlProperties(Control^ currentCtrl, XmlNode^ n) {
 	try {
 		// get the control's name and type
-		String^ controlName = n->Attributes["Name"]->Value;
-
+		String^ ctrlName = n->Attributes["Name"]->Value;
 		// find the control
-		auto ctrl = currentCtrl->Controls->Find(controlName, true);
+		auto ctrl = currentCtrl->Controls->Find(ctrlName, true);
 
 		// the right type too
 		if (n->Attributes["SelectedIndex"])
@@ -133,10 +140,17 @@ void Settings::SetControlProperties(Control^ currentCtrl, XmlNode^ n) {
 			safe_cast<CheckBox^>(ctrl[0])->Checked = Convert::ToBoolean(n->Attributes["Checked"]->Value);
 		else if (n->Attributes["Text"])
 			safe_cast<TextBox^>(ctrl[0])->Text = Convert::ToString(n->Attributes["Text"]->Value);
+		else if (n->Attributes["ItemCnt"]) {
+			int itemCnt = Convert::ToInt32(n->Attributes["ItemCnt"]->Value);
+			auto collection = safe_cast<ListBox^>(ctrl[0])->Items;
 
-		// TODO: parse array of strings and add by one to ListBox
-		// else if (n->Attributes["ItemFilterList"])		
-		// safe_cast<ListBox^>(ctrl[0])->Items->Add(Convert::ToString(n->Attributes["ItemFilterList"]->Value));
+			if (itemCnt < 1) return;
+			for (int i = 0; i < itemCnt; i++) {
+				String^ indexedListBoxItemStr = ctrlName + "Item" + i.ToString();
+				String^ itemToAddStr = Convert::ToString(n->Attributes[indexedListBoxItemStr]->Value);
+				collection->Add(itemToAddStr);
+			}
+		}
 
 		// if n has any children that are controls, deserialize them as well
 		if (n->HasChildNodes && ctrl[0]->HasChildren) {
