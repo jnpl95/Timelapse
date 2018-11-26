@@ -141,6 +141,7 @@
   <ItemGroup>
     <ClCompile Include="Log.cpp" />
     <ClCompile Include="MainForm.cpp" />
+    <ClCompile Include="Mouse.cpp" />
     <ClCompile Include="Packet.cpp" />
     <ClCompile Include="Settings.cpp" />
   </ItemGroup>
@@ -149,6 +150,7 @@
     <ClInclude Include="HelperFunctions.h" />
     <ClInclude Include="Log.h" />
     <ClInclude Include="Macro.h" />
+    <ClInclude Include="Mouse.h" />
     <ClInclude Include="Packet.h" />
     <ClInclude Include="Addresses.h" />
     <ClInclude Include="MainForm.h">

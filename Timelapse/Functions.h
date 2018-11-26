@@ -35,7 +35,7 @@ static void MakePageWritable(ULONG ulAddress, ULONG ulSize) {
 
 static void Jump(ULONG ulAddress, PVOID Function, unsigned Nops) {
 	MakePageWritable(ulAddress, Nops + 5);
-	*(UCHAR*)ulAddress = 0xE9; 
+	*(UCHAR*)ulAddress = 0xE9;
 	*(ULONG*)(ulAddress + 1) = (int)(((int)Function - (int)ulAddress) - 5);
 	memset((PVOID)(ulAddress + 5), 0x90, Nops);
 }
@@ -181,7 +181,7 @@ static HWND GetMSWindowHandle() {
 
 //Get MS ThreadID
 static ULONG GetMSThreadID() {
-	if(GlobalVars::mapleWindow == nullptr)
+	if (GlobalVars::mapleWindow == nullptr)
 		GlobalVars::mapleWindow = GetMSWindowHandle();
 	return GetWindowThreadProcessId(GlobalVars::mapleWindow, nullptr);
 }
@@ -197,18 +197,18 @@ static int keyCollection[] = { 0x10, 0x11, 0x12, 0x20, 0x2D, 0x2E, 0x24, 0x23, 0
 
 //Check if position is valid 
 static bool isPosValid(int X, int Y) {
-	return ((ReadPointerSigned(CWvsPhysicalSpace2DBase, OFS_LeftWall) <= X) && (ReadPointerSigned(CWvsPhysicalSpace2DBase, OFS_RightWall) >= X) 
+	return ((ReadPointerSigned(CWvsPhysicalSpace2DBase, OFS_LeftWall) <= X) && (ReadPointerSigned(CWvsPhysicalSpace2DBase, OFS_RightWall) >= X)
 		&& (ReadPointerSigned(CWvsPhysicalSpace2DBase, OFS_TopWall) <= Y) && (ReadPointerSigned(CWvsPhysicalSpace2DBase, OFS_BottomWall) >= Y));
 }
 
 //Teleport to parameter position
 static void Teleport(int X, int Y) {
 	//if (isPosValid(X, Y)) {
-		WritePointer(UserLocalBase, OFS_TeleX, X);
-		WritePointer(UserLocalBase, OFS_TeleY, Y);
-		WritePointer(UserLocalBase, OFS_Tele, 1);
-		//WritePointer(UserLocalBase, OFS_Tele + 4, 1);
-	//}
+	WritePointer(UserLocalBase, OFS_TeleX, X);
+	WritePointer(UserLocalBase, OFS_TeleY, Y);
+	WritePointer(UserLocalBase, OFS_Tele, 1);
+	//WritePointer(UserLocalBase, OFS_Tele + 4, 1);
+//}
 }
 
 //Teleport to parameter point
@@ -272,7 +272,7 @@ static System::String^ findMobNameFromID(int mobID) {
 	try {
 		std::string result = "", tmpStr = "";
 		HRSRC hRes = FindResource(GlobalVars::hDLL, MAKEINTRESOURCE(MobsList), _T("TEXT"));
-		if (hRes == nullptr) return "";		
+		if (hRes == nullptr) return "";
 		HGLOBAL hGlob = LoadResource(GlobalVars::hDLL, hRes);
 		if (hGlob == nullptr) return "";
 		const CHAR* pData = reinterpret_cast<const CHAR*>(::LockResource(hGlob));
@@ -319,9 +319,9 @@ namespace CodeCaves {
 	}
 
 	bool __stdcall shouldItemBeFiltered() {
-		if(isItemFilterWhiteList) {
+		if (isItemFilterWhiteList) {
 			for (ULONG item : *itemList)
-				if(item == itemLogged)
+				if (item == itemLogged)
 					return false;
 			return true;
 		}
@@ -379,21 +379,21 @@ namespace CodeCaves {
 		__asm {
 			push eax
 			mov eax, [ebp + 0x08]
-			mov [curHP], eax
+			mov[curHP], eax
 			mov eax, [ebp + 0x0C]
-			mov [maxHP], eax
+			mov[maxHP], eax
 			mov eax, [ebp + 0x10]
-			mov [curMP], eax
+			mov[curMP], eax
 			mov eax, [ebp + 0x14]
-			mov [maxMP], eax
+			mov[maxMP], eax
 			mov eax, [ebp + 0x18]
-			mov [curEXP], eax
+			mov[curEXP], eax
 			mov eax, [ebp + 0x1C]
-			mov [maxEXP], eax
+			mov[maxEXP], eax
 			pop eax
 			lea ecx, [eax + eax * 0x4]
 			cmp ecx, ebx
-			jmp dword ptr [statHookAddrRet]
+			jmp dword ptr[statHookAddrRet]
 		}
 	}
 
@@ -418,10 +418,10 @@ namespace CodeCaves {
 
 	__declspec(naked) static void __stdcall MapNameHook() {
 		__asm {
-			mov [mapNameAddr], ecx
-			mov [ebp - 0x28], edi
+			mov[mapNameAddr], ecx
+			mov[ebp - 0x28], edi
 			lea ecx, [ebp - 0x14]
-			jmp dword ptr [mapNameHookAddrRet]
+			jmp dword ptr[mapNameHookAddrRet]
 		}
 	}
 
@@ -430,25 +430,25 @@ namespace CodeCaves {
 			pushad
 			mov ecx, [ebp + 0x8]
 			mov ebx, [ebp - 0x24]
-			mov [ecx], ebx
-			mov [ecx + 0x4], eax
+			mov[ecx], ebx
+			mov[ecx + 0x4], eax
 			mov ecx, eax
 			mov eax, ebx
 
 			lea edx, [eax - 0x19]
-			mov [ebp - 0x34], edx
+			mov[ebp - 0x34], edx
 			lea edx, [ecx - 0x32]
 			add eax, 0x19
 			add ecx, 0xA
-			mov [ebp - 0x30], edx
-			mov [ebp - 0x2C], eax
-			mov [ebp - 0x28], ecx
+			mov[ebp - 0x30], edx
+			mov[ebp - 0x2C], eax
+			mov[ebp - 0x28], ecx
 			popad
 
 			push eax
 			push dword ptr ss : [ebp - 0x24]
 			lea eax, dword ptr ss : [ebp - 0x34]
-			jmp dword ptr [itemVacAddrRet]
+			jmp dword ptr[itemVacAddrRet]
 		}
 	}
 
@@ -471,9 +471,9 @@ namespace CodeCaves {
 			mov eax, [eax + ecx]
 			ReturnX:
 			pop ecx
-			mov [ebx], eax
-			mov edi, [ebp + 0x10]
-			jmp dword ptr [mouseFlyXAddrRet]
+				mov[ebx], eax
+				mov edi, [ebp + 0x10]
+				jmp dword ptr[mouseFlyXAddrRet]
 		}
 	}
 
@@ -496,23 +496,23 @@ namespace CodeCaves {
 			mov eax, [eax + ecx]
 			ReturnY:
 			pop ecx
-			mov [edi], eax
-			mov ebx, [ebp + 0x14]
-			jmp dword ptr [mouseFlyYAddrRet]
+				mov[edi], eax
+				mov ebx, [ebp + 0x14]
+				jmp dword ptr[mouseFlyYAddrRet]
 		}
 	}
 
 	__declspec(naked) static void __stdcall MobFreezeHook() {
 		__asm {
-			mov [esi + 0x00000248], 0x06
+			mov[esi + 0x00000248], 0x06
 			mov eax, [esi + 0x00000248]
-			jmp dword ptr [mobFreezeAddrRet]
+			jmp dword ptr[mobFreezeAddrRet]
 		}
 	}
 
 	__declspec(naked) static void __stdcall MobAutoAggroHook() {
 		__asm {
-			call dword ptr [cVecCtrlWorkUpdateActiveCall] //calls CVecCtrl::WorkUpdateActive()
+			call dword ptr[cVecCtrlWorkUpdateActiveCall] //calls CVecCtrl::WorkUpdateActive()
 			push eax
 			mov edx, [UserLocalBase]
 			mov edx, [edx]
@@ -520,9 +520,9 @@ namespace CodeCaves {
 			mov edx, [edx + eax]
 			mov edx, [edx + 0x8]
 			mov eax, [OFS_Aggro]
-			mov [esi + eax], edx //Aggro Offset (first cmp before CVecCtrl::ChaseTarget)
+			mov[esi + eax], edx //Aggro Offset (first cmp before CVecCtrl::ChaseTarget)
 			pop eax
-			jmp dword ptr [mobAutoAggroAddrRet]
+			jmp dword ptr[mobAutoAggroAddrRet]
 		}
 	}
 
@@ -530,23 +530,23 @@ namespace CodeCaves {
 		__asm {
 			push ecx
 			push edx
-			cmp dword ptr [esp + 0x8], 0x009BBD5D
+			cmp dword ptr[esp + 0x8], 0x009BBD5D
 			je Return //If Spawning Mob, skip
-			cmp dword ptr [esp + 0x8], 0x009C1D90
+			cmp dword ptr[esp + 0x8], 0x009C1D90
 			je Return //If Spawning NPC, skip
 			call getSpawnControlStruct //returns SpawnControlStruct* with the mapID == current mapID
-			cmp eax, 0 
+			cmp eax, 0
 			je Return //If end of SpawnControl and no match, skip
 			mov edx, [eax + 4]
 			mov dword ptr[esp + 0x10], edx //x
 			mov edx, [eax + 8]
 			mov dword ptr[esp + 0x14], edx //y
 
-			Return:
+			Return :
 			pop edx
-			pop ecx
-			mov eax, 0x00AE56F4 //original code
-			jmp dword ptr[spawnPointAddrRet]
+				pop ecx
+				mov eax, 0x00AE56F4 //original code
+				jmp dword ptr[spawnPointAddrRet]
 		}
 	}
 
@@ -556,9 +556,9 @@ namespace CodeCaves {
 			jne NormalAPICall //If return not in CDropPool::TryPickUpDrop, skip
 			push eax
 			mov eax, [esp + 0x0C]
-			mov [ItemX], eax
+			mov[ItemX], eax
 			mov eax, [esp + 0x10]
-			mov [ItemY], eax
+			mov[ItemY], eax
 			pop eax
 
 			NormalAPICall :
@@ -572,69 +572,40 @@ namespace CodeCaves {
 			cmp byte ptr[isItemLoggingEnabled], 0
 			je Continue //Skip Logging Items
 			push eax
-			mov [itemLogged], eax
+			mov[itemLogged], eax
 			call itemLog
 			pop eax
 
-			Continue:
+			Continue :
 			cmp byte ptr[isItemFilterEnabled], 0
-			je EndItemFilter //Skip if Item Filter is disabled
-			mov ebx,[itemFilterMesos]
-			cmp eax,ebx //Assumes item is mesos because there the mesos drop limit is 50,000 whereas the smallest item id is greater than that
-			jle RemoveMesos //Remove mesos if item id is less than or equal to the user set limit. 
-			push eax
-			mov [itemLogged], eax
-			call shouldItemBeFiltered
-			cmp eax, 0 //Item shouldn't be filtered
-			pop eax
-			je EndItemFilter
-			mov eax, 0x00 //Remove Item
-			jmp EndItemFilter
+				je EndItemFilter //Skip if Item Filter is disabled
+				mov ebx, [itemFilterMesos]
+				cmp eax, ebx //Assumes item is mesos because there the mesos drop limit is 50,000 whereas the smallest item id is greater than that
+				jle RemoveMesos //Remove mesos if item id is less than or equal to the user set limit. 
+				push eax
+				mov[itemLogged], eax
+				call shouldItemBeFiltered
+				cmp eax, 0 //Item shouldn't be filtered
+				pop eax
+				je EndItemFilter
+				mov eax, 0x00 //Remove Item
+				jmp EndItemFilter
 
-			RemoveMesos:
-			mov [edi + 0x30], 0x00 //Remove Mesos
+				RemoveMesos :
+			mov[edi + 0x30], 0x00 //Remove Mesos
 
-			EndItemFilter:
-			pop ebx
-			mov [edi+0x34],eax
-			mov edi,[ebp-0x14]
-			jmp [itemFilterAddrRet]
+				EndItemFilter :
+				pop ebx
+				mov[edi + 0x34], eax
+				mov edi, [ebp - 0x14]
+				jmp[itemFilterAddrRet]
 		}
 	}
 
 	__declspec(naked) static void __stdcall MobFilter1Hook() {
 		__asm {
 			push ebx
-			call [cInPacketDecode4Addr] //CInPacket::Decode4()
-			cmp byte ptr[isMobFilterEnabled], 0
-			je EndMobFilter //Skip if Mob Filter is disabled
-			push eax
-			mov [mobLogged], eax
-			call shouldMobBeFiltered
-			cmp eax, 0 //Mob shouldn't be filtered
-			pop eax
-			je EndMobFilter
-			pop ebx
-			jmp [mobFilter1JmpAddr]
-
-			EndMobFilter:
-			pop ebx
-			jmp [mobFilter1AddrRet]
-		}
-	}
-
-	__declspec(naked) static void __stdcall MobFilter2Hook() {
-		__asm {
-			push ebx
-			call [cInPacketDecode4Addr] //CInPacket::Decode4()
-			cmp byte ptr[isMobLoggingEnabled], 0
-			je Continue //Skip Logging Mobs
-			push eax
-			mov [mobLogged], eax
-			call mobLog
-			pop eax
-
-			Continue:
+			call[cInPacketDecode4Addr] //CInPacket::Decode4()
 			cmp byte ptr[isMobFilterEnabled], 0
 			je EndMobFilter //Skip if Mob Filter is disabled
 			push eax
@@ -644,11 +615,40 @@ namespace CodeCaves {
 			pop eax
 			je EndMobFilter
 			pop ebx
-			jmp[mobFilter2JmpAddr]
+			jmp[mobFilter1JmpAddr]
 
 			EndMobFilter:
 			pop ebx
-			jmp [mobFilter2AddrRet]
+				jmp[mobFilter1AddrRet]
+		}
+	}
+
+	__declspec(naked) static void __stdcall MobFilter2Hook() {
+		__asm {
+			push ebx
+			call[cInPacketDecode4Addr] //CInPacket::Decode4()
+			cmp byte ptr[isMobLoggingEnabled], 0
+			je Continue //Skip Logging Mobs
+			push eax
+			mov[mobLogged], eax
+			call mobLog
+			pop eax
+
+			Continue :
+			cmp byte ptr[isMobFilterEnabled], 0
+				je EndMobFilter //Skip if Mob Filter is disabled
+				push eax
+				mov[mobLogged], eax
+				call shouldMobBeFiltered
+				cmp eax, 0 //Mob shouldn't be filtered
+				pop eax
+				je EndMobFilter
+				pop ebx
+				jmp[mobFilter2JmpAddr]
+
+				EndMobFilter:
+			pop ebx
+				jmp[mobFilter2AddrRet]
 		}
 	}
 #pragma managed
@@ -816,7 +816,7 @@ namespace PointerFuncs {
 
 	//Retrieve Channel
 	static System::String^ getChannel() {
-		return (ReadPointer(ServerBase, OFS_Channel)+1).ToString();
+		return (ReadPointer(ServerBase, OFS_Channel) + 1).ToString();
 	}
 
 	//Retrieve MapID
@@ -904,35 +904,4 @@ namespace PointerFuncs {
 		return ReadPointer(NPCPoolBase, OFS_NPCCount).ToString();
 	}
 }
-
-namespace HelperFuncs {
-	bool IsInGame() {
-		int mapID = System::Convert::ToInt32(PointerFuncs::getMapID());
-
-		if (!mapID == 0) //&& !PointerFuncs::getCharName()->Equals("CharName")
-			return true;
-
-		return false;
-	}
-
-	bool ValidToAttack() {
-		int attackCount = System::Convert::ToInt32(PointerFuncs::getAttackCount());
-
-		if (attackCount <= 99 && IsInGame()) // check for weapon and ammo
-			return true;
-
-		return false;
-	}
-
-	bool ValidToLoot() {
-		int peopleCount = System::Convert::ToInt32(PointerFuncs::getPeopleCount());
-
-		//Why check people count to loot? Should be able to loot via PostMessage even if people are in the map
-		if (peopleCount == 0 && IsInGame()) 
-			return true;
-
-		return false;
-	}
-}
-
 #endif
