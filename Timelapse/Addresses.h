@@ -1,6 +1,4 @@
-#ifndef ADDRESSES_H
-#define ADDRESSES_H
-
+#pragma once
 #include "Structs.h"
 
 /*  
@@ -258,4 +256,3 @@ ULONG OFS_MobCount = 0x24;
 ULONG CItemInfo = 0xBE78D8;
 ULONG StringPool = 0xBF0D0C;
 #pragma endregion
-#endif

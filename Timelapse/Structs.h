@@ -1,6 +1,4 @@
-#ifndef STRUCTS_H
-#define STRUCTS_H
-
+#pragma once
 #include <Windows.h>
 
 struct COutPacket {
@@ -76,4 +74,3 @@ ref struct MapPath {
 		this->portal = portal;
 	}
 };
-#endif
