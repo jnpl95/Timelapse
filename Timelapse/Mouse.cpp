@@ -1,5 +1,5 @@
-#include <windows.h>
 #include "Mouse.h"
+#pragma comment(lib, "user32.lib")
 
 // init routine for mouse type INPUT structure
 #define INIT_INPUT(var) \
@@ -96,13 +96,11 @@ namespace MouseInput
 
 	void Mouse::doubleRightClick() {
 		rightClick();
-		Sleep(50);
 		rightClick();
 	}
 
 	void Mouse::doubleLeftClick() {
 		leftClick();
-		Sleep(50);
 		leftClick();
 	}
 

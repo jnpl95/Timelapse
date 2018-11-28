@@ -1,7 +1,7 @@
 #ifndef ADDRESSES_H
 #define ADDRESSES_H
 
-#include "Packet.h"
+#include "Structs.h"
 
 /*  
  *  Addresses defined here were found using the following programs: Cheat Engine, Hex-Rays IDA, ReClassEx
@@ -141,24 +141,32 @@ ULONG mobFilter2JmpAddr = 0x0067957F; //mov ecx,[ebp-0C] above the ret 0004 at t
 ULONG cInPacketDecode4Addr = 0x00406629; //Start of CInPacket::Decode4()
 #pragma endregion
 
-#pragma region MapleStory Function Addresses
+#pragma region MapleStory Function Hook Addresses
+// Addresses
+ULONG enterCSAddr = 0x00A04DCA;
+ULONG exitCSAddr = 0x0047C108;
+ULONG ccAddr = 0x005304AF;
+ULONG charLVLAddr = 0x004A8DE0; // TODO: Fix address
+ULONG jobNameAddr = 0x004A77EF;
+ULONG charDataAddr = 0x00425D0B;
+// Hooks
 typedef void(__stdcall *pfnCWvsContext__SendMigrateToShopRequest)(PVOID, PVOID, int); // Enters Cash Shop
-auto CWvsContext__SendMigrateToShopRequest = (pfnCWvsContext__SendMigrateToShopRequest)0x00A04DCA;
+auto CWvsContext__SendMigrateToShopRequest = reinterpret_cast<pfnCWvsContext__SendMigrateToShopRequest>(enterCSAddr);
 
 typedef void(__stdcall *pfnCCashShop__SendTransferFieldPacket)(); // Exits Cash Shop
-auto CCashShop__SendTransferFieldPacket = (pfnCCashShop__SendTransferFieldPacket)0x0047C108;
+auto CCashShop__SendTransferFieldPacket = reinterpret_cast<pfnCCashShop__SendTransferFieldPacket>(exitCSAddr);
 
 typedef int(__stdcall *pfnCField__SendTransferChannelRequest)(int nTargetChannel); // Changes Channel
-auto CField__SendTransferChannelRequest = (pfnCField__SendTransferChannelRequest)0x5304AF;
+auto CField__SendTransferChannelRequest = reinterpret_cast<pfnCField__SendTransferChannelRequest>(ccAddr);
 
 typedef int(__stdcall *pfnCWvsContext__GetCharacterLevel)(ULONG, PVOID); // Retrieves Character Level
-auto CWvsContext__GetCharacterLevel = (pfnCWvsContext__GetCharacterLevel)0x004A8DE0; // TODO: Fix address
+auto CWvsContext__GetCharacterLevel = reinterpret_cast<pfnCWvsContext__GetCharacterLevel>(charLVLAddr);
 
 typedef char*(__cdecl *pfnGet_Job_Name)(int); // Retrieves Job name
-auto GetJobName = (pfnGet_Job_Name)0x004A77EF;
+auto GetJobName = reinterpret_cast<pfnGet_Job_Name>(jobNameAddr);
 
 typedef void*(__thiscall *pfnCWvsContext__GetCharacterData)(ULONG, PVOID);
-auto CWvsContext__GetCharacterData = (pfnCWvsContext__GetCharacterData)0x00425D0B;
+auto CWvsContext__GetCharacterData = reinterpret_cast<pfnCWvsContext__GetCharacterData>(charDataAddr);
 
 //typedef ZXString<char>*(__fastcall* StringPool__GetString_t)(void *StringPool, void *edx, ZXString<char> *result, unsigned int nIdx);
 //auto StringPool__GetString = (StringPool__GetString_t)0x0049B330; //
@@ -250,5 +258,4 @@ ULONG OFS_MobCount = 0x24;
 ULONG CItemInfo = 0xBE78D8;
 ULONG StringPool = 0xBF0D0C;
 #pragma endregion
-
 #endif

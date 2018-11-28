@@ -12,6 +12,7 @@ namespace Timelapse {
 			static void Deserialize(Control^ c, String^ Path);
 			static void Serialize(String^ Path, XmlSerializer^ Serializer, Object^ Collection);
 			static void Serialize(Control^ c, String^ Path);
+			static bool isExcluded(Control^ ctrl);
 			static String^ GetSettingsPath();
 
 		private:

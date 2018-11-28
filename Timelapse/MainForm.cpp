@@ -3,15 +3,25 @@
 #include <sstream>
 #include "MainForm.h"
 #include "Addresses.h"
-#include "Functions.h"
 #include "Macro.h"
 #include "Packet.h"
 #include "Structs.h"
-#include "resource.h"
 #include "Settings.h"
 #include "Log.h"
+#include "Assembly.h"
 
 using namespace Timelapse;
+
+static void SendKey(BYTE keyCode) {
+	PostMessage(GlobalVars::mapleWindow, WM_KEYDOWN, keyCode, MapVirtualKey(keyCode, MAPVK_VK_TO_VSC) << 16);
+}
+
+//Get MS ThreadID
+static ULONG GetMSThreadID() {
+	if (GlobalVars::mapleWindow == nullptr)
+		GlobalVars::mapleWindow = GetMSWindowHandle();
+	return GetWindowThreadProcessId(GlobalVars::mapleWindow, nullptr);
+}
 
 //Forward declarations
 static void loadMaps(); 
@@ -65,8 +75,11 @@ BOOL WINAPI DllMain(HMODULE hModule, DWORD dwReason, PVOID lpvReserved) {
 
 #pragma managed
 void MainForm::MainForm_Load(Object^  sender, EventArgs^  e) {
-	Log::WriteLine();
-	Log::WriteLine("Initialing Timelapse trainer...");
+	Log::WriteLineToConsole("::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::");
+	Log::WriteLineToConsole(":::                      Timelapse Trainer                     :::");
+	Log::WriteLineToConsole("::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::");
+	Log::WriteLineToConsole("Recommended injector: Extreme Injector v3.7.2 (unloads dll)");
+	Log::WriteLineToConsole("Initializing Timelapse trainer ....");
 	RECT msRect;
 	GetWindowRect(GetMSWindowHandle(), &msRect);
 	this->Left = msRect.right;
@@ -83,10 +96,12 @@ void MainForm::MainForm_Shown(Object^  sender, EventArgs^  e) {
 	}
 
 	lbTitle->Text = "Timelapse Trainer - PID: " + GetMSProcID();
+	Log::WriteLineToConsole("Creating and starting macro Thread...");
 	Threading::Thread^ macroThread = gcnew Threading::Thread(gcnew Threading::ThreadStart(PriorityQueue::MacroQueueWorker));
 	macroThread->Start();
+	Log::WriteLineToConsole("Loading Maps for mapRusher......");
 	loadMaps();
-	Log::WriteLine("Initialized Timelapse trainer!");
+	Log::WriteLineToConsole("Initialized Timelapse trainer!");
 }
 
 void MainForm::MainForm_FormClosing(Object^  sender, Windows::Forms::FormClosingEventArgs^  e) {
@@ -176,7 +191,7 @@ void MainForm::lbHP_MouseHover(Object^  sender, EventArgs^  e) {
 	ToolTip^ hpToolTip = gcnew ToolTip();
 	hpToolTip->IsBalloon = true;
 	hpToolTip->ShowAlways = true;
-	hpToolTip->SetToolTip(lbHP, "(" + CodeCaves::curHP.ToString() + "/" + CodeCaves::maxHP.ToString() + ")");
+	hpToolTip->SetToolTip(lbHP, "(" + Assembly::curHP.ToString() + "/" + Assembly::maxHP.ToString() + ")");
 }
 
 //Display Char MP values on hover
@@ -184,7 +199,7 @@ void MainForm::lbMP_MouseHover(Object^  sender, EventArgs^  e) {
 	ToolTip^ mpToolTip = gcnew ToolTip();
 	mpToolTip->IsBalloon = true;
 	mpToolTip->ShowAlways = true;
-	mpToolTip->SetToolTip(lbMP, "(" + CodeCaves::curMP.ToString() + "/" + CodeCaves::maxMP.ToString() + ")");
+	mpToolTip->SetToolTip(lbMP, "(" + Assembly::curMP.ToString() + "/" + Assembly::maxMP.ToString() + ")");
 }
 
 //Display Char EXP values on hover
@@ -192,7 +207,7 @@ void MainForm::lbEXP_MouseHover(Object^  sender, EventArgs^  e) {
 	ToolTip^ expToolTip = gcnew ToolTip();
 	expToolTip->IsBalloon = true;
 	expToolTip->ShowAlways = true;
-	expToolTip->SetToolTip(lbEXP, "(" + CodeCaves::curEXP.ToString() + "/" + CodeCaves::maxEXP.ToString() + ")");
+	expToolTip->SetToolTip(lbEXP, "(" + Assembly::curEXP.ToString() + "/" + Assembly::maxEXP.ToString() + ")");
 }
 
 //Display World value on hover
@@ -252,8 +267,6 @@ void MainForm::GUITimer_Tick(Object^  sender, EventArgs^  e) {
 #pragma region Main Tab
 #pragma region Auto Login
 //From Old Trainer, need to fix dc if already logged in once
-
-
 /*System::Text::StringBuilder usernameOutput, passwordOutput;
 String^ username = this->textBox34->Text;
 String^ password = this->textBox35->Text;
@@ -282,7 +295,6 @@ Sleep(2000);
 
 int character = int::Parse(this->comboBox11->Text) - 1; //" + gcnew String(intToHexL(character, 2, false).c_str()) + "
 SendPacket(gcnew String("13 00 02 00 00 00 11 00 41 34 2D 33 34 2D 44 39 2D 34 38 2D 39 44 2D 46 36 15 00 35 30 37 42 39 44 35 46 31 38 37 34 5F 42 34 34 33 38 44 34 38"));*/
-
 #pragma endregion
 
 #pragma region Options
@@ -293,6 +305,30 @@ void MainForm::transparencyTrackBar_Scroll(Object^  sender, EventArgs^  e) {
 #pragma endregion
 
 #pragma region Bots Tab
+//Keycode based on index selected in combo boxes
+static int keyCollection[] = { 0x10, 0x11, 0x12, 0x20, 0x2D, 0x2E, 0x24, 0x23, 0x21, 0x22, 0x41, 0x42, 0x43, 0x44, 0x45, 0x46, 0x47, 0x48, 0x49, 0x4A, 0x4B, 0x4C, 0x4D, 0x4E, 0x4F, 0x50, 0x51,
+0x52, 0x53, 0x54, 0x55, 0x56, 0x57, 0x58, 0x59, 0x5A, 0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x39 };
+
+//Check if keypress is valid
+static bool isKeyValid(Object^ sender, Windows::Forms::KeyPressEventArgs^ e, bool isSigned) {
+	bool result = true;
+
+	//If the character is not a digit or backspace, don't allow it
+	if (!isdigit(e->KeyChar) && e->KeyChar != '\b') result = false;
+
+	//If the textbox is supposed to contain a signed value, check to see if '-' should be permitted
+	if (isSigned && e->KeyChar == '-') {
+		Windows::Forms::TextBox^ textBox = safe_cast<Windows::Forms::TextBox^>(sender);
+
+		//If the selected text does not start at the beginning of the text, don't allow the '-' keypress
+		if (textBox->SelectionStart > 0) result = false;
+		//If the selection starts at 0 and there exists a '-' in the complete text, and the selected text doesn't have '-', don't allow an additional '-' keypress
+		else if (textBox->Text->IndexOf('-') > -1 && !textBox->SelectedText->Contains("-")) result = false;
+		else result = true;
+	}
+
+	return result;
+}
 #pragma region Auto HP
 void MainForm::cbHP_CheckedChanged(Object^  sender, EventArgs^  e) {
 	if (this->cbHP->Checked) {
@@ -350,7 +386,6 @@ void MainForm::cbAttack_CheckedChanged(Object^  sender, EventArgs^  e) {
 				this->cbAttack->Checked = false;
 				return;
 			}
-
 			GlobalRefs::macroAttack = gcnew Macro(keyCollection[this->comboAttackKey->SelectedIndex], Convert::ToUInt32(tbAttackInterval->Text), MacroType::ATTACKMACRO);
 		}
 		GlobalRefs::macroAttack->Toggle(true);
@@ -372,7 +407,6 @@ void MainForm::tbAttackInterval_TextChanged(Object^  sender, EventArgs^  e) {
 			MessageBox::Show("Error: Attack Interval textbox cannot be empty");
 			return;
 		}
-
 		GlobalRefs::macroAttack->delay = Convert::ToUInt32(tbAttackInterval->Text);
 	}
 }
@@ -487,7 +521,6 @@ void MainForm::tbBuffInterval_KeyPress(Object^  sender, Windows::Forms::KeyPress
 
 #pragma region Auto CC/CS
 //TODO: add option to whitelist or blacklist channels
-
 void CallCCFunc(int channel) {
 	if (PointerFuncs::getMapID()->Equals("0")) return;
 	WritePointer(UserLocalBase, OFS_Breath, 0);
@@ -506,6 +539,14 @@ void CallCSFunc() {
 
 void _stdcall AutoCC(int toChannel) {
 	int channel;
+	//List<int> excludedChannels = {};
+	// read string from settings	
+	//String excludedChannelsText = MainForm::TheInstance->tbCSDelay->Text;
+	//int i;
+	//for (i=0, i<sizeof(excludedChannelsText), i++)
+	// parse string by comma into excludedChanList
+	//String firstchar = excludedChannelsText[1];
+
 	if (toChannel == -1) channel = rand() % 19;
 	else channel = toChannel;
 
@@ -631,6 +672,31 @@ void MainForm::tbCSDelay_KeyPress(Object^  sender, Windows::Forms::KeyPressEvent
 	if (!isKeyValid(sender, e, false)) e->Handled = true; //If key is not valid, do nothing and indicate that it has been handled
 }
 #pragma endregion 
+
+#pragma region Auto Sell Tab
+void MainForm::cbSellAll_CheckedChanged(System::Object^  sender, System::EventArgs^  e) {
+	if (this->cbSellAll->Checked) {
+		if (HelperFuncs::IsInventoryFull()) {
+			//deactivate hacks and macro
+			if (this->cbZzVac->Checked)
+				cbZzVac->Checked = false;
+			if (this->cbKami->Checked)
+				cbKami->Checked = false;
+			if (this->cbVacLeft->Checked)
+				cbVacLeft->Checked = false;
+			if (this->cbVacRight->Checked)
+				cbVacRight->Checked = false;
+
+			MacrosEnabled::bMacroLoot = false;
+			MacrosEnabled::bMacroAttack = false;
+			MacrosEnabled::bMacroHP = false;
+			MacrosEnabled::bMacroMP = false;
+
+			//HelperFuncs::ReturnToTownAndSell(true);
+		}
+	}
+}
+#pragma endregion
 #pragma endregion
 
 #pragma region Hacks I Tab
@@ -705,8 +771,8 @@ void MainForm::tbMouseTeleport_KeyPress(Object^  sender, Windows::Forms::KeyPres
 //Mouse Fly (CVecCtrl::raw_GetSnapshot())
 void MainForm::cbMouseFly_CheckedChanged(Object^  sender, EventArgs^  e) {
 	if (this->cbMouseFly->Checked) {
-		Jump(mouseFlyXAddr, CodeCaves::MouseFlyXHook, 0); //MouseFlyXHook CodeCave
-		Jump(mouseFlyYAddr, CodeCaves::MouseFlyYHook, 0); //MouseFlyYHook CodeCave
+		Jump(mouseFlyXAddr, Assembly::MouseFlyXHook, 0); //MouseFlyXHook CodeCave
+		Jump(mouseFlyYAddr, Assembly::MouseFlyYHook, 0); //MouseFlyYHook CodeCave
 	}
 	else {
 		WriteMemory(mouseFlyXAddr, 5, 0x89, 0x03, 0x8B, 0x7D, 0x10); //mov [ebx],eax; mov edi,[ebp+10]
@@ -794,12 +860,34 @@ void MainForm::cbNoPlayerNameTag_CheckedChanged(Object^  sender, EventArgs^  e) 
 		WriteMemory(noPlayerNameTagAddr, 5, 0xB8, 0x14, 0xDA, 0xAD, 0x00); //mov eax,00ADDA14
 }
 
+void MainForm::tbAttackDelay_KeyPress(Object^  sender, Windows::Forms::KeyPressEventArgs^  e) {
+	if (!isKeyValid(sender, e, false)) e->Handled = true; //If key is not valid, do nothing and indicate that it has been handled
+}
+
+void MainForm::tbAttackDelay_TextChanged(Object^ sender, EventArgs^ e) {
+	String^ animDelayStr = tbAttackDelay->Text;
+	if (String::IsNullOrWhiteSpace(animDelayStr)) {
+		MessageBox::Show("Error: Attack delay textbox cannot be empty");
+		return;
+	}
+
+	const int animDelayInt = Convert::ToInt32(animDelayStr);
+	if (animDelayInt < -128) {
+		tbAttackDelay->Text = "-128";
+		Assembly::animDelay = -128;
+	} else if (animDelayInt > 127) {
+		tbAttackDelay->Text = "127";
+		Assembly::animDelay = 127;
+	}
+	Assembly::animDelay = animDelayInt;
+}
+
 //TODO: the value is a byte thus should be settable in range of -128_127
 //Attack Delay (CAvatar::PrepareActionLayer())
+//No Attack Delay Method 2 (skips animation, same function) Address: 0045478F Changed Memory: 0F8E->0F8F //jg 0045483D [first 2 bytes]
 void MainForm::cbAttackDelay_CheckedChanged(Object^ sender, EventArgs^ e) {
-	//No Attack Delay Method 2 (skips animation, same function) Address: 0045478F Changed Memory: 0F8E->0F8F //jg 0045483D [first 2 bytes]
 	if (this->cbAttackDelay->Checked)
-		WriteMemory(attackDelayAddr, 3, 0x83, 0xC1, 0x05); //add ecx,05
+		WriteMemory(attackDelayAddr, 3, 0x83, 0xC1, Assembly::animDelay); //add ecx, [animDelay]
 	else
 		WriteMemory(attackDelayAddr, 3, 0x83, 0xC0, 0x0A); //add eax,0a
 }
@@ -831,7 +919,7 @@ void MainForm::cbTubi_CheckedChanged(Object^  sender, EventArgs^  e) {
 //Item Vac (CDropPool::TryPickUpDrop())
 void MainForm::cbItemVac_CheckedChanged(Object^  sender, EventArgs^  e) {
 	if (this->cbItemVac->Checked)
-		Jump(itemVacAddr, CodeCaves::ItemVacHook, 2);
+		Jump(itemVacAddr, Assembly::ItemVacHook, 2);
 	else
 		WriteMemory(itemVacAddr, 7, 0x50, 0xFF, 0x75, 0xDC, 0x8D, 0x45, 0xCC);
 }
@@ -864,7 +952,7 @@ void MainForm::cbNoMobKnockback_CheckedChanged(Object^  sender, EventArgs^  e) {
 void MainForm::cbMobFreeze_CheckedChanged(Object^  sender, EventArgs^  e)
 {
 	if (this->cbMobFreeze->Checked)
-		Jump(mobFreezeAddr, CodeCaves::MobFreezeHook, 1); //MobFreezeHook CodeCave
+		Jump(mobFreezeAddr, Assembly::MobFreezeHook, 1); //MobFreezeHook CodeCave
 	else
 		WriteMemory(mobFreezeAddr, 6, 0x8B, 0x86, 0x48, 0x02, 0x00, 0x00); //mov eax,[esi+00000248]
 }
@@ -880,7 +968,7 @@ void MainForm::cbMobDisarm_CheckedChanged(Object^  sender, EventArgs^  e) {
 //Mob Auto Aggro (CVecCtrlMob::WorkUpdateActive())
 void MainForm::cbMobAutoAggro_CheckedChanged(Object^  sender, EventArgs^  e) {
 	if (this->cbMobAutoAggro->Checked)
-		Jump(mobAutoAggroAddr, CodeCaves::MobAutoAggroHook, 0); //MobAutoAggroHook CodeCave
+		Jump(mobAutoAggroAddr, Assembly::MobAutoAggroHook, 0); //MobAutoAggroHook CodeCave
 	else
 		WriteMemory(mobAutoAggroAddr, 5, 0xE8, 0xD4, 0x4E, 0xFF, 0xFF); //call 009B19D0 (calls CVecCtrl::WorkUpdateActive())
 }
@@ -1070,14 +1158,14 @@ void MainForm::bSpawnControlAdd_Click(Object^  sender, EventArgs^  e) {
 	lvSpawnControl->Items->Add(lvi);
 
 	SpawnControlData* sps = new SpawnControlData(Convert::ToUInt32(tbSpawnControlMapID->Text), Convert::ToInt32(tbSpawnControlX->Text), Convert::ToInt32(tbSpawnControlY->Text));
-	CodeCaves::spawnControl->push_back(sps);
+	Assembly::spawnControl->push_back(sps);
 }
 
 void MainForm::bSpawnControlDelete_Click(Object^  sender, EventArgs^  e) {
 	for each(ListViewItem^ lvi in lvSpawnControl->SelectedItems) {
-		for (std::vector<SpawnControlData*>::const_iterator i = CodeCaves::spawnControl->begin(); i != CodeCaves::spawnControl->end(); ++i) {
+		for (std::vector<SpawnControlData*>::const_iterator i = Assembly::spawnControl->begin(); i != Assembly::spawnControl->end(); ++i) {
 			if (Convert::ToString((*i)->mapID)->Equals(lvi->SubItems[0]->Text)) {
-				CodeCaves::spawnControl->erase(i);
+				Assembly::spawnControl->erase(i);
 				break;
 			}
 		}
@@ -1092,7 +1180,7 @@ void MainForm::bSpawnControl_Click(Object^  sender, EventArgs^  e) {
 		bSpawnControlAdd->Enabled = false;
 		bSpawnControlDelete->Enabled = false;
 		lvSpawnControl->Enabled = false;
-		Jump(spawnPointAddr, CodeCaves::SpawnPointHook, 0);
+		Jump(spawnPointAddr, Assembly::SpawnPointHook, 0);
 	}
 	else {
 		bSpawnControl->Text = "Enable Spawn Control";
@@ -1126,7 +1214,7 @@ void KamiLoop() {
 		if (GlobalRefs::bKami && GlobalRefs::bKamiLoot) {
 			if(ReadPointer(DropPoolBase, OFS_ItemCount) > Convert::ToUInt32(MainForm::TheInstance->tbKamiLootItem->Text)) {
 				if (!GlobalRefs::isChangingField && !GlobalRefs::isMapRushing) {}
-					Teleport(CodeCaves::ItemX, CodeCaves::ItemY + 10);
+					Teleport(Assembly::ItemX, Assembly::ItemY + 10);
 				Sleep(Convert::ToUInt32(MainForm::TheInstance->tbKamiLootInterval->Text));
 			}
 			else if (ReadPointer(MobPoolBase, OFS_MobCount) > Convert::ToUInt32(MainForm::TheInstance->tbKamiMob->Text)) {
@@ -1154,7 +1242,7 @@ void KamiLoop() {
 		else if (GlobalRefs::bKamiLoot) {
 			if (ReadPointer(DropPoolBase, OFS_ItemCount) > Convert::ToUInt32(MainForm::TheInstance->tbKamiLootItem->Text)) {
 				if (!GlobalRefs::isChangingField && !GlobalRefs::isMapRushing) {}
-					MessageBox::Show("ItemX: " + CodeCaves::ItemX.ToString() + " ItemY: " + CodeCaves::ItemY.ToString()); //Teleport(CodeCaves::ItemX, CodeCaves::ItemY+10);
+					MessageBox::Show("ItemX: " + Assembly::ItemX.ToString() + " ItemY: " + Assembly::ItemY.ToString()); //Teleport(CodeCaves::ItemX, CodeCaves::ItemY+10);
 			}
 			Sleep(Convert::ToUInt32(MainForm::TheInstance->tbKamiLootInterval->Text));
 		}
@@ -1186,7 +1274,7 @@ void MainForm::cbKamiLoot_CheckedChanged(System::Object^  sender, System::EventA
 		tbKamiLootItem->Enabled = false;
 		GlobalRefs::bKamiLoot = true;
 		cbLoot->Checked = true; //Enable Auto Loot (Required for call to PtInRect)
-		*(ULONG*)PtInRectAddr = (ULONG)CodeCaves::ItemHook;
+		*(ULONG*)PtInRectAddr = (ULONG)Assembly::ItemHook;
 		if (!GlobalRefs::bKami)
 			NewThread(KamiLoop);
 	}
@@ -1505,14 +1593,14 @@ void MainForm::bItemFilter_Click(System::Object^  sender, System::EventArgs^  e)
 		bItemFilter->Text = "Disable Item Filter";
 		if (Convert::ToUInt32(tbItemFilterMesos->Text) > 50000) MessageBox::Show("Please enter mesos value ranging from 0 to 50,000. Default: 0");
 
-		CodeCaves::isItemFilterEnabled = 1;
-		if (CodeCaves::isItemLoggingEnabled == 0)
-			Jump(itemFilterAddr, CodeCaves::ItemFilterHook, 1);
+		Assembly::isItemFilterEnabled = 1;
+		if (Assembly::isItemLoggingEnabled == 0)
+			Jump(itemFilterAddr, Assembly::ItemFilterHook, 1);
 	}
 	else {
 		bItemFilter->Text = "Enable Item Filter";
-		CodeCaves::isItemFilterEnabled = 0;
-		if(CodeCaves::isItemLoggingEnabled == 0)
+		Assembly::isItemFilterEnabled = 0;
+		if(Assembly::isItemLoggingEnabled == 0)
 			WriteMemory(itemFilterAddr, 6, 0x89, 0x47, 0x34, 0x8B, 0x7D, 0xEC); //mov [edi+34],eax; mov edi,[ebp-14];
 	}
 }
@@ -1520,21 +1608,21 @@ void MainForm::bItemFilter_Click(System::Object^  sender, System::EventArgs^  e)
 //Change Item Filter type (either White List or Black List)
 void MainForm::rbItemFilterWhiteList_CheckedChanged(System::Object^  sender, System::EventArgs^  e) {
 	if (rbItemFilterWhiteList->Checked)
-		CodeCaves::isItemFilterWhiteList = 1;
+		Assembly::isItemFilterWhiteList = 1;
 	else
-		CodeCaves::isItemFilterWhiteList = 0;
+		Assembly::isItemFilterWhiteList = 0;
 }
 
 //Enable Item Filter Log
 void MainForm::cbItemFilterLog_CheckedChanged(System::Object^  sender, System::EventArgs^  e) {
 	if(cbItemFilterLog->Checked) {
-		CodeCaves::isItemLoggingEnabled = 1;
-		if (CodeCaves::isItemFilterEnabled == 0)
-			Jump(itemFilterAddr, CodeCaves::ItemFilterHook, 1);
+		Assembly::isItemLoggingEnabled = 1;
+		if (Assembly::isItemFilterEnabled == 0)
+			Jump(itemFilterAddr, Assembly::ItemFilterHook, 1);
 	}
 	else {
-		CodeCaves::isItemLoggingEnabled = 0;
-		if (CodeCaves::isItemFilterEnabled == 0)
+		Assembly::isItemLoggingEnabled = 0;
+		if (Assembly::isItemFilterEnabled == 0)
 			WriteMemory(itemFilterAddr, 6, 0x89, 0x47, 0x34, 0x8B, 0x7D, 0xEC); //mov [edi+34],eax; mov edi,[ebp-14];
 	}
 }
@@ -1544,13 +1632,13 @@ void MainForm::bItemFilterAdd_Click(System::Object^  sender, System::EventArgs^ 
 	if(tbItemFilterID->TextLength > 0) {
 		try {
 			UINT itemID = Convert::ToUInt32(tbItemFilterID->Text);
-			String^ item = findItemNameFromID(itemID);
+			String^ item = Assembly::findItemNameFromID(itemID);
 
 			if(itemID > 0 && !lbItemFilter->Items->Contains(item + " (" + itemID.ToString() + ")")) {
 				lbItemFilter->Items->Add(item + " (" + itemID.ToString() + ")");
 				tbItemFilterID->Text = "";
 				lbItemFilter->SelectedIndex = -1;
-				CodeCaves::itemList->push_back(itemID);
+				Assembly::itemList->push_back(itemID);
 			}
 		}
 		catch (...) { MessageBox::Show("Item ID not found"); }
@@ -1564,7 +1652,7 @@ void MainForm::lbItemFilter_MouseDoubleClick(System::Object^  sender, System::Wi
 		int startIndex = itemStr->IndexOf('(') + 1, endIndex = itemStr->IndexOf(')');
 
 		String^ itemIDStr = itemStr->Substring(startIndex, endIndex - startIndex);
-		CodeCaves::itemList->erase(std::find(CodeCaves::itemList->begin(), CodeCaves::itemList->end(), Convert::ToUInt32(itemIDStr)));
+		Assembly::itemList->erase(std::find(Assembly::itemList->begin(), Assembly::itemList->end(), Convert::ToUInt32(itemIDStr)));
 
 		lbItemFilter->Items->Remove(lbItemFilter->SelectedItem);
 		lbItemFilter->SelectedIndex = -1;
@@ -1578,7 +1666,7 @@ void MainForm::lbItemSearchLog_MouseDoubleClick(System::Object^  sender, System:
 		int startIndex = itemStr->IndexOf('(')+1, endIndex = itemStr->IndexOf(')');
 
 		String^ itemIDStr = itemStr->Substring(startIndex, endIndex - startIndex);
-		CodeCaves::itemList->push_back(Convert::ToUInt32(itemIDStr));
+		Assembly::itemList->push_back(Convert::ToUInt32(itemIDStr));
 
 		lbItemFilter->Items->Add(lbItemSearchLog->SelectedItem);
 		lbItemSearchLog->SelectedIndex = -1;
@@ -1602,7 +1690,7 @@ void MainForm::tbItemFilterMesos_TextChanged(System::Object^  sender, System::Ev
 	if (!String::IsNullOrEmpty(tbItemFilterMesos->Text)) {
 		ULONG mesosLimit = Convert::ToUInt32(tbItemFilterMesos->Text);
 		if (mesosLimit >= 0 && mesosLimit <= 50000)
-			CodeCaves::itemFilterMesos = mesosLimit;
+			Assembly::itemFilterMesos = mesosLimit;
 	}
 }
 
@@ -1650,16 +1738,16 @@ static void findMobsStartingWithStr(String^ str) {
 void MainForm::bMobFilter_Click(System::Object^  sender, System::EventArgs^  e) {
 	if (bMobFilter->Text->Equals("Enable Mob Filter")) {
 		bMobFilter->Text = "Disable Mob Filter";
-		CodeCaves::isMobFilterEnabled = 1;
-		if (CodeCaves::isMobLoggingEnabled == 0) {
-			Jump(mobFilter1Addr, CodeCaves::MobFilter1Hook, 0);
-			Jump(mobFilter2Addr, CodeCaves::MobFilter2Hook, 0);
+		Assembly::isMobFilterEnabled = 1;
+		if (Assembly::isMobLoggingEnabled == 0) {
+			Jump(mobFilter1Addr, Assembly::MobFilter1Hook, 0);
+			Jump(mobFilter2Addr, Assembly::MobFilter2Hook, 0);
 		}
 	}
 	else {
 		bMobFilter->Text = "Enable Mob Filter";
-		CodeCaves::isMobFilterEnabled = 0;
-		if (CodeCaves::isMobLoggingEnabled == 0) {
+		Assembly::isMobFilterEnabled = 0;
+		if (Assembly::isMobLoggingEnabled == 0) {
 			WriteMemory(mobFilter1Addr, 5, 0xE8, 0xF7, 0xE2, 0xD8, 0xFF); //call 00406629
 			WriteMemory(mobFilter2Addr, 5, 0xE8, 0x98, 0xD1, 0xD8, 0xFF); //call 00406629
 		}
@@ -1669,23 +1757,23 @@ void MainForm::bMobFilter_Click(System::Object^  sender, System::EventArgs^  e) 
 //Change Mob Filter type (either White List or Black List)
 void MainForm::rbMobFilterWhiteList_CheckedChanged(System::Object^  sender, System::EventArgs^  e) {
 	if (rbMobFilterWhiteList->Checked)
-		CodeCaves::isMobFilterWhiteList = 1;
+		Assembly::isMobFilterWhiteList = 1;
 	else
-		CodeCaves::isMobFilterWhiteList = 0;
+		Assembly::isMobFilterWhiteList = 0;
 }
 
 //Enable Mob Filter Log
 void MainForm::cbMobFilterLog_CheckedChanged(System::Object^  sender, System::EventArgs^  e) {
 	if (cbMobFilterLog->Checked) {
-		CodeCaves::isMobLoggingEnabled = 1;
-		if (CodeCaves::isMobFilterEnabled == 0) {
-			Jump(mobFilter1Addr, CodeCaves::MobFilter1Hook, 0);
-			Jump(mobFilter2Addr, CodeCaves::MobFilter2Hook, 0);
+		Assembly::isMobLoggingEnabled = 1;
+		if (Assembly::isMobFilterEnabled == 0) {
+			Jump(mobFilter1Addr, Assembly::MobFilter1Hook, 0);
+			Jump(mobFilter2Addr, Assembly::MobFilter2Hook, 0);
 		}
 	}
 	else {
-		CodeCaves::isMobLoggingEnabled = 0;
-		if (CodeCaves::isMobFilterEnabled == 0) {
+		Assembly::isMobLoggingEnabled = 0;
+		if (Assembly::isMobFilterEnabled == 0) {
 			WriteMemory(mobFilter1Addr, 5, 0xE8, 0xF7, 0xE2, 0xD8, 0xFF); //call 00406629
 			WriteMemory(mobFilter2Addr, 5, 0xE8, 0x98, 0xD1, 0xD8, 0xFF); //call 00406629
 		}
@@ -1697,13 +1785,13 @@ void MainForm::bMobFilterAdd_Click(System::Object^  sender, System::EventArgs^  
 	if (tbMobFilterID->TextLength > 0) {
 		try {
 			UINT mobID = Convert::ToUInt32(tbMobFilterID->Text);
-			String^ mob = findMobNameFromID(mobID);
+			String^ mob = Assembly::findMobNameFromID(mobID);
 
 			if (mobID > 0 && !lbMobFilter->Items->Contains(mob + " (" + mobID.ToString() + ")")) {
 				lbMobFilter->Items->Add(mob + " (" + mobID.ToString() + ")");
 				tbMobFilterID->Text = "";
 				lbMobFilter->SelectedIndex = -1;
-				CodeCaves::mobList->push_back(mobID);
+				Assembly::mobList->push_back(mobID);
 			}
 		}
 		catch (...) { MessageBox::Show("Mob ID not found"); }
@@ -1717,7 +1805,7 @@ void MainForm::lbMobFilter_MouseDoubleClick(System::Object^  sender, System::Win
 		int startIndex = mobStr->IndexOf('(') + 1, endIndex = mobStr->IndexOf(')');
 
 		String^ mobIDStr = mobStr->Substring(startIndex, endIndex - startIndex);
-		CodeCaves::mobList->erase(std::find(CodeCaves::mobList->begin(), CodeCaves::mobList->end(), Convert::ToUInt32(mobIDStr)));
+		Assembly::mobList->erase(std::find(Assembly::mobList->begin(), Assembly::mobList->end(), Convert::ToUInt32(mobIDStr)));
 
 		lbMobFilter->Items->Remove(lbMobFilter->SelectedItem);
 		lbMobFilter->SelectedIndex = -1;
@@ -1731,7 +1819,7 @@ void MainForm::lbMobSearchLog_MouseDoubleClick(System::Object^  sender, System::
 		int startIndex = mobStr->IndexOf('(') + 1, endIndex = mobStr->IndexOf(')');
 
 		String^ mobIDStr = mobStr->Substring(startIndex, endIndex - startIndex);
-		CodeCaves::mobList->push_back(Convert::ToUInt32(mobIDStr));
+		Assembly::mobList->push_back(Convert::ToUInt32(mobIDStr));
 
 		lbMobFilter->Items->Add(lbMobSearchLog->SelectedItem);
 		lbMobSearchLog->SelectedIndex = -1;
@@ -1817,6 +1905,10 @@ void MainForm::bSendDrop50000_Click(System::Object^  sender, System::EventArgs^ 
 
 void MainForm::bSendRestore127Health_Click(System::Object^  sender, System::EventArgs^  e) {
 	SendPacket("59 00 A1 7F F7 08 00 14 00 00 7F 00 00 00 00");
+}
+
+System::Void MainForm::bTestButton_Click(System::Object^ sender, System::EventArgs^ e)
+{
 }
 #pragma endregion
 
@@ -2218,9 +2310,9 @@ static void mapRush(int destMapID) {
 	toggleFastMapRushHacks(true); //Enables No Map Background, Fade, Tiles, & Objects for quicker map rush
 	int oldChannel = ReadPointer(ServerBase, OFS_Channel);
 
-	std::vector<SpawnControlData*> *oldSpawnControl = CodeCaves::spawnControl; //Save old spawn control list
-	CodeCaves::spawnControl = new std::vector<SpawnControlData*>(); //Create a new spawn control list for map rushing
-	Jump(spawnPointAddr, CodeCaves::SpawnPointHook, 0); //Enable spawn control 
+	std::vector<SpawnControlData*> *oldSpawnControl = Assembly::spawnControl; //Save old spawn control list
+	Assembly::spawnControl = new std::vector<SpawnControlData*>(); //Create a new spawn control list for map rushing
+	Jump(spawnPointAddr, Assembly::SpawnPointHook, 0); //Enable spawn control 
 
 	for (auto i = mapPath->begin(); i != mapPath->end(); ++i) {
 		MapPath^ mapData = *i;
@@ -2229,13 +2321,13 @@ static void mapRush(int destMapID) {
 
 		//If first map, add spawn point to spawnControl & CC to new channel to enable hacks
 		if (i == mapPath->begin()) {
-			CodeCaves::spawnControl->push_back(new SpawnControlData((*i)->mapID, (*i)->portal->xPos, (*i)->portal->yPos - 10));
+			Assembly::spawnControl->push_back(new SpawnControlData((*i)->mapID, (*i)->portal->xPos, (*i)->portal->yPos - 10));
 			if (oldChannel == 1) AutoCC(2); else AutoCC(1);
 			Sleep(delay);
 		}
 
 		//Add next map's spawn point to spawnControl
-		if((i+1) != mapPath->end()) CodeCaves::spawnControl->push_back(new SpawnControlData((*(i+1))->mapID, (*(i+1))->portal->xPos, (*(i+1))->portal->yPos - 10));
+		if((i+1) != mapPath->end()) Assembly::spawnControl->push_back(new SpawnControlData((*(i+1))->mapID, (*(i+1))->portal->xPos, (*(i+1))->portal->yPos - 10));
 
 		//Construct Packet
 		String^ packet = "";
@@ -2260,18 +2352,18 @@ static void mapRush(int destMapID) {
 		SendPacket(packet);
 
 		//Check to see if next map is loaded, try max 20 attempts
-		for(int i = 0; i < 50; i++) {
+		for(int n = 0; n < 50; n++) {
 			Sleep(25);
 			if (ReadPointer(UIMiniMapBase, OFS_MapID) != mapData->mapID) break;
-			if (i % 5 == 0) SendPacket(packet);
-			if (i == 20) Teleport(mapData->portal->xPos, mapData->portal->yPos - 20);
+			if (n % 5 == 0) SendPacket(packet);
+			if (n == 20) Teleport(mapData->portal->xPos, mapData->portal->yPos - 20);
 		}
 		
 		remainingMapCount--;
 		MainForm::TheInstance->lbMapRusherStatus->Text = "Status: Map Rushing, Remaining Maps: " + Convert::ToString(remainingMapCount);
 	}
 
-	CodeCaves::spawnControl = oldSpawnControl; //Restore old spawn control list
+	Assembly::spawnControl = oldSpawnControl; //Restore old spawn control list
 	toggleFastMapRushHacks(false); //Restores hacks to original state
 	AutoCC(oldChannel); //CC back to original channel
 	Sleep(delay);
@@ -2345,81 +2437,4 @@ void MainForm::lbMapRusherStatus_TextChanged(System::Object^  sender, System::Ev
 	lbMapRusherStatus->ForeColor = Color::White;
 	Application::DoEvents();
 }
-#pragma endregion
-
-#pragma region testing
-//Start of testing stuff
-ULONG getStringValHookAddr = 0x0079E9A3;
-ULONG getStringRetValHookAddr = 0x0079EA58;
-char* maplestring;
-__declspec(naked) static void __stdcall GetStringHook() {
-	__asm {
-		mov [ebp + 0x0C], 0x2
-		push ecx
-		and dword ptr[ebp - 0x10], 0x00
-		jmp[getStringValHookAddr]
-	}
-} //Non working
-
-__declspec(naked) static void __stdcall GetStringRetValHook() {
-	__asm {
-		push ebx
-		mov ebx, [eax]
-		mov[maplestring], ebx
-		pop ebx
-		mov eax, edi
-		pop edi
-		pop esi
-		pop ebx
-		jmp [getStringRetValHookAddr]
-	}
-} //Working
-
-typedef char**(__stdcall* pfnStringPool__GetString)(PVOID, PVOID, char**, UINT, UINT);	//typedef ZXString<char>*(__stdcall* StringPool__GetString_t)(PVOID, PVOID, ZXString<char>*, UINT);
-auto StringPool__GetString = (pfnStringPool__GetString)0x0079E993;	//0x00406455;
-
-typedef char**(__stdcall *pfnCItemInfo__GetMapString)(PVOID, PVOID, char*, UINT, const char*);
-auto CItemInfo__GetMapString = (pfnCItemInfo__GetMapString)0x005CF792;
-
-//Test stuff out //https://pastebin.com/aULY72tG
-void MainForm::button1_Click(System::Object^  sender, System::EventArgs^  e) {
-	
-
-	/*char result[300];
-	char* str = *CItemInfo__GetMapString(*(PVOID*)CItemInfo, NULL, result, 100000000, 0);
-	String^ test = Convert::ToString(str);
-	if (String::IsNullOrEmpty(test))
-		MessageBox::Show("Error! Empty string was returned");
-	else
-		MessageBox::Show(test); */
-	
-	
-	/*//Displays 0th string, but crashes shortly after. What I wanted was the 2nd maplestring
-	char** result;
-	char* str = *StringPool__GetString(*(PVOID*)StringPool, nullptr, (char**)result, 2, 0);
-	String^ test = gcnew String(str);
-	
-	if (String::IsNullOrEmpty(test))
-		MessageBox::Show("Error! Empty string was returned");
-	else 
-		MessageBox::Show(test);*/
-
-
-	//char result[256];
-	//Jump(0x0079E99E, GetStringHook, 0);
-	/*Jump(0x0079EA53, GetStringRetValHook, 0);
-	String^ test = gcnew String(maplestring);
-	if (String::IsNullOrEmpty(test))
-		MessageBox::Show("Error! Empty string was returned");
-	else
-		MessageBox::Show(test);*/
-}
-
-//CMobPool UML Diagram
-//V95 00C687B8+28]+4]+10C]+28]+60 = mob x || v83 00BEBFA4+28]4]120]24]60 = mob x
-//&v3->m_pvcHead.m_pInterface->vfptr;
-//vfptr[8].addRef
-//What I know: in v95, 00C687B8 is a CMobPool pointer, +28 = ZList<ZRef<CMob*>>, + 4 = ZList<ZRef<CMob*>>.pHead (CMob) + 10C = m_pvcHead
-//m_pvcHead.m_pInterface->vpptr is type IUnknown* (Microsoft's Component object model) 
-//that points to some class (maybe CVecCtrlMob) but the offsets 28 and 60 doesn't seem point to an offset in CVecCtrl or CVecCtrl mob that is the xy coordinates of a mob
 #pragma endregion

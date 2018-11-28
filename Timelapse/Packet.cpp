@@ -1,14 +1,16 @@
 #include "Packet.h"
-#include <string>
-#include <Windows.h>
+#include "Structs.h"
 
-//TODO: Define in Pointers.h instead of here
-PVOID* ClientSocket = (PVOID*)0x00BE7914;
+// Addresses
+ULONG clientSocketAddr = 0x00BE7914;
+ULONG COutPacketAddr = 0x0049637B;
+ULONG CInPacketAddr = 0x004965F1;
+// Hooks
+PVOID* ClientSocket = reinterpret_cast<PVOID*>(clientSocketAddr);
 typedef void(__thiscall *PacketSend)(PVOID clientSocket, COutPacket* packet); //Send packet from client to server
-PacketSend Send = (PacketSend)0x0049637B;
-
+PacketSend Send = reinterpret_cast<PacketSend>(COutPacketAddr);
 typedef void(__thiscall *PacketRecv)(PVOID clientSocket, CInPacket* packet); //Receive packet from client to server
-PacketRecv Recv = (PacketRecv)0x004965F1;
+PacketRecv Recv = reinterpret_cast<PacketRecv>(CInPacketAddr);
 
 void writeByte(System::String^ %packet, BYTE byte) {
 	packet += byte.ToString("X2") + " ";
@@ -35,7 +37,6 @@ void writeShort(System::String^ %packet, short num) {
 	writeByte(packet, (BYTE)num);
 	writeByte(packet, (BYTE)((UINT)num >> 8 & 0xFF));
 }
-
 
 inline PUCHAR atohx(PUCHAR szDestination, LPCSTR szSource)
 {

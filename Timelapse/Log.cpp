@@ -1,4 +1,7 @@
 #include "Log.h"
+#include "MainForm.h"
+
+using namespace Timelapse;
 
 void Log::WriteLine(String^ Message) {
 	StreamWriter^ sw = {};
@@ -33,4 +36,19 @@ String^ Log::GetLogPath() {
 	catch (Exception^){}
 
 	return LogsFilePath;
+}
+
+ void Log::WriteLineToConsole(String^ str) {
+	if (String::IsNullOrEmpty(str)) return;
+	int const LOG_MAX_LINES = 200;
+	String^ strOut = gcnew String(str);
+	String^ timeNow = DateTime::Now.ToString("HH:mm::ss.fff");
+	String^ strToWrite = (timeNow + ": " + strOut);
+
+	// add this line at the top of the log
+	MainForm::TheInstance->lbConsoleLog->Items->Insert(0, strToWrite);
+	// keep only a few lines in the log
+	while (MainForm::TheInstance->lbConsoleLog->Items->Count > LOG_MAX_LINES) {
+		MainForm::TheInstance->lbConsoleLog->Items->RemoveAt(MainForm::TheInstance->lbConsoleLog->Items->Count - 1);
+	}
 }

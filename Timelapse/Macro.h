@@ -2,21 +2,20 @@
 #define MACRO_H
 
 #include <cliext/queue>
-#include "Functions.h"
 #include "MainForm.h"
 #include <Windows.h>
-#include "HelperFunctions.h"
 #include <winuser.h>
 #include "Log.h"
+#include "MapleFunctions.h"
 
 enum class MacroType { LOOTMACRO = 1, ATTACKMACRO = 2, BUFFMACRO = 3, MPPOTMACRO = 4, HPPOTMACRO = 5};
 ref struct MacrosEnabled { static bool bMacroHP = false, bMacroMP = false, bMacroAttack = false, bMacroLoot = false; };
 
 // Globally defined key data structure
 typedef struct tag_KEYDATA {
-	WORD keyRepeatCnt; //16 bits
-	BYTE keyScanCode; //8 bits
-	//additional keys on the enhanced keyboard he extended keys consist of the ALT and CTRL keys on the right-hand side of the keyboard;
+	WORD keyRepeatCnt; // 16 bits
+	BYTE keyScanCode; // 8 bits
+	// additional keys on the enhanced keyboard he extended keys consist of the ALT and CTRL keys on the right-hand side of the keyboard;
 	// the INS, DEL, HOME, END, PAGE UP, PAGE DOWN, and arrow keys in the clusters to the left of the numeric keypad;
 	// the NUM LOCK key; the BREAK (CTRL+PAUSE) key; the PRINT SCRN key; and the divide (/) and ENTER keys in the numeric keypad.
 	BYTE flagExtendedKey : 1; 
@@ -33,8 +32,8 @@ static DWORD createKeyData(int Key) {
 	kd.keyScanCode = static_cast<BYTE>(MapVirtualKey(Key, 0));
 	kd.flagExtendedKey = 0;
 	kd.Reserved = 0;
-	kd.flagAltDown = 0; //this has to be 0 else no lumping of messages
-	kd.flagRepeat = 1; //this is necessary for proper execution in maplestory
+	kd.flagAltDown = 0; // this has to be 0 else no lumping of messages
+	kd.flagRepeat = 1; // this is necessary for proper execution in maplestory
 	kd.flagUp = 0;
 	DWORD dwVal;
 	memcpy(&dwVal, &kd, sizeof(DWORD));
@@ -54,10 +53,9 @@ ref struct KeyMacro {
 	// basically this represents magical keyboard which repeatedly presses keys down but doesn't need any kind of going up with keys
 	// thus this non-physical keyboard will cause certain skills like charge abilities to be permanently stuck charging
 	static void SendKey(int Key) {
-		if (!PostMessage(GlobalVars::mapleWindow, WM_KEYDOWN, Key, createKeyData(Key)))
-			Log::WriteLine("SendKey: ERROR failed to post message to process!");
-			Log::WriteLine("Key: " + Key.ToString() + "MSG: WM_KEYDOWN");
-			Log::WriteLine("KeyData: " + createKeyData(Key));
+		PostMessage(GlobalVars::mapleWindow, WM_KEYDOWN, Key, createKeyData(Key));
+		//Log::WriteLine("SendKey: ERROR failed to post message to process!");
+		//Log::WriteLine("Key: " + Key.ToString() + " MSG: WM_KEYDOWN " + "KeyData: " + createKeyData(Key));
 	}
 
 	// this is a minor hack to boost speed of hotkeys
@@ -66,26 +64,21 @@ ref struct KeyMacro {
 	// then OS should lump these into one message and process it much faster
 	static void SpamSendKey(int Key, int times) {	
 		for (int i = 0; i < times; i++) {
-			if (!PostMessage(GlobalVars::mapleWindow, WM_KEYDOWN, Key, createKeyData(Key)))
-				Log::WriteLine("SpamSendKey: ERROR failed to post message to process!");
-				Log::WriteLine("Key: " + Key.ToString() + "MSG: WM_KEYDOWN");
-				Log::WriteLine("KeyData: " + createKeyData(Key));
+			PostMessage(GlobalVars::mapleWindow, WM_KEYDOWN, Key, createKeyData(Key));
+			//Log::WriteLine("SpamSendKey: ERROR failed to post message to process!");
+			//Log::WriteLine("Key: " + Key.ToString() + " MSG: WM_KEYDOWN " + "KeyData: " + createKeyData(Key));
 		}
 	}
 
 	// This simulates repeated bashing of a keystroke on a regular physical keyboard
 	static void PressKey(int Key) {
-		if (!PostMessage(GlobalVars::mapleWindow, WM_KEYDOWN, Key, createKeyData(Key))) {
-			Log::WriteLine("PressKey: ERROR failed to post message to process!");
-			Log::WriteLine("Key: " + Key.ToString() + "MSG: WM_KEYDOWN");
-			Log::WriteLine("KeyData: " + createKeyData(Key));
-		}
+		PostMessage(GlobalVars::mapleWindow, WM_KEYDOWN, Key, createKeyData(Key));
+		//Log::WriteLine("PressKey: ERROR failed to post message to process!");
+		//Log::WriteLine("Key: " + Key.ToString() + " MSG: WM_KEYDOWN " + "KeyData: " + createKeyData(Key));
 		//WM_CHAR
-		if (!PostMessage(GlobalVars::mapleWindow, WM_KEYUP, Key, createKeyData(Key))) {
-			Log::WriteLine("PressKey: ERROR failed to post message to process!");
-			Log::WriteLine("Key: " + Key.ToString() + "MSG: WM_KEYUP");
-			Log::WriteLine("KeyData: " + createKeyData(Key));
-		}
+		PostMessage(GlobalVars::mapleWindow, WM_KEYUP, Key, createKeyData(Key));
+		//Log::WriteLine("PressKey: ERROR failed to post message to process!");
+		//Log::WriteLine("Key: " + Key.ToString() + " MSG: WM_KEYDOWN " + "KeyData: " + createKeyData(Key));
 	}
 
 	// unused for now
@@ -119,27 +112,23 @@ public:
 			switch(key->macroType) {
 				case MacroType::BUFFMACRO:
 					if (HelperFuncs::IsInGame()) 
-						KeyMacro::PressKey(key->keyCode);
+						KeyMacro::SpamSendKey(key->keyCode, 2);
 					break;
 				case MacroType::HPPOTMACRO:
-					if (MacrosEnabled::bMacroHP && HelperFuncs::IsInGame()) {
+					if (MacrosEnabled::bMacroHP && HelperFuncs::IsInGame())
 						KeyMacro::PressKey(key->keyCode);
-					}
 					break;
 				case MacroType::MPPOTMACRO:
-					if(MacrosEnabled::bMacroMP && HelperFuncs::IsInGame()) {
+					if(MacrosEnabled::bMacroMP && HelperFuncs::IsInGame())
 						KeyMacro::PressKey(key->keyCode);
-					}				
 					break;
 				case MacroType::LOOTMACRO:
-					if (MacrosEnabled::bMacroLoot && HelperFuncs::ValidToLoot()) {
-						KeyMacro::SpamSendKey(key->keyCode, 3);
-					}
+					if (MacrosEnabled::bMacroLoot && HelperFuncs::ValidToLoot())
+						KeyMacro::SpamSendKey(key->keyCode, 2);
 					break;
 				case MacroType::ATTACKMACRO:
-					if (MacrosEnabled::bMacroAttack && HelperFuncs::ValidToAttack()) {
-						KeyMacro::SpamSendKey(key->keyCode, 6);
-					}
+					if (MacrosEnabled::bMacroAttack && HelperFuncs::ValidToAttack())
+						KeyMacro::SpamSendKey(key->keyCode, 3);
 					break;
 			}
 			Threading::Monitor::Exit(macroQueue);
@@ -167,7 +156,7 @@ ref class Macro {
 				if (MacrosEnabled::bMacroHP && HelperFuncs::IsInGame()) {
 					if (String::IsNullOrWhiteSpace(Timelapse::MainForm::TheInstance->tbHP->Text)) break;
 					const int hpCntDrinkLimit = Convert::ToUInt32(Timelapse::MainForm::TheInstance->tbHP->Text);
-					const int hpCntCurrent = CodeCaves::curHP;
+					const int hpCntCurrent = Assembly::curHP;
 
 					if (hpCntCurrent < hpCntDrinkLimit) {
 						//Log::WriteLineToConsole("Pushing macro to queue: " + MacroTypeToStr(keyMacro->macroType));
@@ -179,7 +168,7 @@ ref class Macro {
 				if (MacrosEnabled::bMacroMP && HelperFuncs::IsInGame()) {
 					if (String::IsNullOrWhiteSpace(Timelapse::MainForm::TheInstance->tbMP->Text)) break;
 					const int mpCntDrinkLimit = Convert::ToUInt32(Timelapse::MainForm::TheInstance->tbMP->Text);
-					const int mpCntCurrent = CodeCaves::curMP;
+					const int mpCntCurrent = Assembly::curMP;
 
 					if (mpCntCurrent < mpCntDrinkLimit) {
 						//Log::WriteLineToConsole("Pushing macro to queue: " + MacroTypeToStr(keyMacro->macroType));
@@ -252,11 +241,12 @@ public:
 		this->macroType = macro;
 		//DebugMacro(this);
 		Threading::TimerCallback^ TimerDelegate = gcnew Threading::TimerCallback(this, &Macro::TimerElapsed);
-		timer = gcnew Threading::Timer(TimerDelegate, nullptr, Threading::Timeout::Infinite, delay);	
+		timer = gcnew Threading::Timer(TimerDelegate, nullptr, Threading::Timeout::Infinite, delay);
+		//Log::WriteLineToConsole("new timer: " + timer);
 	}
 
-	void Toggle(bool enable) {
-		// TODO: if buffMacro check if i have it present if not cast it for first time
+	// TODO: if buffMacro check if i have it present if not cast it for first time
+	void Toggle(bool enable) {	
 		if (enable) {
 			timer->Change(delay, delay);			
 		}				

@@ -1,4 +1,6 @@
 #pragma once
+#include <Windows.h>
+
 namespace MouseInput
 {
 	static long buttonTable[] = {
@@ -11,11 +13,7 @@ namespace MouseInput
 	class Mouse	{
 	public:
 		// Mouse button which can be pressed or released
-		enum MouseButton {
-			Mouse_Left,
-			Mouse_Middle,
-			Mouse_Right
-		};
+		enum MouseButton { Mouse_Left, Mouse_Middle, Mouse_Right };
 
 		// Moves mouse cursor in direction.
 		static void move(int xDirection, int yDirection);

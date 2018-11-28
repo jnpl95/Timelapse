@@ -3,6 +3,40 @@
 
 #include <Windows.h>
 
+struct COutPacket {
+	int Loopback;
+	union {
+		PUCHAR Data;
+		PVOID Unk;
+		PUSHORT Header;
+	};
+	ULONG Size;
+	UINT Offset;
+	int EncryptedByShanda;
+};
+
+struct CInPacket {
+	bool fLoopback;
+	int iState;
+	union {
+		PVOID lpvData;
+		struct {
+			ULONG dw;
+			USHORT wHeader;
+		} *pHeader;
+		struct {
+			ULONG dw;
+			PUCHAR Data;
+		} *pData;
+	};
+	ULONG Size;
+	USHORT usRawSeq;
+	USHORT usDataLen;
+	USHORT usUnknown;
+	UINT uOffset;
+	PVOID lpv;
+};
+
 struct SpawnControlData {
 	UINT mapID;
 	INT spawnX;
@@ -42,6 +76,4 @@ ref struct MapPath {
 		this->portal = portal;
 	}
 };
-
-
 #endif
