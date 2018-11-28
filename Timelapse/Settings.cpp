@@ -66,14 +66,24 @@ void Settings::Serialize(Control^ c, String^ XmlFileName) {
 	Log::WriteLine("Saved " + XmlFileName);
 }
 
+bool Settings::isExcluded(Control^ ctrl) {
+	const auto ctrlName = ctrl->Name;
+	if (ctrlName == "lbConsoleLog" || ctrlName == "tbItemFilterSearch" || ctrlName == "tbItemFilterSearch" || ctrlName == "lbItemSearchLog" ||
+		ctrlName == "lbMobSearchLog" || ctrlName == "tbMobFilterSearch" || ctrlName == "tbSendPacket" || ctrlName == "tbMapRusherSearch" || 
+		ctrlName == "lvMapRusherSearch" || ctrlName == "lvBuff")
+		return true;
+
+	return false;
+}
+
 void Settings::AddChildControls(XmlTextWriter^ xmlSerializedForm, Control^ c) {
 	for each(Control^ childCtrl in c->Controls) {
 		auto ctrlType = childCtrl->GetType();
 		auto ctrlName = childCtrl->Name;
 
 		//TODO: save press state of buttons?
-		if (childCtrl->HasChildren || ctrlType == ComboBox::typeid || ctrlType == NumericUpDown::typeid 
-			|| ctrlType == CheckBox::typeid || ctrlType == TextBox::typeid || ctrlType == ListBox::typeid) { 
+		if (childCtrl->HasChildren || ctrlType == ComboBox::typeid || ctrlType == NumericUpDown::typeid || ctrlType == CheckBox::typeid || 
+			ctrlType == TextBox::typeid || ctrlType == ListBox::typeid && c && !isExcluded(childCtrl)) { 
 			// serialize this control
 			xmlSerializedForm->WriteStartElement("Control");
 			xmlSerializedForm->WriteAttributeString("Name", ctrlName);

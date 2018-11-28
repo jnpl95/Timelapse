@@ -124,7 +124,7 @@
   <data name="pictureBox2.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        wgAADsIBFShKgAAABVZJREFUWEe1l9tvlEUUwHfrQ4kW21opSBOjPlETrQgkBR+oSRETE7UFU9Ooaaia
+        vAAADrwBlbxySQAABVZJREFUWEe1l9tvlEUUwHfrQ4kW21opSBOjPlETrQgkBR+oSRETE7UFU9Ooaaia
         tGm3t+1N2/QJjUETwb6oeAmaeEEwEcXbmz6ogOA/IBoQTbwrJt6tv9/XGdjdbusiOslvv29nzpxz5syZ
         y5cqVgYGBlKDg4Opvr6+VH9/f3poaKia5zr+j8Be+JD/x+GngO+HYA8M0762t7e3ivf08PBwStARtJdQ
         FB4fH0/jyIUouRkehFfhIHwK38DP8FfAd+tsOwDKPkz/dnQtm5iYKBsZGQnaFyiOOFCBgjUwAm/A1zCT
@@ -495,18 +495,6 @@
         lVVWWeUWF2GjVVZZZZVVVllllVVWWWWVVVZZZZVVVllllVVWWWWVVVZZZZVVVllllVVWWWWVVVZZZZVV
         VllllVVWWWWVVVZZZZVVVllllVVWWWWVVQ6To6P/D99cw/Xv99eSAAAAAElFTkSuQmCC
 </value>
-  </data>
-  <data name="rtbHome.Text" xml:space="preserve">
-    <value>:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-                                      Timelapse Trainer
-:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-
-- Recommended injector - Extreme Injector v3.7.2 (unloads dll)
-- Hover over controls to see helpful tooltips
-- May this trainer bring you everything you ever wanted, 
-   hoped, or dreamed
-- Tutorial coming soon
-- Leave feedback!</value>
   </data>
   <metadata name="GUITimer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>248, 17</value>

@@ -29,9 +29,8 @@ namespace Timelapse {
 				delete components;
 			}
 		}
-	private: System::Windows::Forms::MenuStrip^  MenuStrip;
-	protected:
 
+	private: System::Windows::Forms::MenuStrip^  MenuStrip;
 	private: System::Windows::Forms::ToolStripMenuItem^  fileToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^  closeMapleStoryToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^  mapleStoryToolStripMenuItem;
@@ -43,8 +42,6 @@ namespace Timelapse {
 	private: System::Windows::Forms::Label^  lbTitle;
 	private: System::Windows::Forms::PictureBox^  pictureBox2;
 	private: System::Windows::Forms::Panel^  pnlFull;
-
-
 	private: System::Windows::Forms::Button^  btnClose;
 	private: System::Windows::Forms::Button^  btnMinimize;
 	private: System::Windows::Forms::Panel^  pnlMiddle;
@@ -71,7 +68,6 @@ namespace Timelapse {
 	private: System::Windows::Forms::Label^  label23;
 	private: System::Windows::Forms::Label^  label22;
 	private: System::Windows::Forms::Label^  label20;
-
 	private: System::Windows::Forms::Label^  lbActive;
 	private: System::Windows::Forms::Label^  lbThreadID;
 	private: System::Windows::Forms::Label^  lbNPCCount;
@@ -101,7 +97,6 @@ namespace Timelapse {
 	private: System::Windows::Forms::PictureBox^  pictureBox1;
 	private: System::Windows::Forms::TabControl^  tabControl2;
 	private: System::Windows::Forms::TabPage^  tabPage3;
-	private: System::Windows::Forms::RichTextBox^  rtbHome;
 	private: System::Windows::Forms::TabPage^  tabPage4;
 	private: System::Windows::Forms::TrackBar^  transparencyTrackBar;
 	private: System::Windows::Forms::Label^  label2;
@@ -112,23 +107,14 @@ namespace Timelapse {
 	private: System::Windows::Forms::TabPage^  tabPage8;
 	private: System::Windows::Forms::TabPage^  tabPage9;
 	private: System::Windows::Forms::Label^  lbInactive;
-
-
-
-
 	private: System::Windows::Forms::CheckBox^  cbItemVac;
 	private: System::Windows::Forms::CheckBox^  cbNoBreath;
-
-
-
 	private: System::Windows::Forms::CheckBox^  cbFullAccuracy;
 	private: System::Windows::Forms::CheckBox^  cbNoPlayerDeath;
 	private: System::Windows::Forms::CheckBox^  cbInfiniteChat;
 	private: System::Windows::Forms::CheckBox^  cbUnlimitedAttack;
-private: System::Windows::Forms::CheckBox^  cbTubi;
-
+	private: System::Windows::Forms::CheckBox^  cbTubi;
 	private: System::Windows::Forms::CheckBox^  cbInstantDropItems;
-
 	private: System::Windows::Forms::CheckBox^  cbMouseFly;
 	private: System::Windows::Forms::Label^  label49;
 	private: System::Windows::Forms::Label^  label50;
@@ -144,8 +130,7 @@ private: System::Windows::Forms::CheckBox^  cbTubi;
 	private: System::Windows::Forms::Button^  bDupeXResetLocation;
 	private: System::Windows::Forms::CheckBox^  cbDupeX;
 	private: System::Windows::Forms::Panel^  panel15;
-private: System::Windows::Forms::Button^  bWallVacGetCurrentLocation;
-
+	private: System::Windows::Forms::Button^  bWallVacGetCurrentLocation;
 	public: System::Windows::Forms::TextBox^  tbWallVacRangeX;
 	private: System::Windows::Forms::Label^  label59;
 	public: System::Windows::Forms::TextBox^  tbWallVacY;
@@ -185,7 +170,6 @@ private: System::Windows::Forms::Button^  bWallVacGetCurrentLocation;
 	private: System::Windows::Forms::Panel^  panel21;
 	private: System::Windows::Forms::CheckBox^  cbMobFilterLog;
 	private: System::Windows::Forms::Button^  bMobSearchLogClear;
-
 	private: System::Windows::Forms::RadioButton^  rbMobFilterWhiteList;
 	private: System::Windows::Forms::TextBox^  tbMobFilterSearch;
 	private: System::Windows::Forms::RadioButton^  rbMobFilterBlackList;
@@ -193,14 +177,10 @@ private: System::Windows::Forms::Button^  bWallVacGetCurrentLocation;
 	private: System::Windows::Forms::Button^  bMobFilterAdd;
 	private: System::Windows::Forms::TextBox^  tbMobFilterID;
 	private: System::Windows::Forms::Label^  label76;
-
 	private: System::Windows::Forms::Button^  bMobFilter;
-
-
 	private: System::Windows::Forms::Panel^  panel20;
 	private: System::Windows::Forms::CheckBox^  cbItemFilterLog;
 	private: System::Windows::Forms::Button^  bItemSearchLogClear;
-
 	private: System::Windows::Forms::TextBox^  tbItemFilterSearch;
 	private: System::Windows::Forms::Label^  label74;
 	private: System::Windows::Forms::Button^  bItemFilterAdd;
@@ -211,8 +191,6 @@ private: System::Windows::Forms::Button^  bWallVacGetCurrentLocation;
 	private: System::Windows::Forms::RadioButton^  rbItemFilterWhiteList;
 	private: System::Windows::Forms::RadioButton^  rbItemFilterBlackList;
 	private: System::Windows::Forms::Button^  bItemFilter;
-
-
 	private: System::Windows::Forms::TabControl^  tabControl5;
 	private: System::Windows::Forms::TabPage^  tabPage16;
 	private: System::Windows::Forms::Label^  label81;
@@ -236,15 +214,11 @@ private: System::Windows::Forms::Button^  bWallVacGetCurrentLocation;
 	private: System::Windows::Forms::Button^  bRecvPacket;
 	private: System::Windows::Forms::ListView^  lvRecv;
 	public: System::Windows::Forms::Label^  lbMapRusherStatus;
-	private:
-
 	private: System::Windows::Forms::TextBox^  tbMapRusherDestination;
 	private: System::Windows::Forms::Label^  label79;
 	private: System::Windows::Forms::Button^  bMapRush;
 	private: System::Windows::Forms::TextBox^  tbMapRusherSearch;
 	private: System::Windows::Forms::Label^  label78;
-
-
 	private: System::Windows::Forms::CheckBox^  cbDisablePointers;
 	public: System::Windows::Forms::Timer^  AutoCCCSTimer;
 	private: System::Windows::Forms::TabPage^  tabPage17;
@@ -281,30 +255,20 @@ private: System::Windows::Forms::Button^  bWallVacGetCurrentLocation;
 	private: System::Windows::Forms::Label^  label32;
 	private: System::Windows::Forms::TextBox^  tbAPLevel;
 	private: System::Windows::Forms::CheckBox^  cbAP;
-
 	public: System::Windows::Forms::CheckBox^  cbNoMapTiles;
-	private:
-
 	private: System::Windows::Forms::CheckBox^  cbNoSkillEffects;
 	public: System::Windows::Forms::CheckBox^  cbNoMapObjects;
-	private:
-
 	private: System::Windows::Forms::CheckBox^  cbInstantLootItems;
 	private: System::Windows::Forms::CheckBox^  cbJumpDownAnyTile;
-
 	private: System::Windows::Forms::CheckBox^  cbMobFreeze;
 	private: System::Windows::Forms::CheckBox^  cbMapSpeedUp;
 	private: System::Windows::Forms::CheckBox^  cbMobDisarm;
 	private: System::Windows::Forms::CheckBox^  cbNoMobReaction;
 	private: System::Windows::Forms::CheckBox^  cbNoPlayerKnockback;
 	private: System::Windows::Forms::CheckBox^  cbNoMobKnockback;
-
 	private: System::Windows::Forms::CheckBox^  cbNoMobDeathEffect;
 	public: System::Windows::Forms::CheckBox^  cbNoMapFadeEffect;
 	public: System::Windows::Forms::CheckBox^  cbNoMapBackground;
-	private:
-
-
 	private: System::Windows::Forms::TabPage^  tabPage20;
 	private: System::Windows::Forms::Panel^  panel27;
 	private: System::Windows::Forms::ListView^  lvSpawnControl;
@@ -376,7 +340,6 @@ private: System::Windows::Forms::Button^  bWallVacGetCurrentLocation;
 	private: System::Windows::Forms::CheckBox^  cbCCCSTime;
 	public: System::Windows::Forms::RadioButton^  rbFunction;
 	public: System::Windows::Forms::RadioButton^  rbPacket;
-
 	private: System::Windows::Forms::Panel^  panel4;
 	public: System::Windows::Forms::TextBox^  tbLootItem;
 	private: System::Windows::Forms::TextBox^  tbLootInterval;
@@ -413,132 +376,71 @@ private: System::Windows::Forms::Button^  bWallVacGetCurrentLocation;
 	private: System::Windows::Forms::ColumnHeader^  columnHeader4;
 	private: System::Windows::Forms::ColumnHeader^  columnHeader5;
 	private: System::Windows::Forms::TextBox^  tbSpawnControlMapID;
-public: System::Windows::Forms::TextBox^  tbUEMIy;
-private:
-
+	public: System::Windows::Forms::TextBox^  tbUEMIy;
 	private: System::Windows::Forms::Label^  label72;
-public: System::Windows::Forms::TextBox^  tbUEMIx;
-private:
-
+	public: System::Windows::Forms::TextBox^  tbUEMIx;
 	private: System::Windows::Forms::Label^  label87;
 	private: System::Windows::Forms::CheckBox^  cbUEMI;
-
 	private: System::Windows::Forms::Panel^  panel28;
 	private: System::Windows::Forms::Panel^  panel17;
-
 	private: System::Windows::Forms::Button^  bSendMount;
 	private: System::Windows::Forms::Button^  bSendSuicide;
-
 	private: System::Windows::Forms::Button^  bSendDrop50000;
 	private: System::Windows::Forms::Button^  bSendDrop10000;
 	private: System::Windows::Forms::Button^  bSendDrop10;
 	private: System::Windows::Forms::Button^  bSendDrop1000;
 	private: System::Windows::Forms::Button^  bSendRevive;
 	private: System::Windows::Forms::Button^  bSendRestore127Health;
-	private: System::Windows::Forms::Button^  button1;
+	private: System::Windows::Forms::Button^  bTestButton;
 	public: System::Windows::Forms::ListBox^  lbMobSearchLog;
-	private:
 	public: System::Windows::Forms::ListBox^  lbMobFilter;
 	public: System::Windows::Forms::ListBox^  lbItemSearchLog;
 	public: System::Windows::Forms::ListBox^  lbItemFilter;
-
 	public: System::Windows::Forms::TreeView^  tvMapRusherSearch;
-
-
-
-	private:
-
-
-	private:
-
-
-
-
 	private: System::Windows::Forms::Panel^  panel30;
 	public: System::Windows::Forms::ListView^  lvMapRusherSearch;
-	private:
 	private: System::Windows::Forms::ColumnHeader^  columnHeader7;
-	public:
 	private: System::Windows::Forms::ColumnHeader^  columnHeader8;
 	public: System::Windows::Forms::TextBox^  tbMapRusherDelay;
-	private:
-
 	private: System::Windows::Forms::Label^  label66;
 	private: System::Windows::Forms::CheckBox^  cbZzVac;
-
-	private:
-
-private: System::Windows::Forms::Label^  label77;
-private: System::Windows::Forms::GroupBox^  groupBox2;
-private: System::Windows::Forms::GroupBox^  groupBox1;
-private: System::Windows::Forms::GroupBox^  groupBox5;
-private: System::Windows::Forms::GroupBox^  groupBox4;
-private: System::Windows::Forms::GroupBox^  groupBox3;
-private: System::Windows::Forms::Label^  label90;
-public: System::Windows::Forms::TextBox^  tbAttackDelay;
-private:
-private: System::Windows::Forms::Label^  label89;
-public:
-private: System::Windows::Forms::Label^  label88;
-public: System::Windows::Forms::TextBox^  tbBlinkGodmodeBlinks;
-private:
-public: System::Windows::Forms::TextBox^  tbMissGodmodeMisses;
-private: System::Windows::Forms::CheckBox^  cbMissGodmode;
-public:
-private: System::Windows::Forms::CheckBox^  cbAttackDelay;
-private: System::Windows::Forms::CheckBox^  cbBlinkGodmode;
-private: System::Windows::Forms::GroupBox^  groupBox6;
-private: System::Windows::Forms::Label^  lbCharFoothold;
-private: System::Windows::Forms::Label^  label96;
-private: System::Windows::Forms::Label^  lbCharAnimation;
-private: System::Windows::Forms::Label^  label94;
-private: System::Windows::Forms::Label^  lbWalls;
-private: System::Windows::Forms::Label^  label92;
-private: System::Windows::Forms::CheckBox^  cbNoWalkingFriction;
-private: System::Windows::Forms::CheckBox^  cbVacJumpLeft;
-
-private: System::Windows::Forms::CheckBox^  cbVacJumpRight;
-
-private: System::Windows::Forms::CheckBox^  cbVacLeft;
-
-private: System::Windows::Forms::CheckBox^  cbVacRight;
-
-private: System::Windows::Forms::CheckBox^  cbVacForceRight;
-
-private: System::Windows::Forms::CheckBox^  checkBox8;
-private: System::Windows::Forms::CheckBox^  checkBox9;
-
-private: System::Windows::Forms::CheckBox^  checkBox10;
-private: System::Windows::Forms::Button^  bUEMIGetCurrentLocation;
-
-
-
-private:
-
-
-
-private:
-public:
-
-private:
-
-public:
-	public:
-
-
-
-	public:
-	public:
-
-	public:
+	private: System::Windows::Forms::Label^  label77;
+	private: System::Windows::Forms::GroupBox^  groupBox2;
+	private: System::Windows::Forms::GroupBox^  groupBox1;
+	private: System::Windows::Forms::GroupBox^  groupBox5;
+	private: System::Windows::Forms::GroupBox^  groupBox4;
+	private: System::Windows::Forms::GroupBox^  groupBox3;
+	private: System::Windows::Forms::Label^  label90;
+	public: System::Windows::Forms::TextBox^  tbAttackDelay;
+	private: System::Windows::Forms::Label^  label89;
+	private: System::Windows::Forms::Label^  label88;
+	public: System::Windows::Forms::TextBox^  tbBlinkGodmodeBlinks;
+	public: System::Windows::Forms::TextBox^  tbMissGodmodeMisses;
+	private: System::Windows::Forms::CheckBox^  cbMissGodmode;
+	private: System::Windows::Forms::CheckBox^  cbAttackDelay;
+	private: System::Windows::Forms::CheckBox^  cbBlinkGodmode;
+	private: System::Windows::Forms::GroupBox^  groupBox6;
+	private: System::Windows::Forms::Label^  lbCharFoothold;
+	private: System::Windows::Forms::Label^  label96;
+	private: System::Windows::Forms::Label^  lbCharAnimation;
+	private: System::Windows::Forms::Label^  label94;
+	private: System::Windows::Forms::Label^  lbWalls;
+	private: System::Windows::Forms::Label^  label92;
+	private: System::Windows::Forms::CheckBox^  cbNoWalkingFriction;
+	private: System::Windows::Forms::CheckBox^  cbVacJumpLeft;
+	private: System::Windows::Forms::CheckBox^  cbVacJumpRight;
+	private: System::Windows::Forms::CheckBox^  cbVacLeft;
+	private: System::Windows::Forms::CheckBox^  cbVacRight;
+	private: System::Windows::Forms::CheckBox^  cbVacForceRight;
+	private: System::Windows::Forms::CheckBox^  checkBox8;
+	private: System::Windows::Forms::CheckBox^  checkBox9;
+	private: System::Windows::Forms::CheckBox^  checkBox10;
+	private: System::Windows::Forms::Button^  bUEMIGetCurrentLocation;
+	private: System::Windows::Forms::TabPage^  tabPage10;
+	private: System::Windows::Forms::Panel^  panel10;
+	private: System::Windows::Forms::CheckBox^  cbSellAll;
+	public:  System::Windows::Forms::ListBox^  lbConsoleLog;
 	private: System::ComponentModel::IContainer^  components;
-
-	private:
-		/// <summary>
-		/// Required designer variable.
-		/// </summary>
-
-
 #pragma region Windows Form Designer generated code
 		/// <summary>
 		/// Required method for Designer support - do not modify
@@ -572,7 +474,7 @@ public:
 			this->label94 = (gcnew System::Windows::Forms::Label());
 			this->lbWalls = (gcnew System::Windows::Forms::Label());
 			this->label92 = (gcnew System::Windows::Forms::Label());
-			this->button1 = (gcnew System::Windows::Forms::Button());
+			this->bTestButton = (gcnew System::Windows::Forms::Button());
 			this->lbInactive = (gcnew System::Windows::Forms::Label());
 			this->lbActive = (gcnew System::Windows::Forms::Label());
 			this->lbThreadID = (gcnew System::Windows::Forms::Label());
@@ -623,7 +525,7 @@ public:
 			this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
 			this->tabControl2 = (gcnew System::Windows::Forms::TabControl());
 			this->tabPage3 = (gcnew System::Windows::Forms::TabPage());
-			this->rtbHome = (gcnew System::Windows::Forms::RichTextBox());
+			this->lbConsoleLog = (gcnew System::Windows::Forms::ListBox());
 			this->tabPage17 = (gcnew System::Windows::Forms::TabPage());
 			this->panel22 = (gcnew System::Windows::Forms::Panel());
 			this->cbAutoLoginNoPic = (gcnew System::Windows::Forms::CheckBox());
@@ -688,6 +590,9 @@ public:
 			this->cbCCCSTime = (gcnew System::Windows::Forms::CheckBox());
 			this->rbFunction = (gcnew System::Windows::Forms::RadioButton());
 			this->rbPacket = (gcnew System::Windows::Forms::RadioButton());
+			this->tabPage10 = (gcnew System::Windows::Forms::TabPage());
+			this->panel10 = (gcnew System::Windows::Forms::Panel());
+			this->cbSellAll = (gcnew System::Windows::Forms::CheckBox());
 			this->panel4 = (gcnew System::Windows::Forms::Panel());
 			this->tbLootItem = (gcnew System::Windows::Forms::TextBox());
 			this->tbLootInterval = (gcnew System::Windows::Forms::TextBox());
@@ -811,6 +716,7 @@ public:
 			this->cbVacRight = (gcnew System::Windows::Forms::CheckBox());
 			this->cbVacForceRight = (gcnew System::Windows::Forms::CheckBox());
 			this->panel17 = (gcnew System::Windows::Forms::Panel());
+			this->bUEMIGetCurrentLocation = (gcnew System::Windows::Forms::Button());
 			this->cbUEMI = (gcnew System::Windows::Forms::CheckBox());
 			this->tbUEMIy = (gcnew System::Windows::Forms::TextBox());
 			this->label72 = (gcnew System::Windows::Forms::Label());
@@ -954,7 +860,6 @@ public:
 			this->btnClose = (gcnew System::Windows::Forms::Button());
 			this->GUITimer = (gcnew System::Windows::Forms::Timer(this->components));
 			this->AutoCCCSTimer = (gcnew System::Windows::Forms::Timer(this->components));
-			this->bUEMIGetCurrentLocation = (gcnew System::Windows::Forms::Button());
 			this->MenuStrip->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->BeginInit();
 			this->pnlFull->SuspendLayout();
@@ -976,6 +881,8 @@ public:
 			this->panel8->SuspendLayout();
 			this->panel9->SuspendLayout();
 			this->panel7->SuspendLayout();
+			this->tabPage10->SuspendLayout();
+			this->panel10->SuspendLayout();
 			this->panel4->SuspendLayout();
 			this->panel3->SuspendLayout();
 			this->panel2->SuspendLayout();
@@ -1024,7 +931,7 @@ public:
 			});
 			this->MenuStrip->Location = System::Drawing::Point(0, 2);
 			this->MenuStrip->Name = L"MenuStrip";
-			this->MenuStrip->Size = System::Drawing::Size(168, 24);
+			this->MenuStrip->Size = System::Drawing::Size(156, 24);
 			this->MenuStrip->TabIndex = 1;
 			this->MenuStrip->Text = L"menuStrip1";
 			// 
@@ -1037,7 +944,7 @@ public:
 					this->saveSettingsToolStripMenuItem, this->closeMapleStoryToolStripMenuItem
 			});
 			this->fileToolStripMenuItem->Name = L"fileToolStripMenuItem";
-			this->fileToolStripMenuItem->Size = System::Drawing::Size(37, 20);
+			this->fileToolStripMenuItem->Size = System::Drawing::Size(35, 20);
 			this->fileToolStripMenuItem->Text = L"File";
 			// 
 			// openSettingsToolStripMenuItem
@@ -1046,7 +953,7 @@ public:
 				static_cast<System::Int32>(static_cast<System::Byte>(19)), static_cast<System::Int32>(static_cast<System::Byte>(19)));
 			this->openSettingsToolStripMenuItem->ForeColor = System::Drawing::Color::White;
 			this->openSettingsToolStripMenuItem->Name = L"openSettingsToolStripMenuItem";
-			this->openSettingsToolStripMenuItem->Size = System::Drawing::Size(166, 22);
+			this->openSettingsToolStripMenuItem->Size = System::Drawing::Size(157, 22);
 			this->openSettingsToolStripMenuItem->Text = L"Open Settings";
 			this->openSettingsToolStripMenuItem->Click += gcnew System::EventHandler(this, &MainForm::loadSettingsToolStripMenuItem_Click);
 			// 
@@ -1056,7 +963,7 @@ public:
 				static_cast<System::Int32>(static_cast<System::Byte>(19)), static_cast<System::Int32>(static_cast<System::Byte>(19)));
 			this->saveSettingsToolStripMenuItem->ForeColor = System::Drawing::Color::White;
 			this->saveSettingsToolStripMenuItem->Name = L"saveSettingsToolStripMenuItem";
-			this->saveSettingsToolStripMenuItem->Size = System::Drawing::Size(166, 22);
+			this->saveSettingsToolStripMenuItem->Size = System::Drawing::Size(157, 22);
 			this->saveSettingsToolStripMenuItem->Text = L"Save Settings";
 			this->saveSettingsToolStripMenuItem->Click += gcnew System::EventHandler(this, &MainForm::saveSettingsToolStripMenuItem_Click);
 			// 
@@ -1066,7 +973,7 @@ public:
 				static_cast<System::Int32>(static_cast<System::Byte>(19)), static_cast<System::Int32>(static_cast<System::Byte>(19)));
 			this->closeMapleStoryToolStripMenuItem->ForeColor = System::Drawing::Color::White;
 			this->closeMapleStoryToolStripMenuItem->Name = L"closeMapleStoryToolStripMenuItem";
-			this->closeMapleStoryToolStripMenuItem->Size = System::Drawing::Size(166, 22);
+			this->closeMapleStoryToolStripMenuItem->Size = System::Drawing::Size(157, 22);
 			this->closeMapleStoryToolStripMenuItem->Text = L"&Close MapleStory";
 			this->closeMapleStoryToolStripMenuItem->Click += gcnew System::EventHandler(this, &MainForm::closeMapleStoryToolStripMenuItem_Click);
 			// 
@@ -1079,7 +986,7 @@ public:
 					this->injectDllToolStripMenuItem
 			});
 			this->mapleStoryToolStripMenuItem->Name = L"mapleStoryToolStripMenuItem";
-			this->mapleStoryToolStripMenuItem->Size = System::Drawing::Size(79, 20);
+			this->mapleStoryToolStripMenuItem->Size = System::Drawing::Size(73, 20);
 			this->mapleStoryToolStripMenuItem->Text = L"MapleStory";
 			// 
 			// hideMSWindowToolStripMenuItem
@@ -1088,7 +995,7 @@ public:
 				static_cast<System::Int32>(static_cast<System::Byte>(19)), static_cast<System::Int32>(static_cast<System::Byte>(19)));
 			this->hideMSWindowToolStripMenuItem->ForeColor = System::Drawing::Color::White;
 			this->hideMSWindowToolStripMenuItem->Name = L"hideMSWindowToolStripMenuItem";
-			this->hideMSWindowToolStripMenuItem->Size = System::Drawing::Size(166, 22);
+			this->hideMSWindowToolStripMenuItem->Size = System::Drawing::Size(153, 22);
 			this->hideMSWindowToolStripMenuItem->Text = L"Hide MS Window";
 			// 
 			// injectDllToolStripMenuItem
@@ -1097,14 +1004,14 @@ public:
 				static_cast<System::Int32>(static_cast<System::Byte>(19)), static_cast<System::Int32>(static_cast<System::Byte>(19)));
 			this->injectDllToolStripMenuItem->ForeColor = System::Drawing::Color::White;
 			this->injectDllToolStripMenuItem->Name = L"injectDllToolStripMenuItem";
-			this->injectDllToolStripMenuItem->Size = System::Drawing::Size(166, 22);
+			this->injectDllToolStripMenuItem->Size = System::Drawing::Size(153, 22);
 			this->injectDllToolStripMenuItem->Text = L"Inject Dll";
 			// 
 			// helpToolStripMenuItem
 			// 
 			this->helpToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(1) { this->aboutToolStripMenuItem });
 			this->helpToolStripMenuItem->Name = L"helpToolStripMenuItem";
-			this->helpToolStripMenuItem->Size = System::Drawing::Size(44, 20);
+			this->helpToolStripMenuItem->Size = System::Drawing::Size(40, 20);
 			this->helpToolStripMenuItem->Text = L"Help";
 			// 
 			// aboutToolStripMenuItem
@@ -1113,7 +1020,7 @@ public:
 				static_cast<System::Int32>(static_cast<System::Byte>(19)), static_cast<System::Int32>(static_cast<System::Byte>(19)));
 			this->aboutToolStripMenuItem->ForeColor = System::Drawing::Color::White;
 			this->aboutToolStripMenuItem->Name = L"aboutToolStripMenuItem";
-			this->aboutToolStripMenuItem->Size = System::Drawing::Size(107, 22);
+			this->aboutToolStripMenuItem->Size = System::Drawing::Size(103, 22);
 			this->aboutToolStripMenuItem->Text = L"&About";
 			// 
 			// label1
@@ -1243,7 +1150,7 @@ public:
 			this->pnlMiddle->Controls->Add(this->label94);
 			this->pnlMiddle->Controls->Add(this->lbWalls);
 			this->pnlMiddle->Controls->Add(this->label92);
-			this->pnlMiddle->Controls->Add(this->button1);
+			this->pnlMiddle->Controls->Add(this->bTestButton);
 			this->pnlMiddle->Controls->Add(this->lbInactive);
 			this->pnlMiddle->Controls->Add(this->lbActive);
 			this->pnlMiddle->Controls->Add(this->lbThreadID);
@@ -1363,17 +1270,17 @@ public:
 			this->label92->TabIndex = 54;
 			this->label92->Text = L"Walls:";
 			// 
-			// button1
+			// bTestButton
 			// 
-			this->button1->FlatAppearance->BorderColor = System::Drawing::Color::Gray;
-			this->button1->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->button1->Location = System::Drawing::Point(408, 3);
-			this->button1->Name = L"button1";
-			this->button1->Size = System::Drawing::Size(56, 24);
-			this->button1->TabIndex = 51;
-			this->button1->Text = L"Test";
-			this->button1->UseVisualStyleBackColor = true;
-			this->button1->Click += gcnew System::EventHandler(this, &MainForm::button1_Click);
+			this->bTestButton->FlatAppearance->BorderColor = System::Drawing::Color::Gray;
+			this->bTestButton->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->bTestButton->Location = System::Drawing::Point(408, 3);
+			this->bTestButton->Name = L"bTestButton";
+			this->bTestButton->Size = System::Drawing::Size(56, 24);
+			this->bTestButton->TabIndex = 51;
+			this->bTestButton->Text = L"Test";
+			this->bTestButton->UseVisualStyleBackColor = true;
+			this->bTestButton->Click += gcnew System::EventHandler(this, &MainForm::bTestButton_Click);
 			// 
 			// lbInactive
 			// 
@@ -1984,11 +1891,11 @@ public:
 			// label3
 			// 
 			this->label3->AutoSize = true;
-			this->label3->Font = (gcnew System::Drawing::Font(L"Algerian", 15.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->label3->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 15.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->label3->Location = System::Drawing::Point(401, 39);
 			this->label3->Name = L"label3";
-			this->label3->Size = System::Drawing::Size(60, 24);
+			this->label3->Size = System::Drawing::Size(53, 25);
 			this->label3->TabIndex = 4;
 			this->label3->Text = L"Info:";
 			this->label3->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::pnlFull_MouseDown);
@@ -2054,28 +1961,23 @@ public:
 			// 
 			this->tabPage3->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(25)), static_cast<System::Int32>(static_cast<System::Byte>(25)),
 				static_cast<System::Int32>(static_cast<System::Byte>(25)));
-			this->tabPage3->Controls->Add(this->rtbHome);
+			this->tabPage3->Controls->Add(this->lbConsoleLog);
 			this->tabPage3->Location = System::Drawing::Point(4, 22);
 			this->tabPage3->Name = L"tabPage3";
 			this->tabPage3->Padding = System::Windows::Forms::Padding(3);
+			this->tabPage3->RightToLeft = System::Windows::Forms::RightToLeft::No;
 			this->tabPage3->Size = System::Drawing::Size(353, 239);
 			this->tabPage3->TabIndex = 0;
-			this->tabPage3->Text = L"Home";
+			this->tabPage3->Text = L"Console";
 			// 
-			// rtbHome
+			// lbConsoleLog
 			// 
-			this->rtbHome->AcceptsTab = true;
-			this->rtbHome->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(35)), static_cast<System::Int32>(static_cast<System::Byte>(35)),
-				static_cast<System::Int32>(static_cast<System::Byte>(35)));
-			this->rtbHome->BorderStyle = System::Windows::Forms::BorderStyle::None;
-			this->rtbHome->ForeColor = System::Drawing::Color::White;
-			this->rtbHome->Location = System::Drawing::Point(16, 19);
-			this->rtbHome->Name = L"rtbHome";
-			this->rtbHome->ReadOnly = true;
-			this->rtbHome->ScrollBars = System::Windows::Forms::RichTextBoxScrollBars::None;
-			this->rtbHome->Size = System::Drawing::Size(318, 198);
-			this->rtbHome->TabIndex = 0;
-			this->rtbHome->Text = resources->GetString(L"rtbHome.Text");
+			this->lbConsoleLog->BackColor = System::Drawing::SystemColors::GrayText;
+			this->lbConsoleLog->FormattingEnabled = true;
+			this->lbConsoleLog->Location = System::Drawing::Point(3, 3);
+			this->lbConsoleLog->Name = L"lbConsoleLog";
+			this->lbConsoleLog->Size = System::Drawing::Size(344, 212);
+			this->lbConsoleLog->TabIndex = 1;
 			// 
 			// tabPage17
 			// 
@@ -2301,7 +2203,7 @@ public:
 			this->transparencyTrackBar->Maximum = 100;
 			this->transparencyTrackBar->Minimum = 50;
 			this->transparencyTrackBar->Name = L"transparencyTrackBar";
-			this->transparencyTrackBar->Size = System::Drawing::Size(257, 45);
+			this->transparencyTrackBar->Size = System::Drawing::Size(257, 42);
 			this->transparencyTrackBar->TabIndex = 1;
 			this->transparencyTrackBar->TickStyle = System::Windows::Forms::TickStyle::None;
 			this->transparencyTrackBar->Value = 100;
@@ -2336,6 +2238,7 @@ public:
 			// 
 			this->tabControl3->Controls->Add(this->tabPage11);
 			this->tabControl3->Controls->Add(this->tabPage12);
+			this->tabControl3->Controls->Add(this->tabPage10);
 			this->tabControl3->Location = System::Drawing::Point(-6, 151);
 			this->tabControl3->Name = L"tabControl3";
 			this->tabControl3->SelectedIndex = 0;
@@ -2876,6 +2779,39 @@ public:
 			this->rbPacket->TabStop = true;
 			this->rbPacket->Text = L"Packet";
 			this->rbPacket->UseVisualStyleBackColor = false;
+			// 
+			// tabPage10
+			// 
+			this->tabPage10->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(25)), static_cast<System::Int32>(static_cast<System::Byte>(25)),
+				static_cast<System::Int32>(static_cast<System::Byte>(25)));
+			this->tabPage10->Controls->Add(this->panel10);
+			this->tabPage10->Location = System::Drawing::Point(4, 22);
+			this->tabPage10->Name = L"tabPage10";
+			this->tabPage10->Padding = System::Windows::Forms::Padding(3);
+			this->tabPage10->Size = System::Drawing::Size(394, 212);
+			this->tabPage10->TabIndex = 3;
+			this->tabPage10->Text = L"Auto Sell";
+			// 
+			// panel10
+			// 
+			this->panel10->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->panel10->Controls->Add(this->cbSellAll);
+			this->panel10->Location = System::Drawing::Point(6, 7);
+			this->panel10->Name = L"panel10";
+			this->panel10->Size = System::Drawing::Size(200, 199);
+			this->panel10->TabIndex = 0;
+			// 
+			// cbSellAll
+			// 
+			this->cbSellAll->AutoSize = true;
+			this->cbSellAll->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->cbSellAll->Location = System::Drawing::Point(5, 6);
+			this->cbSellAll->Name = L"cbSellAll";
+			this->cbSellAll->Size = System::Drawing::Size(178, 17);
+			this->cbSellAll->TabIndex = 2;
+			this->cbSellAll->Text = L"Sell All When Inv Full (heuristics)";
+			this->cbSellAll->UseVisualStyleBackColor = false;
+			this->cbSellAll->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbSellAll_CheckedChanged);
 			// 
 			// panel4
 			// 
@@ -3683,7 +3619,6 @@ public:
 			// label90
 			// 
 			this->label90->AutoSize = true;
-			this->label90->Enabled = false;
 			this->label90->Location = System::Drawing::Point(124, 145);
 			this->label90->Name = L"label90";
 			this->label90->Size = System::Drawing::Size(38, 13);
@@ -3695,16 +3630,15 @@ public:
 			this->tbAttackDelay->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(35)), static_cast<System::Int32>(static_cast<System::Byte>(35)),
 				static_cast<System::Int32>(static_cast<System::Byte>(35)));
 			this->tbAttackDelay->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
-			this->tbAttackDelay->Enabled = false;
-			this->tbAttackDelay->Font = (gcnew System::Drawing::Font(L"Tahoma", 6, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
+			this->tbAttackDelay->Font = (gcnew System::Drawing::Font(L"Tahoma", 8.25F));
 			this->tbAttackDelay->ForeColor = System::Drawing::Color::White;
 			this->tbAttackDelay->Location = System::Drawing::Point(166, 144);
 			this->tbAttackDelay->Name = L"tbAttackDelay";
-			this->tbAttackDelay->Size = System::Drawing::Size(64, 17);
+			this->tbAttackDelay->Size = System::Drawing::Size(64, 21);
 			this->tbAttackDelay->TabIndex = 47;
-			this->tbAttackDelay->Text = L"-";
+			this->tbAttackDelay->Text = L"10";
 			this->tbAttackDelay->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			this->tbAttackDelay->TextChanged += gcnew System::EventHandler(this, &MainForm::tbAttackDelay_TextChanged);
 			// 
 			// label89
 			// 
@@ -3784,6 +3718,7 @@ public:
 			this->cbAttackDelay->TabIndex = 42;
 			this->cbAttackDelay->Text = L"Attack Delay";
 			this->cbAttackDelay->UseVisualStyleBackColor = false;
+			this->cbAttackDelay->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbAttackDelay_CheckedChanged);
 			// 
 			// cbBlinkGodmode
 			// 
@@ -4533,6 +4468,18 @@ public:
 			this->panel17->Name = L"panel17";
 			this->panel17->Size = System::Drawing::Size(132, 87);
 			this->panel17->TabIndex = 30;
+			// 
+			// bUEMIGetCurrentLocation
+			// 
+			this->bUEMIGetCurrentLocation->FlatAppearance->BorderColor = System::Drawing::Color::Gray;
+			this->bUEMIGetCurrentLocation->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->bUEMIGetCurrentLocation->Location = System::Drawing::Point(3, 53);
+			this->bUEMIGetCurrentLocation->Name = L"bUEMIGetCurrentLocation";
+			this->bUEMIGetCurrentLocation->Size = System::Drawing::Size(124, 25);
+			this->bUEMIGetCurrentLocation->TabIndex = 30;
+			this->bUEMIGetCurrentLocation->Text = L"Get Current Location";
+			this->bUEMIGetCurrentLocation->UseVisualStyleBackColor = true;
+			this->bUEMIGetCurrentLocation->Click += gcnew System::EventHandler(this, &MainForm::bUEMIGetCurrentLocation_Click);
 			// 
 			// cbUEMI
 			// 
@@ -6335,18 +6282,6 @@ public:
 			this->AutoCCCSTimer->Interval = 250;
 			this->AutoCCCSTimer->Tick += gcnew System::EventHandler(this, &MainForm::AutoCCCSTimer_Tick);
 			// 
-			// bUEMIGetCurrentLocation
-			// 
-			this->bUEMIGetCurrentLocation->FlatAppearance->BorderColor = System::Drawing::Color::Gray;
-			this->bUEMIGetCurrentLocation->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->bUEMIGetCurrentLocation->Location = System::Drawing::Point(3, 53);
-			this->bUEMIGetCurrentLocation->Name = L"bUEMIGetCurrentLocation";
-			this->bUEMIGetCurrentLocation->Size = System::Drawing::Size(124, 25);
-			this->bUEMIGetCurrentLocation->TabIndex = 30;
-			this->bUEMIGetCurrentLocation->Text = L"Get Current Location";
-			this->bUEMIGetCurrentLocation->UseVisualStyleBackColor = true;
-			this->bUEMIGetCurrentLocation->Click += gcnew System::EventHandler(this, &MainForm::bUEMIGetCurrentLocation_Click);
-			// 
 			// MainForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
@@ -6401,6 +6336,9 @@ public:
 			this->panel9->PerformLayout();
 			this->panel7->ResumeLayout(false);
 			this->panel7->PerformLayout();
+			this->tabPage10->ResumeLayout(false);
+			this->panel10->ResumeLayout(false);
+			this->panel10->PerformLayout();
 			this->panel4->ResumeLayout(false);
 			this->panel4->PerformLayout();
 			this->panel3->ResumeLayout(false);
@@ -6467,8 +6405,6 @@ public:
 
 		}
 #pragma endregion
-
-
 	private: System::Void MainForm_Load(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void MainForm_FormClosing(System::Object^  sender, System::Windows::Forms::FormClosingEventArgs^  e);
 	private: System::Void btnClose_Click(System::Object^  sender, System::EventArgs^  e);
@@ -6566,6 +6502,7 @@ public:
 	private: System::Void cbNoPlayerDeath_CheckedChanged(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void cbFullAccuracy_CheckedChanged(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void cbAttackDelay_CheckedChanged(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void tbAttackDelay_KeyPress(Object^ sender, Windows::Forms::KeyPressEventArgs^ e);
 	private: System::Void cbNoBreath_CheckedChanged(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void cbMouseFly_CheckedChanged(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void cbSwimInAir_CheckedChanged(System::Object^  sender, System::EventArgs^  e);
@@ -6613,7 +6550,7 @@ public:
 	private: System::Void bSendDrop50000_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void bSendRevive_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void bSendRestore127Health_Click(System::Object^  sender, System::EventArgs^  e);
-	private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void bTestButton_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void lbItemFilter_MouseDoubleClick(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e);
 	private: System::Void lbItemSearchLog_MouseDoubleClick(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e);
 	private: System::Void lbMobFilter_MouseDoubleClick(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e);
@@ -6646,5 +6583,7 @@ public:
 	private: System::Void bWallVacGetCurrentLocation_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void cbUEMI_CheckedChanged(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void bUEMIGetCurrentLocation_Click(System::Object^  sender, System::EventArgs^  e);
-};
+	private: System::Void cbSellAll_CheckedChanged(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void tbAttackDelay_TextChanged(System::Object^  sender, System::EventArgs^  e);
+	};
 }

@@ -141,14 +141,18 @@
   <ItemGroup>
     <ClCompile Include="Log.cpp" />
     <ClCompile Include="MainForm.cpp" />
+    <ClCompile Include="Mouse.cpp" />
     <ClCompile Include="Packet.cpp" />
     <ClCompile Include="Settings.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Functions.h" />
-    <ClInclude Include="HelperFunctions.h" />
+    <ClInclude Include="Assembly.h" />
+    <ClInclude Include="GeneralFunctions.h" />
     <ClInclude Include="Log.h" />
     <ClInclude Include="Macro.h" />
+    <ClInclude Include="MapleFunctions.h" />
+    <ClInclude Include="Memory.h" />
+    <ClInclude Include="Mouse.h" />
     <ClInclude Include="Packet.h" />
     <ClInclude Include="Addresses.h" />
     <ClInclude Include="MainForm.h">
@@ -173,6 +177,7 @@
   <ItemGroup>
     <None Include="..\LICENSE" />
     <None Include="..\README.md" />
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
