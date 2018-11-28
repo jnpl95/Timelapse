@@ -1,6 +1,4 @@
-#ifndef MACRO_H
-#define MACRO_H
-
+#pragma once
 #include <cliext/queue>
 #include "MainForm.h"
 #include <Windows.h>
@@ -255,4 +253,3 @@ public:
 		}
 	}
 };
-#endif

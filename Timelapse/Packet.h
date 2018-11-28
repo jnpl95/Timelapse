@@ -1,6 +1,4 @@
-#ifndef PACKET_H
-#define PACKET_H
-
+#pragma once
 #include <Windows.h>
 
 bool SendPacket(System::String^ packetStr);
@@ -12,4 +10,3 @@ void writeBytes(System::String^ %packet, array<BYTE>^ bytes);
 void writeString(System::String^ %packet, System::String^ str);
 void writeInt(System::String^ %packet, int num);
 void writeShort(System::String^ %packet, short num);
-#endif
