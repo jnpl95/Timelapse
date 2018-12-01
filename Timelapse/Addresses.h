@@ -174,6 +174,10 @@ auto CWvsContext__GetCharacterData = reinterpret_cast<pfnCWvsContext__GetCharact
 #pragma region Pointers Addresses & Offsets
 ULONG PtInRectAddr = 0xBF0484;
 
+ULONG LoginBase = 0xBEDED4; //CLogin
+ULONG OFS_LoginStep = 0x168; //0 = login screen or logged in, 1 = Select World/Channel, 2 = Select Char
+ULONG OFS_LoginScreen = 0x174; //255 == login screen, 1 == loggin in, 0 = logged in
+
 ULONG UIInfoBase = 0xBEC208; 
 ULONG OFS_HP = 0xD18;
 ULONG OFS_MP = OFS_HP + 4;

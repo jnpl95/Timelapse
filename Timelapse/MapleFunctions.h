@@ -24,10 +24,8 @@ static HWND GetMSWindowHandle() {
 #pragma managed
 //Get MS ProcessID
 static String^ GetMSProcID() {
-	const std::string processID = std::to_string(GetCurrentProcessId());
-	String^ procIdStr = ConvertStdToSystemStr(processID);
-
-	return "0x" + procIdStr;
+	int processID = GetCurrentProcessId();
+	return "0x" + processID.ToString("X") + " (" + processID.ToString() + ")";
 }
 
 //Check if position is valid 
@@ -65,12 +63,6 @@ namespace PointerFuncs {
 		const UINT8 level = readCharValueZtlSecureFuse(*(ULONG*)CharacterStatBase + OFS_Level);
 		if (level == 0) return "00";
 		return Convert::ToString(level);
-		/*if (isHooked)
-			Jump(levelHookAddr, CodeCaves::LevelHook, 2);
-		else
-			WriteMemory(levelHookAddr, 7, 0x8A, 0xC8, 0xE8, 0x4B, 0x55, 0x00, 0x00);
-
-		return CodeCaves::level.ToString();*/
 	}
 
 	//Retrieve Char Job ID
@@ -80,12 +72,6 @@ namespace PointerFuncs {
 
 	//Retrieve Char Job
 	static String^ getCharJob() {
-		/*if (isHooked)
-			Jump(jobHookAddr, CodeCaves::JobHook, 2);
-		else
-			WriteMemory(levelHookAddr, 7, 0x8B, 0xC8, 0xE8, 0xA6, 0x55, 0x00, 0x00);
-
-		if (CodeCaves::job == -1) return "Null";*/
 		return gcnew String(GetJobName(getCharJobID()));
 	}
 

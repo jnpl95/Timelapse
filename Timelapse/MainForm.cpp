@@ -24,6 +24,7 @@ static ULONG GetMSThreadID() {
 }
 
 //Forward declarations
+void AutoLogin();
 static void loadMaps(); 
 static void mapRush(int destMapID); 
 [assembly:System::Diagnostics::DebuggableAttribute(true, true)]; //For debugging purposes
@@ -35,8 +36,9 @@ ref struct GlobalRefs {
 	static bool bClickTeleport = false, bMouseTeleport = false, bTeleport = false, bKami = false, bKamiLoot = false;
 	static bool bWallVac = false, bDupeX = false, bMMC = false, bUEMI = false;
 	static UINT cccsTimerTickCount = 0;
-	static bool isDragging = false;
+	static bool isDragging = false, isEmbedding = false;
 	static Point dragOffset;
+	static HWND hParent; 
 	static double formOpacity;
 	static Generic::List<MapData^>^ maps;
 };
@@ -78,7 +80,7 @@ void MainForm::MainForm_Load(Object^  sender, EventArgs^  e) {
 	Log::WriteLineToConsole("::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::");
 	Log::WriteLineToConsole(":::                      Timelapse Trainer                     :::");
 	Log::WriteLineToConsole("::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::");
-	Log::WriteLineToConsole("Recommended injector: Extreme Injector v3.7.2 (unloads dll)");
+	Log::WriteLineToConsole("Recommended injector: Extreme Injector v3.7.2");
 	Log::WriteLineToConsole("Initializing Timelapse trainer ....");
 	RECT msRect;
 	GetWindowRect(GetMSWindowHandle(), &msRect);
@@ -102,6 +104,13 @@ void MainForm::MainForm_Shown(Object^  sender, EventArgs^  e) {
 	Log::WriteLineToConsole("Loading Maps for mapRusher......");
 	loadMaps();
 	Log::WriteLineToConsole("Initialized Timelapse trainer!");
+
+	if (File::Exists(Settings::GetSettingsPath())) {
+		if (MessageBox::Show("A save file has been detected, load save?", "Save File", MessageBoxButtons::YesNo) == System::Windows::Forms::DialogResult::Yes) {
+			Settings::Deserialize(this, Settings::GetSettingsPath());
+			AutoLogin();
+		}
+	}
 }
 
 void MainForm::MainForm_FormClosing(Object^  sender, Windows::Forms::FormClosingEventArgs^  e) {
@@ -164,16 +173,64 @@ void MainForm::pnlFull_MouseMove(Object^  sender, Windows::Forms::MouseEventArgs
 #pragma endregion
 
 #pragma region ToolStrip
-void MainForm::closeMapleStoryToolStripMenuItem_Click(Object^  sender, EventArgs^  e) {
-	TerminateProcess(GetCurrentProcess(), 0);
-}
-
 void MainForm::loadSettingsToolStripMenuItem_Click(Object^  sender, EventArgs^  e) {
 	Settings::Deserialize(this, Settings::GetSettingsPath());
 }
 
 void MainForm::saveSettingsToolStripMenuItem_Click(Object^  sender, EventArgs^  e) {
 	Settings::Serialize(this, Settings::GetSettingsPath());
+}
+
+void MainForm::closeMapleStoryToolStripMenuItem_Click(Object^  sender, EventArgs^  e) {
+	TerminateProcess(GetCurrentProcess(), 0);
+}
+
+//TODO: Make MainForm panels dynamically move to expand to height of 625 (make sure UI looks ok) 
+//TODO: Also make embedded MS window resizable (add TrackBar in options?), make timelapse icon and name at the top move to the right to replace MS border
+void EmbedMS(HWND hWnd) {
+	RECT msRect;
+	GetWindowRect(GlobalVars::mapleWindow, &msRect);
+
+	if (!GlobalRefs::isEmbedding) {
+		if (GlobalVars::mapleWindow) {
+			GlobalRefs::hParent = SetParent(GlobalVars::mapleWindow, hWnd);
+			if (GlobalRefs::hParent) {
+				GlobalRefs::isEmbedding = TRUE;
+				MainForm::TheInstance->Left = msRect.left;
+				MainForm::TheInstance->Top = msRect.top;
+				SetWindowPos(GlobalVars::mapleWindow, 0, 0, 0, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
+			}
+		}
+	} else {
+		SetParent(GlobalVars::mapleWindow, GlobalRefs::hParent);
+		GlobalRefs::isEmbedding = FALSE;
+		MainForm::TheInstance->Left = msRect.right;
+		MainForm::TheInstance->Top = msRect.top;
+	}
+}
+
+void MainForm::embedMSWindowToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
+	if (!GlobalRefs::isEmbedding) {
+		this->Width = 1360;
+		this->Height = 625;
+		this->pnlFull->Location = Point(800, 0);
+	} else {
+		this->Width = 560;
+		this->Height = 500;
+		this->pnlFull->Location = Point(0, 0);
+	}
+
+	EmbedMS((HWND)this->Handle.ToPointer());
+}
+
+void MainForm::hideMSWindowToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
+	if (this->hideMSWindowToolStripMenuItem->Text == "Hide MS Window") {
+		this->hideMSWindowToolStripMenuItem->Text = "Show MS Window";
+		ShowWindow(GlobalVars::mapleWindow, SW_HIDE);
+	} else {
+		this->hideMSWindowToolStripMenuItem->Text = "Hide MS Window";
+		ShowWindow(GlobalVars::mapleWindow, SW_SHOW);
+	}
 }
 #pragma endregion
 
@@ -265,7 +322,63 @@ void MainForm::GUITimer_Tick(Object^  sender, EventArgs^  e) {
 #pragma endregion
 
 #pragma region Main Tab
+#pragma region Log
+void MainForm::lbConsoleLog_KeyDown(System::Object^  sender, System::Windows::Forms::KeyEventArgs^  e) {
+	if (e->Control && e->KeyCode == Keys::C) {
+		System::Text::StringBuilder^ copyBuf = gcnew System::Text::StringBuilder();
+		for each(auto item in lbConsoleLog->SelectedItems)
+			copyBuf->AppendLine(item->ToString());
+
+		if (copyBuf->Length > 0)
+			Clipboard::SetText(copyBuf->ToString());
+	}
+}
+#pragma endregion
+
 #pragma region Auto Login
+
+//Very crude auto login, just testing to see if it works. DC's on sending character packet 
+void AutoLogin() {
+	if (*(BYTE*)(*(ULONG*)LoginBase + OFS_LoginScreen) == 255) {
+		MainForm::TheInstance->bTestButton->Text = "Logging in";
+		String^ usernameStr = MainForm::TheInstance->tbAutoLoginUsername->Text;
+		String^ passwordStr = MainForm::TheInstance->tbAutoLoginPassword->Text;
+		System::Text::StringBuilder usernameOutput, passwordOutput;
+		for each (System::Byte b in usernameStr) usernameOutput.AppendFormat("{0:X} ", b);
+		for each (System::Byte b in passwordStr) passwordOutput.AppendFormat("{0:X} ", b);
+		String^ usernameString = usernameOutput.ToString();
+		String^ passwordString = passwordOutput.ToString();
+		System::String^ loginPacket = "01 00 07 00" + usernameString + "08 00" + passwordString + "00 00 00 00 00 00 B4 43 8D 48 00 00 00 00 13 92 00 00 00 00 02 00 00 00 00 00 00";
+
+		SendPacket(loginPacket);
+		Sleep(2000);
+
+		SendPacket("0B 00");
+		Sleep(2000);
+
+		SendPacket("06 00 00 00"); //Select 1st world
+		Sleep(2000);
+
+		int channel = 4;
+		//if (MainForm::TheInstance->comboAutoLoginChannel->Text->Equals("Random")) channel = rand() % 20;
+		//else channel = int::Parse(MainForm::TheInstance->comboAutoLoginChannel->Text) - 1;
+		//select channel
+		SendPacket(gcnew String("05 00 02 00" + channel.ToString("X2") + "7F 00 00 01")); 
+		Sleep(2000);
+
+		//select character
+		//WHY OH WHY DOESN'T THIS WORK??? -_- 
+		int character = 0; //int::Parse(MainForm::TheInstance->comboAutoLoginCharacter->Text) - 1; //" + gcnew String(intToHexL(character, 2, false).c_str()) + "
+		SendPacket(gcnew String("13 00 02 00 00 00 11 00 41 34 2D 33 34 2D 44 39 2D 34 38 2D 39 44 2D 46 36 15 00 35 30 37 42 39 44 35 46 31 38 37 34 5F 42 34 34 33 38 44 34 38"));
+
+		//Log PIC Packet and send (ie On MapleRoyals
+	}
+}
+
+/*ULONG LoginBase = 0xBEDED4;
+ULONG OFS_LoginStep = 0x168; //0 = login screen or logged in, 1 = Select World/Channel, 2 = Select Char
+ULONG OFS_LoginScreen = 0x174; //255 == login screen, 1 == loggin in, 0 = logged in*/
+
 //From Old Trainer, need to fix dc if already logged in once
 /*System::Text::StringBuilder usernameOutput, passwordOutput;
 String^ username = this->textBox34->Text;
@@ -732,6 +845,7 @@ void ClickTeleport() {
 			Teleport(ReadMultiPointerSigned(InputBase, 2, OFS_MouseLocation, OFS_MouseX), ReadMultiPointerSigned(InputBase, 2, OFS_MouseLocation, OFS_MouseY));
 		Sleep(Convert::ToUInt32(MainForm::TheInstance->tbClickTeleport->Text));
 	}
+	ExitThread(0);
 }
 
 void MouseTeleport() {
@@ -740,6 +854,7 @@ void MouseTeleport() {
 			Teleport(ReadMultiPointerSigned(InputBase, 2, OFS_MouseLocation, OFS_MouseX), ReadMultiPointerSigned(InputBase, 2, OFS_MouseLocation, OFS_MouseY));
 		Sleep(Convert::ToUInt32(MainForm::TheInstance->tbMouseTeleport->Text));
 	}
+	ExitThread(0);
 }
 
 void MainForm::cbClickTeleport_CheckedChanged(Object^  sender, EventArgs^  e) {
@@ -1060,6 +1175,7 @@ void TeleportLoop() {
 
 		Sleep(Convert::ToUInt32(MainForm::TheInstance->tbTeleportLoopDelay->Text));
 	}
+	ExitThread(0);
 }
 
 void MainForm::bTeleportGetCurrentLocation_Click(Object^  sender, EventArgs^  e) {
@@ -1242,11 +1358,12 @@ void KamiLoop() {
 		else if (GlobalRefs::bKamiLoot) {
 			if (ReadPointer(DropPoolBase, OFS_ItemCount) > Convert::ToUInt32(MainForm::TheInstance->tbKamiLootItem->Text)) {
 				if (!GlobalRefs::isChangingField && !GlobalRefs::isMapRushing) {}
-					MessageBox::Show("ItemX: " + Assembly::ItemX.ToString() + " ItemY: " + Assembly::ItemY.ToString()); //Teleport(CodeCaves::ItemX, CodeCaves::ItemY+10);
+					Teleport(Assembly::ItemX, Assembly::ItemY+10); //MessageBox::Show("ItemX: " + Assembly::ItemX.ToString() + " ItemY: " + Assembly::ItemY.ToString());
 			}
 			Sleep(Convert::ToUInt32(MainForm::TheInstance->tbKamiLootInterval->Text));
 		}
 	}
+	ExitThread(0);
 }
 
 void MainForm::cbKami_CheckedChanged(System::Object^  sender, System::EventArgs^  e) {
@@ -1336,6 +1453,7 @@ void WallVacLoop() {
 
 		Sleep(500); //Every half a second, re-write pointer to set wall values TODO: Allow users to enter a delay
 	}
+	ExitThread(0);
 }
 
 void MainForm::cbWallVac_CheckedChanged(System::Object^  sender, System::EventArgs^  e) {
@@ -1467,6 +1585,7 @@ void UEMILoop() {
 		*mobYPos = uEMIYPos;
 		Sleep(50); //TODO: Allow users to enter a delay
 	}
+	ExitThread(0);
 }
 
 
@@ -1845,15 +1964,10 @@ void MainForm::tbMobFilterID_KeyPress(Object^  sender, Windows::Forms::KeyPressE
 #pragma endregion
 
 #pragma region Packets Tab
-//Send Suicide Packet: 30 00 00 00 00 00 FD 00 00 FF 00 00 00 00 00
-//Send Changes map (if alive, teleport to starting map, if dead, revives you in nearest town) 26 00 00 00 00 00 00 00 00 00 00 00
-//Send Restores health: 59 00 A1 7F F7 08 00 14 00 00 0A 00 00 00 00
+#pragma region Send Packets
 void MainForm::bSendPacket_Click(Object^  sender, EventArgs^  e) {
 	SendPacket(tbSendPacket->Text);
 	//SendPacket(gcnew String("28 00 ** ** ** 00"));
-}
-void MainForm::bRecvPacket_Click(Object^  sender, EventArgs^  e) {
-	RecvPacket(tbRecvPacket->Text);
 }
 
 void MainForm::tbSendSpamDelay_KeyPress(Object^  sender, Windows::Forms::KeyPressEventArgs^  e) {
@@ -1861,7 +1975,6 @@ void MainForm::tbSendSpamDelay_KeyPress(Object^  sender, Windows::Forms::KeyPres
 }
 
 void MainForm::bSendLog_Click(System::Object^  sender, System::EventArgs^  e) {
-
 	/*if(bSendLog->Text->Equals("Enable Log")) {
 		bSendLog->Text = "Disable Log";
 		//GlobalRefs::isPacketsSentHooked = true;
@@ -1873,6 +1986,13 @@ void MainForm::bSendLog_Click(System::Object^  sender, System::EventArgs^  e) {
 		WriteMemory(0x0049637B, 5, 0xB8, 0x6C, 0x12, 0xA8, 0x00);
 	}*/
 }
+#pragma endregion
+
+#pragma region Receive Packets
+void MainForm::bRecvPacket_Click(Object^  sender, EventArgs^  e) {
+	RecvPacket(tbRecvPacket->Text);
+}
+#pragma endregion
 
 #pragma region Predefined Packets
 void MainForm::bSendSuicide_Click(System::Object^  sender, System::EventArgs^  e) {
@@ -1944,23 +2064,6 @@ void MainForm::tbAPLUK_KeyPress(Object^  sender, Windows::Forms::KeyPressEventAr
 #pragma endregion
 
 #pragma region Map Rusher Tab
-/*
-   Map Rusher Data Exceptions: 
-	TimedMaps
-		case 100020000: // pig
-		case 105040304: // golem
-		case 105050100: // mushroom
-		case 221023400: // rabbit
-		case 240020500: // kentasaurus
-		case 240040511: // skelegons
-		case 240040520: // newties
-		case 260020600: // sand rats
-		case 261020300: // magatia
-		   MaplePortal pfrom = from.getPortal("MD00");
-	MapleDoorsInTown
-	Maple NPCs for Inter Island travel
- */
-
 //Get map id for special maps, manually found
 static int getSpecialMapID(int mapID, String^ portalName) {
 	if (mapID == 101000000 && portalName->Equals("in04")) return 101000400;
@@ -2437,4 +2540,76 @@ void MainForm::lbMapRusherStatus_TextChanged(System::Object^  sender, System::Ev
 	lbMapRusherStatus->ForeColor = Color::White;
 	Application::DoEvents();
 }
+#pragma endregion
+
+//Remove at the end, but for now use it to test stuff out (test button on main form)
+#pragma region testing
+/*
+//Start of testing stuff
+ULONG getStringValHookAddr = 0x0079E9A3;
+ULONG getStringRetValHookAddr = 0x0079EA58;
+char* maplestring;
+__declspec(naked) static void __stdcall GetStringHook() {
+	__asm {
+		mov[ebp + 0x0C], 0x2
+		push ecx
+		and dword ptr[ebp - 0x10], 0x00
+		jmp[getStringValHookAddr]
+	}
+} //Non working
+
+__declspec(naked) static void __stdcall GetStringRetValHook() {
+	__asm {
+		push ebx
+		mov ebx, [eax]
+		mov[maplestring], ebx
+		pop ebx
+		mov eax, edi
+		pop edi
+		pop esi
+		pop ebx
+		jmp[getStringRetValHookAddr]
+	}
+} //Working
+
+typedef char**(__stdcall* pfnStringPool__GetString)(PVOID, PVOID, char**, UINT, UINT);	//typedef ZXString<char>*(__stdcall* StringPool__GetString_t)(PVOID, PVOID, ZXString<char>*, UINT);
+auto StringPool__GetString = (pfnStringPool__GetString)0x0079E993;	//0x00406455;
+
+typedef char**(__stdcall *pfnCItemInfo__GetMapString)(PVOID, PVOID, char*, UINT, const char*);
+auto CItemInfo__GetMapString = (pfnCItemInfo__GetMapString)0x005CF792;
+
+//Test stuff out //https://pastebin.com/aULY72tG
+void Timelapse::MainForm::button1_Click(System::Object^  sender, System::EventArgs^  e) {
+
+
+	/*char result[300];
+	char* str = *CItemInfo__GetMapString(*(PVOID*)CItemInfo, NULL, result, 100000000, 0);
+	String^ test = Convert::ToString(str);
+	if (String::IsNullOrEmpty(test))
+		MessageBox::Show("Error! Empty string was returned");
+	else
+		MessageBox::Show(test); */
+
+
+		/*//Displays 0th string, but crashes shortly after. What I wanted was the 2nd maplestring
+		char** result;
+		char* str = *StringPool__GetString(*(PVOID*)StringPool, nullptr, (char**)result, 2, 0);
+		String^ test = gcnew String(str);
+
+		if (String::IsNullOrEmpty(test))
+			MessageBox::Show("Error! Empty string was returned");
+		else
+			MessageBox::Show(test);*/
+
+
+			//char result[256];
+			//Jump(0x0079E99E, GetStringHook, 0);
+			/*Jump(0x0079EA53, GetStringRetValHook, 0);
+			String^ test = gcnew String(maplestring);
+			if (String::IsNullOrEmpty(test))
+				MessageBox::Show("Error! Empty string was returned");
+			else
+				MessageBox::Show(test);
+}
+*/
 #pragma endregion
