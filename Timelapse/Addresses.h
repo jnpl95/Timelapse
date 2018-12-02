@@ -9,6 +9,9 @@
  */
 
 #pragma region Hack Adresses
+// MAIN TAB REGION
+ULONG logoSkipAddr = 0x0062F2D6;
+
 // HACK TAB REGION 
 ULONG fullGodmodeAddr = 0x009581D5;
 ULONG missGodmodeAddr = 0x009582E9;
@@ -137,6 +140,8 @@ ULONG mobFilter2Addr = 0x0067948C; //Inside CMobPool::OnMobEnterField()
 ULONG mobFilter2AddrRet = mobFilter2Addr + 5;
 ULONG mobFilter2JmpAddr = 0x0067957F; //mov ecx,[ebp-0C] above the ret 0004 at the end of function
 ULONG cInPacketDecode4Addr = 0x00406629; //Start of CInPacket::Decode4()
+ULONG cOutPacketAddr = 0x0049637B;
+ULONG cOutPacketAddrRet = cOutPacketAddr + 5;
 #pragma endregion
 
 #pragma region MapleStory Function Hook Addresses

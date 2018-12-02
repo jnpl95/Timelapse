@@ -38,6 +38,11 @@ void writeShort(System::String^ %packet, short num) {
 	writeByte(packet, (BYTE)((UINT)num >> 8 & 0xFF));
 }
 
+void writeUnsignedShort(System::String^ %packet, USHORT num) {
+	writeByte(packet, (BYTE)num);
+	writeByte(packet, (BYTE)((UINT)num >> 8 & 0xFF));
+}
+
 inline PUCHAR atohx(PUCHAR szDestination, LPCSTR szSource)
 {
 	const PUCHAR szReturn = szDestination;
@@ -93,28 +98,3 @@ bool RecvPacket(System::String^ packetStr)
 	}
 	catch (...) { return false; }
 }
-
-/* WORK IN PROGRESS
-void __stdcall RecordPacketsSent(COutPacket packet) {
-	array<unsigned char> ^sDestination = gcnew array<unsigned char>(packet.Size);
-	System::Runtime::InteropServices::Marshal::Copy(System::IntPtr((void*)packet.Data), sDestination, 0, packet.Size);
-	System::String ^sResult = System::Text::Encoding::ASCII->GetString(sDestination);
-
-	array<System::String^>^ row = { sResult };
-	System::Windows::Forms::ListViewItem^ lvi = gcnew System::Windows::Forms::ListViewItem(row);
-	Timelapse::MainForm::TheInstance->lvSend->Items->Add(lvi);
-}
-
-DWORD dwSendHookRet = 0x0049637B + 5;
-
-#pragma unmanaged
-void __stdcall SendPacketHook() {
-	__asm {
-		pushad
-		push [esp+0x04] //Packet Struct? Need to find the correct pointer on the stack I think
-		call RecordPacketsSent
-		popad
-		mov eax, 0x00A8126C //original code
-		jmp dword ptr[dwSendHookRet]
-	}
-}*/

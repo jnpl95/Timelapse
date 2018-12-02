@@ -2,6 +2,7 @@
 #include "Structs.h"
 #include "resource.h"
 #include "GeneralFunctions.h"
+#include "Packet.h"
 
 #define CodeCave(name) static void __declspec(naked) ##name() { _asm
 #define EndCodeCave } 
@@ -20,6 +21,7 @@ bool isMobLoggingEnabled = false, isMobFilterEnabled = false, isMobFilterWhiteLi
 ULONG itemLogged = 0, itemFilterMesos = 0, mobLogged = 0;
 static std::vector<ULONG> *itemList = new std::vector<ULONG>(), *mobList = new std::vector<ULONG>();
 static std::vector<SpawnControlData*> *spawnControl = new std::vector<SpawnControlData*>();
+SendPacketData *sendPacketData;
 
 //Find item name using item ID in the ItemsList resource
 static String^ findItemNameFromID(int itemID) {
@@ -112,6 +114,43 @@ inline bool __stdcall shouldMobBeFiltered() {
 	for (ULONG mob : *mobList)
 		if (mob == mobLogged) return true;
 	return false;
+}
+
+
+
+inline void __stdcall addSendPacket() {
+	COutPacket* packet = sendPacketData->packet;
+
+	String^ header = "";
+	writeUnsignedShort(header, *packet->Header);
+
+	String^ packetData = "";
+	BYTE* packetBytes = packet->Data;
+	int packetSize = packet->Size - 2;
+	for (int i = 0; i < packetSize; i++)
+		writeByte(packetData, packetBytes[i]);
+
+	Log::WriteLineToConsole("  " + header + " " + packetData);
+	//TODO: Add packet to queue, and flush queue to GUI after a certain interval (use timer) 
+
+	/*Windows::Forms::TreeNode^ packetNode = gcnew Windows::Forms::TreeNode(packetData);
+	packetNode->Name = packetData;*/
+
+	//Windows::Forms::TreeNode^ headerNode = gcnew Windows::Forms::TreeNode(header);
+	//headerNode->Name = header;
+	//Timelapse::MainForm::TheInstance->tvSendPackets->Nodes->Add(headerNode);
+
+	/*if(Timelapse::MainForm::TheInstance->tvSendPackets->Nodes->ContainsKey(header)) {
+		//Header exists in tree
+	}
+	else {
+		Windows::Forms::TreeNode^ headerNode = gcnew Windows::Forms::TreeNode(header);
+		headerNode->Name = header;
+		//headerNode->Nodes->Add(packetNode);
+		Timelapse::MainForm::TheInstance->tvSendPackets->BeginUpdate();
+		Timelapse::MainForm::TheInstance->tvSendPackets->Nodes->Add(headerNode); 
+		Timelapse::MainForm::TheInstance->tvSendPackets->EndUpdate();
+	}*/
 }
 
 #pragma unmanaged
@@ -310,7 +349,6 @@ inline bool __stdcall shouldMobBeFiltered() {
 		jmp [itemFilterAddrRet]
 	} EndCodeCave
 
-
 	CodeCave(MobFilter1Hook) {
 		push ebx
 		call [cInPacketDecode4Addr] //CInPacket::Decode4()
@@ -355,5 +393,13 @@ inline bool __stdcall shouldMobBeFiltered() {
 		EndMobFilter:
 		pop ebx
 		jmp [mobFilter2AddrRet]
+	} EndCodeCave
+
+	CodeCave(SendPacketLogHook) {
+		mov dword ptr [sendPacketData], esp
+		pushad
+		call [addSendPacket]
+		popad
+		jmp [cOutPacketAddrRet]
 	} EndCodeCave
 }

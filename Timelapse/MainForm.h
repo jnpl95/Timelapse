@@ -203,7 +203,7 @@ namespace Timelapse {
 	private: System::Windows::Forms::Button^  bSendLog;
 	private: System::Windows::Forms::Button^  bSendClear;
 	private: System::Windows::Forms::Button^  bSendPacket;
-	public: System::Windows::Forms::ListView^  lvSend;
+
 	private: System::Windows::Forms::TabPage^  tabPage15;
 	private: System::Windows::Forms::Button^  bRecvRemove;
 	private: System::Windows::Forms::ListView^  lvRecvBlock;
@@ -212,7 +212,7 @@ namespace Timelapse {
 	private: System::Windows::Forms::Button^  bRecvLog;
 	private: System::Windows::Forms::Button^  bRecvClear;
 	private: System::Windows::Forms::Button^  bRecvPacket;
-	private: System::Windows::Forms::ListView^  lvRecv;
+
 	public: System::Windows::Forms::Label^  lbMapRusherStatus;
 	private: System::Windows::Forms::TextBox^  tbMapRusherDestination;
 	private: System::Windows::Forms::Label^  label79;
@@ -238,7 +238,9 @@ public: System::Windows::Forms::TextBox^  tbAutoLoginUsername;
 	private: System::Windows::Forms::Label^  label85;
 	private: System::Windows::Forms::Panel^  panel22;
 private: System::Windows::Forms::CheckBox^  cbAutoLoginNoPic;
-private: System::Windows::Forms::CheckBox^  cbAutoLoginSkipLogo;
+public: System::Windows::Forms::CheckBox^  cbAutoLoginSkipLogo;
+private:
+
 
 
 
@@ -453,6 +455,11 @@ private:
 	public:  System::Windows::Forms::ListBox^  lbConsoleLog;
 private: System::Windows::Forms::ToolStripMenuItem^  embedMSWindowToolStripMenuItem;
 private: System::Windows::Forms::Button^  button1;
+public: System::Windows::Forms::TreeView^  tvSendPackets;
+private:
+
+private:
+public: System::Windows::Forms::TreeView^  tvRecvPackets;
 
 
 public:
@@ -740,6 +747,7 @@ public:
 			this->tbUEMIx = (gcnew System::Windows::Forms::TextBox());
 			this->panel16 = (gcnew System::Windows::Forms::Panel());
 			this->panel19 = (gcnew System::Windows::Forms::Panel());
+			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->tbMMCX = (gcnew System::Windows::Forms::TextBox());
 			this->tbMMCY = (gcnew System::Windows::Forms::TextBox());
 			this->cbMMC = (gcnew System::Windows::Forms::CheckBox());
@@ -819,7 +827,6 @@ public:
 			this->bSendLog = (gcnew System::Windows::Forms::Button());
 			this->bSendClear = (gcnew System::Windows::Forms::Button());
 			this->bSendPacket = (gcnew System::Windows::Forms::Button());
-			this->lvSend = (gcnew System::Windows::Forms::ListView());
 			this->tabPage15 = (gcnew System::Windows::Forms::TabPage());
 			this->bRecvRemove = (gcnew System::Windows::Forms::Button());
 			this->lvRecvBlock = (gcnew System::Windows::Forms::ListView());
@@ -828,7 +835,6 @@ public:
 			this->bRecvLog = (gcnew System::Windows::Forms::Button());
 			this->bRecvClear = (gcnew System::Windows::Forms::Button());
 			this->bRecvPacket = (gcnew System::Windows::Forms::Button());
-			this->lvRecv = (gcnew System::Windows::Forms::ListView());
 			this->tabPage18 = (gcnew System::Windows::Forms::TabPage());
 			this->tabPage19 = (gcnew System::Windows::Forms::TabPage());
 			this->bSendRevive = (gcnew System::Windows::Forms::Button());
@@ -873,7 +879,8 @@ public:
 			this->btnClose = (gcnew System::Windows::Forms::Button());
 			this->GUITimer = (gcnew System::Windows::Forms::Timer(this->components));
 			this->AutoCCCSTimer = (gcnew System::Windows::Forms::Timer(this->components));
-			this->button1 = (gcnew System::Windows::Forms::Button());
+			this->tvSendPackets = (gcnew System::Windows::Forms::TreeView());
+			this->tvRecvPackets = (gcnew System::Windows::Forms::TreeView());
 			this->MenuStrip->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->BeginInit();
 			this->pnlFull->SuspendLayout();
@@ -1009,7 +1016,7 @@ public:
 				static_cast<System::Int32>(static_cast<System::Byte>(19)), static_cast<System::Int32>(static_cast<System::Byte>(19)));
 			this->embedMSWindowToolStripMenuItem->ForeColor = System::Drawing::Color::White;
 			this->embedMSWindowToolStripMenuItem->Name = L"embedMSWindowToolStripMenuItem";
-			this->embedMSWindowToolStripMenuItem->Size = System::Drawing::Size(180, 22);
+			this->embedMSWindowToolStripMenuItem->Size = System::Drawing::Size(178, 22);
 			this->embedMSWindowToolStripMenuItem->Text = L"Embed MS Window";
 			this->embedMSWindowToolStripMenuItem->Click += gcnew System::EventHandler(this, &MainForm::embedMSWindowToolStripMenuItem_Click);
 			// 
@@ -1019,7 +1026,7 @@ public:
 				static_cast<System::Int32>(static_cast<System::Byte>(19)), static_cast<System::Int32>(static_cast<System::Byte>(19)));
 			this->hideMSWindowToolStripMenuItem->ForeColor = System::Drawing::Color::White;
 			this->hideMSWindowToolStripMenuItem->Name = L"hideMSWindowToolStripMenuItem";
-			this->hideMSWindowToolStripMenuItem->Size = System::Drawing::Size(180, 22);
+			this->hideMSWindowToolStripMenuItem->Size = System::Drawing::Size(178, 22);
 			this->hideMSWindowToolStripMenuItem->Text = L"Hide MS Window";
 			this->hideMSWindowToolStripMenuItem->Click += gcnew System::EventHandler(this, &MainForm::hideMSWindowToolStripMenuItem_Click);
 			// 
@@ -1029,7 +1036,7 @@ public:
 				static_cast<System::Int32>(static_cast<System::Byte>(19)), static_cast<System::Int32>(static_cast<System::Byte>(19)));
 			this->injectDllToolStripMenuItem->ForeColor = System::Drawing::Color::White;
 			this->injectDllToolStripMenuItem->Name = L"injectDllToolStripMenuItem";
-			this->injectDllToolStripMenuItem->Size = System::Drawing::Size(180, 22);
+			this->injectDllToolStripMenuItem->Size = System::Drawing::Size(178, 22);
 			this->injectDllToolStripMenuItem->Text = L"Inject Dll";
 			// 
 			// helpToolStripMenuItem
@@ -1045,7 +1052,7 @@ public:
 				static_cast<System::Int32>(static_cast<System::Byte>(19)), static_cast<System::Int32>(static_cast<System::Byte>(19)));
 			this->aboutToolStripMenuItem->ForeColor = System::Drawing::Color::White;
 			this->aboutToolStripMenuItem->Name = L"aboutToolStripMenuItem";
-			this->aboutToolStripMenuItem->Size = System::Drawing::Size(180, 22);
+			this->aboutToolStripMenuItem->Size = System::Drawing::Size(107, 22);
 			this->aboutToolStripMenuItem->Text = L"&About";
 			// 
 			// label1
@@ -2177,8 +2184,6 @@ public:
 			// cbAutoLoginSkipLogo
 			// 
 			this->cbAutoLoginSkipLogo->AutoSize = true;
-			this->cbAutoLoginSkipLogo->Checked = true;
-			this->cbAutoLoginSkipLogo->CheckState = System::Windows::Forms::CheckState::Checked;
 			this->cbAutoLoginSkipLogo->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
 			this->cbAutoLoginSkipLogo->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->cbAutoLoginSkipLogo->ForeColor = System::Drawing::Color::White;
@@ -2188,6 +2193,7 @@ public:
 			this->cbAutoLoginSkipLogo->TabIndex = 28;
 			this->cbAutoLoginSkipLogo->Text = L"Skip Logo";
 			this->cbAutoLoginSkipLogo->UseVisualStyleBackColor = false;
+			this->cbAutoLoginSkipLogo->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbAutoLoginSkipLogo_CheckedChanged);
 			// 
 			// cbAutoLogin
 			// 
@@ -4588,6 +4594,17 @@ public:
 			this->panel19->Size = System::Drawing::Size(143, 72);
 			this->panel19->TabIndex = 11;
 			// 
+			// button1
+			// 
+			this->button1->FlatAppearance->BorderColor = System::Drawing::Color::Gray;
+			this->button1->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->button1->Location = System::Drawing::Point(6, 43);
+			this->button1->Name = L"button1";
+			this->button1->Size = System::Drawing::Size(131, 21);
+			this->button1->TabIndex = 31;
+			this->button1->Text = L"Get Current Location";
+			this->button1->UseVisualStyleBackColor = true;
+			// 
 			// tbMMCX
 			// 
 			this->tbMMCX->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(35)), static_cast<System::Int32>(static_cast<System::Byte>(35)),
@@ -5460,6 +5477,7 @@ public:
 			// 
 			this->tabPage16->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(25)), static_cast<System::Int32>(static_cast<System::Byte>(25)),
 				static_cast<System::Int32>(static_cast<System::Byte>(25)));
+			this->tabPage16->Controls->Add(this->tvSendPackets);
 			this->tabPage16->Controls->Add(this->label81);
 			this->tabPage16->Controls->Add(this->tbSendSpamDelay);
 			this->tabPage16->Controls->Add(this->cbSendSpam);
@@ -5470,7 +5488,6 @@ public:
 			this->tabPage16->Controls->Add(this->bSendLog);
 			this->tabPage16->Controls->Add(this->bSendClear);
 			this->tabPage16->Controls->Add(this->bSendPacket);
-			this->tabPage16->Controls->Add(this->lvSend);
 			this->tabPage16->Location = System::Drawing::Point(4, 22);
 			this->tabPage16->Name = L"tabPage16";
 			this->tabPage16->Padding = System::Windows::Forms::Padding(3);
@@ -5598,24 +5615,11 @@ public:
 			this->bSendPacket->UseVisualStyleBackColor = true;
 			this->bSendPacket->Click += gcnew System::EventHandler(this, &MainForm::bSendPacket_Click);
 			// 
-			// lvSend
-			// 
-			this->lvSend->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(25)), static_cast<System::Int32>(static_cast<System::Byte>(25)),
-				static_cast<System::Int32>(static_cast<System::Byte>(25)));
-			this->lvSend->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
-			this->lvSend->CheckBoxes = true;
-			this->lvSend->ForeColor = System::Drawing::Color::White;
-			this->lvSend->Location = System::Drawing::Point(80, 6);
-			this->lvSend->Name = L"lvSend";
-			this->lvSend->Size = System::Drawing::Size(304, 288);
-			this->lvSend->TabIndex = 0;
-			this->lvSend->UseCompatibleStateImageBehavior = false;
-			this->lvSend->View = System::Windows::Forms::View::Details;
-			// 
 			// tabPage15
 			// 
 			this->tabPage15->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(25)), static_cast<System::Int32>(static_cast<System::Byte>(25)),
 				static_cast<System::Int32>(static_cast<System::Byte>(25)));
+			this->tabPage15->Controls->Add(this->tvRecvPackets);
 			this->tabPage15->Controls->Add(this->bRecvRemove);
 			this->tabPage15->Controls->Add(this->lvRecvBlock);
 			this->tabPage15->Controls->Add(this->tbRecvPacket);
@@ -5623,7 +5627,6 @@ public:
 			this->tabPage15->Controls->Add(this->bRecvLog);
 			this->tabPage15->Controls->Add(this->bRecvClear);
 			this->tabPage15->Controls->Add(this->bRecvPacket);
-			this->tabPage15->Controls->Add(this->lvRecv);
 			this->tabPage15->Location = System::Drawing::Point(4, 22);
 			this->tabPage15->Name = L"tabPage15";
 			this->tabPage15->Padding = System::Windows::Forms::Padding(3);
@@ -5712,20 +5715,6 @@ public:
 			this->bRecvPacket->Text = L"Receive Packet";
 			this->bRecvPacket->UseVisualStyleBackColor = true;
 			this->bRecvPacket->Click += gcnew System::EventHandler(this, &MainForm::bRecvPacket_Click);
-			// 
-			// lvRecv
-			// 
-			this->lvRecv->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(25)), static_cast<System::Int32>(static_cast<System::Byte>(25)),
-				static_cast<System::Int32>(static_cast<System::Byte>(25)));
-			this->lvRecv->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
-			this->lvRecv->CheckBoxes = true;
-			this->lvRecv->ForeColor = System::Drawing::Color::White;
-			this->lvRecv->Location = System::Drawing::Point(80, 6);
-			this->lvRecv->Name = L"lvRecv";
-			this->lvRecv->Size = System::Drawing::Size(304, 288);
-			this->lvRecv->TabIndex = 19;
-			this->lvRecv->UseCompatibleStateImageBehavior = false;
-			this->lvRecv->View = System::Windows::Forms::View::Details;
 			// 
 			// tabPage18
 			// 
@@ -6265,16 +6254,27 @@ public:
 			this->AutoCCCSTimer->Interval = 250;
 			this->AutoCCCSTimer->Tick += gcnew System::EventHandler(this, &MainForm::AutoCCCSTimer_Tick);
 			// 
-			// button1
+			// tvSendPackets
 			// 
-			this->button1->FlatAppearance->BorderColor = System::Drawing::Color::Gray;
-			this->button1->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->button1->Location = System::Drawing::Point(6, 43);
-			this->button1->Name = L"button1";
-			this->button1->Size = System::Drawing::Size(131, 21);
-			this->button1->TabIndex = 31;
-			this->button1->Text = L"Get Current Location";
-			this->button1->UseVisualStyleBackColor = true;
+			this->tvSendPackets->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(25)), static_cast<System::Int32>(static_cast<System::Byte>(25)),
+				static_cast<System::Int32>(static_cast<System::Byte>(25)));
+			this->tvSendPackets->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->tvSendPackets->ForeColor = System::Drawing::Color::White;
+			this->tvSendPackets->Location = System::Drawing::Point(80, 6);
+			this->tvSendPackets->Name = L"tvSendPackets";
+			this->tvSendPackets->Size = System::Drawing::Size(304, 288);
+			this->tvSendPackets->TabIndex = 43;
+			// 
+			// tvRecvPackets
+			// 
+			this->tvRecvPackets->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(25)), static_cast<System::Int32>(static_cast<System::Byte>(25)),
+				static_cast<System::Int32>(static_cast<System::Byte>(25)));
+			this->tvRecvPackets->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->tvRecvPackets->ForeColor = System::Drawing::Color::White;
+			this->tvRecvPackets->Location = System::Drawing::Point(80, 6);
+			this->tvRecvPackets->Name = L"tvRecvPackets";
+			this->tvRecvPackets->Size = System::Drawing::Size(304, 288);
+			this->tvRecvPackets->TabIndex = 44;
 			// 
 			// MainForm
 			// 
@@ -6579,5 +6579,6 @@ public:
 	private: System::Void embedMSWindowToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void lbConsoleLog_KeyDown(System::Object^  sender, System::Windows::Forms::KeyEventArgs^  e);
 	private: System::Void hideMSWindowToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void cbAutoLoginSkipLogo_CheckedChanged(System::Object^  sender, System::EventArgs^  e);
 };
 }

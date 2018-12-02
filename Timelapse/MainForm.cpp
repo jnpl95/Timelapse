@@ -353,9 +353,6 @@ void AutoLogin() {
 		SendPacket(loginPacket);
 		Sleep(2000);
 
-		SendPacket("0B 00");
-		Sleep(2000);
-
 		SendPacket("06 00 00 00"); //Select 1st world
 		Sleep(2000);
 
@@ -363,16 +360,26 @@ void AutoLogin() {
 		//if (MainForm::TheInstance->comboAutoLoginChannel->Text->Equals("Random")) channel = rand() % 20;
 		//else channel = int::Parse(MainForm::TheInstance->comboAutoLoginChannel->Text) - 1;
 		//select channel
-		SendPacket(gcnew String("05 00 02 00" + channel.ToString("X2") + "7F 00 00 01")); 
+		SendPacket("05 00 02 00" + channel.ToString("X2") + "7F 00 00 01"); 
 		Sleep(2000);
 
-		//select character
+		//Char Select Without PIC (Header 0013)
 		//WHY OH WHY DOESN'T THIS WORK??? -_- 
 		int character = 0; //int::Parse(MainForm::TheInstance->comboAutoLoginCharacter->Text) - 1; //" + gcnew String(intToHexL(character, 2, false).c_str()) + "
-		SendPacket(gcnew String("13 00 02 00 00 00 11 00 41 34 2D 33 34 2D 44 39 2D 34 38 2D 39 44 2D 46 36 15 00 35 30 37 42 39 44 35 46 31 38 37 34 5F 42 34 34 33 38 44 34 38"));
+		SendPacket("13 00" + channel.ToString("X2") + "00 00 00 11 00 41 34 2D 33 34 2D 44 39 2D 34 38 2D 39 44 2D 46 36 15 00 35 30 37 42 39 44 35 46 31 38 37 34 5F 42 34 34 33 38 44 34 38");
 
-		//Log PIC Packet and send (ie On MapleRoyals
+		//Char Select With PIC (Header 001E), pic as "111111" in below packet
+		//"1E 00" + channel.ToString("X2") + "00 31 31 31 31 31 31 70 26 09 00 11 00 41 34 2D 33 34 2D 44 39 2D 34 38 2D 39 44 2D 46 36 15 00 35 30 37 42 39 44 35 46 31 38 37 34 5F 42 34 34 33 38 44 34 38"
 	}
+}
+
+//TODO: Maybe just write it on load instead of on load save? Not sure
+//Logo Skip (CLogo::UpdateLogo())
+void MainForm::cbAutoLoginSkipLogo_CheckedChanged(System::Object^  sender, System::EventArgs^  e) {
+	if (this->cbAutoLoginSkipLogo->Checked)
+		WriteMemory(logoSkipAddr, 1, 0x75); //jne 0062F2EB [first byte]
+	else
+		WriteMemory(logoSkipAddr, 1, 0x74); //je 0062F2EB [first byte]
 }
 
 /*ULONG LoginBase = 0xBEDED4;
@@ -1975,16 +1982,16 @@ void MainForm::tbSendSpamDelay_KeyPress(Object^  sender, Windows::Forms::KeyPres
 }
 
 void MainForm::bSendLog_Click(System::Object^  sender, System::EventArgs^  e) {
-	/*if(bSendLog->Text->Equals("Enable Log")) {
+	if(bSendLog->Text->Equals("Enable Log")) {
 		bSendLog->Text = "Disable Log";
 		//GlobalRefs::isPacketsSentHooked = true;
-		Jump(0x0049637B, SendPacketHook, 0);
+		Jump(cOutPacketAddr, Assembly::SendPacketLogHook, 0);
 	}
 	else {
 		bSendLog->Text = "Enable Log";
 		//GlobalRefs::isPacketsSentHooked = false;
-		WriteMemory(0x0049637B, 5, 0xB8, 0x6C, 0x12, 0xA8, 0x00);
-	}*/
+		WriteMemory(cOutPacketAddr, 5, 0xB8, 0x6C, 0x12, 0xA8, 0x00);
+	}
 }
 #pragma endregion
 
@@ -2025,10 +2032,6 @@ void MainForm::bSendDrop50000_Click(System::Object^  sender, System::EventArgs^ 
 
 void MainForm::bSendRestore127Health_Click(System::Object^  sender, System::EventArgs^  e) {
 	SendPacket("59 00 A1 7F F7 08 00 14 00 00 7F 00 00 00 00");
-}
-
-System::Void MainForm::bTestButton_Click(System::Object^ sender, System::EventArgs^ e)
-{
 }
 #pragma endregion
 
@@ -2544,8 +2547,41 @@ void MainForm::lbMapRusherStatus_TextChanged(System::Object^  sender, System::Ev
 
 //Remove at the end, but for now use it to test stuff out (test button on main form)
 #pragma region testing
-/*
-//Start of testing stuff
+
+
+
+void Timelapse::MainForm::bTestButton_Click(System::Object^  sender, System::EventArgs^  e) {
+	
+
+	/*char result[300];
+	char* str = *CItemInfo__GetMapString(*(PVOID*)CItemInfo, NULL, result, 100000000, 0);
+	String^ test = Convert::ToString(str);
+	if (String::IsNullOrEmpty(test))
+		MessageBox::Show("Error! Empty string was returned");
+	else
+		MessageBox::Show(test); */
+
+	/*//Displays 0th string, but crashes shortly after. What I wanted was the 2nd maplestring
+	char** result;
+	char* str = *StringPool__GetString(*(PVOID*)StringPool, nullptr, (char**)result, 2, 0);
+	String^ test = gcnew String(str);
+
+	if (String::IsNullOrEmpty(test))
+		MessageBox::Show("Error! Empty string was returned");
+	else
+		MessageBox::Show(test);*/
+
+	//char result[256];
+	//Jump(0x0079E99E, GetStringHook, 0);
+	/*Jump(0x0079EA53, GetStringRetValHook, 0);
+	String^ test = gcnew String(maplestring);
+	if (String::IsNullOrEmpty(test))
+		MessageBox::Show("Error! Empty string was returned");
+	else
+		MessageBox::Show(test);*/
+}
+
+/*//Start of testing stuff
 ULONG getStringValHookAddr = 0x0079E9A3;
 ULONG getStringRetValHookAddr = 0x0079EA58;
 char* maplestring;
@@ -2576,40 +2612,6 @@ typedef char**(__stdcall* pfnStringPool__GetString)(PVOID, PVOID, char**, UINT, 
 auto StringPool__GetString = (pfnStringPool__GetString)0x0079E993;	//0x00406455;
 
 typedef char**(__stdcall *pfnCItemInfo__GetMapString)(PVOID, PVOID, char*, UINT, const char*);
-auto CItemInfo__GetMapString = (pfnCItemInfo__GetMapString)0x005CF792;
+auto CItemInfo__GetMapString = (pfnCItemInfo__GetMapString)0x005CF792;*/
 
-//Test stuff out //https://pastebin.com/aULY72tG
-void Timelapse::MainForm::button1_Click(System::Object^  sender, System::EventArgs^  e) {
-
-
-	/*char result[300];
-	char* str = *CItemInfo__GetMapString(*(PVOID*)CItemInfo, NULL, result, 100000000, 0);
-	String^ test = Convert::ToString(str);
-	if (String::IsNullOrEmpty(test))
-		MessageBox::Show("Error! Empty string was returned");
-	else
-		MessageBox::Show(test); */
-
-
-		/*//Displays 0th string, but crashes shortly after. What I wanted was the 2nd maplestring
-		char** result;
-		char* str = *StringPool__GetString(*(PVOID*)StringPool, nullptr, (char**)result, 2, 0);
-		String^ test = gcnew String(str);
-
-		if (String::IsNullOrEmpty(test))
-			MessageBox::Show("Error! Empty string was returned");
-		else
-			MessageBox::Show(test);*/
-
-
-			//char result[256];
-			//Jump(0x0079E99E, GetStringHook, 0);
-			/*Jump(0x0079EA53, GetStringRetValHook, 0);
-			String^ test = gcnew String(maplestring);
-			if (String::IsNullOrEmpty(test))
-				MessageBox::Show("Error! Empty string was returned");
-			else
-				MessageBox::Show(test);
-}
-*/
 #pragma endregion
