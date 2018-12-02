@@ -13,6 +13,11 @@ struct COutPacket {
 	int EncryptedByShanda;
 };
 
+struct SendPacketData {
+	DWORD ReturnAddress;
+	COutPacket* packet;
+};
+
 struct CInPacket {
 	bool fLoopback;
 	int iState;
