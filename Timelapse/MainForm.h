@@ -340,14 +340,12 @@ namespace Timelapse {
 	private: System::Windows::Forms::CheckBox^  cbCCCSTime;
 	public: System::Windows::Forms::RadioButton^  rbFunction;
 	public: System::Windows::Forms::RadioButton^  rbPacket;
-	private: System::Windows::Forms::Panel^  panel4;
 	public: System::Windows::Forms::TextBox^  tbLootItem;
 	private: System::Windows::Forms::TextBox^  tbLootInterval;
 	private: System::Windows::Forms::Label^  label29;
 	private: System::Windows::Forms::Label^  label31;
 	private: System::Windows::Forms::ComboBox^  comboLootKey;
 	public: System::Windows::Forms::CheckBox^  cbLoot;
-	private: System::Windows::Forms::Panel^  panel3;
 	public: System::Windows::Forms::TextBox^  tbAttackMob;
 	private: System::Windows::Forms::TextBox^  tbAttackInterval;
 	private: System::Windows::Forms::Label^  label30;
@@ -440,7 +438,19 @@ namespace Timelapse {
 	private: System::Windows::Forms::Panel^  panel10;
 	private: System::Windows::Forms::CheckBox^  cbSellAll;
 	public:  System::Windows::Forms::ListBox^  lbConsoleLog;
+	private: System::Windows::Forms::ComboBox^  comboToTown;
+	private: System::Windows::Forms::Label^  lbToTown;
+	private: System::Windows::Forms::Button^  bUseRtrnScroll;
+	private: System::Windows::Forms::Label^  lbInUseSlot;
+	private: System::Windows::Forms::Timer^  tAutoAttack;
+	private: System::Windows::Forms::Timer^  tAutoLoot;
+	private: System::Windows::Forms::TextBox^  textBox2;
+	private: System::Windows::Forms::TextBox^  textBox1;
+	private: System::Windows::Forms::Label^  label93;
+	private: System::Windows::Forms::Label^  label91;
+	private: System::Windows::Forms::TextBox^  comboInUseSlot;
 	private: System::ComponentModel::IContainer^  components;
+
 #pragma region Windows Form Designer generated code
 		/// <summary>
 		/// Required method for Designer support - do not modify
@@ -593,24 +603,26 @@ namespace Timelapse {
 			this->tabPage10 = (gcnew System::Windows::Forms::TabPage());
 			this->panel10 = (gcnew System::Windows::Forms::Panel());
 			this->cbSellAll = (gcnew System::Windows::Forms::CheckBox());
-			this->panel4 = (gcnew System::Windows::Forms::Panel());
-			this->tbLootItem = (gcnew System::Windows::Forms::TextBox());
-			this->tbLootInterval = (gcnew System::Windows::Forms::TextBox());
-			this->label29 = (gcnew System::Windows::Forms::Label());
-			this->label31 = (gcnew System::Windows::Forms::Label());
-			this->comboLootKey = (gcnew System::Windows::Forms::ComboBox());
-			this->cbLoot = (gcnew System::Windows::Forms::CheckBox());
-			this->panel3 = (gcnew System::Windows::Forms::Panel());
-			this->tbAttackMob = (gcnew System::Windows::Forms::TextBox());
-			this->tbAttackInterval = (gcnew System::Windows::Forms::TextBox());
-			this->label30 = (gcnew System::Windows::Forms::Label());
-			this->label28 = (gcnew System::Windows::Forms::Label());
-			this->comboAttackKey = (gcnew System::Windows::Forms::ComboBox());
-			this->cbAttack = (gcnew System::Windows::Forms::CheckBox());
 			this->panel2 = (gcnew System::Windows::Forms::Panel());
+			this->textBox2 = (gcnew System::Windows::Forms::TextBox());
+			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
+			this->label93 = (gcnew System::Windows::Forms::Label());
+			this->label91 = (gcnew System::Windows::Forms::Label());
+			this->tbLootItem = (gcnew System::Windows::Forms::TextBox());
+			this->tbAttackInterval = (gcnew System::Windows::Forms::TextBox());
+			this->tbLootInterval = (gcnew System::Windows::Forms::TextBox());
+			this->tbAttackMob = (gcnew System::Windows::Forms::TextBox());
+			this->label31 = (gcnew System::Windows::Forms::Label());
+			this->label29 = (gcnew System::Windows::Forms::Label());
+			this->label28 = (gcnew System::Windows::Forms::Label());
 			this->label27 = (gcnew System::Windows::Forms::Label());
+			this->cbLoot = (gcnew System::Windows::Forms::CheckBox());
+			this->label30 = (gcnew System::Windows::Forms::Label());
+			this->comboLootKey = (gcnew System::Windows::Forms::ComboBox());
 			this->label26 = (gcnew System::Windows::Forms::Label());
+			this->comboAttackKey = (gcnew System::Windows::Forms::ComboBox());
 			this->comboMPKey = (gcnew System::Windows::Forms::ComboBox());
+			this->cbAttack = (gcnew System::Windows::Forms::CheckBox());
 			this->comboHPKey = (gcnew System::Windows::Forms::ComboBox());
 			this->tbMP = (gcnew System::Windows::Forms::TextBox());
 			this->tbHP = (gcnew System::Windows::Forms::TextBox());
@@ -818,6 +830,10 @@ namespace Timelapse {
 			this->lvRecv = (gcnew System::Windows::Forms::ListView());
 			this->tabPage18 = (gcnew System::Windows::Forms::TabPage());
 			this->tabPage19 = (gcnew System::Windows::Forms::TabPage());
+			this->lbInUseSlot = (gcnew System::Windows::Forms::Label());
+			this->comboToTown = (gcnew System::Windows::Forms::ComboBox());
+			this->lbToTown = (gcnew System::Windows::Forms::Label());
+			this->bUseRtrnScroll = (gcnew System::Windows::Forms::Button());
 			this->bSendRevive = (gcnew System::Windows::Forms::Button());
 			this->bSendRestore127Health = (gcnew System::Windows::Forms::Button());
 			this->panel6 = (gcnew System::Windows::Forms::Panel());
@@ -860,6 +876,9 @@ namespace Timelapse {
 			this->btnClose = (gcnew System::Windows::Forms::Button());
 			this->GUITimer = (gcnew System::Windows::Forms::Timer(this->components));
 			this->AutoCCCSTimer = (gcnew System::Windows::Forms::Timer(this->components));
+			this->tAutoAttack = (gcnew System::Windows::Forms::Timer(this->components));
+			this->tAutoLoot = (gcnew System::Windows::Forms::Timer(this->components));
+			this->comboInUseSlot = (gcnew System::Windows::Forms::TextBox());
 			this->MenuStrip->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->BeginInit();
 			this->pnlFull->SuspendLayout();
@@ -883,8 +902,6 @@ namespace Timelapse {
 			this->panel7->SuspendLayout();
 			this->tabPage10->SuspendLayout();
 			this->panel10->SuspendLayout();
-			this->panel4->SuspendLayout();
-			this->panel3->SuspendLayout();
 			this->panel2->SuspendLayout();
 			this->tabPage5->SuspendLayout();
 			this->groupBox6->SuspendLayout();
@@ -927,8 +944,7 @@ namespace Timelapse {
 			this->MenuStrip->ImageScalingSize = System::Drawing::Size(32, 32);
 			this->MenuStrip->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(3) {
 				this->fileToolStripMenuItem,
-					this->mapleStoryToolStripMenuItem, this->helpToolStripMenuItem
-			});
+					this->mapleStoryToolStripMenuItem, this->helpToolStripMenuItem });
 			this->MenuStrip->Location = System::Drawing::Point(0, 2);
 			this->MenuStrip->Name = L"MenuStrip";
 			this->MenuStrip->Size = System::Drawing::Size(156, 24);
@@ -941,8 +957,7 @@ namespace Timelapse {
 				static_cast<System::Int32>(static_cast<System::Byte>(19)), static_cast<System::Int32>(static_cast<System::Byte>(19)));
 			this->fileToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(3) {
 				this->openSettingsToolStripMenuItem,
-					this->saveSettingsToolStripMenuItem, this->closeMapleStoryToolStripMenuItem
-			});
+					this->saveSettingsToolStripMenuItem, this->closeMapleStoryToolStripMenuItem });
 			this->fileToolStripMenuItem->Name = L"fileToolStripMenuItem";
 			this->fileToolStripMenuItem->Size = System::Drawing::Size(35, 20);
 			this->fileToolStripMenuItem->Text = L"File";
@@ -983,8 +998,7 @@ namespace Timelapse {
 				static_cast<System::Int32>(static_cast<System::Byte>(16)), static_cast<System::Int32>(static_cast<System::Byte>(16)));
 			this->mapleStoryToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(2) {
 				this->hideMSWindowToolStripMenuItem,
-					this->injectDllToolStripMenuItem
-			});
+					this->injectDllToolStripMenuItem });
 			this->mapleStoryToolStripMenuItem->Name = L"mapleStoryToolStripMenuItem";
 			this->mapleStoryToolStripMenuItem->Size = System::Drawing::Size(73, 20);
 			this->mapleStoryToolStripMenuItem->Text = L"MapleStory";
@@ -2079,9 +2093,7 @@ namespace Timelapse {
 			this->comboAutoLoginChannel->ForeColor = System::Drawing::Color::White;
 			this->comboAutoLoginChannel->FormattingEnabled = true;
 			this->comboAutoLoginChannel->Items->AddRange(gcnew cli::array< System::Object^  >(21) {
-				L"Random", L"1", L"2", L"3", L"4",
-					L"5", L"6", L"7", L"8", L"9", L"10", L"11", L"12", L"13", L"14", L"15", L"16", L"17", L"18", L"19", L"20"
-			});
+				L"Random", L"1", L"2", L"3", L"4", L"5", L"6", L"7", L"8", L"9", L"10", L"11", L"12", L"13", L"14", L"15", L"16", L"17", L"18", L"19", L"20" });
 			this->comboAutoLoginChannel->Location = System::Drawing::Point(69, 92);
 			this->comboAutoLoginChannel->Name = L"comboAutoLoginChannel";
 			this->comboAutoLoginChannel->RightToLeft = System::Windows::Forms::RightToLeft::No;
@@ -2223,8 +2235,6 @@ namespace Timelapse {
 			this->tabPage2->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(25)), static_cast<System::Int32>(static_cast<System::Byte>(25)),
 				static_cast<System::Int32>(static_cast<System::Byte>(25)));
 			this->tabPage2->Controls->Add(this->tabControl3);
-			this->tabPage2->Controls->Add(this->panel4);
-			this->tabPage2->Controls->Add(this->panel3);
 			this->tabPage2->Controls->Add(this->panel2);
 			this->tabPage2->ForeColor = System::Drawing::Color::White;
 			this->tabPage2->Location = System::Drawing::Point(4, 22);
@@ -2390,11 +2400,9 @@ namespace Timelapse {
 			this->comboBuffKey->ForeColor = System::Drawing::Color::White;
 			this->comboBuffKey->FormattingEnabled = true;
 			this->comboBuffKey->Items->AddRange(gcnew cli::array< System::Object^  >(46) {
-				L" Shift", L" Control", L" Alt", L" Space",
-					L" Insert", L" Delete", L" Home", L" End", L" Page Up", L" Page Down", L" A", L" B", L" C", L" D", L" E", L" F", L" G", L" H",
-					L" I", L" J", L" K", L" L", L" M", L" N", L" O", L" P", L" Q", L" R", L" S", L" T", L" U", L" V", L" W", L" X", L" Y", L" Z",
-					L" 0", L" 1", L" 2", L" 3", L" 4", L" 5", L" 6", L" 7", L" 8", L" 9"
-			});
+				L" Shift", L" Control", L" Alt", L" Space", L" Insert", L" Delete", L" Home", L" End", L" Page Up", L" Page Down",
+				L" A", L" B", L" C", L" D", L" E", L" F", L" G", L" H", L" I", L" J", L" K", L" L", L" M", L" N", L" O", L" P", L" Q", L" R", L" S", L" T", L" U", L" V", L" W", L" X", L" Y", L" Z",
+				L" 0", L" 1", L" 2", L" 3", L" 4", L" 5", L" 6", L" 7", L" 8", L" 9" });
 			this->comboBuffKey->Location = System::Drawing::Point(5, 61);
 			this->comboBuffKey->Name = L"comboBuffKey";
 			this->comboBuffKey->RightToLeft = System::Windows::Forms::RightToLeft::No;
@@ -2410,8 +2418,7 @@ namespace Timelapse {
 			this->lvBuff->CheckBoxes = true;
 			this->lvBuff->Columns->AddRange(gcnew cli::array< System::Windows::Forms::ColumnHeader^  >(3) {
 				this->lvBuffHeaderName, this->lvBuffHeaderKey,
-					this->lvBuffHeaderInterval
-			});
+					this->lvBuffHeaderInterval });
 			this->lvBuff->ForeColor = System::Drawing::Color::White;
 			this->lvBuff->FullRowSelect = true;
 			this->lvBuff->HeaderStyle = System::Windows::Forms::ColumnHeaderStyle::Nonclickable;
@@ -2545,9 +2552,7 @@ namespace Timelapse {
 			this->comboChannelKey->ForeColor = System::Drawing::Color::White;
 			this->comboChannelKey->FormattingEnabled = true;
 			this->comboChannelKey->Items->AddRange(gcnew cli::array< System::Object^  >(20) {
-				L" 1", L" 2", L" 3", L" 4", L" 5", L" 6",
-					L" 7", L" 8", L" 9", L" 10", L" 11", L" 12", L" 13", L" 14", L" 15", L" 16", L" 17", L" 18", L" 19", L" 20"
-			});
+				L" 1", L" 2", L" 3", L" 4", L" 5", L" 6", L" 7", L" 8", L" 9", L" 10", L" 11", L" 12", L" 13", L" 14", L" 15", L" 16", L" 17", L" 18", L" 19", L" 20" });
 			this->comboChannelKey->Location = System::Drawing::Point(65, 3);
 			this->comboChannelKey->Name = L"comboChannelKey";
 			this->comboChannelKey->RightToLeft = System::Windows::Forms::RightToLeft::No;
@@ -2813,19 +2818,83 @@ namespace Timelapse {
 			this->cbSellAll->UseVisualStyleBackColor = false;
 			this->cbSellAll->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbSellAll_CheckedChanged);
 			// 
-			// panel4
+			// panel2
 			// 
-			this->panel4->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
-			this->panel4->Controls->Add(this->tbLootItem);
-			this->panel4->Controls->Add(this->tbLootInterval);
-			this->panel4->Controls->Add(this->label29);
-			this->panel4->Controls->Add(this->label31);
-			this->panel4->Controls->Add(this->comboLootKey);
-			this->panel4->Controls->Add(this->cbLoot);
-			this->panel4->Location = System::Drawing::Point(195, 63);
-			this->panel4->Name = L"panel4";
-			this->panel4->Size = System::Drawing::Size(189, 78);
-			this->panel4->TabIndex = 9;
+			this->panel2->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->panel2->Controls->Add(this->textBox2);
+			this->panel2->Controls->Add(this->textBox1);
+			this->panel2->Controls->Add(this->label93);
+			this->panel2->Controls->Add(this->label91);
+			this->panel2->Controls->Add(this->tbLootItem);
+			this->panel2->Controls->Add(this->tbAttackInterval);
+			this->panel2->Controls->Add(this->tbLootInterval);
+			this->panel2->Controls->Add(this->tbAttackMob);
+			this->panel2->Controls->Add(this->label31);
+			this->panel2->Controls->Add(this->label29);
+			this->panel2->Controls->Add(this->label28);
+			this->panel2->Controls->Add(this->label27);
+			this->panel2->Controls->Add(this->cbLoot);
+			this->panel2->Controls->Add(this->label30);
+			this->panel2->Controls->Add(this->comboLootKey);
+			this->panel2->Controls->Add(this->label26);
+			this->panel2->Controls->Add(this->comboAttackKey);
+			this->panel2->Controls->Add(this->comboMPKey);
+			this->panel2->Controls->Add(this->cbAttack);
+			this->panel2->Controls->Add(this->comboHPKey);
+			this->panel2->Controls->Add(this->tbMP);
+			this->panel2->Controls->Add(this->tbHP);
+			this->panel2->Controls->Add(this->cbHP);
+			this->panel2->Controls->Add(this->cbMP);
+			this->panel2->Location = System::Drawing::Point(6, 6);
+			this->panel2->Name = L"panel2";
+			this->panel2->Size = System::Drawing::Size(378, 139);
+			this->panel2->TabIndex = 7;
+			// 
+			// textBox2
+			// 
+			this->textBox2->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(35)), static_cast<System::Int32>(static_cast<System::Byte>(35)),
+				static_cast<System::Int32>(static_cast<System::Byte>(35)));
+			this->textBox2->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->textBox2->ForeColor = System::Drawing::Color::White;
+			this->textBox2->Location = System::Drawing::Point(224, 28);
+			this->textBox2->Name = L"textBox2";
+			this->textBox2->Size = System::Drawing::Size(57, 21);
+			this->textBox2->TabIndex = 14;
+			this->textBox2->Text = L"200";
+			this->textBox2->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			// 
+			// textBox1
+			// 
+			this->textBox1->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(35)), static_cast<System::Int32>(static_cast<System::Byte>(35)),
+				static_cast<System::Int32>(static_cast<System::Byte>(35)));
+			this->textBox1->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->textBox1->ForeColor = System::Drawing::Color::White;
+			this->textBox1->Location = System::Drawing::Point(224, 3);
+			this->textBox1->Name = L"textBox1";
+			this->textBox1->Size = System::Drawing::Size(57, 21);
+			this->textBox1->TabIndex = 13;
+			this->textBox1->Text = L"200";
+			this->textBox1->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			// 
+			// label93
+			// 
+			this->label93->AutoSize = true;
+			this->label93->BackColor = System::Drawing::Color::Transparent;
+			this->label93->Location = System::Drawing::Point(165, 30);
+			this->label93->Name = L"label93";
+			this->label93->Size = System::Drawing::Size(59, 13);
+			this->label93->TabIndex = 12;
+			this->label93->Text = L"Delay[ms]:";
+			// 
+			// label91
+			// 
+			this->label91->AutoSize = true;
+			this->label91->BackColor = System::Drawing::Color::Transparent;
+			this->label91->Location = System::Drawing::Point(165, 5);
+			this->label91->Name = L"label91";
+			this->label91->Size = System::Drawing::Size(59, 13);
+			this->label91->TabIndex = 11;
+			this->label91->Text = L"Delay[ms]:";
 			// 
 			// tbLootItem
 			// 
@@ -2833,13 +2902,27 @@ namespace Timelapse {
 				static_cast<System::Int32>(static_cast<System::Byte>(35)));
 			this->tbLootItem->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 			this->tbLootItem->ForeColor = System::Drawing::Color::White;
-			this->tbLootItem->Location = System::Drawing::Point(98, 51);
+			this->tbLootItem->Location = System::Drawing::Point(132, 78);
 			this->tbLootItem->Name = L"tbLootItem";
-			this->tbLootItem->Size = System::Drawing::Size(84, 21);
+			this->tbLootItem->Size = System::Drawing::Size(28, 21);
 			this->tbLootItem->TabIndex = 9;
 			this->tbLootItem->Text = L"0";
 			this->tbLootItem->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
 			this->tbLootItem->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &MainForm::tbLootItem_KeyPress);
+			// 
+			// tbAttackInterval
+			// 
+			this->tbAttackInterval->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(35)), static_cast<System::Int32>(static_cast<System::Byte>(35)),
+				static_cast<System::Int32>(static_cast<System::Byte>(35)));
+			this->tbAttackInterval->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->tbAttackInterval->ForeColor = System::Drawing::Color::White;
+			this->tbAttackInterval->Location = System::Drawing::Point(224, 53);
+			this->tbAttackInterval->Name = L"tbAttackInterval";
+			this->tbAttackInterval->Size = System::Drawing::Size(57, 21);
+			this->tbAttackInterval->TabIndex = 3;
+			this->tbAttackInterval->Text = L"200";
+			this->tbAttackInterval->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			this->tbAttackInterval->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &MainForm::tbAttackInterval_KeyPress);
 			// 
 			// tbLootInterval
 			// 
@@ -2847,32 +2930,88 @@ namespace Timelapse {
 				static_cast<System::Int32>(static_cast<System::Byte>(35)));
 			this->tbLootInterval->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 			this->tbLootInterval->ForeColor = System::Drawing::Color::White;
-			this->tbLootInterval->Location = System::Drawing::Point(98, 27);
+			this->tbLootInterval->Location = System::Drawing::Point(224, 78);
 			this->tbLootInterval->Name = L"tbLootInterval";
-			this->tbLootInterval->Size = System::Drawing::Size(84, 21);
+			this->tbLootInterval->Size = System::Drawing::Size(57, 21);
 			this->tbLootInterval->TabIndex = 3;
 			this->tbLootInterval->Text = L"100";
 			this->tbLootInterval->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
 			this->tbLootInterval->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &MainForm::tbLootInterval_KeyPress);
 			// 
-			// label29
+			// tbAttackMob
 			// 
-			this->label29->AutoSize = true;
-			this->label29->Location = System::Drawing::Point(21, 54);
-			this->label29->Name = L"label29";
-			this->label29->Size = System::Drawing::Size(76, 13);
-			this->label29->TabIndex = 10;
-			this->label29->Text = L"When Items >";
+			this->tbAttackMob->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(35)), static_cast<System::Int32>(static_cast<System::Byte>(35)),
+				static_cast<System::Int32>(static_cast<System::Byte>(35)));
+			this->tbAttackMob->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->tbAttackMob->ForeColor = System::Drawing::Color::White;
+			this->tbAttackMob->Location = System::Drawing::Point(132, 53);
+			this->tbAttackMob->Name = L"tbAttackMob";
+			this->tbAttackMob->Size = System::Drawing::Size(28, 21);
+			this->tbAttackMob->TabIndex = 9;
+			this->tbAttackMob->Text = L"0";
+			this->tbAttackMob->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			this->tbAttackMob->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &MainForm::tbAttackMob_KeyPress);
 			// 
 			// label31
 			// 
 			this->label31->AutoSize = true;
 			this->label31->BackColor = System::Drawing::Color::Transparent;
-			this->label31->Location = System::Drawing::Point(22, 30);
+			this->label31->Location = System::Drawing::Point(165, 80);
 			this->label31->Name = L"label31";
-			this->label31->Size = System::Drawing::Size(73, 13);
+			this->label31->Size = System::Drawing::Size(59, 13);
 			this->label31->TabIndex = 7;
-			this->label31->Text = L"Interval [ms]:";
+			this->label31->Text = L"Delay[ms]:";
+			// 
+			// label29
+			// 
+			this->label29->AutoSize = true;
+			this->label29->Location = System::Drawing::Point(85, 80);
+			this->label29->Name = L"label29";
+			this->label29->Size = System::Drawing::Size(45, 13);
+			this->label29->TabIndex = 10;
+			this->label29->Text = L"Items >";
+			// 
+			// label28
+			// 
+			this->label28->AutoSize = true;
+			this->label28->BackColor = System::Drawing::Color::Transparent;
+			this->label28->Location = System::Drawing::Point(165, 55);
+			this->label28->Name = L"label28";
+			this->label28->Size = System::Drawing::Size(59, 13);
+			this->label28->TabIndex = 7;
+			this->label28->Text = L"Delay[ms]:";
+			// 
+			// label27
+			// 
+			this->label27->AutoSize = true;
+			this->label27->Location = System::Drawing::Point(67, 30);
+			this->label27->Name = L"label27";
+			this->label27->Size = System::Drawing::Size(32, 13);
+			this->label27->TabIndex = 8;
+			this->label27->Text = L"MP <";
+			// 
+			// cbLoot
+			// 
+			this->cbLoot->AutoSize = true;
+			this->cbLoot->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
+			this->cbLoot->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->cbLoot->ForeColor = System::Drawing::Color::White;
+			this->cbLoot->Location = System::Drawing::Point(5, 78);
+			this->cbLoot->Name = L"cbLoot";
+			this->cbLoot->Size = System::Drawing::Size(70, 17);
+			this->cbLoot->TabIndex = 1;
+			this->cbLoot->Text = L"Auto Loot";
+			this->cbLoot->UseVisualStyleBackColor = false;
+			this->cbLoot->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbLoot_CheckedChanged);
+			// 
+			// label30
+			// 
+			this->label30->AutoSize = true;
+			this->label30->Location = System::Drawing::Point(87, 55);
+			this->label30->Name = L"label30";
+			this->label30->Size = System::Drawing::Size(43, 13);
+			this->label30->TabIndex = 10;
+			this->label30->Text = L"Mobs >";
 			// 
 			// comboLootKey
 			// 
@@ -2882,12 +3021,10 @@ namespace Timelapse {
 			this->comboLootKey->ForeColor = System::Drawing::Color::White;
 			this->comboLootKey->FormattingEnabled = true;
 			this->comboLootKey->Items->AddRange(gcnew cli::array< System::Object^  >(46) {
-				L" Shift", L" Control", L" Alt", L" Space",
-					L" Insert", L" Delete", L" Home", L" End", L" Page Up", L" Page Down", L" A", L" B", L" C", L" D", L" E", L" F", L" G", L" H",
-					L" I", L" J", L" K", L" L", L" M", L" N", L" O", L" P", L" Q", L" R", L" S", L" T", L" U", L" V", L" W", L" X", L" Y", L" Z",
-					L" 0", L" 1", L" 2", L" 3", L" 4", L" 5", L" 6", L" 7", L" 8", L" 9"
-			});
-			this->comboLootKey->Location = System::Drawing::Point(98, 3);
+				L" Shift", L" Control", L" Alt", L" Space", L" Insert", L" Delete", L" Home", L" End", L" Page Up", L" Page Down", 
+				L" A", L" B", L" C", L" D", L" E", L" F", L" G", L" H", L" I", L" J", L" K", L" L", L" M", L" N", L" O", L" P", L" Q", L" R", L" S", L" T", L" U", L" V", L" W", L" X", L" Y", L" Z",
+				L" 0", L" 1", L" 2", L" 3", L" 4", L" 5", L" 6", L" 7", L" 8", L" 9" });
+			this->comboLootKey->Location = System::Drawing::Point(287, 78);
 			this->comboLootKey->Name = L"comboLootKey";
 			this->comboLootKey->RightToLeft = System::Windows::Forms::RightToLeft::No;
 			this->comboLootKey->Size = System::Drawing::Size(83, 21);
@@ -2895,80 +3032,14 @@ namespace Timelapse {
 			this->comboLootKey->Text = L" Z";
 			this->comboLootKey->SelectedIndexChanged += gcnew System::EventHandler(this, &MainForm::comboLootKey_SelectedIndexChanged);
 			// 
-			// cbLoot
+			// label26
 			// 
-			this->cbLoot->AutoSize = true;
-			this->cbLoot->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
-			this->cbLoot->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->cbLoot->ForeColor = System::Drawing::Color::White;
-			this->cbLoot->Location = System::Drawing::Point(5, 5);
-			this->cbLoot->Name = L"cbLoot";
-			this->cbLoot->Size = System::Drawing::Size(70, 17);
-			this->cbLoot->TabIndex = 1;
-			this->cbLoot->Text = L"Auto Loot";
-			this->cbLoot->UseVisualStyleBackColor = false;
-			this->cbLoot->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbLoot_CheckedChanged);
-			// 
-			// panel3
-			// 
-			this->panel3->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
-			this->panel3->Controls->Add(this->tbAttackMob);
-			this->panel3->Controls->Add(this->tbAttackInterval);
-			this->panel3->Controls->Add(this->label30);
-			this->panel3->Controls->Add(this->label28);
-			this->panel3->Controls->Add(this->comboAttackKey);
-			this->panel3->Controls->Add(this->cbAttack);
-			this->panel3->Location = System::Drawing::Point(6, 63);
-			this->panel3->Name = L"panel3";
-			this->panel3->Size = System::Drawing::Size(187, 78);
-			this->panel3->TabIndex = 8;
-			// 
-			// tbAttackMob
-			// 
-			this->tbAttackMob->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(35)), static_cast<System::Int32>(static_cast<System::Byte>(35)),
-				static_cast<System::Int32>(static_cast<System::Byte>(35)));
-			this->tbAttackMob->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
-			this->tbAttackMob->ForeColor = System::Drawing::Color::White;
-			this->tbAttackMob->Location = System::Drawing::Point(99, 51);
-			this->tbAttackMob->Name = L"tbAttackMob";
-			this->tbAttackMob->Size = System::Drawing::Size(83, 21);
-			this->tbAttackMob->TabIndex = 9;
-			this->tbAttackMob->Text = L"0";
-			this->tbAttackMob->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
-			this->tbAttackMob->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &MainForm::tbAttackMob_KeyPress);
-			// 
-			// tbAttackInterval
-			// 
-			this->tbAttackInterval->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(35)), static_cast<System::Int32>(static_cast<System::Byte>(35)),
-				static_cast<System::Int32>(static_cast<System::Byte>(35)));
-			this->tbAttackInterval->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
-			this->tbAttackInterval->ForeColor = System::Drawing::Color::White;
-			this->tbAttackInterval->Location = System::Drawing::Point(99, 27);
-			this->tbAttackInterval->Name = L"tbAttackInterval";
-			this->tbAttackInterval->Size = System::Drawing::Size(83, 21);
-			this->tbAttackInterval->TabIndex = 3;
-			this->tbAttackInterval->Text = L"200";
-			this->tbAttackInterval->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
-			this->tbAttackInterval->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &MainForm::tbAttackInterval_KeyPress);
-			// 
-			// label30
-			// 
-			this->label30->AutoSize = true;
-			this->label30->Location = System::Drawing::Point(23, 54);
-			this->label30->Name = L"label30";
-			this->label30->Size = System::Drawing::Size(74, 13);
-			this->label30->TabIndex = 10;
-			this->label30->Text = L"When Mobs >";
-			// 
-			// label28
-			// 
-			this->label28->AutoSize = true;
-			this->label28->BackColor = System::Drawing::Color::Transparent;
-			this->label28->Location = System::Drawing::Point(24, 30);
-			this->label28->Name = L"label28";
-			this->label28->Size = System::Drawing::Size(73, 13);
-			this->label28->TabIndex = 7;
-			this->label28->Text = L"Interval [ms]:";
+			this->label26->AutoSize = true;
+			this->label26->Location = System::Drawing::Point(67, 5);
+			this->label26->Name = L"label26";
+			this->label26->Size = System::Drawing::Size(31, 13);
+			this->label26->TabIndex = 7;
+			this->label26->Text = L"HP <";
 			// 
 			// comboAttackKey
 			// 
@@ -2978,66 +3049,16 @@ namespace Timelapse {
 			this->comboAttackKey->ForeColor = System::Drawing::Color::White;
 			this->comboAttackKey->FormattingEnabled = true;
 			this->comboAttackKey->Items->AddRange(gcnew cli::array< System::Object^  >(46) {
-				L" Shift", L" Control", L" Alt", L" Space",
-					L" Insert", L" Delete", L" Home", L" End", L" Page Up", L" Page Down", L" A", L" B", L" C", L" D", L" E", L" F", L" G", L" H",
-					L" I", L" J", L" K", L" L", L" M", L" N", L" O", L" P", L" Q", L" R", L" S", L" T", L" U", L" V", L" W", L" X", L" Y", L" Z",
-					L" 0", L" 1", L" 2", L" 3", L" 4", L" 5", L" 6", L" 7", L" 8", L" 9"
-			});
-			this->comboAttackKey->Location = System::Drawing::Point(99, 3);
+				L" Shift", L" Control", L" Alt", L" Space", L" Insert", L" Delete", L" Home", L" End", L" Page Up", L" Page Down",
+				L" A", L" B", L" C", L" D", L" E", L" F", L" G", L" H", L" I", L" J", L" K", L" L", L" M", L" N", L" O", L" P", L" Q", L" R", L" S", L" T", L" U", L" V", L" W", L" X", L" Y", L" Z", 
+				L" 0", L" 1", L" 2", L" 3", L" 4", L" 5", L" 6", L" 7", L" 8", L" 9" });
+			this->comboAttackKey->Location = System::Drawing::Point(287, 53);
 			this->comboAttackKey->Name = L"comboAttackKey";
 			this->comboAttackKey->RightToLeft = System::Windows::Forms::RightToLeft::No;
 			this->comboAttackKey->Size = System::Drawing::Size(83, 21);
 			this->comboAttackKey->TabIndex = 5;
 			this->comboAttackKey->Text = L" Control";
 			this->comboAttackKey->SelectedIndexChanged += gcnew System::EventHandler(this, &MainForm::comboAttackKey_SelectedIndexChanged);
-			// 
-			// cbAttack
-			// 
-			this->cbAttack->AutoSize = true;
-			this->cbAttack->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
-			this->cbAttack->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->cbAttack->ForeColor = System::Drawing::Color::White;
-			this->cbAttack->Location = System::Drawing::Point(3, 4);
-			this->cbAttack->Name = L"cbAttack";
-			this->cbAttack->Size = System::Drawing::Size(80, 17);
-			this->cbAttack->TabIndex = 1;
-			this->cbAttack->Text = L"Auto Attack";
-			this->cbAttack->UseVisualStyleBackColor = false;
-			this->cbAttack->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbAttack_CheckedChanged);
-			// 
-			// panel2
-			// 
-			this->panel2->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
-			this->panel2->Controls->Add(this->label27);
-			this->panel2->Controls->Add(this->label26);
-			this->panel2->Controls->Add(this->comboMPKey);
-			this->panel2->Controls->Add(this->comboHPKey);
-			this->panel2->Controls->Add(this->tbMP);
-			this->panel2->Controls->Add(this->tbHP);
-			this->panel2->Controls->Add(this->cbHP);
-			this->panel2->Controls->Add(this->cbMP);
-			this->panel2->Location = System::Drawing::Point(6, 6);
-			this->panel2->Name = L"panel2";
-			this->panel2->Size = System::Drawing::Size(378, 55);
-			this->panel2->TabIndex = 7;
-			// 
-			// label27
-			// 
-			this->label27->AutoSize = true;
-			this->label27->Location = System::Drawing::Point(124, 30);
-			this->label27->Name = L"label27";
-			this->label27->Size = System::Drawing::Size(15, 13);
-			this->label27->TabIndex = 8;
-			this->label27->Text = L"<";
-			// 
-			// label26
-			// 
-			this->label26->AutoSize = true;
-			this->label26->Location = System::Drawing::Point(124, 7);
-			this->label26->Name = L"label26";
-			this->label26->Size = System::Drawing::Size(15, 13);
-			this->label26->TabIndex = 7;
-			this->label26->Text = L"<";
 			// 
 			// comboMPKey
 			// 
@@ -3047,17 +3068,29 @@ namespace Timelapse {
 			this->comboMPKey->ForeColor = System::Drawing::Color::White;
 			this->comboMPKey->FormattingEnabled = true;
 			this->comboMPKey->Items->AddRange(gcnew cli::array< System::Object^  >(46) {
-				L" Shift", L" Control", L" Alt", L" Space", L" Insert",
-					L" Delete", L" Home", L" End", L" Page Up", L" Page Down", L" A", L" B", L" C", L" D", L" E", L" F", L" G", L" H", L" I", L" J",
-					L" K", L" L", L" M", L" N", L" O", L" P", L" Q", L" R", L" S", L" T", L" U", L" V", L" W", L" X", L" Y", L" Z", L" 0", L" 1",
-					L" 2", L" 3", L" 4", L" 5", L" 6", L" 7", L" 8", L" 9"
-			});
-			this->comboMPKey->Location = System::Drawing::Point(253, 28);
+				L" Shift", L" Control", L" Alt", L" Space", L" Insert", L" Delete", L" Home", L" End", L" Page Up", L" Page Down", 
+				L" A", L" B", L" C", L" D", L" E", L" F", L" G", L" H", L" I", L" J",L" K", L" L", L" M", L" N", L" O", L" P", L" Q", L" R", L" S", L" T", L" U", L" V", L" W", L" X", L" Y", L" Z",
+				L" 0", L" 1", L" 2", L" 3", L" 4", L" 5", L" 6", L" 7", L" 8", L" 9" });
+			this->comboMPKey->Location = System::Drawing::Point(287, 28);
 			this->comboMPKey->Name = L"comboMPKey";
-			this->comboMPKey->Size = System::Drawing::Size(117, 21);
+			this->comboMPKey->Size = System::Drawing::Size(83, 21);
 			this->comboMPKey->TabIndex = 6;
 			this->comboMPKey->Text = L" Page Down";
 			this->comboMPKey->SelectedIndexChanged += gcnew System::EventHandler(this, &MainForm::comboMPKey_SelectedIndexChanged);
+			// 
+			// cbAttack
+			// 
+			this->cbAttack->AutoSize = true;
+			this->cbAttack->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
+			this->cbAttack->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->cbAttack->ForeColor = System::Drawing::Color::White;
+			this->cbAttack->Location = System::Drawing::Point(5, 53);
+			this->cbAttack->Name = L"cbAttack";
+			this->cbAttack->Size = System::Drawing::Size(80, 17);
+			this->cbAttack->TabIndex = 1;
+			this->cbAttack->Text = L"Auto Attack";
+			this->cbAttack->UseVisualStyleBackColor = false;
+			this->cbAttack->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbAttack_CheckedChanged);
 			// 
 			// comboHPKey
 			// 
@@ -3067,15 +3100,13 @@ namespace Timelapse {
 			this->comboHPKey->ForeColor = System::Drawing::Color::White;
 			this->comboHPKey->FormattingEnabled = true;
 			this->comboHPKey->Items->AddRange(gcnew cli::array< System::Object^  >(46) {
-				L" Shift", L" Control", L" Alt", L" Space", L" Insert",
-					L" Delete", L" Home", L" End", L" Page Up", L" Page Down", L" A", L" B", L" C", L" D", L" E", L" F", L" G", L" H", L" I", L" J",
-					L" K", L" L", L" M", L" N", L" O", L" P", L" Q", L" R", L" S", L" T", L" U", L" V", L" W", L" X", L" Y", L" Z", L" 0", L" 1",
-					L" 2", L" 3", L" 4", L" 5", L" 6", L" 7", L" 8", L" 9"
-			});
-			this->comboHPKey->Location = System::Drawing::Point(253, 4);
+				L" Shift", L" Control", L" Alt", L" Space", L" Insert", L" Delete", L" Home", L" End", L" Page Up", L" Page Down",
+				L" A", L" B", L" C", L" D", L" E", L" F", L" G", L" H", L" I", L" J",L" K", L" L", L" M", L" N", L" O", L" P", L" Q", L" R", L" S", L" T", L" U", L" V", L" W", L" X", L" Y", L" Z",
+				L" 0", L" 1", L" 2", L" 3", L" 4", L" 5", L" 6", L" 7", L" 8", L" 9" });
+			this->comboHPKey->Location = System::Drawing::Point(287, 3);
 			this->comboHPKey->Name = L"comboHPKey";
 			this->comboHPKey->RightToLeft = System::Windows::Forms::RightToLeft::No;
-			this->comboHPKey->Size = System::Drawing::Size(117, 21);
+			this->comboHPKey->Size = System::Drawing::Size(83, 21);
 			this->comboHPKey->TabIndex = 5;
 			this->comboHPKey->Text = L" Page Up";
 			this->comboHPKey->SelectedIndexChanged += gcnew System::EventHandler(this, &MainForm::comboHPKey_SelectedIndexChanged);
@@ -3086,9 +3117,9 @@ namespace Timelapse {
 				static_cast<System::Int32>(static_cast<System::Byte>(35)));
 			this->tbMP->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 			this->tbMP->ForeColor = System::Drawing::Color::White;
-			this->tbMP->Location = System::Drawing::Point(167, 28);
+			this->tbMP->Location = System::Drawing::Point(102, 28);
 			this->tbMP->Name = L"tbMP";
-			this->tbMP->Size = System::Drawing::Size(82, 21);
+			this->tbMP->Size = System::Drawing::Size(58, 21);
 			this->tbMP->TabIndex = 4;
 			this->tbMP->Text = L"50";
 			this->tbMP->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
@@ -3100,9 +3131,9 @@ namespace Timelapse {
 				static_cast<System::Int32>(static_cast<System::Byte>(35)));
 			this->tbHP->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 			this->tbHP->ForeColor = System::Drawing::Color::White;
-			this->tbHP->Location = System::Drawing::Point(167, 4);
+			this->tbHP->Location = System::Drawing::Point(102, 3);
 			this->tbHP->Name = L"tbHP";
-			this->tbHP->Size = System::Drawing::Size(82, 21);
+			this->tbHP->Size = System::Drawing::Size(58, 21);
 			this->tbHP->TabIndex = 3;
 			this->tbHP->Text = L"200";
 			this->tbHP->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
@@ -3116,9 +3147,9 @@ namespace Timelapse {
 			this->cbHP->ForeColor = System::Drawing::Color::White;
 			this->cbHP->Location = System::Drawing::Point(5, 3);
 			this->cbHP->Name = L"cbHP";
-			this->cbHP->Size = System::Drawing::Size(95, 17);
+			this->cbHP->Size = System::Drawing::Size(62, 17);
 			this->cbHP->TabIndex = 1;
-			this->cbHP->Text = L"Auto HP Potion";
+			this->cbHP->Text = L"Auto HP";
 			this->cbHP->UseVisualStyleBackColor = false;
 			this->cbHP->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbHP_CheckedChanged);
 			// 
@@ -3130,9 +3161,9 @@ namespace Timelapse {
 			this->cbMP->ForeColor = System::Drawing::Color::White;
 			this->cbMP->Location = System::Drawing::Point(5, 28);
 			this->cbMP->Name = L"cbMP";
-			this->cbMP->Size = System::Drawing::Size(96, 17);
+			this->cbMP->Size = System::Drawing::Size(63, 17);
 			this->cbMP->TabIndex = 2;
-			this->cbMP->Text = L"Auto MP Potion";
+			this->cbMP->Text = L"Auto MP";
 			this->cbMP->UseVisualStyleBackColor = false;
 			this->cbMP->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbMP_CheckedChanged);
 			// 
@@ -5759,6 +5790,11 @@ namespace Timelapse {
 			// 
 			this->tabPage19->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(25)), static_cast<System::Int32>(static_cast<System::Byte>(25)),
 				static_cast<System::Int32>(static_cast<System::Byte>(25)));
+			this->tabPage19->Controls->Add(this->comboInUseSlot);
+			this->tabPage19->Controls->Add(this->lbInUseSlot);
+			this->tabPage19->Controls->Add(this->comboToTown);
+			this->tabPage19->Controls->Add(this->lbToTown);
+			this->tabPage19->Controls->Add(this->bUseRtrnScroll);
 			this->tabPage19->Controls->Add(this->bSendRevive);
 			this->tabPage19->Controls->Add(this->bSendRestore127Health);
 			this->tabPage19->Controls->Add(this->panel6);
@@ -5774,6 +5810,51 @@ namespace Timelapse {
 			this->tabPage19->Size = System::Drawing::Size(394, 363);
 			this->tabPage19->TabIndex = 3;
 			this->tabPage19->Text = L"Defined Packets";
+			// 
+			// lbInUseSlot
+			// 
+			this->lbInUseSlot->AutoSize = true;
+			this->lbInUseSlot->Location = System::Drawing::Point(19, 254);
+			this->lbInUseSlot->Name = L"lbInUseSlot";
+			this->lbInUseSlot->Size = System::Drawing::Size(63, 13);
+			this->lbInUseSlot->TabIndex = 26;
+			this->lbInUseSlot->Text = L"In USE slot:";
+			// 
+			// comboToTown
+			// 
+			this->comboToTown->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(35)), static_cast<System::Int32>(static_cast<System::Byte>(35)),
+				static_cast<System::Int32>(static_cast<System::Byte>(35)));
+			this->comboToTown->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->comboToTown->ForeColor = System::Drawing::Color::White;
+			this->comboToTown->FormattingEnabled = true;
+			this->comboToTown->Items->AddRange(gcnew cli::array< System::Object^  >(8) {
+				L"Nearest", L"LithHarbor", L"Ellinia", L"Perion", L"Henesys", L"KerningCity", L"Sleepywood", L"DeadMine" });
+			this->comboToTown->Location = System::Drawing::Point(73, 225);
+			this->comboToTown->Name = L"comboToTown";
+			this->comboToTown->Size = System::Drawing::Size(62, 21);
+			this->comboToTown->TabIndex = 25;
+			this->comboToTown->Text = L"Nearest";
+			this->comboToTown->SelectedIndexChanged += gcnew System::EventHandler(this, &MainForm::comboToTown_SelectedIndexChanged);
+			// 
+			// lbToTown
+			// 
+			this->lbToTown->AutoSize = true;
+			this->lbToTown->Location = System::Drawing::Point(17, 225);
+			this->lbToTown->Name = L"lbToTown";
+			this->lbToTown->Size = System::Drawing::Size(52, 13);
+			this->lbToTown->TabIndex = 24;
+			this->lbToTown->Text = L"To Town:";
+			// 
+			// bUseRtrnScroll
+			// 
+			this->bUseRtrnScroll->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->bUseRtrnScroll->Location = System::Drawing::Point(17, 194);
+			this->bUseRtrnScroll->Name = L"bUseRtrnScroll";
+			this->bUseRtrnScroll->Size = System::Drawing::Size(117, 25);
+			this->bUseRtrnScroll->TabIndex = 23;
+			this->bUseRtrnScroll->Text = L"Use Return Scroll";
+			this->bUseRtrnScroll->UseVisualStyleBackColor = true;
+			this->bUseRtrnScroll->Click += gcnew System::EventHandler(this, &MainForm::bUseRtrnScroll_Click);
 			// 
 			// bSendRevive
 			// 
@@ -5848,6 +5929,7 @@ namespace Timelapse {
 			this->tbAPDEX->TabIndex = 10;
 			this->tbAPDEX->Text = L"0";
 			this->tbAPDEX->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			this->tbAPDEX->TextChanged += gcnew System::EventHandler(this, &MainForm::tbAPDEX_TextChanged);
 			// 
 			// tbAPLUK
 			// 
@@ -5861,6 +5943,7 @@ namespace Timelapse {
 			this->tbAPLUK->TabIndex = 14;
 			this->tbAPLUK->Text = L"0";
 			this->tbAPLUK->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			this->tbAPLUK->TextChanged += gcnew System::EventHandler(this, &MainForm::tbAPLUK_TextChanged);
 			// 
 			// tbAPINT
 			// 
@@ -5874,6 +5957,7 @@ namespace Timelapse {
 			this->tbAPINT->TabIndex = 17;
 			this->tbAPINT->Text = L"0";
 			this->tbAPINT->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			this->tbAPINT->TextChanged += gcnew System::EventHandler(this, &MainForm::tbAPINT_TextChanged);
 			// 
 			// label38
 			// 
@@ -5915,8 +5999,9 @@ namespace Timelapse {
 			this->tbAPSTR->Name = L"tbAPSTR";
 			this->tbAPSTR->Size = System::Drawing::Size(26, 21);
 			this->tbAPSTR->TabIndex = 12;
-			this->tbAPSTR->Text = L"5";
+			this->tbAPSTR->Text = L"0";
 			this->tbAPSTR->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			this->tbAPSTR->TextChanged += gcnew System::EventHandler(this, &MainForm::tbAPSTR_TextChanged);
 			// 
 			// label35
 			// 
@@ -5940,6 +6025,7 @@ namespace Timelapse {
 			this->tbAPMP->TabIndex = 9;
 			this->tbAPMP->Text = L"0";
 			this->tbAPMP->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			this->tbAPMP->TextChanged += gcnew System::EventHandler(this, &MainForm::tbAPMP_TextChanged);
 			// 
 			// label34
 			// 
@@ -5963,6 +6049,7 @@ namespace Timelapse {
 			this->tbAPHP->TabIndex = 11;
 			this->tbAPHP->Text = L"0";
 			this->tbAPHP->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			this->tbAPHP->TextChanged += gcnew System::EventHandler(this, &MainForm::tbAPHP_TextChanged);
 			// 
 			// label33
 			// 
@@ -5996,6 +6083,7 @@ namespace Timelapse {
 			this->tbAPLevel->TabIndex = 6;
 			this->tbAPLevel->Text = L"120";
 			this->tbAPLevel->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			this->tbAPLevel->TextChanged += gcnew System::EventHandler(this, &MainForm::tbAPLevel_TextChanged);
 			// 
 			// cbAP
 			// 
@@ -6010,6 +6098,7 @@ namespace Timelapse {
 			this->cbAP->TabIndex = 1;
 			this->cbAP->Text = L"Auto AP";
 			this->cbAP->UseVisualStyleBackColor = false;
+			this->cbAP->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbAP_CheckedChanged);
 			// 
 			// bSendSuicide
 			// 
@@ -6282,6 +6371,28 @@ namespace Timelapse {
 			this->AutoCCCSTimer->Interval = 250;
 			this->AutoCCCSTimer->Tick += gcnew System::EventHandler(this, &MainForm::AutoCCCSTimer_Tick);
 			// 
+			// tAutoAttack
+			// 
+			this->tAutoAttack->Tick += gcnew System::EventHandler(this, &MainForm::tAutoAttack_Tick);
+			// 
+			// tAutoLoot
+			// 
+			this->tAutoLoot->Tick += gcnew System::EventHandler(this, &MainForm::tAutoLoot_Tick);
+			// 
+			// comboInUseSlot
+			// 
+			this->comboInUseSlot->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(35)), static_cast<System::Int32>(static_cast<System::Byte>(35)),
+				static_cast<System::Int32>(static_cast<System::Byte>(35)));
+			this->comboInUseSlot->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->comboInUseSlot->ForeColor = System::Drawing::Color::White;
+			this->comboInUseSlot->Location = System::Drawing::Point(90, 252);
+			this->comboInUseSlot->Name = L"comboInUseSlot";
+			this->comboInUseSlot->Size = System::Drawing::Size(44, 21);
+			this->comboInUseSlot->TabIndex = 28;
+			this->comboInUseSlot->Text = L"1";
+			this->comboInUseSlot->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			this->comboInUseSlot->TextChanged += gcnew System::EventHandler(this, &MainForm::comboInUseSlot_TextChanged);
+			// 
 			// MainForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
@@ -6339,10 +6450,6 @@ namespace Timelapse {
 			this->tabPage10->ResumeLayout(false);
 			this->panel10->ResumeLayout(false);
 			this->panel10->PerformLayout();
-			this->panel4->ResumeLayout(false);
-			this->panel4->PerformLayout();
-			this->panel3->ResumeLayout(false);
-			this->panel3->PerformLayout();
 			this->panel2->ResumeLayout(false);
 			this->panel2->PerformLayout();
 			this->tabPage5->ResumeLayout(false);
@@ -6394,6 +6501,7 @@ namespace Timelapse {
 			this->tabPage15->ResumeLayout(false);
 			this->tabPage15->PerformLayout();
 			this->tabPage19->ResumeLayout(false);
+			this->tabPage19->PerformLayout();
 			this->panel6->ResumeLayout(false);
 			this->panel6->PerformLayout();
 			this->tabPage9->ResumeLayout(false);
@@ -6402,7 +6510,6 @@ namespace Timelapse {
 			this->panel30->PerformLayout();
 			this->ResumeLayout(false);
 			this->PerformLayout();
-
 		}
 #pragma endregion
 	private: System::Void MainForm_Load(System::Object^  sender, System::EventArgs^  e);
@@ -6585,5 +6692,18 @@ namespace Timelapse {
 	private: System::Void bUEMIGetCurrentLocation_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void cbSellAll_CheckedChanged(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void tbAttackDelay_TextChanged(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void comboToTown_SelectedIndexChanged(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void tAutoAttack_Tick(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void tAutoLoot_Tick(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void bUseRtrnScroll_Click(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void tbAPLevel_TextChanged(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void tbAPHP_TextChanged(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void tbAPMP_TextChanged(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void tbAPSTR_TextChanged(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void tbAPDEX_TextChanged(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void tbAPINT_TextChanged(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void tbAPLUK_TextChanged(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void cbAP_CheckedChanged(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void comboInUseSlot_TextChanged(System::Object^  sender, System::EventArgs^  e);
 	};
 }

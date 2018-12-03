@@ -27,7 +27,7 @@ namespace MouseInput
 		yPos = cursorPos.y;
 	}
 
-	void Mouse::moveTo(int toX, int toY) {
+	void Mouse::moveTo(int toX, int toY, bool leftDown, bool rightDown) {
 		// get system information regarding screen size / resolution
 		const double screenWidth = GetSystemMetrics(SM_CXSCREEN) - 1;
 		const double screenHeight = GetSystemMetrics(SM_CYSCREEN) - 1;
@@ -40,7 +40,14 @@ namespace MouseInput
 		input.mi.dx = static_cast<LONG>(dX);
 		input.mi.dy = static_cast<LONG>(dY);
 		// put up absolute move flag
-		input.mi.dwFlags = MOUSEEVENTF_ABSOLUTE | MOUSEEVENTF_MOVE;
+		if (leftDown) {
+			input.mi.dwFlags = MOUSEEVENTF_ABSOLUTE | MOUSEEVENTF_MOVE | MOUSEEVENTF_LEFTDOWN;
+		}
+		else if (rightDown) {
+			input.mi.dwFlags = MOUSEEVENTF_ABSOLUTE | MOUSEEVENTF_MOVE | MOUSEEVENTF_RIGHTDOWN;
+		}
+		else input.mi.dwFlags = MOUSEEVENTF_ABSOLUTE | MOUSEEVENTF_MOVE;
+
 		// finally send the premade input
 		SendInput(1, &input, sizeof(INPUT));
 	}
@@ -106,17 +113,17 @@ namespace MouseInput
 
 	void Mouse::leftDragClickTo(int toX, int toY) {
 		pressButton(Mouse_Left);
-		moveTo(toX, toY);
+		moveTo(toX, toY, true, false);
 		releaseButton(Mouse_Left);
 	}
 
 	void Mouse::rightClickAt(int atX, int atY) {
-		moveTo(atX, atY);
+		moveTo(atX, atY, false, false);
 		rightClick();
 	}
 
 	void Mouse::rightDoubleClickAt(int atX, int atY) {
-		moveTo(atX, atY);
+		moveTo(atX, atY, false, false);
 		doubleRightClick();
 	}
 }

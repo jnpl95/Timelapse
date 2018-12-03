@@ -116,11 +116,6 @@ inline bool __stdcall shouldMobBeFiltered() {
 
 #pragma unmanaged
 
-	CodeCave(AnimDelay) {
-		add eax, [animDelay]
-		jmp dword ptr[attackDelayAddrRet]
-	} EndCodeCave
-
 	/*BYTE level = 0x00;
 	__declspec(naked) static void __stdcall LevelHook() {
 		__asm {
