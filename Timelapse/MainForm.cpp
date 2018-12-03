@@ -77,10 +77,10 @@ BOOL WINAPI DllMain(HMODULE hModule, DWORD dwReason, PVOID lpvReserved) {
 
 #pragma managed
 void MainForm::MainForm_Load(Object^  sender, EventArgs^  e) {
-	Log::WriteLineToConsole("::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::");
-	Log::WriteLineToConsole(":::                      Timelapse Trainer                     :::");
-	Log::WriteLineToConsole("::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::");
-	Log::WriteLineToConsole("Recommended injector: Extreme Injector v3.7.2");
+	Log::WriteLineToConsole(":::::::::::::::::::::::::::::::::::::::::");
+	Log::WriteLineToConsole(":::         Timelapse Trainer         :::");
+	Log::WriteLineToConsole(":::::::::::::::::::::::::::::::::::::::::");
+	Log::WriteLineToConsole("Use: Extreme Injector v3.7.2");
 	Log::WriteLineToConsole("Initializing Timelapse trainer ....");
 	RECT msRect;
 	GetWindowRect(GetMSWindowHandle(), &msRect);
@@ -98,10 +98,10 @@ void MainForm::MainForm_Shown(Object^  sender, EventArgs^  e) {
 	}
 
 	lbTitle->Text = "Timelapse Trainer - PID: " + GetMSProcID();
-	Log::WriteLineToConsole("Creating and starting macro Thread...");
+	Log::WriteLineToConsole("Creating and starting macro Thread ...");
 	Threading::Thread^ macroThread = gcnew Threading::Thread(gcnew Threading::ThreadStart(PriorityQueue::MacroQueueWorker));
 	macroThread->Start();
-	Log::WriteLineToConsole("Loading Maps for mapRusher......");
+	Log::WriteLineToConsole("Loading Maps for mapRusher ......");
 	loadMaps();
 	Log::WriteLineToConsole("Initialized Timelapse trainer!");
 
@@ -506,19 +506,25 @@ void MainForm::cbAttack_CheckedChanged(Object^  sender, EventArgs^  e) {
 				this->cbAttack->Checked = false;
 				return;
 			}
-			GlobalRefs::macroAttack = gcnew Macro(keyCollection[this->comboAttackKey->SelectedIndex], Convert::ToUInt32(tbAttackInterval->Text), MacroType::ATTACKMACRO);
 		}
-		GlobalRefs::macroAttack->Toggle(true);
+		this->tAutoAttack->Interval = Convert::ToInt32(tbAttackInterval->Text);
+		this->tAutoAttack->Enabled = true; //cbAttack->Checked
 		MacrosEnabled::bMacroAttack = true;
 	}
 	else {
-		GlobalRefs::macroAttack->Toggle(false);
+		this->tAutoAttack->Enabled = false;
 		MacrosEnabled::bMacroAttack = false;
 	}
 }
 
 void MainForm::tbAttackInterval_KeyPress(Object^  sender, Windows::Forms::KeyPressEventArgs^  e) {
 	if (!isKeyValid(sender, e, false)) e->Handled = true; //If key is not valid, do nothing and indicate that it has been handled
+}
+
+void MainForm::tAutoAttack_Tick(Object^ sender, EventArgs^ e) {
+	if (HelperFuncs::ValidToAttack()) {
+		KeyMacro::SpamPressKey(keyCollection[this->comboAttackKey->SelectedIndex], 2);
+	}
 }
 
 void MainForm::tbAttackInterval_TextChanged(Object^  sender, EventArgs^  e) {
@@ -550,19 +556,25 @@ void MainForm::cbLoot_CheckedChanged(Object^  sender, EventArgs^  e) {
 				this->cbLoot->Checked = false;
 				return;
 			}
-			GlobalRefs::macroLoot = gcnew Macro(keyCollection[this->comboLootKey->SelectedIndex], Convert::ToUInt32(tbLootInterval->Text), MacroType::LOOTMACRO);
 		}
-		GlobalRefs::macroLoot->Toggle(true);
+		this->tAutoLoot->Interval = Convert::ToInt32(tbAttackInterval->Text);
+		this->tAutoLoot->Enabled = true; //cbLoot->Checked
 		MacrosEnabled::bMacroLoot = true;
 	}
 	else {
-		GlobalRefs::macroLoot->Toggle(false);
-		MacrosEnabled::bMacroLoot = true;
+		this->tAutoLoot->Enabled = false; 
+		MacrosEnabled::bMacroLoot = false;
 	}
 }
 
 void MainForm::tbLootInterval_KeyPress(Object^  sender, Windows::Forms::KeyPressEventArgs^  e) {
 	if (!isKeyValid(sender, e, false)) e->Handled = true; //If key is not valid, do nothing and indicate that it has been handled
+}
+
+void MainForm::tAutoLoot_Tick(System::Object^  sender, System::EventArgs^  e) {
+	if (HelperFuncs::ValidToLoot()) {
+		KeyMacro::SpamPressKey(keyCollection[this->comboLootKey->SelectedIndex], 2);
+	}
 }
 
 void MainForm::tbLootInterval_TextChanged(Object^  sender, EventArgs^  e) {
@@ -796,7 +808,7 @@ void MainForm::tbCSDelay_KeyPress(Object^  sender, Windows::Forms::KeyPressEvent
 #pragma region Auto Sell Tab
 void MainForm::cbSellAll_CheckedChanged(System::Object^  sender, System::EventArgs^  e) {
 	if (this->cbSellAll->Checked) {
-		if (HelperFuncs::IsInventoryFull()) {
+		//if (HelperFuncs::IsInventoryFull()) {
 			//deactivate hacks and macro
 			if (this->cbZzVac->Checked)
 				cbZzVac->Checked = false;
@@ -811,9 +823,17 @@ void MainForm::cbSellAll_CheckedChanged(System::Object^  sender, System::EventAr
 			MacrosEnabled::bMacroAttack = false;
 			MacrosEnabled::bMacroHP = false;
 			MacrosEnabled::bMacroMP = false;
-
-			//HelperFuncs::ReturnToTownAndSell(true);
-		}
+			// TODO: rush to mapID	   
+			SellAtEquipMapId(220050300); //TESTING autosell at lubridum path of time
+			// TODO: reverse rushpath back
+		    // activate hack and begin again
+		//}
+	}
+	else {
+		MacrosEnabled::bMacroLoot = true;
+		MacrosEnabled::bMacroAttack = true;
+		MacrosEnabled::bMacroHP = true;
+		MacrosEnabled::bMacroMP = true;
 	}
 }
 #pragma endregion
@@ -1331,6 +1351,7 @@ void MainForm::tbSpawnControlY_KeyPress(Object^  sender, Windows::Forms::KeyPres
 
 #pragma region Vacs Tab
 //TODO: Every hack has a "get current location" to get x,y. Reuse that shit
+//TODO: calls to kami teleport cause crash when character drops to floor(slow call of teleport interval, however fast calling crashes of itself) while vac right/left is active, prolly too many concurent calls or something overflows
 #pragma region Kami
 void KamiLoop() {
 	while (GlobalRefs::bKami || GlobalRefs::bKamiLoot) {
@@ -2002,6 +2023,87 @@ void MainForm::bRecvPacket_Click(Object^  sender, EventArgs^  e) {
 #pragma endregion
 
 #pragma region Predefined Packets
+int scrollId = 2030000;  // L"Nearest"
+int useSlotG = 00;
+
+void MainForm::comboToTown_SelectedIndexChanged(System::Object^  sender, System::EventArgs^  e) {
+	const int townStr = comboToTown->SelectedIndex;
+	//int scrollId = 0;
+
+	switch (townStr) {
+	case 1: // L"Nearest"
+		scrollId = 2030000;
+		break;
+	case 2: //L"LithHarbor"
+		scrollId = 2030001;
+		break;
+	case 3: //L"Ellinia"
+		scrollId = 2030002;
+		break; 
+	case 4: //L"Perion"
+		scrollId = 2030003;
+		break;
+	case 5: //L"Henesys"	
+		scrollId = 2030004;
+		break;
+	case 6: //L"KerningCity"
+		scrollId = 2030005;
+		break;
+	case 7: //L"Sleepywood"
+		scrollId = 2030006;
+		break;
+	case 8: //L"DeadMine"
+		scrollId = 2030007;
+		break;
+	default: 
+		Log::WriteLineToConsole("comboToTown:: ERROR unknown town selected!");
+	}	
+}
+
+void MainForm::comboInUseSlot_TextChanged(System::Object^  sender, System::EventArgs^  e) {
+	if (String::IsNullOrWhiteSpace(comboInUseSlot->Text)) return;
+	const int useSlot = Convert::ToInt32(comboInUseSlot->Text);
+	useSlotG = useSlot;
+}
+
+String^ CreateRtrnScrollPacket(int scrollId, int useSlot) {
+	String^ rtrnPacket = "";
+	String^ slotStr;
+	if (useSlotG < 99) slotStr = useSlotG.ToString();		
+	else slotStr = useSlotG.ToString("X");
+ 
+	// TODO: IDtoHex then reverse order // B0 F9 1E = 2030000
+	switch (scrollId) {
+	case 2030000: // L"Nearest"
+		rtrnPacket = "55 00 * * * 3A XX 00 B0 F9 1E 00"; 
+		break;
+	case 2030001: //L"LithHarbor"
+		break;
+	case 2030002: //L"Ellinia"
+		break;
+	case 2030003: //L"Perion"
+		break;
+	case 2030004: //L"Henesys"	
+		break;
+	case 2030005: //L"KerningCity"
+		break;
+	case 2030006: //L"Sleepywood"
+		break;
+	case 2030007: //L"DeadMine"
+		break;
+	default:
+		Log::WriteLineToConsole("CreateRtrnScrollPacket:: ERROR unknown scrollId!");
+	}
+	rtrnPacket->Replace("XX", slotStr);
+	Log::WriteLineToConsole("Sending RTRN packet: " + rtrnPacket);
+
+	return rtrnPacket;
+}
+
+void MainForm::bUseRtrnScroll_Click(System::Object^  sender, System::EventArgs^  e) {	
+	SendPacket(CreateRtrnScrollPacket(scrollId, useSlotG));
+}
+
 void MainForm::bSendSuicide_Click(System::Object^  sender, System::EventArgs^  e) {
 	SendPacket("30 00 72 76 9D 00 FD 00 00 BB 00 00 00 00 00");
 }
@@ -2039,29 +2141,46 @@ void MainForm::bSendRestore127Health_Click(System::Object^  sender, System::Even
 void MainForm::tbAPLevel_KeyPress(Object^  sender, Windows::Forms::KeyPressEventArgs^  e) {
 	if (!isKeyValid(sender, e, false)) e->Handled = true; //If key is not valid, do nothing and indicate that it has been handled
 }
+void MainForm::tbAPLevel_TextChanged(System::Object^ sender, System::EventArgs^ e){
+}
 
 void MainForm::tbAPHP_KeyPress(Object^  sender, Windows::Forms::KeyPressEventArgs^  e) {
 	if (!isKeyValid(sender, e, false)) e->Handled = true; //If key is not valid, do nothing and indicate that it has been handled
+}
+void MainForm::tbAPHP_TextChanged(System::Object^ sender, System::EventArgs^ e) {
 }
 
 void MainForm::tbAPMP_KeyPress(Object^  sender, Windows::Forms::KeyPressEventArgs^  e) {
 	if (!isKeyValid(sender, e, false)) e->Handled = true; //If key is not valid, do nothing and indicate that it has been handled
 }
+void MainForm::tbAPMP_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+}
 
 void MainForm::tbAPSTR_KeyPress(Object^  sender, Windows::Forms::KeyPressEventArgs^  e) {
 	if (!isKeyValid(sender, e, false)) e->Handled = true; //If key is not valid, do nothing and indicate that it has been handled
+}
+void MainForm::tbAPSTR_TextChanged(System::Object^ sender, System::EventArgs^ e) {
 }
 
 void MainForm::tbAPDEX_KeyPress(Object^  sender, Windows::Forms::KeyPressEventArgs^  e) {
 	if (!isKeyValid(sender, e, false)) e->Handled = true; //If key is not valid, do nothing and indicate that it has been handled
 }
+void MainForm::tbAPDEX_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+}
 
 void MainForm::tbAPINT_KeyPress(Object^  sender, Windows::Forms::KeyPressEventArgs^  e) {
 	if (!isKeyValid(sender, e, false)) e->Handled = true; //If key is not valid, do nothing and indicate that it has been handled
 }
+void MainForm::tbAPINT_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+}
 
 void MainForm::tbAPLUK_KeyPress(Object^  sender, Windows::Forms::KeyPressEventArgs^  e) {
 	if (!isKeyValid(sender, e, false)) e->Handled = true; //If key is not valid, do nothing and indicate that it has been handled
+}
+void MainForm::tbAPLUK_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+}
+
+System::Void MainForm::cbAP_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
 }
 #pragma endregion
 #pragma endregion

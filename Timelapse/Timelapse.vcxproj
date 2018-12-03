@@ -139,7 +139,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Inventory.cpp" />
     <ClCompile Include="Log.cpp" />
+    <ClCompile Include="Macro.cpp" />
     <ClCompile Include="MainForm.cpp" />
     <ClCompile Include="Mouse.cpp" />
     <ClCompile Include="Packet.cpp" />
@@ -148,6 +150,7 @@
   <ItemGroup>
     <ClInclude Include="Assembly.h" />
     <ClInclude Include="GeneralFunctions.h" />
+    <ClInclude Include="Inventory.h" />
     <ClInclude Include="Log.h" />
     <ClInclude Include="Macro.h" />
     <ClInclude Include="MapleFunctions.h" />

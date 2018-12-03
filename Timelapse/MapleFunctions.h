@@ -2,8 +2,9 @@
 #include <Windows.h>
 #include <tchar.h>
 #include "memory.h"
-//#include "Addresses.h"
 #include "Assembly.h"
+#include "Packet.h"
+#include "Mouse.h"
 
 static HWND GetMSWindowHandle() {
 	HWND msHandle = nullptr;
@@ -324,7 +325,7 @@ namespace HelperFuncs {
 		const int attCnt = Convert::ToInt32(PointerFuncs::getAttackCount());
 
 		// check for weapon and ammo
-		if (!(attCnt > 99) && IsInGame())
+		if (!(attCnt > 99) && IsInGame()) //!UsingBuff
 			return true;
 
 		return false;
@@ -352,95 +353,49 @@ namespace HelperFuncs {
 	}
 }
 
-/*  TESTING AREA
-static void OpenInventory() {
-	const int iKey = 73;
-	// use i hotkey
-	SetMapleWindowToForeground();
-	KeyboardInput::Keyboard::spamKey(iKey, 1);
-	// wait till inventory opens
+// Assumes trade UI open and maplewindow is in foreground
+// These mouse pos should be absolute so it will work when the window is at 800x600 at to left corner
+static void SellAllEQPByMouse() {
+	const int EQUIP_SLOTS = 180; //actually this depends on server settings, can be extended ingame via CS
+	MouseInput::Mouse mouse;
+
+	Log::WriteLineToConsole("Setting Maplestory to foreground ...");
+	HelperFuncs::SetMapleWindowToForeground();
+	Log::WriteLineToConsole("Moving mouse to UI frame ...");
+	// move to trade UI
+	mouse.moveTo(420, 190, true, false);
+	Sleep(1400);
+	Log::WriteLineToConsole("Dragging UI frame bottom ...");
+	// click and drag to bottom
+	mouse.leftDragClickTo(420, 255);
+	Sleep(1400);
+	Log::WriteLineToConsole("Moving mouse to Ok button ...");
+	// move to top item where "OK" button is now located
+	mouse.moveTo(442, 357, false, false);
+	Sleep(1400);
+	// sell items by one
+	for (int i = 0; i < EQUIP_SLOTS; i++) {
+		Log::WriteLineToConsole("Double cliking to sell items ... times: " + i);
+		mouse.doubleLeftClick();
+		Sleep(80);
+	}
+	Log::WriteLineToConsole("Closing trade UI ... ");
+	Sleep(1400);
+	// send close trade packet
+	//SendPacket("3D 00 03");	incomplete :/	
 }
 
-// Heuristics to sell all EQUIP
-static void ReturnToTownAndSell(bool UseScroll)
-{
-	int delay = 150; //miliseconds
-	SetMapleWindowToForeground();
-	int leftMSBorder = GetMapleWindowRect().left;
-	int topMSBorder = GetMapleWindowRect().top;
-
-	// save current mapID and charPos for later use to return
-	int oldMapID = Convert::ToInt32(PointerFuncs::getMapID());
-	int oldCharPosX = Convert::ToInt32(PointerFuncs::getCharPosX());
-	int oldCharPosy = Convert::ToInt32(PointerFuncs::getCharPosY());
-
-	if (UseScroll) {
-		// TODO: use packet?
-		OpenInventory();
-		// move to use tab and click
-		//1612 - 1425 = 75 + 112 = 187
-		//192 - 60 = 132
-		const int useTabX = oldCharPosX - 185;
-		const int useTabY = oldCharPosy - 130;
-		MouseInput::Mouse::moveTo(leftMSBorder + useTabX, topMSBorder + useTabY);
-		MouseInput::Mouse::leftClick();
-		Sleep(delay);
-		// move to first use slot and click
-		int firstSlotX = useTabX - 45;
-		int firstSlotY = useTabY + 25;
-		MouseInput::Mouse::moveTo(leftMSBorder + firstSlotX, topMSBorder + firstSlotY);
-		MouseInput::Mouse::leftClick();
-		Sleep(delay);
-	}
-	else {
-		// TODO: mapRush to town
-	}
-
-	// check where i am and teleport accordingly before npc
-	int townMapID = Convert::ToInt32(PointerFuncs::getMapID());
-	if (townMapID == 261000000) { //magatia sunset road
-		// TODO: find npc coords
-		const int npcX = 1328;
-		const int npcY = 192;
-		// teleport before npc's X,Y
-		Teleport(npcX - 40, npcY);
-		Sleep(delay);
-		// double click npc to open sell dialog
-		MouseInput::Mouse::moveTo(leftMSBorder + npcX, topMSBorder + npcY);
-		MouseInput::Mouse::leftClick();
-		Sleep(150);
-	}
-	else if (townMapID == 0000613) {
-		// teleport to X1,Y1
-		//int npcX;
-		//int npcY;
-		// double click npc to open sell dialog
-		//MouseInput::Mouse::rightDoubleClickAt(npcX, npcY);
-	}
-	else if (townMapID <= 0) {
-		Log::WriteLine("ReturnToTownAndSell: Error townMapID <= 0 after using return scroll!" + " townMapID: " + townMapID.ToString());
-		return;
-	}
-
-	// click at tradeUI and drag it few pixels down
-	// this aligns the confirmation box OK with items
-	const int tradeUiX = 1340;
-	const int tradeUiY = 30;
-	MouseInput::Mouse::moveTo(leftMSBorder + tradeUiX, tradeUiY);
-	MouseInput::Mouse::leftDragClickTo(leftMSBorder + tradeUiX, topMSBorder + tradeUiY + 60);
-	Sleep(delay);
-
-	// move mouse to position to spam double click
-	const int confirmBoxOkX = 1360;
-	const int confirmBoxOkY = 175;
-	MouseInput::Mouse::moveTo(leftMSBorder + confirmBoxOkX, topMSBorder + confirmBoxOkY);
-	Sleep(delay);
-
-	for (int i = 0; i < 40; i++) {
-		MouseInput::Mouse::doubleLeftClick();
-		Sleep(100);
-	}
-	// map rush back to saved MapID and Position
-	// enable hacks & macro continue hacking
+static void SellAtEquipMapId(int mapId) {
+	if (mapId == 220050300) // Ludi-Path of time
+		Log::WriteLineToConsole("Were at Ludi Path of Time ...");
+		Log::WriteLineToConsole("Teleporting close to NPC ...");
+		Teleport(-203, 2922);
+		Sleep(200);
+		Log::WriteLineToConsole("Opening trade UI ...");
+		// Send open trade packet
+		// Todo: this needs more work
+		SendPacket("3A 00 BD 35 00 00 1D FF 6A 0B");																			
+		Sleep(600);
+		//Try selling items by mouse
+		SellAllEQPByMouse();
 }
-*/

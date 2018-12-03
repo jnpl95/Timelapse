@@ -5,7 +5,9 @@
 #include <winuser.h>
 #include "Log.h"
 #include "MapleFunctions.h"
+#include "Addresses.h"
 
+bool DBG_Macro = false;
 enum class MacroType { LOOTMACRO = 1, ATTACKMACRO = 2, BUFFMACRO = 3, MPPOTMACRO = 4, HPPOTMACRO = 5};
 ref struct MacrosEnabled { static bool bMacroHP = false, bMacroMP = false, bMacroAttack = false, bMacroLoot = false; };
 
@@ -52,8 +54,10 @@ ref struct KeyMacro {
 	// thus this non-physical keyboard will cause certain skills like charge abilities to be permanently stuck charging
 	static void SendKey(int Key) {
 		PostMessage(GlobalVars::mapleWindow, WM_KEYDOWN, Key, createKeyData(Key));
-		//Log::WriteLine("SendKey: ERROR failed to post message to process!");
-		//Log::WriteLine("Key: " + Key.ToString() + " MSG: WM_KEYDOWN " + "KeyData: " + createKeyData(Key));
+		if (DBG_Macro) {
+			Log::WriteLineToConsole("SendKey: ERROR failed to post message to process!");
+			Log::WriteLineToConsole("Key: " + Key.ToString() + " MSG: WM_KEYDOWN " + "KeyData: " + createKeyData(Key));
+		}
 	}
 
 	// this is a minor hack to boost speed of hotkeys
@@ -63,20 +67,26 @@ ref struct KeyMacro {
 	static void SpamSendKey(int Key, int times) {	
 		for (int i = 0; i < times; i++) {
 			PostMessage(GlobalVars::mapleWindow, WM_KEYDOWN, Key, createKeyData(Key));
-			//Log::WriteLine("SpamSendKey: ERROR failed to post message to process!");
-			//Log::WriteLine("Key: " + Key.ToString() + " MSG: WM_KEYDOWN " + "KeyData: " + createKeyData(Key));
+			 if (DBG_Macro) {
+				 Log::WriteLineToConsole("SpamSendKey: ERROR failed to post message to process!");
+				 Log::WriteLineToConsole("Key: " + Key.ToString() + " MSG: WM_KEYDOWN " + "KeyData: " + createKeyData(Key));
+			 }
 		}
 	}
 
 	// This simulates repeated bashing of a keystroke on a regular physical keyboard
 	static void PressKey(int Key) {
 		PostMessage(GlobalVars::mapleWindow, WM_KEYDOWN, Key, createKeyData(Key));
-		//Log::WriteLine("PressKey: ERROR failed to post message to process!");
-		//Log::WriteLine("Key: " + Key.ToString() + " MSG: WM_KEYDOWN " + "KeyData: " + createKeyData(Key));
+		if (DBG_Macro) {
+			Log::WriteLineToConsole("PressKey: ERROR failed to post message to process!");
+			Log::WriteLineToConsole("Key: " + Key.ToString() + " MSG: WM_KEYDOWN " + "KeyData: " + createKeyData(Key));
+		}
 		//WM_CHAR
 		PostMessage(GlobalVars::mapleWindow, WM_KEYUP, Key, createKeyData(Key));
-		//Log::WriteLine("PressKey: ERROR failed to post message to process!");
-		//Log::WriteLine("Key: " + Key.ToString() + " MSG: WM_KEYDOWN " + "KeyData: " + createKeyData(Key));
+		if (DBG_Macro) {
+			Log::WriteLineToConsole("PressKey: ERROR failed to post message to process!");
+			Log::WriteLineToConsole("Key: " + Key.ToString() + " MSG: WM_KEYDOWN " + "KeyData: " + createKeyData(Key));
+		}
 	}
 
 	// unused for now
@@ -105,7 +115,7 @@ public:
 			Threading::Monitor::Enter(macroQueue);
 			KeyMacro ^key = macroQueue->top();
 			macroQueue->pop();		
-			//Log::WriteLineToConsole("MacroQueueSizeAfterPop: " + macroQueue->size());
+			if (DBG_Macro) Log::WriteLineToConsole("MacroQueueSizeAfterPop: " + macroQueue->size());
 
 			switch(key->macroType) {
 				case MacroType::BUFFMACRO:
@@ -138,7 +148,7 @@ ref class Macro {
 	Threading::Timer^ timer;
 
 	void SendKeyMacroToQueue() {
-		//Log::WriteLineToConsole("Entered SendKeyToQueue");
+		if (DBG_Macro) Log::WriteLineToConsole("Entered SendKeyToQueue");
 
 		KeyMacro^ keyMacro = gcnew KeyMacro();
 		keyMacro->keyCode = keyCode;
@@ -147,7 +157,7 @@ ref class Macro {
 		switch (keyMacro->macroType) {
 			// TODO: buffs need better handling
 			case MacroType::BUFFMACRO:		
-				//Log::WriteLineToConsole("Pushing macro to queue: " + MacroTypeToStr(keyMacro->macroType));
+				if (DBG_Macro) Log::WriteLineToConsole("Pushing macro to queue: " + MacroTypeToStr(keyMacro->macroType));
 				PriorityQueue::macroQueue->push(keyMacro);
 			break;
 			case MacroType::HPPOTMACRO:
@@ -157,7 +167,7 @@ ref class Macro {
 					const int hpCntCurrent = Assembly::curHP;
 
 					if (hpCntCurrent < hpCntDrinkLimit) {
-						//Log::WriteLineToConsole("Pushing macro to queue: " + MacroTypeToStr(keyMacro->macroType));
+						if (DBG_Macro) Log::WriteLineToConsole("Pushing macro to queue: " + MacroTypeToStr(keyMacro->macroType));
 						PriorityQueue::macroQueue->push(keyMacro);
 					}
 				}
@@ -169,7 +179,7 @@ ref class Macro {
 					const int mpCntCurrent = Assembly::curMP;
 
 					if (mpCntCurrent < mpCntDrinkLimit) {
-						//Log::WriteLineToConsole("Pushing macro to queue: " + MacroTypeToStr(keyMacro->macroType));
+						if (DBG_Macro) Log::WriteLineToConsole("Pushing macro to queue: " + MacroTypeToStr(keyMacro->macroType));
 						PriorityQueue::macroQueue->push(keyMacro);
 					}
 				}
@@ -181,7 +191,7 @@ ref class Macro {
 					const int itemCntCurrent = ReadPointer(DropPoolBase, OFS_ItemCount);
 
 					if (itemCntCurrent > itemCntLootLimit) {
-						//Log::WriteLineToConsole("Pushing macro to queue: " + MacroTypeToStr(keyMacro->macroType));
+						if (DBG_Macro) Log::WriteLineToConsole("Pushing macro to queue: " + MacroTypeToStr(keyMacro->macroType));
 						PriorityQueue::macroQueue->push(keyMacro);
 					}
 				}
@@ -193,7 +203,7 @@ ref class Macro {
 					const int mobCntCurrent = ReadPointer(MobPoolBase, OFS_MobCount);
 
 					if (mobCntCurrent > mobCntAttackLimit) {
-						//Log::WriteLineToConsole("Pushing macro to queue: " + MacroTypeToStr(keyMacro->macroType));
+						if (DBG_Macro) Log::WriteLineToConsole("Pushing macro to queue: " + MacroTypeToStr(keyMacro->macroType));
 						PriorityQueue::macroQueue->push(keyMacro);
 					}
 				}
@@ -209,7 +219,7 @@ ref class Macro {
 		String^ macroKeyCode = ("\nMacro keyCode: " + macro->keyCode);
 		String^ macroDelay = ("\nMacro delay: " + macro->delay);
 		String^ macroType = ("\nMacro type: " + MacroTypeToStr(macro->macroType));
-		//Log::WriteLineToConsole("Macro: " + macroKeyCode + macroDelay + macroType);
+		Log::WriteLineToConsole("Macro: " + macroKeyCode + macroDelay + macroType);
 	}
 
 public:
@@ -229,7 +239,7 @@ public:
 			case MacroType::HPPOTMACRO:
 				return "HpPotMacro";
 		}
-		//Log::WriteLineToConsole("Error when parsing enum MacroType, unknown type!");
+		if (DBG_Macro) Log::WriteLineToConsole("Error when parsing enum MacroType, unknown type!");
 		return nullptr;
 	}
 
@@ -237,10 +247,10 @@ public:
 		this->keyCode = keyCode;
 		this->delay = delay;
 		this->macroType = macro;
-		//DebugMacro(this);
+		if (DBG_Macro) DebugMacro(this);
 		Threading::TimerCallback^ TimerDelegate = gcnew Threading::TimerCallback(this, &Macro::TimerElapsed);
 		timer = gcnew Threading::Timer(TimerDelegate, nullptr, Threading::Timeout::Infinite, delay);
-		//Log::WriteLineToConsole("new timer: " + timer);
+		if (DBG_Macro) Log::WriteLineToConsole("new timer: " + timer);
 	}
 
 	// TODO: if buffMacro check if i have it present if not cast it for first time

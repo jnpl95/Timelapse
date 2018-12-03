@@ -22,7 +22,7 @@ namespace MouseInput
 		static void getMousePosition(int & xPos, int & yPos);
 
 		// Moves mouse cursor to the specified position.
-		static void moveTo(int x, int y);
+		static void moveTo(int x, int y, bool leftDown, bool rightDown);
 
 		// Simulates mouse button press.
 		static void pressButton(MouseButton button);
