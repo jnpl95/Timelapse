@@ -22,6 +22,7 @@ ULONG itemLogged = 0, itemFilterMesos = 0, mobLogged = 0;
 static std::vector<ULONG> *itemList = new std::vector<ULONG>(), *mobList = new std::vector<ULONG>();
 static std::vector<SpawnControlData*> *spawnControl = new std::vector<SpawnControlData*>();
 SendPacketData *sendPacketData;
+ULONG dupeXFoothold = 0;
 
 //Find item name using item ID in the ItemsList resource
 static String^ findItemNameFromID(int itemID) {
@@ -115,8 +116,6 @@ inline bool __stdcall shouldMobBeFiltered() {
 		if (mob == mobLogged) return true;
 	return false;
 }
-
-
 
 inline void __stdcall addSendPacket() {
 	COutPacket* packet = sendPacketData->packet;
@@ -401,5 +400,26 @@ inline void __stdcall addSendPacket() {
 		call [addSendPacket]
 		popad
 		jmp [cOutPacketAddrRet]
+	} EndCodeCave
+
+	CodeCave(DupeXHook) {
+		push eax
+		push ecx
+		mov eax, [UserLocalBase]
+		mov eax, [eax]
+		mov ecx, [OFS_pID]
+		mov eax, [eax + ecx]
+		lea ecx, [eax - 0x0c] //account id offset?
+		mov eax, [ecx + 0x00000114] //kb offset?
+		mov dword ptr[dupeXFoothold], eax
+		mov edi, [dupeXFoothold]
+		pop ecx
+		pop eax
+		mov[esi + 0x00000114], edi
+		jmp dword ptr[dupeXAddrRet]
+
+		//mov edi, [dupeXFoothold]
+		//mov[esi + 0x00000114], edi
+		//jmp dword ptr[dupeXAddrRet]
 	} EndCodeCave
 }

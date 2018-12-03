@@ -142,6 +142,8 @@ ULONG mobFilter2JmpAddr = 0x0067957F; //mov ecx,[ebp-0C] above the ret 0004 at t
 ULONG cInPacketDecode4Addr = 0x00406629; //Start of CInPacket::Decode4()
 ULONG cOutPacketAddr = 0x0049637B;
 ULONG cOutPacketAddrRet = cOutPacketAddr + 5;
+ULONG dupeXAddr = 0x009B495D;
+ULONG dupeXAddrRet = dupeXAddr + 6;
 #pragma endregion
 
 #pragma region MapleStory Function Hook Addresses

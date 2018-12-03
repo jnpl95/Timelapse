@@ -123,9 +123,12 @@ namespace Timelapse {
 	private: System::Windows::Forms::CheckBox^  cbMouseTeleport;
 	private: System::Windows::Forms::CheckBox^  cbFullGodmode;
 	private: System::Windows::Forms::Panel^  panel16;
-	private: System::Windows::Forms::TextBox^  tbDupeXMob;
+private: System::Windows::Forms::TextBox^  tbDupeXFoothold;
+
 	private: System::Windows::Forms::Label^  label60;
-	private: System::Windows::Forms::Button^  bDupeXResetLocation;
+private: System::Windows::Forms::Button^  bDupeXGetFoothold;
+
+
 	private: System::Windows::Forms::CheckBox^  cbDupeX;
 	private: System::Windows::Forms::Panel^  panel15;
 	private: System::Windows::Forms::Button^  bWallVacGetCurrentLocation;
@@ -736,9 +739,9 @@ namespace Timelapse {
 			this->cbMMC = (gcnew System::Windows::Forms::CheckBox());
 			this->label62 = (gcnew System::Windows::Forms::Label());
 			this->label67 = (gcnew System::Windows::Forms::Label());
-			this->tbDupeXMob = (gcnew System::Windows::Forms::TextBox());
+			this->tbDupeXFoothold = (gcnew System::Windows::Forms::TextBox());
 			this->label60 = (gcnew System::Windows::Forms::Label());
-			this->bDupeXResetLocation = (gcnew System::Windows::Forms::Button());
+			this->bDupeXGetFoothold = (gcnew System::Windows::Forms::Button());
 			this->cbDupeX = (gcnew System::Windows::Forms::CheckBox());
 			this->panel15 = (gcnew System::Windows::Forms::Panel());
 			this->tbWallVacRangeY = (gcnew System::Windows::Forms::TextBox());
@@ -800,6 +803,7 @@ namespace Timelapse {
 			this->tabPage8 = (gcnew System::Windows::Forms::TabPage());
 			this->tabControl5 = (gcnew System::Windows::Forms::TabControl());
 			this->tabPage16 = (gcnew System::Windows::Forms::TabPage());
+			this->tvSendPackets = (gcnew System::Windows::Forms::TreeView());
 			this->label81 = (gcnew System::Windows::Forms::Label());
 			this->tbSendSpamDelay = (gcnew System::Windows::Forms::TextBox());
 			this->cbSendSpam = (gcnew System::Windows::Forms::CheckBox());
@@ -811,6 +815,7 @@ namespace Timelapse {
 			this->bSendClear = (gcnew System::Windows::Forms::Button());
 			this->bSendPacket = (gcnew System::Windows::Forms::Button());
 			this->tabPage15 = (gcnew System::Windows::Forms::TabPage());
+			this->tvRecvPackets = (gcnew System::Windows::Forms::TreeView());
 			this->bRecvRemove = (gcnew System::Windows::Forms::Button());
 			this->lvRecvBlock = (gcnew System::Windows::Forms::ListView());
 			this->tbRecvPacket = (gcnew System::Windows::Forms::TextBox());
@@ -820,6 +825,7 @@ namespace Timelapse {
 			this->bRecvPacket = (gcnew System::Windows::Forms::Button());
 			this->tabPage18 = (gcnew System::Windows::Forms::TabPage());
 			this->tabPage19 = (gcnew System::Windows::Forms::TabPage());
+			this->comboInUseSlot = (gcnew System::Windows::Forms::TextBox());
 			this->lbInUseSlot = (gcnew System::Windows::Forms::Label());
 			this->comboToTown = (gcnew System::Windows::Forms::ComboBox());
 			this->lbToTown = (gcnew System::Windows::Forms::Label());
@@ -866,11 +872,8 @@ namespace Timelapse {
 			this->btnClose = (gcnew System::Windows::Forms::Button());
 			this->GUITimer = (gcnew System::Windows::Forms::Timer(this->components));
 			this->AutoCCCSTimer = (gcnew System::Windows::Forms::Timer(this->components));
-			this->tvSendPackets = (gcnew System::Windows::Forms::TreeView());
-			this->tvRecvPackets = (gcnew System::Windows::Forms::TreeView());
 			this->tAutoAttack = (gcnew System::Windows::Forms::Timer(this->components));
 			this->tAutoLoot = (gcnew System::Windows::Forms::Timer(this->components));
-			this->comboInUseSlot = (gcnew System::Windows::Forms::TextBox());
 			this->MenuStrip->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->BeginInit();
 			this->pnlFull->SuspendLayout();
@@ -936,7 +939,8 @@ namespace Timelapse {
 			this->MenuStrip->ImageScalingSize = System::Drawing::Size(32, 32);
 			this->MenuStrip->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(3) {
 				this->fileToolStripMenuItem,
-					this->mapleStoryToolStripMenuItem, this->helpToolStripMenuItem });
+					this->mapleStoryToolStripMenuItem, this->helpToolStripMenuItem
+			});
 			this->MenuStrip->Location = System::Drawing::Point(0, 2);
 			this->MenuStrip->Name = L"MenuStrip";
 			this->MenuStrip->Size = System::Drawing::Size(168, 24);
@@ -949,7 +953,8 @@ namespace Timelapse {
 				static_cast<System::Int32>(static_cast<System::Byte>(19)), static_cast<System::Int32>(static_cast<System::Byte>(19)));
 			this->fileToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(3) {
 				this->openSettingsToolStripMenuItem,
-					this->saveSettingsToolStripMenuItem, this->closeMapleStoryToolStripMenuItem });
+					this->saveSettingsToolStripMenuItem, this->closeMapleStoryToolStripMenuItem
+			});
 			this->fileToolStripMenuItem->Name = L"fileToolStripMenuItem";
 			this->fileToolStripMenuItem->Size = System::Drawing::Size(37, 20);
 			this->fileToolStripMenuItem->Text = L"File";
@@ -990,7 +995,8 @@ namespace Timelapse {
 				static_cast<System::Int32>(static_cast<System::Byte>(16)), static_cast<System::Int32>(static_cast<System::Byte>(16)));
 			this->mapleStoryToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(3) {
 				this->embedMSWindowToolStripMenuItem,
-					this->hideMSWindowToolStripMenuItem, this->injectDllToolStripMenuItem });
+					this->hideMSWindowToolStripMenuItem, this->injectDllToolStripMenuItem
+			});
 			this->mapleStoryToolStripMenuItem->Name = L"mapleStoryToolStripMenuItem";
 			this->mapleStoryToolStripMenuItem->Size = System::Drawing::Size(79, 20);
 			this->mapleStoryToolStripMenuItem->Text = L"MapleStory";
@@ -2399,9 +2405,11 @@ namespace Timelapse {
 			this->comboBuffKey->ForeColor = System::Drawing::Color::White;
 			this->comboBuffKey->FormattingEnabled = true;
 			this->comboBuffKey->Items->AddRange(gcnew cli::array< System::Object^  >(46) {
-				L" Shift", L" Control", L" Alt", L" Space", L" Insert", L" Delete", L" Home", L" End", L" Page Up", L" Page Down",
-				L" A", L" B", L" C", L" D", L" E", L" F", L" G", L" H", L" I", L" J", L" K", L" L", L" M", L" N", L" O", L" P", L" Q", L" R", L" S", L" T", L" U", L" V", L" W", L" X", L" Y", L" Z",
-				L" 0", L" 1", L" 2", L" 3", L" 4", L" 5", L" 6", L" 7", L" 8", L" 9" });
+				L" Shift", L" Control", L" Alt", L" Space",
+					L" Insert", L" Delete", L" Home", L" End", L" Page Up", L" Page Down", L" A", L" B", L" C", L" D", L" E", L" F", L" G", L" H",
+					L" I", L" J", L" K", L" L", L" M", L" N", L" O", L" P", L" Q", L" R", L" S", L" T", L" U", L" V", L" W", L" X", L" Y", L" Z",
+					L" 0", L" 1", L" 2", L" 3", L" 4", L" 5", L" 6", L" 7", L" 8", L" 9"
+			});
 			this->comboBuffKey->Location = System::Drawing::Point(5, 61);
 			this->comboBuffKey->Name = L"comboBuffKey";
 			this->comboBuffKey->RightToLeft = System::Windows::Forms::RightToLeft::No;
@@ -2417,7 +2425,8 @@ namespace Timelapse {
 			this->lvBuff->CheckBoxes = true;
 			this->lvBuff->Columns->AddRange(gcnew cli::array< System::Windows::Forms::ColumnHeader^  >(3) {
 				this->lvBuffHeaderName, this->lvBuffHeaderKey,
-					this->lvBuffHeaderInterval });
+					this->lvBuffHeaderInterval
+			});
 			this->lvBuff->ForeColor = System::Drawing::Color::White;
 			this->lvBuff->FullRowSelect = true;
 			this->lvBuff->HeaderStyle = System::Windows::Forms::ColumnHeaderStyle::Nonclickable;
@@ -2551,7 +2560,9 @@ namespace Timelapse {
 			this->comboChannelKey->ForeColor = System::Drawing::Color::White;
 			this->comboChannelKey->FormattingEnabled = true;
 			this->comboChannelKey->Items->AddRange(gcnew cli::array< System::Object^  >(20) {
-				L" 1", L" 2", L" 3", L" 4", L" 5", L" 6", L" 7", L" 8", L" 9", L" 10", L" 11", L" 12", L" 13", L" 14", L" 15", L" 16", L" 17", L" 18", L" 19", L" 20" });
+				L" 1", L" 2", L" 3", L" 4", L" 5", L" 6",
+					L" 7", L" 8", L" 9", L" 10", L" 11", L" 12", L" 13", L" 14", L" 15", L" 16", L" 17", L" 18", L" 19", L" 20"
+			});
 			this->comboChannelKey->Location = System::Drawing::Point(65, 3);
 			this->comboChannelKey->Name = L"comboChannelKey";
 			this->comboChannelKey->RightToLeft = System::Windows::Forms::RightToLeft::No;
@@ -3020,9 +3031,11 @@ namespace Timelapse {
 			this->comboLootKey->ForeColor = System::Drawing::Color::White;
 			this->comboLootKey->FormattingEnabled = true;
 			this->comboLootKey->Items->AddRange(gcnew cli::array< System::Object^  >(46) {
-				L" Shift", L" Control", L" Alt", L" Space", L" Insert", L" Delete", L" Home", L" End", L" Page Up", L" Page Down", 
-				L" A", L" B", L" C", L" D", L" E", L" F", L" G", L" H", L" I", L" J", L" K", L" L", L" M", L" N", L" O", L" P", L" Q", L" R", L" S", L" T", L" U", L" V", L" W", L" X", L" Y", L" Z",
-				L" 0", L" 1", L" 2", L" 3", L" 4", L" 5", L" 6", L" 7", L" 8", L" 9" });
+				L" Shift", L" Control", L" Alt", L" Space",
+					L" Insert", L" Delete", L" Home", L" End", L" Page Up", L" Page Down", L" A", L" B", L" C", L" D", L" E", L" F", L" G", L" H",
+					L" I", L" J", L" K", L" L", L" M", L" N", L" O", L" P", L" Q", L" R", L" S", L" T", L" U", L" V", L" W", L" X", L" Y", L" Z",
+					L" 0", L" 1", L" 2", L" 3", L" 4", L" 5", L" 6", L" 7", L" 8", L" 9"
+			});
 			this->comboLootKey->Location = System::Drawing::Point(287, 78);
 			this->comboLootKey->Name = L"comboLootKey";
 			this->comboLootKey->RightToLeft = System::Windows::Forms::RightToLeft::No;
@@ -3048,9 +3061,11 @@ namespace Timelapse {
 			this->comboAttackKey->ForeColor = System::Drawing::Color::White;
 			this->comboAttackKey->FormattingEnabled = true;
 			this->comboAttackKey->Items->AddRange(gcnew cli::array< System::Object^  >(46) {
-				L" Shift", L" Control", L" Alt", L" Space", L" Insert", L" Delete", L" Home", L" End", L" Page Up", L" Page Down",
-				L" A", L" B", L" C", L" D", L" E", L" F", L" G", L" H", L" I", L" J", L" K", L" L", L" M", L" N", L" O", L" P", L" Q", L" R", L" S", L" T", L" U", L" V", L" W", L" X", L" Y", L" Z", 
-				L" 0", L" 1", L" 2", L" 3", L" 4", L" 5", L" 6", L" 7", L" 8", L" 9" });
+				L" Shift", L" Control", L" Alt", L" Space",
+					L" Insert", L" Delete", L" Home", L" End", L" Page Up", L" Page Down", L" A", L" B", L" C", L" D", L" E", L" F", L" G", L" H",
+					L" I", L" J", L" K", L" L", L" M", L" N", L" O", L" P", L" Q", L" R", L" S", L" T", L" U", L" V", L" W", L" X", L" Y", L" Z",
+					L" 0", L" 1", L" 2", L" 3", L" 4", L" 5", L" 6", L" 7", L" 8", L" 9"
+			});
 			this->comboAttackKey->Location = System::Drawing::Point(287, 53);
 			this->comboAttackKey->Name = L"comboAttackKey";
 			this->comboAttackKey->RightToLeft = System::Windows::Forms::RightToLeft::No;
@@ -3067,9 +3082,11 @@ namespace Timelapse {
 			this->comboMPKey->ForeColor = System::Drawing::Color::White;
 			this->comboMPKey->FormattingEnabled = true;
 			this->comboMPKey->Items->AddRange(gcnew cli::array< System::Object^  >(46) {
-				L" Shift", L" Control", L" Alt", L" Space", L" Insert", L" Delete", L" Home", L" End", L" Page Up", L" Page Down", 
-				L" A", L" B", L" C", L" D", L" E", L" F", L" G", L" H", L" I", L" J",L" K", L" L", L" M", L" N", L" O", L" P", L" Q", L" R", L" S", L" T", L" U", L" V", L" W", L" X", L" Y", L" Z",
-				L" 0", L" 1", L" 2", L" 3", L" 4", L" 5", L" 6", L" 7", L" 8", L" 9" });
+				L" Shift", L" Control", L" Alt", L" Space", L" Insert",
+					L" Delete", L" Home", L" End", L" Page Up", L" Page Down", L" A", L" B", L" C", L" D", L" E", L" F", L" G", L" H", L" I", L" J",
+					L" K", L" L", L" M", L" N", L" O", L" P", L" Q", L" R", L" S", L" T", L" U", L" V", L" W", L" X", L" Y", L" Z", L" 0", L" 1",
+					L" 2", L" 3", L" 4", L" 5", L" 6", L" 7", L" 8", L" 9"
+			});
 			this->comboMPKey->Location = System::Drawing::Point(287, 28);
 			this->comboMPKey->Name = L"comboMPKey";
 			this->comboMPKey->Size = System::Drawing::Size(83, 21);
@@ -3099,9 +3116,11 @@ namespace Timelapse {
 			this->comboHPKey->ForeColor = System::Drawing::Color::White;
 			this->comboHPKey->FormattingEnabled = true;
 			this->comboHPKey->Items->AddRange(gcnew cli::array< System::Object^  >(46) {
-				L" Shift", L" Control", L" Alt", L" Space", L" Insert", L" Delete", L" Home", L" End", L" Page Up", L" Page Down",
-				L" A", L" B", L" C", L" D", L" E", L" F", L" G", L" H", L" I", L" J",L" K", L" L", L" M", L" N", L" O", L" P", L" Q", L" R", L" S", L" T", L" U", L" V", L" W", L" X", L" Y", L" Z",
-				L" 0", L" 1", L" 2", L" 3", L" 4", L" 5", L" 6", L" 7", L" 8", L" 9" });
+				L" Shift", L" Control", L" Alt", L" Space", L" Insert",
+					L" Delete", L" Home", L" End", L" Page Up", L" Page Down", L" A", L" B", L" C", L" D", L" E", L" F", L" G", L" H", L" I", L" J",
+					L" K", L" L", L" M", L" N", L" O", L" P", L" Q", L" R", L" S", L" T", L" U", L" V", L" W", L" X", L" Y", L" Z", L" 0", L" 1",
+					L" 2", L" 3", L" 4", L" 5", L" 6", L" 7", L" 8", L" 9"
+			});
 			this->comboHPKey->Location = System::Drawing::Point(287, 3);
 			this->comboHPKey->Name = L"comboHPKey";
 			this->comboHPKey->RightToLeft = System::Windows::Forms::RightToLeft::No;
@@ -4575,9 +4594,9 @@ namespace Timelapse {
 			// 
 			this->panel16->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 			this->panel16->Controls->Add(this->panel19);
-			this->panel16->Controls->Add(this->tbDupeXMob);
+			this->panel16->Controls->Add(this->tbDupeXFoothold);
 			this->panel16->Controls->Add(this->label60);
-			this->panel16->Controls->Add(this->bDupeXResetLocation);
+			this->panel16->Controls->Add(this->bDupeXGetFoothold);
 			this->panel16->Controls->Add(this->cbDupeX);
 			this->panel16->Location = System::Drawing::Point(142, 104);
 			this->panel16->Name = L"panel16";
@@ -4615,7 +4634,7 @@ namespace Timelapse {
 				static_cast<System::Int32>(static_cast<System::Byte>(35)));
 			this->tbMMCX->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 			this->tbMMCX->ForeColor = System::Drawing::Color::White;
-			this->tbMMCX->Location = System::Drawing::Point(19, 18);
+			this->tbMMCX->Location = System::Drawing::Point(19, 19);
 			this->tbMMCX->Name = L"tbMMCX";
 			this->tbMMCX->Size = System::Drawing::Size(45, 21);
 			this->tbMMCX->TabIndex = 16;
@@ -4629,7 +4648,7 @@ namespace Timelapse {
 				static_cast<System::Int32>(static_cast<System::Byte>(35)));
 			this->tbMMCY->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 			this->tbMMCY->ForeColor = System::Drawing::Color::White;
-			this->tbMMCY->Location = System::Drawing::Point(92, 18);
+			this->tbMMCY->Location = System::Drawing::Point(92, 19);
 			this->tbMMCY->Name = L"tbMMCY";
 			this->tbMMCY->Size = System::Drawing::Size(45, 21);
 			this->tbMMCY->TabIndex = 18;
@@ -4654,7 +4673,7 @@ namespace Timelapse {
 			// 
 			this->label62->AutoSize = true;
 			this->label62->BackColor = System::Drawing::Color::Transparent;
-			this->label62->Location = System::Drawing::Point(74, 22);
+			this->label62->Location = System::Drawing::Point(74, 23);
 			this->label62->Name = L"label62";
 			this->label62->Size = System::Drawing::Size(17, 13);
 			this->label62->TabIndex = 19;
@@ -4664,45 +4683,50 @@ namespace Timelapse {
 			// 
 			this->label67->AutoSize = true;
 			this->label67->BackColor = System::Drawing::Color::Transparent;
-			this->label67->Location = System::Drawing::Point(2, 22);
+			this->label67->Location = System::Drawing::Point(2, 23);
 			this->label67->Name = L"label67";
 			this->label67->Size = System::Drawing::Size(17, 13);
 			this->label67->TabIndex = 17;
 			this->label67->Text = L"X:";
 			// 
-			// tbDupeXMob
+			// tbDupeXFoothold
 			// 
-			this->tbDupeXMob->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(35)), static_cast<System::Int32>(static_cast<System::Byte>(35)),
+			this->tbDupeXFoothold->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(35)), static_cast<System::Int32>(static_cast<System::Byte>(35)),
 				static_cast<System::Int32>(static_cast<System::Byte>(35)));
-			this->tbDupeXMob->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
-			this->tbDupeXMob->ForeColor = System::Drawing::Color::White;
-			this->tbDupeXMob->Location = System::Drawing::Point(62, 18);
-			this->tbDupeXMob->Name = L"tbDupeXMob";
-			this->tbDupeXMob->Size = System::Drawing::Size(35, 21);
-			this->tbDupeXMob->TabIndex = 16;
-			this->tbDupeXMob->Text = L"0";
-			this->tbDupeXMob->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
-			this->tbDupeXMob->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &MainForm::tbDupeXMob_KeyPress);
+			this->tbDupeXFoothold->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->tbDupeXFoothold->Enabled = false;
+			this->tbDupeXFoothold->ForeColor = System::Drawing::Color::White;
+			this->tbDupeXFoothold->Location = System::Drawing::Point(73, 19);
+			this->tbDupeXFoothold->Name = L"tbDupeXFoothold";
+			this->tbDupeXFoothold->Size = System::Drawing::Size(24, 21);
+			this->tbDupeXFoothold->TabIndex = 16;
+			this->tbDupeXFoothold->Text = L"0";
+			this->tbDupeXFoothold->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			this->tbDupeXFoothold->TextChanged += gcnew System::EventHandler(this, &MainForm::tbDupeXFoothold_TextChanged);
+			this->tbDupeXFoothold->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &MainForm::tbDupeXFoothold_KeyPress);
 			// 
 			// label60
 			// 
 			this->label60->AutoSize = true;
+			this->label60->Enabled = false;
 			this->label60->Location = System::Drawing::Point(3, 23);
 			this->label60->Name = L"label60";
-			this->label60->Size = System::Drawing::Size(60, 13);
+			this->label60->Size = System::Drawing::Size(69, 13);
 			this->label60->TabIndex = 17;
-			this->label60->Text = L"Num Mobs:";
+			this->label60->Text = L"Foothold No:";
 			// 
-			// bDupeXResetLocation
+			// bDupeXGetFoothold
 			// 
-			this->bDupeXResetLocation->FlatAppearance->BorderColor = System::Drawing::Color::Gray;
-			this->bDupeXResetLocation->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->bDupeXResetLocation->Location = System::Drawing::Point(3, 43);
-			this->bDupeXResetLocation->Name = L"bDupeXResetLocation";
-			this->bDupeXResetLocation->Size = System::Drawing::Size(94, 21);
-			this->bDupeXResetLocation->TabIndex = 15;
-			this->bDupeXResetLocation->Text = L"Reset Location";
-			this->bDupeXResetLocation->UseVisualStyleBackColor = true;
+			this->bDupeXGetFoothold->Enabled = false;
+			this->bDupeXGetFoothold->FlatAppearance->BorderColor = System::Drawing::Color::Gray;
+			this->bDupeXGetFoothold->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->bDupeXGetFoothold->Location = System::Drawing::Point(3, 43);
+			this->bDupeXGetFoothold->Name = L"bDupeXGetFoothold";
+			this->bDupeXGetFoothold->Size = System::Drawing::Size(94, 21);
+			this->bDupeXGetFoothold->TabIndex = 15;
+			this->bDupeXGetFoothold->Text = L"Get Foothold";
+			this->bDupeXGetFoothold->UseVisualStyleBackColor = true;
+			this->bDupeXGetFoothold->Click += gcnew System::EventHandler(this, &MainForm::bDupeXGetFoothold_Click);
 			// 
 			// cbDupeX
 			// 
@@ -4716,6 +4740,7 @@ namespace Timelapse {
 			this->cbDupeX->TabIndex = 1;
 			this->cbDupeX->Text = L"DupeX";
 			this->cbDupeX->UseVisualStyleBackColor = false;
+			this->cbDupeX->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbDupeX_CheckedChanged);
 			// 
 			// panel15
 			// 
@@ -5499,6 +5524,17 @@ namespace Timelapse {
 			this->tabPage16->TabIndex = 1;
 			this->tabPage16->Text = L"Send";
 			// 
+			// tvSendPackets
+			// 
+			this->tvSendPackets->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(25)), static_cast<System::Int32>(static_cast<System::Byte>(25)),
+				static_cast<System::Int32>(static_cast<System::Byte>(25)));
+			this->tvSendPackets->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->tvSendPackets->ForeColor = System::Drawing::Color::White;
+			this->tvSendPackets->Location = System::Drawing::Point(80, 6);
+			this->tvSendPackets->Name = L"tvSendPackets";
+			this->tvSendPackets->Size = System::Drawing::Size(304, 288);
+			this->tvSendPackets->TabIndex = 43;
+			// 
 			// label81
 			// 
 			this->label81->AutoSize = true;
@@ -5638,6 +5674,17 @@ namespace Timelapse {
 			this->tabPage15->TabIndex = 0;
 			this->tabPage15->Text = L"Recv";
 			// 
+			// tvRecvPackets
+			// 
+			this->tvRecvPackets->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(25)), static_cast<System::Int32>(static_cast<System::Byte>(25)),
+				static_cast<System::Int32>(static_cast<System::Byte>(25)));
+			this->tvRecvPackets->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->tvRecvPackets->ForeColor = System::Drawing::Color::White;
+			this->tvRecvPackets->Location = System::Drawing::Point(80, 6);
+			this->tvRecvPackets->Name = L"tvRecvPackets";
+			this->tvRecvPackets->Size = System::Drawing::Size(304, 288);
+			this->tvRecvPackets->TabIndex = 44;
+			// 
 			// bRecvRemove
 			// 
 			this->bRecvRemove->FlatAppearance->BorderColor = System::Drawing::Color::Gray;
@@ -5756,6 +5803,20 @@ namespace Timelapse {
 			this->tabPage19->TabIndex = 3;
 			this->tabPage19->Text = L"Defined Packets";
 			// 
+			// comboInUseSlot
+			// 
+			this->comboInUseSlot->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(35)), static_cast<System::Int32>(static_cast<System::Byte>(35)),
+				static_cast<System::Int32>(static_cast<System::Byte>(35)));
+			this->comboInUseSlot->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->comboInUseSlot->ForeColor = System::Drawing::Color::White;
+			this->comboInUseSlot->Location = System::Drawing::Point(90, 252);
+			this->comboInUseSlot->Name = L"comboInUseSlot";
+			this->comboInUseSlot->Size = System::Drawing::Size(44, 21);
+			this->comboInUseSlot->TabIndex = 28;
+			this->comboInUseSlot->Text = L"1";
+			this->comboInUseSlot->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			this->comboInUseSlot->TextChanged += gcnew System::EventHandler(this, &MainForm::comboInUseSlot_TextChanged);
+			// 
 			// lbInUseSlot
 			// 
 			this->lbInUseSlot->AutoSize = true;
@@ -5773,7 +5834,9 @@ namespace Timelapse {
 			this->comboToTown->ForeColor = System::Drawing::Color::White;
 			this->comboToTown->FormattingEnabled = true;
 			this->comboToTown->Items->AddRange(gcnew cli::array< System::Object^  >(8) {
-				L"Nearest", L"LithHarbor", L"Ellinia", L"Perion", L"Henesys", L"KerningCity", L"Sleepywood", L"DeadMine" });
+				L"Nearest", L"LithHarbor", L"Ellinia", L"Perion",
+					L"Henesys", L"KerningCity", L"Sleepywood", L"DeadMine"
+			});
 			this->comboToTown->Location = System::Drawing::Point(73, 225);
 			this->comboToTown->Name = L"comboToTown";
 			this->comboToTown->Size = System::Drawing::Size(62, 21);
@@ -6316,27 +6379,6 @@ namespace Timelapse {
 			this->AutoCCCSTimer->Interval = 250;
 			this->AutoCCCSTimer->Tick += gcnew System::EventHandler(this, &MainForm::AutoCCCSTimer_Tick);
 			// 
-			// tvSendPackets
-			// 
-			this->tvSendPackets->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(25)), static_cast<System::Int32>(static_cast<System::Byte>(25)),
-				static_cast<System::Int32>(static_cast<System::Byte>(25)));
-			this->tvSendPackets->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
-			this->tvSendPackets->ForeColor = System::Drawing::Color::White;
-			this->tvSendPackets->Location = System::Drawing::Point(80, 6);
-			this->tvSendPackets->Name = L"tvSendPackets";
-			this->tvSendPackets->Size = System::Drawing::Size(304, 288);
-			this->tvSendPackets->TabIndex = 43;
-			// 
-			// tvRecvPackets
-			// 
-			this->tvRecvPackets->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(25)), static_cast<System::Int32>(static_cast<System::Byte>(25)),
-				static_cast<System::Int32>(static_cast<System::Byte>(25)));
-			this->tvRecvPackets->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
-			this->tvRecvPackets->ForeColor = System::Drawing::Color::White;
-			this->tvRecvPackets->Location = System::Drawing::Point(80, 6);
-			this->tvRecvPackets->Name = L"tvRecvPackets";
-			this->tvRecvPackets->Size = System::Drawing::Size(304, 288);
-			this->tvRecvPackets->TabIndex = 44;
 			// tAutoAttack
 			// 
 			this->tAutoAttack->Tick += gcnew System::EventHandler(this, &MainForm::tAutoAttack_Tick);
@@ -6344,20 +6386,6 @@ namespace Timelapse {
 			// tAutoLoot
 			// 
 			this->tAutoLoot->Tick += gcnew System::EventHandler(this, &MainForm::tAutoLoot_Tick);
-			// 
-			// comboInUseSlot
-			// 
-			this->comboInUseSlot->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(35)), static_cast<System::Int32>(static_cast<System::Byte>(35)),
-				static_cast<System::Int32>(static_cast<System::Byte>(35)));
-			this->comboInUseSlot->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
-			this->comboInUseSlot->ForeColor = System::Drawing::Color::White;
-			this->comboInUseSlot->Location = System::Drawing::Point(90, 252);
-			this->comboInUseSlot->Name = L"comboInUseSlot";
-			this->comboInUseSlot->Size = System::Drawing::Size(44, 21);
-			this->comboInUseSlot->TabIndex = 28;
-			this->comboInUseSlot->Text = L"1";
-			this->comboInUseSlot->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
-			this->comboInUseSlot->TextChanged += gcnew System::EventHandler(this, &MainForm::comboInUseSlot_TextChanged);
 			// 
 			// MainForm
 			// 
@@ -6473,7 +6501,7 @@ namespace Timelapse {
 			this->panel30->ResumeLayout(false);
 			this->panel30->PerformLayout();
 			this->ResumeLayout(false);
-			this->PerformLayout();
+
 		}
 #pragma endregion
 	private: System::Void MainForm_Load(System::Object^  sender, System::EventArgs^  e);
@@ -6550,7 +6578,6 @@ namespace Timelapse {
 	private: System::Void tbWallVacY_KeyPress(System::Object^  sender, System::Windows::Forms::KeyPressEventArgs^  e);
 	private: System::Void tbWallVacRangeX_KeyPress(System::Object^  sender, System::Windows::Forms::KeyPressEventArgs^  e);
 	private: System::Void tbWallVacRangeY_KeyPress(System::Object^  sender, System::Windows::Forms::KeyPressEventArgs^  e);
-	private: System::Void tbDupeXMob_KeyPress(System::Object^  sender, System::Windows::Forms::KeyPressEventArgs^  e);
 	private: System::Void tbMMCX_KeyPress(System::Object^  sender, System::Windows::Forms::KeyPressEventArgs^  e);
 	private: System::Void tbMMCY_KeyPress(System::Object^  sender, System::Windows::Forms::KeyPressEventArgs^  e);
 	private: System::Void tbItemFilterID_KeyPress(System::Object^  sender, System::Windows::Forms::KeyPressEventArgs^  e);
@@ -6673,5 +6700,9 @@ namespace Timelapse {
 	private: System::Void tbAPLUK_TextChanged(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void cbAP_CheckedChanged(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void comboInUseSlot_TextChanged(System::Object^  sender, System::EventArgs^  e);
-	};
+	private: System::Void cbDupeX_CheckedChanged(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void tbDupeXFoothold_KeyPress(System::Object^  sender, System::Windows::Forms::KeyPressEventArgs^  e);
+	private: System::Void tbDupeXFoothold_TextChanged(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void bDupeXGetFoothold_Click(System::Object^  sender, System::EventArgs^  e);
+};
 };

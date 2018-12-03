@@ -1582,9 +1582,30 @@ dupeXRunFlag = 0;
 
  */
 
+void MainForm::cbDupeX_CheckedChanged(System::Object^  sender, System::EventArgs^  e) {
+	if (this->cbDupeX->Checked) {
+		tbDupeXFoothold->Enabled = false;
+		bDupeXGetFoothold->Enabled = false;
+		MessageBox::Show("Warning: Bans");
+		Jump(dupeXAddr, Assembly::DupeXHook, 1);
+	} 
+	else {
+		tbDupeXFoothold->Enabled = true;
+		bDupeXGetFoothold->Enabled = true;
+		WriteMemory(dupeXAddr, 6, 0x89, 0xBE, 0x14, 0x01, 0x00, 0x00);
+	}
+}
 
-void MainForm::tbDupeXMob_KeyPress(Object^  sender, Windows::Forms::KeyPressEventArgs^  e) {
-	if (!isKeyValid(sender, e, false)) e->Handled = true; //If key is not valid, do nothing and indicate that it has been handled
+void MainForm::bDupeXGetFoothold_Click(System::Object^  sender, System::EventArgs^  e) {
+	tbDupeXFoothold->Text = Convert::ToString(ReadMultiPointerSigned(UserLocalBase, 2, OFS_pID, OFS_Foothold)); 
+}
+
+void MainForm::tbDupeXFoothold_TextChanged(System::Object^  sender, System::EventArgs^  e) {
+	if (tbDupeXFoothold->Text != "") Assembly::dupeXFoothold = Convert::ToInt32(tbDupeXFoothold->Text); 
+}
+
+void MainForm::tbDupeXFoothold_KeyPress(System::Object^  sender, System::Windows::Forms::KeyPressEventArgs^  e) {
+	if (!isKeyValid(sender, e, true)) e->Handled = true; //If key is not valid, do nothing and indicate that it has been handled
 }
 #pragma endregion
 
@@ -2576,13 +2597,20 @@ static void mapRush(int destMapID) {
 		//Spawn in next map
 		SendPacket(packet);
 
-		//Check to see if next map is loaded, try max 20 attempts
 		for(int n = 0; n < 50; n++) {
+			Sleep(delay);
+			if (ReadPointer(UIMiniMapBase, OFS_MapID) != mapData->mapID) break;
+			SendPacket(packet);
+			if (n % 3 == 0) Teleport(mapData->portal->xPos, mapData->portal->yPos - 20);
+		}
+
+		//Check to see if next map is loaded, try max 20 attempts
+		/*for(int n = 0; n < 50; n++) {
 			Sleep(25);
 			if (ReadPointer(UIMiniMapBase, OFS_MapID) != mapData->mapID) break;
 			if (n % 5 == 0) SendPacket(packet);
 			if (n == 20) Teleport(mapData->portal->xPos, mapData->portal->yPos - 20);
-		}
+		}*/
 		
 		remainingMapCount--;
 		MainForm::TheInstance->lbMapRusherStatus->Text = "Status: Map Rushing, Remaining Maps: " + Convert::ToString(remainingMapCount);
