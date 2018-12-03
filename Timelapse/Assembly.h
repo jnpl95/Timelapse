@@ -2,6 +2,7 @@
 #include "Structs.h"
 #include "resource.h"
 #include "GeneralFunctions.h"
+#include "Packet.h"
 
 #define CodeCave(name) static void __declspec(naked) ##name() { _asm
 #define EndCodeCave } 
@@ -20,6 +21,7 @@ bool isMobLoggingEnabled = false, isMobFilterEnabled = false, isMobFilterWhiteLi
 ULONG itemLogged = 0, itemFilterMesos = 0, mobLogged = 0;
 static std::vector<ULONG> *itemList = new std::vector<ULONG>(), *mobList = new std::vector<ULONG>();
 static std::vector<SpawnControlData*> *spawnControl = new std::vector<SpawnControlData*>();
+SendPacketData *sendPacketData;
 
 //Find item name using item ID in the ItemsList resource
 static String^ findItemNameFromID(int itemID) {
@@ -114,27 +116,49 @@ inline bool __stdcall shouldMobBeFiltered() {
 	return false;
 }
 
+
+
+inline void __stdcall addSendPacket() {
+	COutPacket* packet = sendPacketData->packet;
+
+	String^ header = "";
+	writeUnsignedShort(header, *packet->Header);
+
+	String^ packetData = "";
+	BYTE* packetBytes = packet->Data;
+	int packetSize = packet->Size - 2;
+	for (int i = 0; i < packetSize; i++)
+		writeByte(packetData, packetBytes[i]);
+
+	Log::WriteLineToConsole("  " + header + " " + packetData);
+	//TODO: Add packet to queue, and flush queue to GUI after a certain interval (use timer) 
+
+	/*Windows::Forms::TreeNode^ packetNode = gcnew Windows::Forms::TreeNode(packetData);
+	packetNode->Name = packetData;*/
+
+	//Windows::Forms::TreeNode^ headerNode = gcnew Windows::Forms::TreeNode(header);
+	//headerNode->Name = header;
+	//Timelapse::MainForm::TheInstance->tvSendPackets->Nodes->Add(headerNode);
+
+	/*if(Timelapse::MainForm::TheInstance->tvSendPackets->Nodes->ContainsKey(header)) {
+		//Header exists in tree
+	}
+	else {
+		Windows::Forms::TreeNode^ headerNode = gcnew Windows::Forms::TreeNode(header);
+		headerNode->Name = header;
+		//headerNode->Nodes->Add(packetNode);
+		Timelapse::MainForm::TheInstance->tvSendPackets->BeginUpdate();
+		Timelapse::MainForm::TheInstance->tvSendPackets->Nodes->Add(headerNode); 
+		Timelapse::MainForm::TheInstance->tvSendPackets->EndUpdate();
+	}*/
+}
+
 #pragma unmanaged
 
-	/*BYTE level = 0x00;
-	__declspec(naked) static void __stdcall LevelHook() {
-		__asm {
-			mov [level], al
-			mov cl, al
-			call dword ptr [levelHookDecode]
-			jmp dword ptr [levelHookAddrRet]
-		}
-	}*/
-
-	/*SHORT job = -1;
-	__declspec(naked) static void __stdcall JobHook() {
-		__asm {
-			mov [job], ax
-			mov ecx, eax
-			call dword ptr [jobHookDecode]
-			jmp dword ptr [jobHookAddrRet]
-		}
-	}*/
+	/*CodeCave(AnimDelay) {
+		add eax, [animDelay]
+		jmp dword ptr[animDelayAddrRet]
+	} EndCodeCave*/
 
 	CodeCave(StatHook) {
 		push eax
@@ -155,25 +179,6 @@ inline bool __stdcall shouldMobBeFiltered() {
 		cmp ecx, ebx
 		jmp dword ptr[statHookAddrRet]
 	} EndCodeCave
-
-	/*
-	ULONG mesos = 0;
-	__declspec(naked) static void __stdcall MesosHook() {
-		__asm {
-			mov [mesos], eax
-			lea edx, [esi + 0xA5]
-			jmp dword ptr [mesosHookAddrRet]
-		}
-	}
-
-	__declspec(naked) static void __stdcall MesosChangeHook() {
-		__asm {
-			mov [mesos], eax
-			lea edx, [esi + 0xA5]
-			jmp dword ptr [mesosChangeHookAddrRet]
-		}
-	}
-	*/
 
 	CodeCave(MapNameHook) {
 		mov [mapNameAddr], ecx
@@ -344,7 +349,6 @@ inline bool __stdcall shouldMobBeFiltered() {
 		jmp [itemFilterAddrRet]
 	} EndCodeCave
 
-
 	CodeCave(MobFilter1Hook) {
 		push ebx
 		call [cInPacketDecode4Addr] //CInPacket::Decode4()
@@ -390,83 +394,12 @@ inline bool __stdcall shouldMobBeFiltered() {
 		pop ebx
 		jmp [mobFilter2AddrRet]
 	} EndCodeCave
+
+	CodeCave(SendPacketLogHook) {
+		mov dword ptr [sendPacketData], esp
+		pushad
+		call [addSendPacket]
+		popad
+		jmp [cOutPacketAddrRet]
+	} EndCodeCave
 }
-
-#pragma region testing
-/*
-//Start of testing stuff
-ULONG getStringValHookAddr = 0x0079E9A3;
-ULONG getStringRetValHookAddr = 0x0079EA58;
-char* maplestring;
-__declspec(naked) static void __stdcall GetStringHook() {
-	__asm {
-		mov[ebp + 0x0C], 0x2
-		push ecx
-		and dword ptr[ebp - 0x10], 0x00
-		jmp[getStringValHookAddr]
-	}
-} //Non working
-
-__declspec(naked) static void __stdcall GetStringRetValHook() {
-	__asm {
-		push ebx
-		mov ebx, [eax]
-		mov[maplestring], ebx
-		pop ebx
-		mov eax, edi
-		pop edi
-		pop esi
-		pop ebx
-		jmp[getStringRetValHookAddr]
-	}
-} //Working
-
-typedef char**(__stdcall* pfnStringPool__GetString)(PVOID, PVOID, char**, UINT, UINT);	//typedef ZXString<char>*(__stdcall* StringPool__GetString_t)(PVOID, PVOID, ZXString<char>*, UINT);
-auto StringPool__GetString = (pfnStringPool__GetString)0x0079E993;	//0x00406455;
-
-typedef char**(__stdcall *pfnCItemInfo__GetMapString)(PVOID, PVOID, char*, UINT, const char*);
-auto CItemInfo__GetMapString = (pfnCItemInfo__GetMapString)0x005CF792;
-
-//Test stuff out //https://pastebin.com/aULY72tG
-void Timelapse::MainForm::button1_Click(System::Object^  sender, System::EventArgs^  e) {
-
-
-	/*char result[300];
-	char* str = *CItemInfo__GetMapString(*(PVOID*)CItemInfo, NULL, result, 100000000, 0);
-	String^ test = Convert::ToString(str);
-	if (String::IsNullOrEmpty(test))
-		MessageBox::Show("Error! Empty string was returned");
-	else
-		MessageBox::Show(test); */
-
-
-		/*//Displays 0th string, but crashes shortly after. What I wanted was the 2nd maplestring
-		char** result;
-		char* str = *StringPool__GetString(*(PVOID*)StringPool, nullptr, (char**)result, 2, 0);
-		String^ test = gcnew String(str);
-
-		if (String::IsNullOrEmpty(test))
-			MessageBox::Show("Error! Empty string was returned");
-		else
-			MessageBox::Show(test);*/
-
-
-			//char result[256];
-			//Jump(0x0079E99E, GetStringHook, 0);
-			/*Jump(0x0079EA53, GetStringRetValHook, 0);
-			String^ test = gcnew String(maplestring);
-			if (String::IsNullOrEmpty(test))
-				MessageBox::Show("Error! Empty string was returned");
-			else
-				MessageBox::Show(test);
-}
-
-//CMobPool UML Diagram
-//V95 00C687B8+28]+4]+10C]+28]+60 = mob x || v83 00BEBFA4+28]4]120]24]60 = mob x
-//&v3->m_pvcHead.m_pInterface->vfptr;
-//vfptr[8].addRef
-//What I know: in v95, 00C687B8 is a CMobPool pointer, +28 = ZList<ZRef<CMob*>>, + 4 = ZList<ZRef<CMob*>>.pHead (CMob) + 10C = m_pvcHead
-//m_pvcHead.m_pInterface->vpptr is type IUnknown* (Microsoft's Component object model) 
-//that points to some class (maybe CVecCtrlMob) but the offsets 28 and 60 doesn't seem point to an offset in CVecCtrl or CVecCtrl mob that is the xy coordinates of a mob
-*/
-#pragma endregion

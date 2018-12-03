@@ -12,3 +12,4 @@ void writeBytes(String^ %packet, array<BYTE>^ bytes);
 void writeString(String^ %packet, String^ str);
 void writeInt(String^ %packet, int num);
 void writeShort(String^ %packet, short num);
+void writeUnsignedShort(String^ %packet, USHORT num);
