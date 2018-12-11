@@ -72,21 +72,22 @@ bool SendPacket(String^ packetStr)
 	SecureZeroMemory(&Packet, sizeof(COutPacket));
 	// Clean whitespace
 	String^ rawPacket = packetStr->Replace(" ", String::Empty);
+	
 	if (!IsValidRawPacket(rawPacket)) return false;
+
 	// Create random bytes for "*"
 	String^ processedPacket = rawPacket->Replace("*", (rand() % 16).ToString("X"));
+
 	// Temp buffer
-	BYTE tmpPacketStr[150];
+	BYTE tmpPacketBuf[150];
+
 	// 32-bit pointer to a constant null-terminated string of 8-bit Windows (ANSI) characters
 	const LPCSTR lpcszPacket = static_cast<LPCSTR>(Runtime::InteropServices::Marshal::StringToHGlobalAnsi(processedPacket).ToPointer());
-	// enforcing that packet size is a multiple of 2
+
 	Packet.Size = strlen(lpcszPacket) / 2;
-	if (Packet.Size % 2 == 1) {
-		Log::WriteLineToConsole("SendPacket::ERROR: Packet size is not a multiple of 2!");
-		return false;
-	}
+
 	// enforce only hex characters
-	Packet.Data = atohx(tmpPacketStr, lpcszPacket);
+	Packet.Data = atohx(tmpPacketBuf, lpcszPacket);
 
 	//try sending packet via Maplestory client packet hook
 	try {

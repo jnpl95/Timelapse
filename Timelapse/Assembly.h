@@ -403,23 +403,36 @@ inline void __stdcall addSendPacket() {
 	} EndCodeCave
 
 	CodeCave(DupeXHook) {
+		pushfd
 		push eax
 		push ecx
 		mov eax, [UserLocalBase]
 		mov eax, [eax]
+		test eax, eax
+		je NullPlatform
 		mov ecx, [OFS_pID]
 		mov eax, [eax + ecx]
 		lea ecx, [eax - 0x0c] //account id offset?
+		test ecx, ecx
+		je NullPlatform
 		mov eax, [ecx + 0x00000114] //kb offset?
+		test eax, eax
+		je NullPlatform
 		mov dword ptr[dupeXFoothold], eax
+		cmp esi, ecx
+		je Normal
 		mov edi, [dupeXFoothold]
+		jmp Normal
+
+		NullPlatform:
+		mov dword ptr [dupeXFoothold], 0x00
+		jmp Normal
+
+		Normal:
 		pop ecx
 		pop eax
+		popfd
 		mov[esi + 0x00000114], edi
 		jmp dword ptr[dupeXAddrRet]
-
-		//mov edi, [dupeXFoothold]
-		//mov[esi + 0x00000114], edi
-		//jmp dword ptr[dupeXAddrRet]
 	} EndCodeCave
 }

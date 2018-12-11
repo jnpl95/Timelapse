@@ -44,7 +44,7 @@ ref struct GlobalRefs {
 };
 
 #pragma region General Form
-[STAThreadAttribute]
+[STAThread]
 void Main() {
 	Application::EnableVisualStyles();
 	Application::SetCompatibleTextRenderingDefault(false);
@@ -227,9 +227,86 @@ void MainForm::hideMSWindowToolStripMenuItem_Click(System::Object^  sender, Syst
 	if (this->hideMSWindowToolStripMenuItem->Text == "Hide MS Window") {
 		this->hideMSWindowToolStripMenuItem->Text = "Show MS Window";
 		ShowWindow(GlobalVars::mapleWindow, SW_HIDE);
-	} else {
+	} 
+	else {
 		this->hideMSWindowToolStripMenuItem->Text = "Hide MS Window";
 		ShowWindow(GlobalVars::mapleWindow, SW_SHOW);
+	}
+}
+
+#include <tlhelp32.h>
+void DoSuspendThread()
+{
+	HANDLE h = CreateToolhelp32Snapshot(TH32CS_SNAPTHREAD, 0);
+	if (h != INVALID_HANDLE_VALUE)
+	{
+		THREADENTRY32 te;
+		te.dwSize = sizeof(te);
+		if (Thread32First(h, &te))
+		{
+			do
+			{
+				if (te.dwSize >= FIELD_OFFSET(THREADENTRY32, th32OwnerProcessID) + sizeof(te.th32OwnerProcessID))
+				{
+					// Suspend all threads EXCEPT the one we want to keep running
+					if (te.th32ThreadID != GetCurrentThreadId() && te.th32OwnerProcessID == GetCurrentProcessId())
+					{
+						HANDLE thread = ::OpenThread(THREAD_ALL_ACCESS, FALSE, te.th32ThreadID);
+						if (thread != NULL)
+						{
+							SuspendThread(thread);
+							CloseHandle(thread);
+						}
+					}
+				}
+				te.dwSize = sizeof(te);
+			} while (Thread32Next(h, &te));
+		}
+		CloseHandle(h);
+	}
+}
+
+void DoResumeThread()
+{
+	HANDLE h = CreateToolhelp32Snapshot(TH32CS_SNAPTHREAD, 0);
+	if (h != INVALID_HANDLE_VALUE)
+	{
+		THREADENTRY32 te;
+		te.dwSize = sizeof(te);
+		if (Thread32First(h, &te))
+		{
+			do
+			{
+				if (te.dwSize >= FIELD_OFFSET(THREADENTRY32, th32OwnerProcessID) + sizeof(te.th32OwnerProcessID))
+				{
+					// Suspend all threads EXCEPT the one we want to keep running
+					if (te.th32ThreadID != GetCurrentThreadId() && te.th32OwnerProcessID == GetCurrentProcessId())
+					{
+						HANDLE thread = ::OpenThread(THREAD_ALL_ACCESS, FALSE, te.th32ThreadID);
+						if (thread != NULL)
+						{
+							ResumeThread(thread);
+							CloseHandle(thread);
+						}
+					}
+				}
+				te.dwSize = sizeof(te);
+			} while (Thread32Next(h, &te));
+		}
+		CloseHandle(h);
+	}
+}
+
+void MainForm::pauseMSToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
+	Diagnostics::ProcessThreadCollection^ threads = Diagnostics::Process::GetCurrentProcess()->Threads;
+
+	if (this->pauseMSToolStripMenuItem->Text == "Pause MS") {
+		this->pauseMSToolStripMenuItem->Text = "Resume MS";
+		DoSuspendThread();
+	} 
+	else {
+		this->pauseMSToolStripMenuItem->Text = "Pause MS";
+		DoResumeThread();
 	}
 }
 #pragma endregion
@@ -337,39 +414,105 @@ void MainForm::lbConsoleLog_KeyDown(System::Object^  sender, System::Windows::Fo
 
 #pragma region Auto Login
 
-//Very crude auto login, just testing to see if it works. DC's on sending character packet 
+//TODO: Get Real Mac Address
+String^ GetMac(bool generateFake) {
+	String^ macAddress = "";
+
+	if(generateFake) {
+		for(int i = 0; i < 12; i++) {
+			if (i != 0 && i % 2 == 0)
+				macAddress += "-";
+			macAddress += IntToHex(rand() % 16);
+		}
+	}
+
+	return macAddress;
+}
+
+//TODO: Get Real HWID (CLogin::GetLocalMacAddressWithHDDSerialNo())
+String^ GetHWID(bool generateFake, String^ mac) {
+	String^ hwid = "";
+
+	if(generateFake) {
+		mac = mac->Replace("-", "");
+		hwid += mac;
+		hwid += "_";
+		for (int i = 0; i < 8; i++)
+			hwid += IntToHex(rand() % 16);
+	}
+
+	return hwid; 
+}
+
+
+void SendLoginPacket(String^ username, String^ password) {
+	String^ packet = "";
+	writeBytes(packet, gcnew array<BYTE>{0x01, 0x00}); //Login OpCode
+	writeString(packet, username); //Username
+	writeString(packet, password); //Password
+	writeBytes(packet, gcnew array<BYTE>{0x00, 0x00, 0x00, 0x00, 0x00, 0x00}); //Unknown bytes
+	writeBytes(packet, gcnew array<BYTE>{0x00, 0x00, 0x00, 0x00}); //Account id? setting to 0 for now
+	//rest of packet unused for now
+	SendPacket(packet);
+}
+
+void SendCharListRequestPacket(int world, int channel) {
+	String^ packet = "";
+	writeBytes(packet, gcnew array<BYTE>{0x05, 0x00}); //Character List Request OpCode
+	writeByte(packet, 0x02); //Unknown byte
+	writeByte(packet, world); //World
+	writeByte(packet, channel); //Channel
+	writeBytes(packet, gcnew array<BYTE>{0x7F, 0x00, 0x00, 0x01}); //Unknown bytes
+	SendPacket(packet);
+}
+
+void SendSelectCharPacket(int character, bool existsPIC) {
+	String^ packet = "";
+	String^ macAddress = GetMac(true);
+
+	if(existsPIC) {
+		String^ PIC = MainForm::TheInstance->tbAutoLoginPIC->Text;
+
+		writeBytes(packet, gcnew array<BYTE>{0x1E, 0x00}); //Character Select (With PIC) OpCode
+		writeString(packet, PIC); //PIC
+		writeInt(packet, character); //Character Number (starts with 1)
+		writeString(packet, macAddress); //Mac Address
+		writeString(packet, GetHWID(true, macAddress)); //HWID
+		SendPacket(packet);
+	}
+	else {
+		writeBytes(packet, gcnew array<BYTE>{0x13, 0x00}); //Character Select (Without PIC) OpCode
+		writeInt(packet, character); //Character Number (starts with 1)
+		writeString(packet, macAddress); //Mac Address
+		writeString(packet, GetHWID(true, macAddress)); //HWID
+		SendPacket(packet);
+	}
+}
+
+//Only works for HeavenMS as of now, maybe on other private servers that doesn't check the validity of the fake hwid/mac address in the packets
 void AutoLogin() {
 	if (*(BYTE*)(*(ULONG*)LoginBase + OFS_LoginScreen) == 255) {
 		MainForm::TheInstance->bTestButton->Text = "Logging in";
 		String^ usernameStr = MainForm::TheInstance->tbAutoLoginUsername->Text;
 		String^ passwordStr = MainForm::TheInstance->tbAutoLoginPassword->Text;
-		System::Text::StringBuilder usernameOutput, passwordOutput;
+		/*System::Text::StringBuilder usernameOutput, passwordOutput;
 		for each (System::Byte b in usernameStr) usernameOutput.AppendFormat("{0:X} ", b);
 		for each (System::Byte b in passwordStr) passwordOutput.AppendFormat("{0:X} ", b);
 		String^ usernameString = usernameOutput.ToString();
 		String^ passwordString = passwordOutput.ToString();
 		System::String^ loginPacket = "01 00 07 00" + usernameString + "08 00" + passwordString + "00 00 00 00 00 00 B4 43 8D 48 00 00 00 00 13 92 00 00 00 00 02 00 00 00 00 00 00";
-
-		SendPacket(loginPacket);
+		*/
+		SendLoginPacket(usernameStr, passwordStr);
 		Sleep(2000);
 
-		SendPacket("06 00 00 00"); //Select 1st world
+		int world = MainForm::TheInstance->comboAutoLoginWorld->SelectedIndex;//Convert::ToInt32(MainForm::TheInstance->comboAutoLoginWorld->Text->Trim({' '}));
+		int channel = MainForm::TheInstance->comboAutoLoginChannel->SelectedIndex; //Convert::ToInt32(MainForm::TheInstance->comboAutoLoginChannel->Text->Trim({' '}));
+		SendCharListRequestPacket(world, channel);
 		Sleep(2000);
 
-		int channel = 4;
-		//if (MainForm::TheInstance->comboAutoLoginChannel->Text->Equals("Random")) channel = rand() % 20;
-		//else channel = int::Parse(MainForm::TheInstance->comboAutoLoginChannel->Text) - 1;
-		//select channel
-		SendPacket("05 00 02 00" + channel.ToString("X2") + "7F 00 00 01"); 
-		Sleep(2000);
-
-		//Char Select Without PIC (Header 0013)
-		//WHY OH WHY DOESN'T THIS WORK??? -_- 
-		int character = 0; //int::Parse(MainForm::TheInstance->comboAutoLoginCharacter->Text) - 1; //" + gcnew String(intToHexL(character, 2, false).c_str()) + "
-		SendPacket("13 00" + channel.ToString("X2") + "00 00 00 11 00 41 34 2D 33 34 2D 44 39 2D 34 38 2D 39 44 2D 46 36 15 00 35 30 37 42 39 44 35 46 31 38 37 34 5F 42 34 34 33 38 44 34 38");
-
-		//Char Select With PIC (Header 001E), pic as "111111" in below packet
-		//"1E 00" + channel.ToString("X2") + "00 31 31 31 31 31 31 70 26 09 00 11 00 41 34 2D 33 34 2D 44 39 2D 34 38 2D 39 44 2D 46 36 15 00 35 30 37 42 39 44 35 46 31 38 37 34 5F 42 34 34 33 38 44 34 38"
+		int character = MainForm::TheInstance->comboAutoLoginCharacter->SelectedIndex + 1;//Convert::ToInt32(MainForm::TheInstance->comboAutoLoginCharacter->Text->Trim({' '}));
+		bool existsPIC = MainForm::TheInstance->cbAutoLoginPic->Checked;
+		SendSelectCharPacket(character, existsPIC);
 	}
 }
 
@@ -380,6 +523,11 @@ void MainForm::cbAutoLoginSkipLogo_CheckedChanged(System::Object^  sender, Syste
 		WriteMemory(logoSkipAddr, 1, 0x75); //jne 0062F2EB [first byte]
 	else
 		WriteMemory(logoSkipAddr, 1, 0x74); //je 0062F2EB [first byte]
+}
+
+void MainForm::cbAutoLogin_CheckedChanged(System::Object^  sender, System::EventArgs^  e) {
+	if (this->cbAutoLogin->Checked)
+		AutoLogin();
 }
 
 /*ULONG LoginBase = 0xBEDED4;
@@ -2695,10 +2843,18 @@ void MainForm::lbMapRusherStatus_TextChanged(System::Object^  sender, System::Ev
 //Remove at the end, but for now use it to test stuff out (test button on main form)
 #pragma region testing
 
-
+//typedef int(__stdcall *pfnCLogin__GetLocalMacAddressWithSerialNo)(void*);
+//auto CLogin__GetLocalMacAddressWithSerialNo = (pfnCLogin__GetLocalMacAddressWithSerialNo)0x005FCDED;
 
 void Timelapse::MainForm::bTestButton_Click(System::Object^  sender, System::EventArgs^  e) {
-	
+	/*void** result;
+	CLogin__GetLocalMacAddressWithSerialNo(result);
+	String^ test = gcnew String((char*)result); 
+	if (String::IsNullOrEmpty(test))
+		MessageBox::Show("Error! Empty string was returned");
+	else
+		MessageBox::Show(test);
+		*/
 
 	/*char result[300];
 	char* str = *CItemInfo__GetMapString(*(PVOID*)CItemInfo, NULL, result, 100000000, 0);

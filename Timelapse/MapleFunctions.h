@@ -251,7 +251,7 @@ namespace PointerFuncs {
 
 	//Retrieve Char Foothold
 	static String^ getCharFoothold() {
-		return ReadPointerSignedInt(UserLocalBase, OFS_Foothold).ToString();
+		return ReadMultiPointerSigned(UserLocalBase, OFS_pID, OFS_Foothold).ToString();
 	}
 
 	//Retrieve Attack Count

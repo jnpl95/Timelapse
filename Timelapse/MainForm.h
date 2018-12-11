@@ -89,7 +89,9 @@ namespace Timelapse {
 	private: System::Windows::Forms::Label^  lbLevel;
 	private: System::Windows::Forms::Label^  lbCharName;
 	private: System::Windows::Forms::Timer^  GUITimer;
-	private: System::Windows::Forms::Label^  lbMapName;
+	public: System::Windows::Forms::Label^  lbMapName;
+	private:
+
 	private: System::Windows::Forms::TabControl^  tabControl1;
 	private: System::Windows::Forms::TabPage^  tabPage1;
 	private: System::Windows::Forms::PictureBox^  pictureBox1;
@@ -123,7 +125,9 @@ namespace Timelapse {
 	private: System::Windows::Forms::CheckBox^  cbMouseTeleport;
 	private: System::Windows::Forms::CheckBox^  cbFullGodmode;
 	private: System::Windows::Forms::Panel^  panel16;
-private: System::Windows::Forms::TextBox^  tbDupeXFoothold;
+public: System::Windows::Forms::TextBox^  tbDupeXFoothold;
+private:
+
 
 	private: System::Windows::Forms::Label^  label60;
 private: System::Windows::Forms::Button^  bDupeXGetFoothold;
@@ -228,7 +232,11 @@ private: System::Windows::Forms::Button^  bDupeXGetFoothold;
 	private: System::Windows::Forms::Label^  label84;
 	private: System::Windows::Forms::Label^  label85;
 	private: System::Windows::Forms::Panel^  panel22;
-	private: System::Windows::Forms::CheckBox^  cbAutoLoginNoPic;
+public: System::Windows::Forms::CheckBox^  cbAutoLoginPic;
+private:
+
+private:
+
 	public: System::Windows::Forms::CheckBox^  cbAutoLoginSkipLogo;
 	private: System::Windows::Forms::CheckBox^  cbAutoLogin;
 	private: System::Windows::Forms::TabPage^  tabPage18;
@@ -448,6 +456,13 @@ private: System::Windows::Forms::Button^  bDupeXGetFoothold;
 	private: System::Windows::Forms::Label^  label93;
 	private: System::Windows::Forms::Label^  label91;
 	private: System::Windows::Forms::TextBox^  comboInUseSlot;
+private: System::Windows::Forms::ToolStripMenuItem^  pauseMSToolStripMenuItem;
+public: System::Windows::Forms::ComboBox^  comboAutoLoginWorld;
+private:
+
+private:
+private: System::Windows::Forms::Label^  label95;
+public:
 	private: System::ComponentModel::IContainer^  components;
 #pragma region Windows Form Designer generated code
 		/// <summary>
@@ -465,6 +480,7 @@ private: System::Windows::Forms::Button^  bDupeXGetFoothold;
 			this->mapleStoryToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->embedMSWindowToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->hideMSWindowToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->pauseMSToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->injectDllToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->helpToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->aboutToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
@@ -536,7 +552,9 @@ private: System::Windows::Forms::Button^  bDupeXGetFoothold;
 			this->lbConsoleLog = (gcnew System::Windows::Forms::ListBox());
 			this->tabPage17 = (gcnew System::Windows::Forms::TabPage());
 			this->panel22 = (gcnew System::Windows::Forms::Panel());
-			this->cbAutoLoginNoPic = (gcnew System::Windows::Forms::CheckBox());
+			this->comboAutoLoginWorld = (gcnew System::Windows::Forms::ComboBox());
+			this->label95 = (gcnew System::Windows::Forms::Label());
+			this->cbAutoLoginPic = (gcnew System::Windows::Forms::CheckBox());
 			this->label82 = (gcnew System::Windows::Forms::Label());
 			this->comboAutoLoginCharacter = (gcnew System::Windows::Forms::ComboBox());
 			this->label85 = (gcnew System::Windows::Forms::Label());
@@ -993,9 +1011,9 @@ private: System::Windows::Forms::Button^  bDupeXGetFoothold;
 			// 
 			this->mapleStoryToolStripMenuItem->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(16)),
 				static_cast<System::Int32>(static_cast<System::Byte>(16)), static_cast<System::Int32>(static_cast<System::Byte>(16)));
-			this->mapleStoryToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(3) {
+			this->mapleStoryToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(4) {
 				this->embedMSWindowToolStripMenuItem,
-					this->hideMSWindowToolStripMenuItem, this->injectDllToolStripMenuItem
+					this->hideMSWindowToolStripMenuItem, this->pauseMSToolStripMenuItem, this->injectDllToolStripMenuItem
 			});
 			this->mapleStoryToolStripMenuItem->Name = L"mapleStoryToolStripMenuItem";
 			this->mapleStoryToolStripMenuItem->Size = System::Drawing::Size(79, 20);
@@ -1020,6 +1038,16 @@ private: System::Windows::Forms::Button^  bDupeXGetFoothold;
 			this->hideMSWindowToolStripMenuItem->Size = System::Drawing::Size(178, 22);
 			this->hideMSWindowToolStripMenuItem->Text = L"Hide MS Window";
 			this->hideMSWindowToolStripMenuItem->Click += gcnew System::EventHandler(this, &MainForm::hideMSWindowToolStripMenuItem_Click);
+			// 
+			// pauseMSToolStripMenuItem
+			// 
+			this->pauseMSToolStripMenuItem->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(19)),
+				static_cast<System::Int32>(static_cast<System::Byte>(19)), static_cast<System::Int32>(static_cast<System::Byte>(19)));
+			this->pauseMSToolStripMenuItem->ForeColor = System::Drawing::Color::White;
+			this->pauseMSToolStripMenuItem->Name = L"pauseMSToolStripMenuItem";
+			this->pauseMSToolStripMenuItem->Size = System::Drawing::Size(178, 22);
+			this->pauseMSToolStripMenuItem->Text = L"Pause MS";
+			this->pauseMSToolStripMenuItem->Click += gcnew System::EventHandler(this, &MainForm::pauseMSToolStripMenuItem_Click);
 			// 
 			// injectDllToolStripMenuItem
 			// 
@@ -2026,7 +2054,9 @@ private: System::Windows::Forms::Button^  bDupeXGetFoothold;
 			// panel22
 			// 
 			this->panel22->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
-			this->panel22->Controls->Add(this->cbAutoLoginNoPic);
+			this->panel22->Controls->Add(this->comboAutoLoginWorld);
+			this->panel22->Controls->Add(this->label95);
+			this->panel22->Controls->Add(this->cbAutoLoginPic);
 			this->panel22->Controls->Add(this->label82);
 			this->panel22->Controls->Add(this->comboAutoLoginCharacter);
 			this->panel22->Controls->Add(this->label85);
@@ -2039,21 +2069,49 @@ private: System::Windows::Forms::Button^  bDupeXGetFoothold;
 			this->panel22->Controls->Add(this->tbAutoLoginUsername);
 			this->panel22->Location = System::Drawing::Point(18, 16);
 			this->panel22->Name = L"panel22";
-			this->panel22->Size = System::Drawing::Size(221, 170);
+			this->panel22->Size = System::Drawing::Size(221, 193);
 			this->panel22->TabIndex = 26;
 			// 
-			// cbAutoLoginNoPic
+			// comboAutoLoginWorld
 			// 
-			this->cbAutoLoginNoPic->AutoSize = true;
-			this->cbAutoLoginNoPic->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
-			this->cbAutoLoginNoPic->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->cbAutoLoginNoPic->ForeColor = System::Drawing::Color::White;
-			this->cbAutoLoginNoPic->Location = System::Drawing::Point(151, 74);
-			this->cbAutoLoginNoPic->Name = L"cbAutoLoginNoPic";
-			this->cbAutoLoginNoPic->Size = System::Drawing::Size(56, 17);
-			this->cbAutoLoginNoPic->TabIndex = 29;
-			this->cbAutoLoginNoPic->Text = L"No PIC";
-			this->cbAutoLoginNoPic->UseVisualStyleBackColor = false;
+			this->comboAutoLoginWorld->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(35)),
+				static_cast<System::Int32>(static_cast<System::Byte>(35)), static_cast<System::Int32>(static_cast<System::Byte>(35)));
+			this->comboAutoLoginWorld->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->comboAutoLoginWorld->ForeColor = System::Drawing::Color::White;
+			this->comboAutoLoginWorld->FormattingEnabled = true;
+			this->comboAutoLoginWorld->Items->AddRange(gcnew cli::array< System::Object^  >(17) {
+				L" Scania", L" Bera", L" Broa", L" Windia",
+					L" Khaini", L" Bellocan", L" Mardia", L" Kradia", L" Yellonde", L" Demethos", L" Galicia", L" El Nido", L" Zenith", L" Arcania",
+					L" Chaos", L" Nova", L" Regenades"
+			});
+			this->comboAutoLoginWorld->Location = System::Drawing::Point(69, 99);
+			this->comboAutoLoginWorld->Name = L"comboAutoLoginWorld";
+			this->comboAutoLoginWorld->RightToLeft = System::Windows::Forms::RightToLeft::No;
+			this->comboAutoLoginWorld->Size = System::Drawing::Size(133, 21);
+			this->comboAutoLoginWorld->TabIndex = 31;
+			this->comboAutoLoginWorld->Text = L" Scania";
+			// 
+			// label95
+			// 
+			this->label95->AutoSize = true;
+			this->label95->Location = System::Drawing::Point(28, 103);
+			this->label95->Name = L"label95";
+			this->label95->Size = System::Drawing::Size(39, 13);
+			this->label95->TabIndex = 30;
+			this->label95->Text = L"World:";
+			// 
+			// cbAutoLoginPic
+			// 
+			this->cbAutoLoginPic->AutoSize = true;
+			this->cbAutoLoginPic->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
+			this->cbAutoLoginPic->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->cbAutoLoginPic->ForeColor = System::Drawing::Color::White;
+			this->cbAutoLoginPic->Location = System::Drawing::Point(166, 74);
+			this->cbAutoLoginPic->Name = L"cbAutoLoginPic";
+			this->cbAutoLoginPic->Size = System::Drawing::Size(40, 17);
+			this->cbAutoLoginPic->TabIndex = 29;
+			this->cbAutoLoginPic->Text = L"PIC";
+			this->cbAutoLoginPic->UseVisualStyleBackColor = false;
 			// 
 			// label82
 			// 
@@ -2072,10 +2130,10 @@ private: System::Windows::Forms::Button^  bDupeXGetFoothold;
 			this->comboAutoLoginCharacter->ForeColor = System::Drawing::Color::White;
 			this->comboAutoLoginCharacter->FormattingEnabled = true;
 			this->comboAutoLoginCharacter->Items->AddRange(gcnew cli::array< System::Object^  >(15) {
-				L"1", L"2", L"3", L"4", L"5", L"6",
-					L"7", L"8", L"9", L"10", L"11", L"12", L"13", L"14", L"15"
+				L" 1", L" 2", L" 3", L" 4", L" 5",
+					L" 6", L" 7", L" 8", L" 9", L" 10", L" 11", L" 12", L" 13", L" 14", L" 15"
 			});
-			this->comboAutoLoginCharacter->Location = System::Drawing::Point(69, 125);
+			this->comboAutoLoginCharacter->Location = System::Drawing::Point(69, 151);
 			this->comboAutoLoginCharacter->Name = L"comboAutoLoginCharacter";
 			this->comboAutoLoginCharacter->RightToLeft = System::Windows::Forms::RightToLeft::No;
 			this->comboAutoLoginCharacter->Size = System::Drawing::Size(133, 21);
@@ -2094,7 +2152,7 @@ private: System::Windows::Forms::Button^  bDupeXGetFoothold;
 			// label80
 			// 
 			this->label80->AutoSize = true;
-			this->label80->Location = System::Drawing::Point(9, 129);
+			this->label80->Location = System::Drawing::Point(9, 155);
 			this->label80->Name = L"label80";
 			this->label80->Size = System::Drawing::Size(59, 13);
 			this->label80->TabIndex = 20;
@@ -2107,16 +2165,16 @@ private: System::Windows::Forms::Button^  bDupeXGetFoothold;
 			this->comboAutoLoginChannel->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->comboAutoLoginChannel->ForeColor = System::Drawing::Color::White;
 			this->comboAutoLoginChannel->FormattingEnabled = true;
-			this->comboAutoLoginChannel->Items->AddRange(gcnew cli::array< System::Object^  >(21) {
-				L"Random", L"1", L"2", L"3", L"4",
-					L"5", L"6", L"7", L"8", L"9", L"10", L"11", L"12", L"13", L"14", L"15", L"16", L"17", L"18", L"19", L"20"
+			this->comboAutoLoginChannel->Items->AddRange(gcnew cli::array< System::Object^  >(20) {
+				L" 1", L" 2", L" 3", L" 4", L" 5",
+					L" 6", L" 7", L" 8", L" 9", L" 10", L" 11", L" 12", L" 13", L" 14", L" 15", L" 16", L" 17", L" 18", L" 19", L" 20"
 			});
-			this->comboAutoLoginChannel->Location = System::Drawing::Point(69, 99);
+			this->comboAutoLoginChannel->Location = System::Drawing::Point(69, 125);
 			this->comboAutoLoginChannel->Name = L"comboAutoLoginChannel";
 			this->comboAutoLoginChannel->RightToLeft = System::Windows::Forms::RightToLeft::No;
 			this->comboAutoLoginChannel->Size = System::Drawing::Size(133, 21);
 			this->comboAutoLoginChannel->TabIndex = 24;
-			this->comboAutoLoginChannel->Text = L" Random";
+			this->comboAutoLoginChannel->Text = L" 1";
 			// 
 			// label84
 			// 
@@ -2135,14 +2193,14 @@ private: System::Windows::Forms::Button^  bDupeXGetFoothold;
 			this->tbAutoLoginPIC->ForeColor = System::Drawing::Color::White;
 			this->tbAutoLoginPIC->Location = System::Drawing::Point(69, 72);
 			this->tbAutoLoginPIC->Name = L"tbAutoLoginPIC";
-			this->tbAutoLoginPIC->Size = System::Drawing::Size(76, 21);
+			this->tbAutoLoginPIC->Size = System::Drawing::Size(88, 21);
 			this->tbAutoLoginPIC->TabIndex = 23;
 			this->tbAutoLoginPIC->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
 			// 
 			// label83
 			// 
 			this->label83->AutoSize = true;
-			this->label83->Location = System::Drawing::Point(17, 103);
+			this->label83->Location = System::Drawing::Point(17, 129);
 			this->label83->Name = L"label83";
 			this->label83->Size = System::Drawing::Size(50, 13);
 			this->label83->TabIndex = 16;
@@ -2156,6 +2214,7 @@ private: System::Windows::Forms::Button^  bDupeXGetFoothold;
 			this->tbAutoLoginPassword->ForeColor = System::Drawing::Color::White;
 			this->tbAutoLoginPassword->Location = System::Drawing::Point(69, 45);
 			this->tbAutoLoginPassword->Name = L"tbAutoLoginPassword";
+			this->tbAutoLoginPassword->PasswordChar = '*';
 			this->tbAutoLoginPassword->Size = System::Drawing::Size(133, 21);
 			this->tbAutoLoginPassword->TabIndex = 22;
 			this->tbAutoLoginPassword->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
@@ -2200,6 +2259,7 @@ private: System::Windows::Forms::Button^  bDupeXGetFoothold;
 			this->cbAutoLogin->TabIndex = 27;
 			this->cbAutoLogin->Text = L"Auto Login";
 			this->cbAutoLogin->UseVisualStyleBackColor = false;
+			this->cbAutoLogin->CheckedChanged += gcnew System::EventHandler(this, &MainForm::cbAutoLogin_CheckedChanged);
 			// 
 			// tabPage4
 			// 
@@ -6704,5 +6764,7 @@ private: System::Windows::Forms::Button^  bDupeXGetFoothold;
 	private: System::Void tbDupeXFoothold_KeyPress(System::Object^  sender, System::Windows::Forms::KeyPressEventArgs^  e);
 	private: System::Void tbDupeXFoothold_TextChanged(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void bDupeXGetFoothold_Click(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void pauseMSToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void cbAutoLogin_CheckedChanged(System::Object^  sender, System::EventArgs^  e);
 };
 };

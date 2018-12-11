@@ -51,12 +51,12 @@ static char* AsciiToHex(char *szDestination, const char *szSource) {
 //TODO: If these funcs are not needed, delete later
 inline String^ CharToHex(char c) {
 	char a[100];
-	sprintf_s(a, "%x", c);
+	sprintf_s(a, "%X", c);
 	return gcnew String(a);
 }
 
 inline String^ IntToHex(int c) {
 	char a[100];
-	sprintf_s(a, "%x", c);
+	sprintf_s(a, "%X", c);
 	return gcnew String(a);
 }
