@@ -8,11 +8,11 @@
  *  These addresses are all virtual addresses defined in MapleStory.exe's virtual address space
  */
 
-#pragma region Hack Adresses
-// MAIN TAB REGION
+#pragma region Hack Addresses
+//Main Tab
 ULONG logoSkipAddr = 0x0062F2D6;
 
-// HACK TAB REGION 
+//Hacks Tabs
 ULONG fullGodmodeAddr = 0x009581D5;
 ULONG missGodmodeAddr = 0x009582E9;
 ULONG blinkGodmodeAddr = 0x00932501;
@@ -46,7 +46,7 @@ ULONG infiniteChatboxAddr2 = 0x004CAA84;
 ULONG noBlueBoxesAddr = 0x009929DD;
 ULONG walkingFrictionAddr = 0x009B4365; // je -> jne
 
-// VAC TAB REGION
+//Vac Tabs
 ULONG fullMapAttackAddr = 0x006785CA;
 ULONG zzVacAddr1 = 0x009B17A0; 
 ULONG zzVacAddr2 = 0x009B17B0;
@@ -61,7 +61,7 @@ ULONG fangorVacAddr1 = 0x009B2B98; // fld(0) -> fld(1) //vac into left wall
 ULONG fangorVacAddr2 = 0x009B43BE; // fld(0) -> fld(1) //vac into top left corner		
 ULONG pVacAddr = 0x009B1E43; // codecave
 
-// NOT YET IMPLEMENTED?
+//Unimplemented Hacks
 ULONG multiClientAddr = 0x00949BC7; // jne -> jmp
 ULONG lagHackAddr = 0x009B16F2; // je -> jne
 ULONG accuracyHackAddr1 = 0x00424D22; // codecave
@@ -104,18 +104,8 @@ ULONG mapGlideAddr = 0x009B2BE8; // jna 009B2C11 jna->jae monsters/players glide
 #pragma endregion
 
 #pragma region CodeCave Addresses
-/*ULONG levelHookAddr = 0x004E2B28; //Inside GW_CharacterStat::Decode()
-ULONG levelHookDecode = 0x004E807A; //Start of _ZtrlSecureTear<unsigned char>
-ULONG levelHookAddrRet = levelHookAddr + 7;
-ULONG jobHookAddr = 0x004E2B3E; //Inside GW_CharacterStat::Decode()
-ULONG jobHookDecode = 0x004E80EB; //Inside _ZtlSecureTear<short>
-ULONG jobHookAddrRet = jobHookAddr + 7;*/
 ULONG statHookAddr = 0x008D8581; //Inside CUIStatusBar::SetNumberValue
 ULONG statHookAddrRet = statHookAddr + 5;
-/*ULONG mesosHookAddr = 0x004E2D01; //Inside GW_CharacterStat::DecodeMoney()
-ULONG mesosHookAddrRet = mesosHookAddr + 6;
-ULONG mesosChangeHookAddr = 0x004E31FB; //Inside GW_CharacterStat::DecodeChangeStat()
-ULONG mesosChangeHookAddrRet = mesosChangeHookAddr + 6;*/
 ULONG mapNameHookAddr = 0x005CFA48; //Inside CItemInfo::GetMapString()
 ULONG mapNameHookAddrRet = mapNameHookAddr + 6;
 ULONG itemVacAddr = 0x005047AA; //Inside CDropPool::TryPickUpDrop()
@@ -147,25 +137,22 @@ ULONG dupeXAddrRet = dupeXAddr + 6;
 #pragma endregion
 
 #pragma region MapleStory Function Hook Addresses
-// Addresses
+//Hook Addresses
 ULONG enterCSAddr = 0x00A04DCA;
 ULONG exitCSAddr = 0x0047C108;
 ULONG ccAddr = 0x005304AF;
-ULONG charLVLAddr = 0x004A8DE0; // TODO: Fix address
 ULONG jobNameAddr = 0x004A77EF;
 ULONG charDataAddr = 0x00425D0B;
-// Hooks
+ULONG userlocalUpdateAddr = 0x0094A144;
+ULONG cloginOnRecommendWorldAddr = 0x005F8340;
+ULONG cloginSendLoginPacketAddr = 0x005F6D6A;
+
+//Hooks
 typedef void(__stdcall *pfnCWvsContext__SendMigrateToShopRequest)(PVOID, PVOID, int); // Enters Cash Shop
 auto CWvsContext__SendMigrateToShopRequest = reinterpret_cast<pfnCWvsContext__SendMigrateToShopRequest>(enterCSAddr);
 
 typedef void(__stdcall *pfnCCashShop__SendTransferFieldPacket)(); // Exits Cash Shop
 auto CCashShop__SendTransferFieldPacket = reinterpret_cast<pfnCCashShop__SendTransferFieldPacket>(exitCSAddr);
-
-typedef int(__stdcall *pfnCField__SendTransferChannelRequest)(int nTargetChannel); // Changes Channel
-auto CField__SendTransferChannelRequest = reinterpret_cast<pfnCField__SendTransferChannelRequest>(ccAddr);
-
-typedef int(__stdcall *pfnCWvsContext__GetCharacterLevel)(ULONG, PVOID); // Retrieves Character Level
-auto CWvsContext__GetCharacterLevel = reinterpret_cast<pfnCWvsContext__GetCharacterLevel>(charLVLAddr);
 
 typedef char*(__cdecl *pfnGet_Job_Name)(int); // Retrieves Job name
 auto GetJobName = reinterpret_cast<pfnGet_Job_Name>(jobNameAddr);
@@ -178,7 +165,7 @@ auto CWvsContext__GetCharacterData = reinterpret_cast<pfnCWvsContext__GetCharact
 //void **ms_pInstance_StringPool = (void **)0x01C1C200; pointer that gets all Strings in StringPool
 #pragma endregion
 
-#pragma region Pointers Addresses & Offsets
+#pragma region Pointer Addresses & Offsets
 ULONG PtInRectAddr = 0xBF0484;
 
 ULONG LoginBase = 0xBEDED4; //CLogin

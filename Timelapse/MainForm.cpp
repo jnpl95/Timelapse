@@ -8,26 +8,16 @@
 #include "Structs.h"
 #include "Settings.h"
 #include "Log.h"
-#include "Assembly.h"
+#include "Hooks.h"
+
+[assembly:System::Diagnostics::DebuggableAttribute(true, true)]; //For debugging purposes
 
 using namespace Timelapse;
-
-static void SendKey(BYTE keyCode) {
-	PostMessage(GlobalVars::mapleWindow, WM_KEYDOWN, keyCode, MapVirtualKey(keyCode, MAPVK_VK_TO_VSC) << 16);
-}
-
-//Get MS ThreadID
-static ULONG GetMSThreadID() {
-	if (GlobalVars::mapleWindow == nullptr)
-		GlobalVars::mapleWindow = GetMSWindowHandle();
-	return GetWindowThreadProcessId(GlobalVars::mapleWindow, nullptr);
-}
 
 //Forward declarations
 void AutoLogin();
 static void loadMaps(); 
 static void mapRush(int destMapID); 
-[assembly:System::Diagnostics::DebuggableAttribute(true, true)]; //For debugging purposes
 
 //Managed Global Variables
 ref struct GlobalRefs {
@@ -41,6 +31,7 @@ ref struct GlobalRefs {
 	static HWND hParent; 
 	static double formOpacity;
 	static Generic::List<MapData^>^ maps;
+	static bool bSendPacketLog = false, bRecvPacketLog = false;
 };
 
 #pragma region General Form
@@ -238,22 +229,16 @@ void MainForm::hideMSWindowToolStripMenuItem_Click(System::Object^  sender, Syst
 void DoSuspendThread()
 {
 	HANDLE h = CreateToolhelp32Snapshot(TH32CS_SNAPTHREAD, 0);
-	if (h != INVALID_HANDLE_VALUE)
-	{
+	if (h != INVALID_HANDLE_VALUE) {
 		THREADENTRY32 te;
 		te.dwSize = sizeof(te);
-		if (Thread32First(h, &te))
-		{
-			do
-			{
-				if (te.dwSize >= FIELD_OFFSET(THREADENTRY32, th32OwnerProcessID) + sizeof(te.th32OwnerProcessID))
-				{
+		if (Thread32First(h, &te)) {
+			do {
+				if (te.dwSize >= FIELD_OFFSET(THREADENTRY32, th32OwnerProcessID) + sizeof(te.th32OwnerProcessID)) {
 					// Suspend all threads EXCEPT the one we want to keep running
-					if (te.th32ThreadID != GetCurrentThreadId() && te.th32OwnerProcessID == GetCurrentProcessId())
-					{
-						HANDLE thread = ::OpenThread(THREAD_ALL_ACCESS, FALSE, te.th32ThreadID);
-						if (thread != NULL)
-						{
+					if (te.th32ThreadID != GetCurrentThreadId() && te.th32OwnerProcessID == GetCurrentProcessId()) {
+						HANDLE thread = OpenThread(THREAD_ALL_ACCESS, FALSE, te.th32ThreadID);
+						if (thread != nullptr) {
 							SuspendThread(thread);
 							CloseHandle(thread);
 						}
@@ -269,22 +254,16 @@ void DoSuspendThread()
 void DoResumeThread()
 {
 	HANDLE h = CreateToolhelp32Snapshot(TH32CS_SNAPTHREAD, 0);
-	if (h != INVALID_HANDLE_VALUE)
-	{
+	if (h != INVALID_HANDLE_VALUE) {
 		THREADENTRY32 te;
 		te.dwSize = sizeof(te);
-		if (Thread32First(h, &te))
-		{
-			do
-			{
-				if (te.dwSize >= FIELD_OFFSET(THREADENTRY32, th32OwnerProcessID) + sizeof(te.th32OwnerProcessID))
-				{
+		if (Thread32First(h, &te)) {
+			do {
+				if (te.dwSize >= FIELD_OFFSET(THREADENTRY32, th32OwnerProcessID) + sizeof(te.th32OwnerProcessID)) {
 					// Suspend all threads EXCEPT the one we want to keep running
-					if (te.th32ThreadID != GetCurrentThreadId() && te.th32OwnerProcessID == GetCurrentProcessId())
-					{
-						HANDLE thread = ::OpenThread(THREAD_ALL_ACCESS, FALSE, te.th32ThreadID);
-						if (thread != NULL)
-						{
+					if (te.th32ThreadID != GetCurrentThreadId() && te.th32OwnerProcessID == GetCurrentProcessId()) {
+						HANDLE thread = OpenThread(THREAD_ALL_ACCESS, FALSE, te.th32ThreadID);
+						if (thread != nullptr) {
 							ResumeThread(thread);
 							CloseHandle(thread);
 						}
@@ -444,7 +423,6 @@ String^ GetHWID(bool generateFake, String^ mac) {
 	return hwid; 
 }
 
-
 void SendLoginPacket(String^ username, String^ password) {
 	String^ packet = "";
 	writeBytes(packet, gcnew array<BYTE>{0x01, 0x00}); //Login OpCode
@@ -492,27 +470,35 @@ void SendSelectCharPacket(int character, bool existsPIC) {
 //Only works for HeavenMS as of now, maybe on other private servers that doesn't check the validity of the fake hwid/mac address in the packets
 void AutoLogin() {
 	if (*(BYTE*)(*(ULONG*)LoginBase + OFS_LoginScreen) == 255) {
-		MainForm::TheInstance->bTestButton->Text = "Logging in";
+		Log::WriteLineToConsole("AutoLogin: Logging in...");
 		String^ usernameStr = MainForm::TheInstance->tbAutoLoginUsername->Text;
 		String^ passwordStr = MainForm::TheInstance->tbAutoLoginPassword->Text;
-		/*System::Text::StringBuilder usernameOutput, passwordOutput;
-		for each (System::Byte b in usernameStr) usernameOutput.AppendFormat("{0:X} ", b);
-		for each (System::Byte b in passwordStr) passwordOutput.AppendFormat("{0:X} ", b);
-		String^ usernameString = usernameOutput.ToString();
-		String^ passwordString = passwordOutput.ToString();
-		System::String^ loginPacket = "01 00 07 00" + usernameString + "08 00" + passwordString + "00 00 00 00 00 00 B4 43 8D 48 00 00 00 00 13 92 00 00 00 00 02 00 00 00 00 00 00";
-		*/
 		SendLoginPacket(usernameStr, passwordStr);
 		Sleep(2000);
 
-		int world = MainForm::TheInstance->comboAutoLoginWorld->SelectedIndex;//Convert::ToInt32(MainForm::TheInstance->comboAutoLoginWorld->Text->Trim({' '}));
-		int channel = MainForm::TheInstance->comboAutoLoginChannel->SelectedIndex; //Convert::ToInt32(MainForm::TheInstance->comboAutoLoginChannel->Text->Trim({' '}));
+		int world = MainForm::TheInstance->comboAutoLoginWorld->SelectedIndex;
+		int channel = MainForm::TheInstance->comboAutoLoginChannel->SelectedIndex; 
 		SendCharListRequestPacket(world, channel);
 		Sleep(2000);
 
-		int character = MainForm::TheInstance->comboAutoLoginCharacter->SelectedIndex + 1;//Convert::ToInt32(MainForm::TheInstance->comboAutoLoginCharacter->Text->Trim({' '}));
+		int character = MainForm::TheInstance->comboAutoLoginCharacter->SelectedIndex + 1;
 		bool existsPIC = MainForm::TheInstance->cbAutoLoginPic->Checked;
 		SendSelectCharPacket(character, existsPIC);
+		Log::WriteLineToConsole("AutoLogin: Login Completed");
+	}
+}
+
+void SetLoginHooks(bool enable) {
+	Hooks::CLogin__OnRecommendWorldMessage_Hook(true);
+
+	if (!enable) {
+		MessageBox::Show("False!");
+		Hooks::CLogin__OnRecommendWorldMessage_Hook(false);
+	}
+	else {
+		MessageBox::Show("true!");
+		Hooks::CLogin__OnRecommendWorldMessage_Hook(true); //Crashes, wrong params maybe
+
 	}
 }
 
@@ -526,43 +512,14 @@ void MainForm::cbAutoLoginSkipLogo_CheckedChanged(System::Object^  sender, Syste
 }
 
 void MainForm::cbAutoLogin_CheckedChanged(System::Object^  sender, System::EventArgs^  e) {
-	if (this->cbAutoLogin->Checked)
-		AutoLogin();
+	if(this->cbAutoLogin->Checked)
+		SetLoginHooks(true);
+	else
+		SetLoginHooks(false);
+	
+	//if (this->cbAutoLogin->Checked)
+		//AutoLogin();
 }
-
-/*ULONG LoginBase = 0xBEDED4;
-ULONG OFS_LoginStep = 0x168; //0 = login screen or logged in, 1 = Select World/Channel, 2 = Select Char
-ULONG OFS_LoginScreen = 0x174; //255 == login screen, 1 == loggin in, 0 = logged in*/
-
-//From Old Trainer, need to fix dc if already logged in once
-/*System::Text::StringBuilder usernameOutput, passwordOutput;
-String^ username = this->textBox34->Text;
-String^ password = this->textBox35->Text;
-for each (System::Byte b in username) usernameOutput.AppendFormat("{0:X} ", b);
-for each (System::Byte b in password) passwordOutput.AppendFormat("{0:X} ", b);
-
-System::String^ usernameString = usernameOutput.ToString();
-System::String^ passwordString = passwordOutput.ToString();
-System::String^ loginPacket = "01 00 07 00" + usernameString + "08 00" + passwordString + "00 00 00 00 00 00 B4 43 8D 48 00 00 00 00 13 92 00 00 00 00 02 00 00 00 00 00 00";
-
-msclr::interop::marshal_context mc;
-SendPacket(loginPacket);
-Sleep(2000);
-
-SendPacket("0B 00");
-Sleep(2000);
-
-SendPacket("06 00 00 00");
-Sleep(2000);
-
-int channel;
-if (this->comboBox10->Text->Equals("Random")) channel = rand() % getmax();
-else channel = int::Parse(this->comboBox10->Text) - 1;
-SendPacket(gcnew String("05 00 02 00" + gcnew String(intToHexL(channel, 2, false).c_str()) + "7F 00 00 01"));
-Sleep(2000);
-
-int character = int::Parse(this->comboBox11->Text) - 1; //" + gcnew String(intToHexL(character, 2, false).c_str()) + "
-SendPacket(gcnew String("13 00 02 00 00 00 11 00 41 34 2D 33 34 2D 44 39 2D 34 38 2D 39 44 2D 46 36 15 00 35 30 37 42 39 44 35 46 31 38 37 34 5F 42 34 34 33 38 44 34 38"));*/
 #pragma endregion
 
 #pragma region Options
@@ -801,12 +758,6 @@ void MainForm::tbBuffInterval_KeyPress(Object^  sender, Windows::Forms::KeyPress
 
 #pragma region Auto CC/CS
 //TODO: add option to whitelist or blacklist channels
-void CallCCFunc(int channel) {
-	if (PointerFuncs::getMapID()->Equals("0")) return;
-	WritePointer(UserLocalBase, OFS_Breath, 0);
-	CField__SendTransferChannelRequest(channel);
-	Sleep(200);
-}
 
 void CallCSFunc() {
 	if (PointerFuncs::getMapID()->Equals("0")) return;
@@ -830,10 +781,12 @@ void _stdcall AutoCC(int toChannel) {
 	if (toChannel == -1) channel = rand() % 19;
 	else channel = toChannel;
 
-	if (MainForm::TheInstance->rbPacket->Checked) 
+	if (MainForm::TheInstance->rbPacket->Checked)
 		SendPacket(gcnew String("27 00 " + channel.ToString("X2") + " ** ** ** 00")); //Send Auto CC Packet
 	else
-		CallCCFunc(channel); //Call Auto CC Function
+		Hooks::ChangeChannel(channel); //CallCCFunc(channel); //Call Auto CC Function
+
+	Sleep(200); 
 }
 
 void _stdcall AutoCS() {
@@ -2174,12 +2127,13 @@ void MainForm::tbSendSpamDelay_KeyPress(Object^  sender, Windows::Forms::KeyPres
 void MainForm::bSendLog_Click(System::Object^  sender, System::EventArgs^  e) {
 	if(bSendLog->Text->Equals("Enable Log")) {
 		bSendLog->Text = "Disable Log";
-		//GlobalRefs::isPacketsSentHooked = true;
+		GlobalRefs::bSendPacketLog = true;
+		this->tPacketLog->Enabled = true;
 		Jump(cOutPacketAddr, Assembly::SendPacketLogHook, 0);
 	}
 	else {
 		bSendLog->Text = "Enable Log";
-		//GlobalRefs::isPacketsSentHooked = false;
+		GlobalRefs::bSendPacketLog = false;
 		WriteMemory(cOutPacketAddr, 5, 0xB8, 0x6C, 0x12, 0xA8, 0x00);
 	}
 }
@@ -2352,6 +2306,60 @@ void MainForm::tbAPLUK_TextChanged(System::Object^ sender, System::EventArgs^ e)
 System::Void MainForm::cbAP_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
 }
 #pragma endregion
+
+void MainForm::tPacketLog_Tick(System::Object^  sender, System::EventArgs^  e) {
+	if (!GlobalRefs::bSendPacketLog && !GlobalRefs::bRecvPacketLog)
+		this->tPacketLog->Enabled = false;
+
+	//std::vector<COutPacket*> *sentPacketQueue = Assembly::sendPacketLogQueue;
+	if(GlobalRefs::bSendPacketLog && !Assembly::sendPacketQueue->empty()) {
+		COutPacket *packet = (COutPacket*)Assembly::sendPacketQueue->front();
+		
+		String^ packetHeader = "";
+		writeUnsignedShort(packetHeader, *packet->Header);
+		Log::WriteLineToConsole(packetHeader);
+		
+		Assembly::sendPacketQueue->pop();
+	}
+
+	/*if(!GlobalRefs::bSendPacketLog) {
+		for (std::vector<COutPacket>::const_iterator i = Assembly::sendPacketLogQueue->begin(); i != Assembly::sendPacketLogQueue->end(); ++i) {
+			COutPacket packet = *i;
+
+			String^ packetHeader = "";
+			writeUnsignedShort(packetHeader, *packet.Header);
+			Log::WriteLineToConsole(packetHeader);
+
+			/*String^ packetData = "";
+			BYTE* packetBytes = packet->Data;
+			int packetSize = packet->Size - 2;
+			for (int i = 0; i < packetSize; i++)
+				writeByte(packetData, packetBytes[i]);#1#
+
+
+			/*Windows::Forms::TreeNode^ headerNode = gcnew Windows::Forms::TreeNode(packetHeader);
+			headerNode->Name = packetHeader;
+
+			Windows::Forms::TreeNode^ packetNode = gcnew Windows::Forms::TreeNode(packetData);
+			packetNode->Name = packetData;
+
+			Timelapse::MainForm::TheInstance->tvSendPackets->Nodes->Add(headerNode);#1#
+
+			/*if(Timelapse::MainForm::TheInstance->tvSendPackets->Nodes->ContainsKey(packetHeader)) {
+				//Header exists in tree
+			}
+			else {
+				Windows::Forms::TreeNode^ headerNode = gcnew Windows::Forms::TreeNode(packetHeader);
+				headerNode->Name = packetHeader;
+				//headerNode->Nodes->Add(packetNode);
+				Timelapse::MainForm::TheInstance->tvSendPackets->BeginUpdate();
+				Timelapse::MainForm::TheInstance->tvSendPackets->Nodes->Add(headerNode);
+				Timelapse::MainForm::TheInstance->tvSendPackets->EndUpdate();
+			}#1#
+		}
+		Assembly::sendPacketLogQueue->clear();
+	}*/
+}
 #pragma endregion
 
 #pragma region Map Rusher Tab
@@ -2558,7 +2566,9 @@ auto CUtilDlgEx__ForcedRet = (pfnCUtilDlgEx__ForcedRet)0x009A3C2C;
 CUtilDlgEx__ForcedRet();*/
 /*SendPacket("3C 00 01 01"); Sleep(200); //Click Yes
 SendPacket("3C 00 00 01 "); Sleep(200); //Click Next*/
-
+static void SendKey(BYTE keyCode) {
+	PostMessage(GlobalVars::mapleWindow, WM_KEYDOWN, keyCode, MapVirtualKey(keyCode, MAPVK_VK_TO_VSC) << 16);
+}
 //Rushes to next island to route to Destination Map's island
 int rushNextIsland(int startMapID, int destMapID) {
 	int startIsland = getIsland(startMapID), destIsland = getIsland(destMapID);

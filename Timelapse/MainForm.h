@@ -462,6 +462,10 @@ private:
 
 private:
 private: System::Windows::Forms::Label^  label95;
+public: System::Windows::Forms::Timer^  tPacketLog;
+private:
+
+private:
 public:
 	private: System::ComponentModel::IContainer^  components;
 #pragma region Windows Form Designer generated code
@@ -892,6 +896,7 @@ public:
 			this->AutoCCCSTimer = (gcnew System::Windows::Forms::Timer(this->components));
 			this->tAutoAttack = (gcnew System::Windows::Forms::Timer(this->components));
 			this->tAutoLoot = (gcnew System::Windows::Forms::Timer(this->components));
+			this->tPacketLog = (gcnew System::Windows::Forms::Timer(this->components));
 			this->MenuStrip->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->BeginInit();
 			this->pnlFull->SuspendLayout();
@@ -6447,6 +6452,11 @@ public:
 			// 
 			this->tAutoLoot->Tick += gcnew System::EventHandler(this, &MainForm::tAutoLoot_Tick);
 			// 
+			// tPacketLog
+			// 
+			this->tPacketLog->Interval = 3000;
+			this->tPacketLog->Tick += gcnew System::EventHandler(this, &MainForm::tPacketLog_Tick);
+			// 
 			// MainForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
@@ -6766,5 +6776,6 @@ public:
 	private: System::Void bDupeXGetFoothold_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void pauseMSToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void cbAutoLogin_CheckedChanged(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void tPacketLog_Tick(System::Object^  sender, System::EventArgs^  e);
 };
 };

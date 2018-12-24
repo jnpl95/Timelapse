@@ -5,11 +5,13 @@
 #include "Packet.h"
 #include "detours.h"
 #include <queue>
+#include "Addresses.h"
 
 #pragma comment(lib, "detours.lib")
 #define CodeCave(name) static void __declspec(naked) ##name() { _asm
 #define EndCodeCave } 
 
+//Set Hook for function 
 bool SetHook(bool enable, void** function, void* redirection) {
 	if (DetourTransactionBegin() != NO_ERROR) return FALSE;
 	if (DetourUpdateThread(GetCurrentThread()) != NO_ERROR) return FALSE;
@@ -436,4 +438,47 @@ inline void __stdcall addSendPacket() {
 		mov[esi + 0x00000114], edi
 		jmp dword ptr[dupeXAddrRet]
 	} EndCodeCave
+}
+
+namespace Hooks {
+	//For botting
+	bool CUserLocal__Update_Hook(bool enable) {
+		typedef void(__stdcall *pfnCUserLocal__Update)(PVOID, PVOID);
+		static auto CUserLocal__Update = reinterpret_cast<pfnCUserLocal__Update>(userlocalUpdateAddr);
+
+		pfnCUserLocal__Update hook = [](PVOID ecx, PVOID edx) {
+
+			return CUserLocal__Update(ecx, edx);
+		};
+
+		return SetHook(enable, reinterpret_cast<void**>(&CUserLocal__Update), hook);
+	}
+
+	bool ChangeChannel(int channel) {
+		typedef int(__stdcall *pfnCField__SendTransferChannelRequest)(int nTargetChannel); // Changes Channel
+		static auto CField__SendTransferChannelRequest = reinterpret_cast<pfnCField__SendTransferChannelRequest>(ccAddr);
+
+		if(*reinterpret_cast<void**>(ServerBase) != nullptr && !ReadPointerSignedInt(UIMiniMapBase, OFS_MapID) == 0) {
+			WritePointer(UserLocalBase, OFS_Breath, 0); //Set Breath Value to 0
+			CField__SendTransferChannelRequest(channel);
+			return true;
+		}
+
+		return false;
+	}
+
+	bool CLogin__OnRecommendWorldMessage_Hook(bool enable) {
+		typedef void(__stdcall *pfnCLogin__OnRecommendWorldMessage)(PVOID, PVOID);
+		static pfnCLogin__OnRecommendWorldMessage CLogin__OnRecommendWorldMessage = reinterpret_cast<pfnCLogin__OnRecommendWorldMessage>(cloginOnRecommendWorldAddr);
+
+		//typedef void(__stdcall *pfnCLogin__SendLoginPacket)(PVOID, PVOID, int world, int channel);
+		//static auto CLogin__SendLoginPacket = reinterpret_cast<pfnCLogin__SendLoginPacket>(cloginSendLoginPacketAddr);
+
+		pfnCLogin__OnRecommendWorldMessage hook = [](PVOID ecx, PVOID num) -> void {
+			//CLogin__SendLoginPacket(ecx, edx, 0, 1);
+			CLogin__OnRecommendWorldMessage(ecx, num);
+		};
+
+		return SetHook(enable, reinterpret_cast<void**>(&CLogin__OnRecommendWorldMessage), hook);
+	}
 }

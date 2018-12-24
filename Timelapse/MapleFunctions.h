@@ -2,10 +2,11 @@
 #include <Windows.h>
 #include <tchar.h>
 #include "memory.h"
-#include "Assembly.h"
+#include "Hooks.h"
 #include "Packet.h"
 #include "Mouse.h"
 
+//Get MS Window Handle
 static HWND GetMSWindowHandle() {
 	HWND msHandle = nullptr;
 	TCHAR buf[256] = { 0 };
@@ -20,6 +21,13 @@ static HWND GetMSWindowHandle() {
 	if (!msHandle) return nullptr;
 
 	return msHandle;
+}
+
+//Get MS ThreadID
+static ULONG GetMSThreadID() {
+	if (GlobalVars::mapleWindow == nullptr)
+		GlobalVars::mapleWindow = GetMSWindowHandle();
+	return GetWindowThreadProcessId(GlobalVars::mapleWindow, nullptr);
 }
 
 #pragma managed
