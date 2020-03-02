@@ -119,16 +119,19 @@ public:
 
 			switch(key->macroType) {
 				case MacroType::BUFFMACRO:
-					if (HelperFuncs::IsInGame()) 
-						KeyMacro::SpamSendKey(key->keyCode, 2);
+					if (HelperFuncs::IsInGame()) {
+						KeyMacro::PressKey(key->keyCode);
+					}
 					break;
 				case MacroType::HPPOTMACRO:
-					if (MacrosEnabled::bMacroHP && HelperFuncs::IsInGame())
+					if (MacrosEnabled::bMacroHP && HelperFuncs::IsInGame()) {
 						KeyMacro::PressKey(key->keyCode);
+					}
 					break;
 				case MacroType::MPPOTMACRO:
-					if(MacrosEnabled::bMacroMP && HelperFuncs::IsInGame())
+					if (MacrosEnabled::bMacroMP && HelperFuncs::IsInGame()) {
 						KeyMacro::PressKey(key->keyCode);
+					}
 					break;
 				case MacroType::LOOTMACRO:
 					if (MacrosEnabled::bMacroLoot && HelperFuncs::ValidToLoot())
@@ -136,7 +139,7 @@ public:
 					break;
 				case MacroType::ATTACKMACRO:
 					if (MacrosEnabled::bMacroAttack && HelperFuncs::ValidToAttack())
-						KeyMacro::SpamSendKey(key->keyCode, 3);
+						KeyMacro::SpamSendKey(key->keyCode, 2);
 					break;
 			}
 			Threading::Monitor::Exit(macroQueue);

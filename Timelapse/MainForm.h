@@ -451,8 +451,10 @@ private:
 	private: System::Windows::Forms::Label^  lbInUseSlot;
 	private: System::Windows::Forms::Timer^  tAutoAttack;
 	private: System::Windows::Forms::Timer^  tAutoLoot;
-	private: System::Windows::Forms::TextBox^  textBox2;
-	private: System::Windows::Forms::TextBox^  textBox1;
+private: System::Windows::Forms::TextBox^ MPPotDelay;
+private: System::Windows::Forms::TextBox^ HPPotDelay;
+
+
 	private: System::Windows::Forms::Label^  label93;
 	private: System::Windows::Forms::Label^  label91;
 	private: System::Windows::Forms::TextBox^  comboInUseSlot;
@@ -475,7 +477,7 @@ public:
 		/// </summary>
 		void InitializeComponent() {
 			this->components = (gcnew System::ComponentModel::Container());
-			System::ComponentModel::ComponentResourceManager^  resources = (gcnew System::ComponentModel::ComponentResourceManager(MainForm::typeid));
+			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(MainForm::typeid));
 			this->MenuStrip = (gcnew System::Windows::Forms::MenuStrip());
 			this->fileToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->openSettingsToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
@@ -623,8 +625,8 @@ public:
 			this->panel10 = (gcnew System::Windows::Forms::Panel());
 			this->cbSellAll = (gcnew System::Windows::Forms::CheckBox());
 			this->panel2 = (gcnew System::Windows::Forms::Panel());
-			this->textBox2 = (gcnew System::Windows::Forms::TextBox());
-			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
+			this->MPPotDelay = (gcnew System::Windows::Forms::TextBox());
+			this->HPPotDelay = (gcnew System::Windows::Forms::TextBox());
 			this->label93 = (gcnew System::Windows::Forms::Label());
 			this->label91 = (gcnew System::Windows::Forms::Label());
 			this->tbLootItem = (gcnew System::Windows::Forms::TextBox());
@@ -2414,7 +2416,7 @@ public:
 			this->tbBuffName->Name = L"tbBuffName";
 			this->tbBuffName->Size = System::Drawing::Size(78, 21);
 			this->tbBuffName->TabIndex = 12;
-			this->tbBuffName->Text = L"Three Snails";
+			this->tbBuffName->Text = L"Buff";
 			this->tbBuffName->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
 			// 
 			// bBuffAdd
@@ -2439,7 +2441,7 @@ public:
 			this->tbBuffInterval->Name = L"tbBuffInterval";
 			this->tbBuffInterval->Size = System::Drawing::Size(36, 21);
 			this->tbBuffInterval->TabIndex = 3;
-			this->tbBuffInterval->Text = L"100";
+			this->tbBuffInterval->Text = L"60";
 			this->tbBuffInterval->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
 			this->tbBuffInterval->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &MainForm::tbBuffInterval_KeyPress);
 			// 
@@ -2458,9 +2460,9 @@ public:
 			this->label41->BackColor = System::Drawing::Color::Transparent;
 			this->label41->Location = System::Drawing::Point(3, 36);
 			this->label41->Name = L"label41";
-			this->label41->Size = System::Drawing::Size(73, 13);
+			this->label41->Size = System::Drawing::Size(65, 13);
 			this->label41->TabIndex = 7;
-			this->label41->Text = L"Interval [ms]:";
+			this->label41->Text = L"Interval [s]:";
 			// 
 			// comboBuffKey
 			// 
@@ -2495,6 +2497,7 @@ public:
 			this->lvBuff->ForeColor = System::Drawing::Color::White;
 			this->lvBuff->FullRowSelect = true;
 			this->lvBuff->HeaderStyle = System::Windows::Forms::ColumnHeaderStyle::Nonclickable;
+			this->lvBuff->HideSelection = false;
 			this->lvBuff->Location = System::Drawing::Point(6, 4);
 			this->lvBuff->Name = L"lvBuff";
 			this->lvBuff->Size = System::Drawing::Size(257, 178);
@@ -2896,8 +2899,8 @@ public:
 			// panel2
 			// 
 			this->panel2->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
-			this->panel2->Controls->Add(this->textBox2);
-			this->panel2->Controls->Add(this->textBox1);
+			this->panel2->Controls->Add(this->MPPotDelay);
+			this->panel2->Controls->Add(this->HPPotDelay);
 			this->panel2->Controls->Add(this->label93);
 			this->panel2->Controls->Add(this->label91);
 			this->panel2->Controls->Add(this->tbLootItem);
@@ -2925,31 +2928,32 @@ public:
 			this->panel2->Size = System::Drawing::Size(378, 139);
 			this->panel2->TabIndex = 7;
 			// 
-			// textBox2
+			// MPPotDelay
 			// 
-			this->textBox2->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(35)), static_cast<System::Int32>(static_cast<System::Byte>(35)),
+			this->MPPotDelay->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(35)), static_cast<System::Int32>(static_cast<System::Byte>(35)),
 				static_cast<System::Int32>(static_cast<System::Byte>(35)));
-			this->textBox2->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
-			this->textBox2->ForeColor = System::Drawing::Color::White;
-			this->textBox2->Location = System::Drawing::Point(224, 28);
-			this->textBox2->Name = L"textBox2";
-			this->textBox2->Size = System::Drawing::Size(57, 21);
-			this->textBox2->TabIndex = 14;
-			this->textBox2->Text = L"200";
-			this->textBox2->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			this->MPPotDelay->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->MPPotDelay->ForeColor = System::Drawing::Color::White;
+			this->MPPotDelay->Location = System::Drawing::Point(224, 28);
+			this->MPPotDelay->Name = L"MPPotDelay";
+			this->MPPotDelay->Size = System::Drawing::Size(57, 21);
+			this->MPPotDelay->TabIndex = 14;
+			this->MPPotDelay->Text = L"500";
+			this->MPPotDelay->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
 			// 
-			// textBox1
+			// HPPotDelay
 			// 
-			this->textBox1->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(35)), static_cast<System::Int32>(static_cast<System::Byte>(35)),
+			this->HPPotDelay->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(35)), static_cast<System::Int32>(static_cast<System::Byte>(35)),
 				static_cast<System::Int32>(static_cast<System::Byte>(35)));
-			this->textBox1->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
-			this->textBox1->ForeColor = System::Drawing::Color::White;
-			this->textBox1->Location = System::Drawing::Point(224, 3);
-			this->textBox1->Name = L"textBox1";
-			this->textBox1->Size = System::Drawing::Size(57, 21);
-			this->textBox1->TabIndex = 13;
-			this->textBox1->Text = L"200";
-			this->textBox1->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			this->HPPotDelay->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->HPPotDelay->ForeColor = System::Drawing::Color::White;
+			this->HPPotDelay->Location = System::Drawing::Point(224, 3);
+			this->HPPotDelay->Name = L"HPPotDelay";
+			this->HPPotDelay->Size = System::Drawing::Size(57, 21);
+			this->HPPotDelay->TabIndex = 13;
+			this->HPPotDelay->Text = L"500";
+			this->HPPotDelay->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			this->HPPotDelay->TextChanged += gcnew System::EventHandler(this, &MainForm::HPPotDelay_TextChanged);
 			// 
 			// label93
 			// 
@@ -4162,6 +4166,7 @@ public:
 			this->lvSpawnControl->ForeColor = System::Drawing::Color::White;
 			this->lvSpawnControl->FullRowSelect = true;
 			this->lvSpawnControl->HeaderStyle = System::Windows::Forms::ColumnHeaderStyle::Nonclickable;
+			this->lvSpawnControl->HideSelection = false;
 			this->lvSpawnControl->Location = System::Drawing::Point(4, 19);
 			this->lvSpawnControl->Name = L"lvSpawnControl";
 			this->lvSpawnControl->Size = System::Drawing::Size(197, 131);
@@ -4291,6 +4296,7 @@ public:
 			this->lvTeleport->ForeColor = System::Drawing::Color::White;
 			this->lvTeleport->FullRowSelect = true;
 			this->lvTeleport->HeaderStyle = System::Windows::Forms::ColumnHeaderStyle::Nonclickable;
+			this->lvTeleport->HideSelection = false;
 			this->lvTeleport->Location = System::Drawing::Point(4, 19);
 			this->lvTeleport->Name = L"lvTeleport";
 			this->lvTeleport->Size = System::Drawing::Size(197, 131);
@@ -5655,6 +5661,7 @@ public:
 			this->lvSendBlock->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 			this->lvSendBlock->CheckBoxes = true;
 			this->lvSendBlock->ForeColor = System::Drawing::Color::White;
+			this->lvSendBlock->HideSelection = false;
 			this->lvSendBlock->Location = System::Drawing::Point(8, 6);
 			this->lvSendBlock->Name = L"lvSendBlock";
 			this->lvSendBlock->Size = System::Drawing::Size(66, 288);
@@ -5768,6 +5775,7 @@ public:
 			this->lvRecvBlock->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 			this->lvRecvBlock->CheckBoxes = true;
 			this->lvRecvBlock->ForeColor = System::Drawing::Color::White;
+			this->lvRecvBlock->HideSelection = false;
 			this->lvRecvBlock->Location = System::Drawing::Point(8, 6);
 			this->lvRecvBlock->Name = L"lvRecvBlock";
 			this->lvRecvBlock->Size = System::Drawing::Size(66, 288);
@@ -6370,6 +6378,7 @@ public:
 			this->lvMapRusherSearch->ForeColor = System::Drawing::Color::White;
 			this->lvMapRusherSearch->FullRowSelect = true;
 			this->lvMapRusherSearch->HeaderStyle = System::Windows::Forms::ColumnHeaderStyle::Nonclickable;
+			this->lvMapRusherSearch->HideSelection = false;
 			this->lvMapRusherSearch->Location = System::Drawing::Point(-1, -1);
 			this->lvMapRusherSearch->MultiSelect = false;
 			this->lvMapRusherSearch->Name = L"lvMapRusherSearch";
@@ -6777,5 +6786,7 @@ public:
 	private: System::Void pauseMSToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void cbAutoLogin_CheckedChanged(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void tPacketLog_Tick(System::Object^  sender, System::EventArgs^  e);
+private: System::Void HPPotDelay_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+}
 };
 };
