@@ -558,7 +558,7 @@ static bool isKeyValid(Object^ sender, Windows::Forms::KeyPressEventArgs^ e, boo
 void MainForm::cbHP_CheckedChanged(Object^  sender, EventArgs^  e) {
 	if (this->cbHP->Checked) {
 		if (GlobalRefs::macroHP == nullptr)
-			GlobalRefs::macroHP = gcnew Macro(keyCollection[this->comboHPKey->SelectedIndex], 200, MacroType::HPPOTMACRO);
+			GlobalRefs::macroHP = gcnew Macro(keyCollection[this->comboHPKey->SelectedIndex], Convert::ToUInt32(HPPotDelay->Text), MacroType::HPPOTMACRO);
 		GlobalRefs::macroHP->Toggle(true);
 		MacrosEnabled::bMacroHP = true;
 	}
@@ -582,7 +582,7 @@ void MainForm::tbHP_KeyPress(Object^  sender, Windows::Forms::KeyPressEventArgs^
 void MainForm::cbMP_CheckedChanged(Object^  sender, EventArgs^  e) {
 	if (this->cbMP->Checked) {
 		if (GlobalRefs::macroMP == nullptr){}
-			GlobalRefs::macroMP = gcnew Macro(keyCollection[this->comboMPKey->SelectedIndex], 200, MacroType::MPPOTMACRO);
+			GlobalRefs::macroMP = gcnew Macro(keyCollection[this->comboMPKey->SelectedIndex], Convert::ToUInt32(MPPotDelay->Text), MacroType::MPPOTMACRO);
 		GlobalRefs::macroMP->Toggle(true);
 		MacrosEnabled::bMacroMP = true;
 	}
@@ -709,7 +709,7 @@ void MainForm::bBuffAdd_Click(Object^  sender, EventArgs^  e) {
 		return;
 	}
 	ListViewItem^ lvi = gcnew ListViewItem(gcnew array<String^>{tbBuffName->Text, comboBuffKey->Text, tbBuffInterval->Text});
-	lvi->Tag = gcnew Macro(keyCollection[comboBuffKey->SelectedIndex], Convert::ToUInt32(tbBuffInterval->Text), MacroType::BUFFMACRO);
+	lvi->Tag = gcnew Macro(keyCollection[comboBuffKey->SelectedIndex], Convert::ToUInt32(tbBuffInterval->Text)*1000, MacroType::BUFFMACRO);
 	lvi->Checked = true;
 	lvBuff->Items->Add(lvi);
 }
