@@ -7,8 +7,8 @@
 #include "MapleFunctions.h"
 #include "Addresses.h"
 
-bool DBG_Macro = false;
-enum class MacroType { LOOTMACRO = 1, ATTACKMACRO = 2, BUFFMACRO = 3, MPPOTMACRO = 4, HPPOTMACRO = 5};
+bool DBG_Macro = true;
+enum class MacroType { LOOTMACRO = 1, ATTACKMACRO = 2, BUFFMACRO = 3, MPPOTMACRO = 4, HPPOTMACRO = 5, AUTOLOGIN = 6};
 ref struct MacrosEnabled { static bool bMacroHP = false, bMacroMP = false, bMacroAttack = false, bMacroLoot = false; };
 
 // Globally defined key data structure
@@ -241,6 +241,8 @@ public:
 				return "MpPotMacro";
 			case MacroType::HPPOTMACRO:
 				return "HpPotMacro";
+			case MacroType::AUTOLOGIN:
+				return "AutoLogin";
 		}
 		if (DBG_Macro) Log::WriteLineToConsole("Error when parsing enum MacroType, unknown type!");
 		return nullptr;

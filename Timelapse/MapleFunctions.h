@@ -328,6 +328,13 @@ namespace HelperFuncs {
 		return false;
 	}
 
+	static bool IsOnline()
+	{
+		if (*(BYTE*)(*(ULONG*)LoginBase + OFS_LoginScreen) == 255) {
+			return false;
+		}
+	}
+
 	static bool ValidToAttack()
 	{
 		const int attCnt = Convert::ToInt32(PointerFuncs::getAttackCount());

@@ -63,6 +63,9 @@
     <ClInclude Include="detours.h">
       <Filter>Libs</Filter>
     </ClInclude>
+    <ClInclude Include="AutoLoginTimer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MainForm.cpp">

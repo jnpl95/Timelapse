@@ -9,9 +9,12 @@
 #include "Settings.h"
 #include "Log.h"
 #include "Hooks.h"
+#include "AutoLoginTimer.h"
+#include <msclr\marshal_cppstd.h>
 
 [assembly:System::Diagnostics::DebuggableAttribute(true, true)]; //For debugging purposes
 
+using namespace msclr::interop;
 using namespace Timelapse;
 
 //Forward declarations
@@ -21,7 +24,7 @@ static void mapRush(int destMapID);
 
 //Managed Global Variables
 ref struct GlobalRefs {
-	static Macro ^macroHP, ^macroMP, ^macroAttack, ^macroLoot;
+	static Macro ^macroHP, ^macroMP, ^macroAttack, ^macroLoot, ^autologin;
 	static bool isChangingField = false, isMapRushing = false;
 	static bool bClickTeleport = false, bMouseTeleport = false, bTeleport = false, bKami = false, bKamiLoot = false;
 	static bool bWallVac = false, bDupeX = false, bMMC = false, bUEMI = false;
@@ -32,6 +35,7 @@ ref struct GlobalRefs {
 	static double formOpacity;
 	static Generic::List<MapData^>^ maps;
 	static bool bSendPacketLog = false, bRecvPacketLog = false;
+	//static String^ globalAutoLogin = "01 00 0C 00 54 68 72 61 73 68 65 72 31 32 37 36 0A 00 50 69 7A 7A 61 72 64 31 32 34 00 00 00 00 00 00 EA 61 29 77 00 00 00 00 9B 8D 00 00 00 00 02 00 00 00 00 00 00";
 };
 
 #pragma region General Form
@@ -428,8 +432,10 @@ void SendLoginPacket(String^ username, String^ password) {
 	writeBytes(packet, gcnew array<BYTE>{0x01, 0x00}); //Login OpCode
 	writeString(packet, username); //Username
 	writeString(packet, password); //Password
-	writeBytes(packet, gcnew array<BYTE>{0x00, 0x00, 0x00, 0x00, 0x00, 0x00}); //Unknown bytes
-	writeBytes(packet, gcnew array<BYTE>{0x00, 0x00, 0x00, 0x00}); //Account id? setting to 0 for now
+	writeBytes(packet, gcnew array<BYTE>{0x00, 0x00}); //Login OpCode
+	writeBytes(packet, gcnew array<BYTE>{0x00, 0x00,0x00}); //Login OpCode
+	writeBytes(packet, gcnew array<BYTE>{0x00, 0xEA, 0x61, 0x29, 0x77}); //Login OpCode
+	writeBytes(packet, gcnew array<BYTE>{0x00, 0x00, 0x00, 0x00, 0x9B, 0x8D, 0x00, 0x00, 0x00, 0x00 ,0x02 ,0x00, 0x00, 0x00, 0x00, 0x00, 0x00}); //Unknown bytes
 	//rest of packet unused for now
 	SendPacket(packet);
 }
@@ -438,9 +444,9 @@ void SendCharListRequestPacket(int world, int channel) {
 	String^ packet = "";
 	writeBytes(packet, gcnew array<BYTE>{0x05, 0x00}); //Character List Request OpCode
 	writeByte(packet, 0x02); //Unknown byte
-	writeByte(packet, world); //World
+	writeByte(packet, 0x00); //World
 	writeByte(packet, channel); //Channel
-	writeBytes(packet, gcnew array<BYTE>{0x7F, 0x00, 0x00, 0x01}); //Unknown bytes
+	writeBytes(packet, gcnew array<BYTE>{ 0x0A, 0x00, 0x01, 0x1C}); //Unknown bytes
 	SendPacket(packet);
 }
 
@@ -448,22 +454,34 @@ void SendSelectCharPacket(int character, bool existsPIC) {
 	String^ packet = "";
 	String^ macAddress = GetMac(true);
 
+	
 	if(existsPIC) {
 		String^ PIC = MainForm::TheInstance->tbAutoLoginPIC->Text;
-
-		writeBytes(packet, gcnew array<BYTE>{0x1E, 0x00}); //Character Select (With PIC) OpCode
+		String^ loc_ign = MainForm::TheInstance->ign->Text;
+		std::string normalized_ign = marshal_as<std::string>(loc_ign);
+		std::vector<char> loc_ignB = HexToBytes(normalized_ign);
+		writeBytes(packet, gcnew array<BYTE>{0x1E, 0x00});
 		writeString(packet, PIC); //PIC
-		writeInt(packet, character); //Character Number (starts with 1)
+		//writeInt(packet, character); //Character Number (starts with 1)
+		//writeByte(packet, (*(BYTE*)CharacterStatBase + OFS_Ign));
+		//writeByte(packet, (*(BYTE*)CharacterStatBase + OFS_Ign + 1));
+		//writeByte(packet, (*(BYTE*)CharacterStatBase + OFS_Ign + 2));
+		//writeByte(packet, (*(BYTE*)CharacterStatBase + OFS_Ign + 3));
+		//writeBytes(packet, gcnew array<BYTE>{0x48, 0x33, 0x0B, 0x00}); //IGN
+		writeBytes(packet, gcnew array<BYTE>{loc_ignB[0], loc_ignB[1]});
+		writeBytes(packet, gcnew array<BYTE>{0x0B, 0x00});
 		writeString(packet, macAddress); //Mac Address
 		writeString(packet, GetHWID(true, macAddress)); //HWID
 		SendPacket(packet);
 	}
 	else {
+		/*
 		writeBytes(packet, gcnew array<BYTE>{0x13, 0x00}); //Character Select (Without PIC) OpCode
 		writeInt(packet, character); //Character Number (starts with 1)
 		writeString(packet, macAddress); //Mac Address
 		writeString(packet, GetHWID(true, macAddress)); //HWID
 		SendPacket(packet);
+		*/
 	}
 }
 
@@ -474,16 +492,22 @@ void AutoLogin() {
 		String^ usernameStr = MainForm::TheInstance->tbAutoLoginUsername->Text;
 		String^ passwordStr = MainForm::TheInstance->tbAutoLoginPassword->Text;
 		SendLoginPacket(usernameStr, passwordStr);
+		//SendPacket(GlobalRefs::globalAutoLogin);
+		//SendPacket("01 00 0C 00 54 68 72 61 73 68 65 72 31 32 37 36 0A 00 50 69 7A 7A 61 72 64 31 32 34 00 00 00 00 00 00 EA 61 29 77 00 00 00 00 9B 8D 00 00 00 00 02 00 00 00 00 00 00");
 		Sleep(2000);
 
 		int world = MainForm::TheInstance->comboAutoLoginWorld->SelectedIndex;
 		int channel = MainForm::TheInstance->comboAutoLoginChannel->SelectedIndex; 
-		SendCharListRequestPacket(world, channel);
-		Sleep(2000);
 
-		int character = MainForm::TheInstance->comboAutoLoginCharacter->SelectedIndex + 1;
-		bool existsPIC = MainForm::TheInstance->cbAutoLoginPic->Checked;
-		SendSelectCharPacket(character, existsPIC);
+
+		SendCharListRequestPacket(world, channel);
+		Sleep(4000);
+
+		//int character = MainForm::TheInstance->comboAutoLoginCharacter->SelectedIndex + 1;
+		//bool existsPIC = MainForm::TheInstance->cbAutoLoginPic->Checked;
+		////SendPacket("1E 00 06 00 37 32 30 36 31 33 48 33 0B 00 11 00 30 30 2D 31 33 2D 32 33 2D 45 37 2D 36 36 2D 39 36 15 00 30 30 31 33 32 33 45 37 36 36 39 36 5F 45 41 36 31 32 39 37 37");
+		//SendSelectCharPacket(character, existsPIC);
+		SendSelectCharPacket(1, true);
 		Log::WriteLineToConsole("AutoLogin: Login Completed");
 	}
 }
@@ -492,7 +516,7 @@ void SetLoginHooks(bool enable) {
 	Hooks::CLogin__OnRecommendWorldMessage_Hook(true);
 
 	if (!enable) {
-		MessageBox::Show("False!");
+		//MessageBox::Show("False!");
 		Hooks::CLogin__OnRecommendWorldMessage_Hook(false);
 	}
 	else {
@@ -513,12 +537,15 @@ void MainForm::cbAutoLoginSkipLogo_CheckedChanged(System::Object^  sender, Syste
 
 void MainForm::cbAutoLogin_CheckedChanged(System::Object^  sender, System::EventArgs^  e) {
 	if(this->cbAutoLogin->Checked)
-		SetLoginHooks(true);
-	else
+	{
+		//GlobalRefs::autologintime = gcnew AutoLoginTimer::starttimer(5000,&AutoLogin);
+		timer1->Enabled = true;
+		AutoLogin();
+	}
+	else {
+		timer1->Enabled = true;
 		SetLoginHooks(false);
-	
-	//if (this->cbAutoLogin->Checked)
-		//AutoLogin();
+	}
 }
 #pragma endregion
 
@@ -680,6 +707,14 @@ void MainForm::tAutoLoot_Tick(System::Object^  sender, System::EventArgs^  e) {
 	if (HelperFuncs::ValidToLoot()) {
 		KeyMacro::SpamPressKey(keyCollection[this->comboLootKey->SelectedIndex], 2);
 	}
+}
+
+void MainForm::Timer1_Tick(System::Object^ sender, System::EventArgs^ e) {
+	Log::WriteLineToConsole("timer1 tick!");
+		if (this->cbAutoLogin->Checked)
+		{
+			AutoLogin();
+		}
 }
 
 void MainForm::tbLootInterval_TextChanged(Object^  sender, EventArgs^  e) {

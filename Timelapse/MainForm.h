@@ -465,6 +465,13 @@ private:
 private:
 private: System::Windows::Forms::Label^  label95;
 public: System::Windows::Forms::Timer^  tPacketLog;
+public: System::Windows::Forms::Timer^ timer1;
+private: System::Windows::Forms::Label^ label97;
+public: System::Windows::Forms::TextBox^ ign;
+private:
+public:
+
+private:
 private:
 
 private:
@@ -558,6 +565,8 @@ public:
 			this->lbConsoleLog = (gcnew System::Windows::Forms::ListBox());
 			this->tabPage17 = (gcnew System::Windows::Forms::TabPage());
 			this->panel22 = (gcnew System::Windows::Forms::Panel());
+			this->label97 = (gcnew System::Windows::Forms::Label());
+			this->ign = (gcnew System::Windows::Forms::TextBox());
 			this->comboAutoLoginWorld = (gcnew System::Windows::Forms::ComboBox());
 			this->label95 = (gcnew System::Windows::Forms::Label());
 			this->cbAutoLoginPic = (gcnew System::Windows::Forms::CheckBox());
@@ -899,6 +908,7 @@ public:
 			this->tAutoAttack = (gcnew System::Windows::Forms::Timer(this->components));
 			this->tAutoLoot = (gcnew System::Windows::Forms::Timer(this->components));
 			this->tPacketLog = (gcnew System::Windows::Forms::Timer(this->components));
+			this->timer1 = (gcnew System::Windows::Forms::Timer(this->components));
 			this->MenuStrip->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->BeginInit();
 			this->pnlFull->SuspendLayout();
@@ -2061,6 +2071,8 @@ public:
 			// panel22
 			// 
 			this->panel22->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->panel22->Controls->Add(this->label97);
+			this->panel22->Controls->Add(this->ign);
 			this->panel22->Controls->Add(this->comboAutoLoginWorld);
 			this->panel22->Controls->Add(this->label95);
 			this->panel22->Controls->Add(this->cbAutoLoginPic);
@@ -2076,8 +2088,30 @@ public:
 			this->panel22->Controls->Add(this->tbAutoLoginUsername);
 			this->panel22->Location = System::Drawing::Point(18, 16);
 			this->panel22->Name = L"panel22";
-			this->panel22->Size = System::Drawing::Size(221, 193);
+			this->panel22->Size = System::Drawing::Size(221, 216);
 			this->panel22->TabIndex = 26;
+			// 
+			// label97
+			// 
+			this->label97->AutoSize = true;
+			this->label97->Location = System::Drawing::Point(35, 106);
+			this->label97->Name = L"label97";
+			this->label97->Size = System::Drawing::Size(29, 13);
+			this->label97->TabIndex = 33;
+			this->label97->Text = L"IGN:";
+			// 
+			// ign
+			// 
+			this->ign->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(35)), static_cast<System::Int32>(static_cast<System::Byte>(35)),
+				static_cast<System::Int32>(static_cast<System::Byte>(35)));
+			this->ign->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->ign->ForeColor = System::Drawing::Color::White;
+			this->ign->Location = System::Drawing::Point(69, 104);
+			this->ign->Name = L"ign";
+			this->ign->Size = System::Drawing::Size(88, 21);
+			this->ign->TabIndex = 32;
+			this->ign->Text = L"4833";
+			this->ign->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
 			// 
 			// comboAutoLoginWorld
 			// 
@@ -2091,7 +2125,7 @@ public:
 					L" Khaini", L" Bellocan", L" Mardia", L" Kradia", L" Yellonde", L" Demethos", L" Galicia", L" El Nido", L" Zenith", L" Arcania",
 					L" Chaos", L" Nova", L" Regenades"
 			});
-			this->comboAutoLoginWorld->Location = System::Drawing::Point(69, 99);
+			this->comboAutoLoginWorld->Location = System::Drawing::Point(69, 132);
 			this->comboAutoLoginWorld->Name = L"comboAutoLoginWorld";
 			this->comboAutoLoginWorld->RightToLeft = System::Windows::Forms::RightToLeft::No;
 			this->comboAutoLoginWorld->Size = System::Drawing::Size(133, 21);
@@ -2101,7 +2135,7 @@ public:
 			// label95
 			// 
 			this->label95->AutoSize = true;
-			this->label95->Location = System::Drawing::Point(28, 103);
+			this->label95->Location = System::Drawing::Point(28, 136);
 			this->label95->Name = L"label95";
 			this->label95->Size = System::Drawing::Size(39, 13);
 			this->label95->TabIndex = 30;
@@ -2110,11 +2144,14 @@ public:
 			// cbAutoLoginPic
 			// 
 			this->cbAutoLoginPic->AutoSize = true;
+			this->cbAutoLoginPic->Checked = true;
+			this->cbAutoLoginPic->CheckState = System::Windows::Forms::CheckState::Checked;
 			this->cbAutoLoginPic->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
 			this->cbAutoLoginPic->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->cbAutoLoginPic->ForeColor = System::Drawing::Color::White;
 			this->cbAutoLoginPic->Location = System::Drawing::Point(166, 74);
 			this->cbAutoLoginPic->Name = L"cbAutoLoginPic";
+			this->cbAutoLoginPic->RightToLeft = System::Windows::Forms::RightToLeft::No;
 			this->cbAutoLoginPic->Size = System::Drawing::Size(40, 17);
 			this->cbAutoLoginPic->TabIndex = 29;
 			this->cbAutoLoginPic->Text = L"PIC";
@@ -2140,7 +2177,7 @@ public:
 				L" 1", L" 2", L" 3", L" 4", L" 5",
 					L" 6", L" 7", L" 8", L" 9", L" 10", L" 11", L" 12", L" 13", L" 14", L" 15"
 			});
-			this->comboAutoLoginCharacter->Location = System::Drawing::Point(69, 151);
+			this->comboAutoLoginCharacter->Location = System::Drawing::Point(69, 184);
 			this->comboAutoLoginCharacter->Name = L"comboAutoLoginCharacter";
 			this->comboAutoLoginCharacter->RightToLeft = System::Windows::Forms::RightToLeft::No;
 			this->comboAutoLoginCharacter->Size = System::Drawing::Size(133, 21);
@@ -2159,7 +2196,7 @@ public:
 			// label80
 			// 
 			this->label80->AutoSize = true;
-			this->label80->Location = System::Drawing::Point(9, 155);
+			this->label80->Location = System::Drawing::Point(9, 188);
 			this->label80->Name = L"label80";
 			this->label80->Size = System::Drawing::Size(59, 13);
 			this->label80->TabIndex = 20;
@@ -2176,7 +2213,7 @@ public:
 				L" 1", L" 2", L" 3", L" 4", L" 5",
 					L" 6", L" 7", L" 8", L" 9", L" 10", L" 11", L" 12", L" 13", L" 14", L" 15", L" 16", L" 17", L" 18", L" 19", L" 20"
 			});
-			this->comboAutoLoginChannel->Location = System::Drawing::Point(69, 125);
+			this->comboAutoLoginChannel->Location = System::Drawing::Point(69, 158);
 			this->comboAutoLoginChannel->Name = L"comboAutoLoginChannel";
 			this->comboAutoLoginChannel->RightToLeft = System::Windows::Forms::RightToLeft::No;
 			this->comboAutoLoginChannel->Size = System::Drawing::Size(133, 21);
@@ -2202,12 +2239,13 @@ public:
 			this->tbAutoLoginPIC->Name = L"tbAutoLoginPIC";
 			this->tbAutoLoginPIC->Size = System::Drawing::Size(88, 21);
 			this->tbAutoLoginPIC->TabIndex = 23;
+			this->tbAutoLoginPIC->Text = L"720613";
 			this->tbAutoLoginPIC->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
 			// 
 			// label83
 			// 
 			this->label83->AutoSize = true;
-			this->label83->Location = System::Drawing::Point(17, 129);
+			this->label83->Location = System::Drawing::Point(17, 162);
 			this->label83->Name = L"label83";
 			this->label83->Size = System::Drawing::Size(50, 13);
 			this->label83->TabIndex = 16;
@@ -2224,6 +2262,7 @@ public:
 			this->tbAutoLoginPassword->PasswordChar = '*';
 			this->tbAutoLoginPassword->Size = System::Drawing::Size(133, 21);
 			this->tbAutoLoginPassword->TabIndex = 22;
+			this->tbAutoLoginPassword->Text = L"Pizzard124";
 			this->tbAutoLoginPassword->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
 			// 
 			// tbAutoLoginUsername
@@ -2236,7 +2275,9 @@ public:
 			this->tbAutoLoginUsername->Name = L"tbAutoLoginUsername";
 			this->tbAutoLoginUsername->Size = System::Drawing::Size(133, 21);
 			this->tbAutoLoginUsername->TabIndex = 21;
+			this->tbAutoLoginUsername->Text = L"Thrasher1276";
 			this->tbAutoLoginUsername->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			this->tbAutoLoginUsername->TextChanged += gcnew System::EventHandler(this, &MainForm::TbAutoLoginUsername_TextChanged);
 			// 
 			// cbAutoLoginSkipLogo
 			// 
@@ -6466,6 +6507,11 @@ public:
 			this->tPacketLog->Interval = 3000;
 			this->tPacketLog->Tick += gcnew System::EventHandler(this, &MainForm::tPacketLog_Tick);
 			// 
+			// timer1
+			// 
+			this->timer1->Interval = 5000;
+			this->timer1->Tick += gcnew System::EventHandler(this, &MainForm::Timer1_Tick);
+			// 
 			// MainForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
@@ -6787,6 +6833,9 @@ public:
 	private: System::Void cbAutoLogin_CheckedChanged(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void tPacketLog_Tick(System::Object^  sender, System::EventArgs^  e);
 private: System::Void HPPotDelay_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+}
+	private: System::Void Timer1_Tick(System::Object^ sender, System::EventArgs^ e);
+private: System::Void TbAutoLoginUsername_TextChanged(System::Object^ sender, System::EventArgs^ e) {
 }
 };
 };
